@@ -51,8 +51,13 @@ li a:hover {
 }
 footer {
   height: 5vh;
+  text-align: center;
 }
-
+footer span {
+  display: block;
+  padding: 2vh 0 0 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .center {
   display: flex;
   justify-content: center;
