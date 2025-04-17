@@ -37,7 +37,7 @@ div ul {
 
 ul li {
   float: left;
-  padding: 0 1em 0 0;
+  padding: auto 1em auto auto;
 }
 
 li a {
@@ -81,4 +81,9 @@ footer span {
 
 #slider img.active {
   opacity: 1;
+}
+
+#logo {
+  width: 10%;
+  height: auto;
 }
