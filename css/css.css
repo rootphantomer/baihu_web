@@ -17,6 +17,7 @@ header {
   padding: 2em 0 0 0;
 }
 header div {
+  display: -webkit-flex;
   display: flex;
   align-items: center;
 }
@@ -66,6 +67,7 @@ footer span {
 }
 
 .center {
+  display: -webkit-flex;
   display: flex;
   justify-content: center;
   align-items: center;
