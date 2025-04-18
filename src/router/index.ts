@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
 import BookView from '@/views/BookView.vue'
 import NewsView from '@/views/NewsView.vue'
-import AboutView from '../views/AboutView.vue'
+import AboutView from '@/views/AboutView.vue'
 import ContactView from '@/views/ContactView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -27,8 +27,8 @@ const router = createRouter({
       component: NewsView,
     },
     {
-      path: '/books',
-      name: 'books',
+      path: '/book',
+      name: 'book',
       component: BookView,
     },
     {
@@ -36,6 +36,11 @@ const router = createRouter({
       name: 'contact',
       component: ContactView,
     },
+    // {
+    //   path: '/article/:id',
+    //   name: 'article:id',
+    //   component: ContactView,
+    // },
   ],
 })
 
