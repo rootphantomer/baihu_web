@@ -52,7 +52,7 @@ li a {
 
 li a:hover {
   color: rgb(90, 34, 139);
-  font-size: large;
+  transform: scale(1.5, 1.5);
   /* opacity: 0.5; */
 }
 
