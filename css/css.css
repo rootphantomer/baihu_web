@@ -50,9 +50,16 @@ li a {
   font-weight: bold;
 }
 
+li p {
+  display: none;
+}
+
 li a:hover {
   color: rgb(90, 34, 139);
-  transform: scale(1.5, 1.5);
+  transform: scale(1.2, 1.2);
+}
+li a:hover p {
+  display: block;
   /* opacity: 0.5; */
 }
 
