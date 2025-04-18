@@ -17,23 +17,17 @@ import { RouterLink, RouterView } from 'vue-router'
       </div>
     </div>
   </header>
-  <div class="content">
-    <RouterView />
-  </div>
-  <footer>
-    1111
-  </footer>
+  <RouterView class="content" />
+  <footer>1111</footer>
 </template>
 
 <style lang="scss" scoped>
-$header: 20%;
-$foot: 10%;
-
 header {
+  box-sizing: border-box;
   width: 100%;
   max-width: 100%;
-  height: $header;
-  padding-top: $header/5;
+  height: 20%;
+  padding-top: 40px;
 }
 
 header div {
@@ -42,33 +36,48 @@ header div {
 
 .left {
   display: inline;
+  width: 100%;
   height: 100%;
+  padding-left: 10%;
 }
 
 .right {
-  display: inline;
+  display: inline-flex;
   height: 100%;
   float: right;
   padding-right: 5%;
+  justify-content: center; // 水平居中
+  align-items: center; // 垂直居中
 }
 
 header div a {
-  color: red;
+  color: black;
   margin: 0 20px;
   padding: 0 3em 0 0;
+}
 
+a:hover {
+  color: rgb(90, 34, 139);
+  transform: scale(1.2, 1.2);
 }
 
 img {
-  display: block;
+  width: 10%;
+  height: auto;
 }
 
 footer {
+  box-sizing: border-box;
   height: 10%;
   text-align: center;
 }
 
 .content {
+  display: grid;
   height: 70%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  text-align: center;
 }
 </style>
