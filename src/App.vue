@@ -34,11 +34,17 @@ header div {
   height: 100%;
 }
 
+header div {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+}
+
 .left {
   display: inline;
   width: 100%;
   height: 100%;
-  padding-left: 10%;
+  padding-left: calc(5% + 50px);
 }
 
 .right {
@@ -62,8 +68,8 @@ a:hover {
 }
 
 img {
-  width: 10%;
-  height: auto;
+  width: auto;
+  height: 50%;
 }
 
 footer {
@@ -74,7 +80,7 @@ footer {
 
 .content {
   display: grid;
-  height: 70%;
+  height: calc(100% - 20% - 10%);
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   justify-items: center;
