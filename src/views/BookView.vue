@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 // 定义书籍图片信息数组
-const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}`);
+const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}`)
 </script>
 
 <style lang="scss" scoped>

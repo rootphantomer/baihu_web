@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-const props = withDefaults(defineProps<{
-  hideCursorSelector?: string | string[]
-}>(), {
-  hideCursorSelector: '.hide-page-cursor'
-})
+const props = withDefaults(
+  defineProps<{
+    hideCursorSelector?: string | string[]
+  }>(),
+  {
+    hideCursorSelector: '.hide-page-cursor',
+  },
+)
 
 const cursor = ref<HTMLElement | null>(null)
 const cursorType = ref('auto')
@@ -28,7 +31,7 @@ function onMousemove(event: MouseEvent) {
     const hideCursorSelectorList = Array.isArray(props.hideCursorSelector)
       ? props.hideCursorSelector
       : [props.hideCursorSelector]
-    const hideCursor = hideCursorSelectorList.some(item => target.closest(item) !== null)
+    const hideCursor = hideCursorSelectorList.some((item) => target.closest(item) !== null)
     style.opacity = hideCursor ? '0' : '1'
     style.transition = hideCursor ? '0.2s ease-out' : '0.125s ease-out'
   })
