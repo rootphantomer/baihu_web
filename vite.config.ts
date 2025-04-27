@@ -15,6 +15,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  assetsInclude: ['**/*.png'], // 确保包含 PNG 图片
   build: {
     chunkSizeWarningLimit: 1000,
     rollupOptions: {

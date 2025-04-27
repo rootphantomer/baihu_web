@@ -3,8 +3,9 @@
   <div class="book-grid">
     <!-- 动态渲染图片信息 -->
     <template v-for="(item, index) in bookImages" :key="index">
-      <!-- 替换 @ 为实际路径 -->
-      <img :src="`/src/assets/img/${index + 1}.png`" :alt="item" class="book-image" />
+      <!-- 正确引用图片 -->
+      <!-- 使用相对路径来解决 URL 相关类型错误 -->
+      <img :src="`/public/img/${index + 1}.png`" :alt="item" class="book-image" />
     </template>
   </div>
 </template>
