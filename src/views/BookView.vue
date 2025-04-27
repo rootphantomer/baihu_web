@@ -24,11 +24,10 @@ const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}
   gap: 1px 1px;
   grid-auto-flow: row;
   // 使用相对单位，确保不超过父元素
-  width: 80%;
-  height: 90%;
+
   // 限制最大宽度和高度
-  max-width: 100%;
-  max-height: 100%;
+  max-width: auto;
+  max-height: 90%;
 
   // 水平居中网格项
   justify-items: stretch;
@@ -52,8 +51,8 @@ const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}
 
 // 鼠标悬停时放大图片
 .book-image:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
   // 确保放大的图片显示在其他元素之上
-  z-index: 1;
+  z-index: 10;
 }
 </style>
