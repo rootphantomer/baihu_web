@@ -1,0 +1,48 @@
+name: Auto Release
+
+on:
+  # 当有新的 tag 被推送到仓库时触发
+  push:
+    tags:
+      - 'v*' # 匹配以 'v' 开头的 tag，例如 v1.0.0
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整的提交历史
+
+      - name: Get previous tag
+        id: previous_tag
+        run: |
+          PREVIOUS_TAG=$(git tag --sort=-creatordate | grep -E '^v' | sed -n '2p')
+          if [ -z "$PREVIOUS_TAG" ]; then
+            PREVIOUS_TAG=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+
+      - name: Get commit history
+        id: commit_history
+        run: |
+          COMMIT_HISTORY=$(git log ${{ steps.previous_tag.outputs.previous_tag }}..${{ github.ref_name }} --pretty=format:"- %s (%h)" --reverse)
+          echo "commit_history<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMIT_HISTORY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            这是 ${{ github.ref_name }} 的自动发布版本。
+            提交历史如下：
+            ${{ steps.commit_history.outputs.commit_history }}
+          draft: false
+          prerelease: false
