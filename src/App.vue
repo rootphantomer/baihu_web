@@ -23,6 +23,9 @@ import FooterComponent from './components/FooterComponent.vue'
 // 主内容区域样式
 .singlebody {
   height: calc(100% - 140px);
-  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

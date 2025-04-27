@@ -31,7 +31,7 @@ footer {
   width: 100%;
   position: absolute;
   bottom: 0;
-  background-color:#1d4d6c;
+  background-color: #1d4d6c;
 
   // 统一设置底部内所有元素的文字颜色为白色
   * {
