@@ -100,4 +100,22 @@ header {
   width: auto;
   height: 60%;
 }
+
+/* 移动端媒体查询 */
+@media (max-width: 768px) {
+  header {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header ul {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  header ul li {
+    margin: 10px 0;
+  }
+}
 </style>

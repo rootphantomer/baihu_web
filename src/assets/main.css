@@ -19,10 +19,15 @@ p {
 
 * {
   color: #0f2a3d;
-  /* font-weight: bold; */
   font-family:
     'Microsoft YaHei', 'Cabin', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
   -webkit-font-smoothing: antialiased;
-  /* letter-spacing: 1px; */
   text-decoration: none;
+}
+
+/* 移动端媒体查询 */
+@media (max-width: 768px) {
+  * {
+    font-size: 14px;
+  }
 }
