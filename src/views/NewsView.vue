@@ -12,6 +12,8 @@ main {
   // 使用 flex 布局实现内容居中
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  // 可以添加 padding-top 微调位置
+  padding-top: 15%;
 }
 </style>

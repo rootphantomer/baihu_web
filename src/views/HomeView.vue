@@ -1,8 +1,8 @@
 <template>
   <!-- 主容器，用于将内部内容居中显示 -->
   <div>
-    <!-- 显示文本内容 -->
-    <span>123123</span>
+    <h1>This is the home page
+    </h1>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -13,6 +13,9 @@ div {
   // 使用 flex 布局实现内容居中
   display: flex;
   justify-content: center;
-  align-items: center;
+  // 修改为靠近顶部对齐
+  align-items: flex-start;
+  // 可以添加 padding-top 微调位置
+  padding-top: 15%;
 }
 </style>
