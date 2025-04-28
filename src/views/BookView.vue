@@ -26,9 +26,9 @@ const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}
 
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 1px 1px;
+  gap: 10px 75px;
   grid-auto-flow: row;
   width: 80%;
   height: 90%;
@@ -49,7 +49,7 @@ const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}
 }
 
 .book-image:hover {
-  transform: scale(1.2);
+  transform: scale(1.5);
   z-index: 10;
 }
 
