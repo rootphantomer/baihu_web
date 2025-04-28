@@ -1,15 +1,12 @@
 <template>
   <!-- 主容器，用于将内部内容居中显示 -->
-  <div id = "home-container">
+  <div id = "main-container">
     <h1>This is the home page
     </h1>
   </div>
 </template>
 <style lang="scss" scoped>
-#home-container {
-  // 占满父容器的高度和宽度
-  height: 100%;
-  width: 100%;
+#main-container {
   // 使用 flex 布局实现内容居中
   display: flex;
   justify-content: center;

@@ -17,8 +17,6 @@
 <style lang="scss" scoped>
 /* 关于我们页面的主容器样式 */
 .about-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
