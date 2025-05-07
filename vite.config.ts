@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
+
 // https://vite.dev/config/
 export default defineConfig({
   base: './', // 确保正确的路径到你的 HTML 文件

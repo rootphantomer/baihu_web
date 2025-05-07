@@ -8,7 +8,7 @@ import { RouterLink } from 'vue-router'
     <!-- 主页路由链接，包含公司 logo -->
     <RouterLink to="/"><img id="logo" src="@/assets/logo.png" alt="Company Logo" /></RouterLink>
     <!-- 导航菜单列表 -->
-    <ul>
+    <!-- <ul>
       <li>
         <RouterLink to="/">
           <p>主页</p>
@@ -39,7 +39,7 @@ import { RouterLink } from 'vue-router'
           <p class="none">about</p>
         </RouterLink>
       </li>
-    </ul>
+    </ul> -->
   </header>
 </template>
 

@@ -1,28 +1,26 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
 import CursorComponents from './components/CursorComponents.vue'
 import HeaderComponent from './components/HeaderComponent.vue'
+import HomeView from './views/HomeView.vue'
 import FooterComponent from './components/FooterComponent.vue'
 </script>
 
 <template>
-  <!-- 渲染自定义光标组件 -->
-  <CursorComponents />
-  <!-- 渲染头部组件 -->
-  <HeaderComponent />
-  <!-- 主内容区域 -->
-  <main class="singlebody">
-    <!-- 渲染路由视图 -->
-    <RouterView />
-  </main>
-  <!-- 渲染底部组件 -->
-  <FooterComponent />
+  <!-- 根容器使用 flex 布局（包含所有子元素） -->
+  <div class="app-container">
+    <CursorComponents />
+    <HeaderComponent />
+    <!-- 内容区域自动扩展 -->
+    <HomeView />
+    <!-- 将 footer 移到 app-container 内部 -->
+    <FooterComponent />
+  </div>
 </template>
 
 <style lang="scss" scoped>
-// 主内容区域样式
-.singlebody {
-  height: calc(100% - 140px);
-
+.app-container {
+  min-height: 100vh; /* 占满视口高度 */
+  display: flex;
+  flex-direction: column; /* 垂直排列子元素 */
 }
 </style>

@@ -29,9 +29,7 @@ const year = new Date().getFullYear()
 // 页面底部样式
 footer {
   width: 100%;
-  position: absolute;
-  bottom: 0;
-  background-color: #2b2e4a;
+  background-color: black;
 
   // 统一设置底部内所有元素的文字颜色为白色
   * {
