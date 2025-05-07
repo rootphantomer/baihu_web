@@ -1,13 +1,18 @@
 <template>
-  <!-- 主容器，用于展示书籍图片信息 -->
-  <div id = "book-container">
-    <!-- 动态渲染图片信息 -->
-    <div class="book-grid"><template v-for="(item, index) in bookImages" :key="index">
-        <!-- 正确引用图片 -->
-        <!-- 使用相对路径来解决 URL 相关类型错误 -->
-        <img :src="`./img/${index + 1}.png`" :alt="item" class="book-image" />
-      </template></div>
+  <div class="backcolor">
+    <p>我们的作品</p>
+    <!-- 主容器，用于展示书籍图片信息 -->
+    <div id="book-container">
+      <!-- 动态渲染图片信息 -->
 
+      <div class="book-grid">
+        <template v-for="(item, index) in bookImages" :key="index">
+          <!-- 正确引用图片 -->
+          <!-- 使用相对路径来解决 URL 相关类型错误 -->
+          <img :src="`./img/${index + 1}.png`" :alt="item" class="book-image" />
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,7 +22,20 @@ const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}
 </script>
 
 <style lang="scss" scoped>
+.backcolor {
+  background-color: #f2f4f9;
+}
+p {
+  font-size: 40px;
+  font-weight: bold;
+  color: #29293a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+}
 #book-container {
+  height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
   justify-content: center;

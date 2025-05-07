@@ -23,7 +23,7 @@
 <style lang="scss" scoped>
 // 联系我们页面的主容器样式
 .contact-container {
-  height: 100%;
+  height: calc(100vh - 50px);
   width: 100%;
   display: flex;
   // 采用垂直方向的弹性布局
@@ -68,5 +68,11 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+* {
+  font-size: 24px;
+  font-weight: bold;
+  color: #29293a;
 }
 </style>

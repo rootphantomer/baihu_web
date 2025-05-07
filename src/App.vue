@@ -3,10 +3,12 @@ import CursorComponents from './components/CursorComponents.vue'
 import HeaderComponent from './components/HeaderComponent.vue'
 import HomeView from './views/HomeView.vue'
 import FooterComponent from './components/FooterComponent.vue'
+import PreloadComponents from './components/PreloadComponents.vue'
 </script>
 
 <template>
   <!-- 根容器使用 flex 布局（包含所有子元素） -->
+  <PreloadComponents />
   <div class="app-container">
     <CursorComponents />
     <HeaderComponent />
