@@ -28,3 +28,4 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+public/对应名单.txt

@@ -1,12 +1,13 @@
 <template>
-  <div class="preloader loaded">
+  <!-- 移除初始的 loaded 类 -->
+  <div class="preloader" :class="$attrs.class">
     <div class="preloader-logo">
       <img
-        src="@/assets/logo-default-109x27.png"
+        src="@/assets/favicon.png"
         alt=""
-        width="109"
-        height="27"
-        srcset="@/assets/logo-default-109x27.png 2x"
+        width="auto"
+        height="200"
+        srcset="@/assets/favicon.png 2x"
       />
     </div>
     <div class="preloader-body">
@@ -29,7 +30,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 2rem;
   transition: 0.3s all ease;
   pointer-events: none;
   backface-visibility: hidden;
@@ -87,7 +88,7 @@
   position: relative;
   z-index: 10;
   transform: translate3d(0, -50%, 0);
-  padding: 40px;
+  padding: 4rem;
 }
 
 .preloader-body {
@@ -101,34 +102,34 @@
 }
 
 #loadingProgressG {
-    width: 100vw;
-    height: 5px;
-    overflow: hidden;
-    background: #e8e9ee;
-    border-radius: 6px;
-    margin: auto;
+  width: 100vw;
+  height: 0.5rem;
+  overflow: hidden;
+  background: #e8e9ee;
+  border-radius: 0.6rem;
+  margin: auto;
 }
 
 .loadingProgressG {
-    background: #af8855;
-    margin-top: 0;
-    margin-left: -100vw;
-    animation-name: bounce_loadingProgressG;
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    width: 100vw;
-    height: 5px;
-    transition: .5s;
+  background: #af8855;
+  margin-top: 0;
+  margin-left: -100vw;
+  animation-name: bounce_loadingProgressG;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  width: 100vw;
+  height: 0.5rem;
+  transition: 0.5s;
 }
 
 @keyframes bounce_loadingProgressG {
-    0% {
-        margin-left: -100vw;
-    }
+  0% {
+    margin-left: -100vw;
+  }
 
-    100% {
-        margin-left: 100vw;
-    }
+  100% {
+    margin-left: 100vw;
+  }
 }
 </style>
