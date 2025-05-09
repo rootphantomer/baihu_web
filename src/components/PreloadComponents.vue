@@ -101,34 +101,34 @@
 }
 
 #loadingProgressG {
-    width: 100vw;
-    height: 5px;
-    overflow: hidden;
-    background: #e8e9ee;
-    border-radius: 6px;
-    margin: auto;
+  width: 100vw;
+  height: 5px;
+  overflow: hidden;
+  background: #e8e9ee;
+  border-radius: 6px;
+  margin: auto;
 }
 
 .loadingProgressG {
-    background: #af8855;
-    margin-top: 0;
-    margin-left: -100vw;
-    animation-name: bounce_loadingProgressG;
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    width: 100vw;
-    height: 5px;
-    transition: .5s;
+  background: #af8855;
+  margin-top: 0;
+  margin-left: -100vw;
+  animation-name: bounce_loadingProgressG;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  width: 100vw;
+  height: 5px;
+  transition: 0.5s;
 }
 
 @keyframes bounce_loadingProgressG {
-    0% {
-        margin-left: -100vw;
-    }
+  0% {
+    margin-left: -100vw;
+  }
 
-    100% {
-        margin-left: 100vw;
-    }
+  100% {
+    margin-left: 100vw;
+  }
 }
 </style>
