@@ -3,25 +3,28 @@
   <div id="news-container">
     <h1>最新情报</h1>
 
-    <el-timeline style="max-width: 600px">
-      <el-timeline-item
-        v-for="(activity, index) in activities"
-        :key="index"
-        :icon="activity.icon"
-        :type="activity.type"
-        :color="activity.color"
-        :size="activity.size"
-        :hollow="activity.hollow"
-        :timestamp="activity.timestamp"
-      >
-        {{ activity.content }}
-      </el-timeline-item>
-    </el-timeline>
+    <div class="main-content">
+      <el-timeline style="max-width: 600px">
+        <el-timeline-item
+          v-for="(activity, index) in activities"
+          :key="index"
+          :icon="activity.icon"
+          :type="activity.type"
+          :color="activity.color"
+          :size="activity.size"
+          :hollow="activity.hollow"
+          :timestamp="activity.timestamp"
+        >
+          {{ activity.content }}
+        </el-timeline-item>
+      </el-timeline>
+      <p>zxsdfsd</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { MoreFilled } from '@element-plus/icons-vue'
+// import { MoreFilled } from '@element-plus/icons-vue'
 import type { TimelineItemProps } from 'element-plus'
 
 interface ActivityType extends Partial<TimelineItemProps> {
@@ -34,7 +37,7 @@ const activities: ActivityType[] = [
     timestamp: '2018-04-12 20:46',
     size: 'large',
     type: 'primary',
-    icon: MoreFilled,
+    // icon: MoreFilled,
   },
   {
     content: 'Custom color',
@@ -70,7 +73,7 @@ h1 {
 }
 
 #news-container {
-  height: calc(100vh - 140px);
+  height: calc(80vh - 140px);
   padding: 0 22%;
   display: flex;
   flex-direction: column;
@@ -78,6 +81,20 @@ h1 {
   align-items: center;
   h1 {
     margin-bottom: 100px;
+  }
+  .main-content {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: space-between; /* 子元素之间的间距自动分配 */
+    gap: 20px; /* 设置子元素之间的间距 */
+    width: 100%; /* 确保内容占满容器宽度 */
+  }
+  .main-content > * {
+    flex: 1; /* 子元素平分可用空间 */
+  }
+
+  .main-content p {
+    text-align: center; /* 文本居中 */
   }
 }
 </style>
