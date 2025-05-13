@@ -1,14 +1,23 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import CursorComponents from './components/CursorComponents.vue'
 import HeaderComponent from './components/HeaderComponent.vue'
 import HomeView from './views/HomeView.vue'
 import FooterComponent from './components/FooterComponent.vue'
 import PreloadComponents from './components/PreloadComponents.vue'
+
+const isLoaded = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    isLoaded.value = true
+  }, 2000)
+})
 </script>
 
 <template>
-  <!-- 根容器使用 flex 布局（包含所有子元素） -->
-  <PreloadComponents />
+  <!-- 通过 :class 动态控制 loaded 类 -->
+  <PreloadComponents :class="{ loaded: isLoaded }" />
   <div class="app-container">
     <CursorComponents />
     <HeaderComponent />
