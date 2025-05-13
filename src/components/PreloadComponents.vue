@@ -1,12 +1,13 @@
 <template>
-  <div class="preloader loaded">
+  <!-- 移除初始的 loaded 类 -->
+  <div class="preloader" :class="$attrs.class">
     <div class="preloader-logo">
       <img
-        src="@/assets/logo-default-109x27.png"
+        src="@/assets/favicon.png"
         alt=""
-        width="109"
-        height="27"
-        srcset="@/assets/logo-default-109x27.png 2x"
+        width="auto"
+        height="200"
+        srcset="@/assets/favicon.png 2x"
       />
     </div>
     <div class="preloader-body">
