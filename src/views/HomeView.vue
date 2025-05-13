@@ -3,6 +3,7 @@
   <div id="home-container">
     <AboutView />
     <BookView />
+    <ServerView />
     <NewsView />
     <ContactView />
   </div>
@@ -11,7 +12,7 @@
 <script setup lang="ts">
 import AboutView from './AboutView.vue'
 import BookView from './BookView.vue'
+import ServerView from './ServerView.vue'
 import NewsView from './NewsView.vue'
 import ContactView from './ContactView.vue'
 </script>
-<style lang="scss" scoped></style>
