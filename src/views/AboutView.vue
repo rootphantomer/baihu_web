@@ -15,9 +15,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// 这里可以添加关于页面的逻辑，如果目前没有，可保持为空
-</script>
+
 
 <style lang="scss" scoped>
 /* 关于我们页面的主容器样式 */

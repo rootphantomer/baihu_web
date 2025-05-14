@@ -1,3 +1,16 @@
+<template>
+  <!-- 通过 :class 动态控制 loaded 类 -->
+  <PreloadComponents :class="{ loaded: isLoaded }" />
+  <div class="app-container">
+    <CursorComponents />
+    <HeaderComponent />
+    <!-- 内容区域自动扩展 -->
+    <HomeView />
+    <!-- 将 footer 移到 app-container 内部 -->
+    <FooterComponent />
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import CursorComponents from './components/CursorComponents.vue'
@@ -14,20 +27,6 @@ onMounted(() => {
   }, 2000)
 })
 </script>
-
-<template>
-  <!-- 通过 :class 动态控制 loaded 类 -->
-  <PreloadComponents :class="{ loaded: isLoaded }" />
-  <div class="app-container">
-    <CursorComponents />
-    <HeaderComponent />
-    <!-- 内容区域自动扩展 -->
-    <HomeView />
-    <!-- 将 footer 移到 app-container 内部 -->
-    <FooterComponent />
-  </div>
-</template>
-
 <style lang="scss" scoped>
 .app-container {
   min-height: 100vh; /* 占满视口高度 */
