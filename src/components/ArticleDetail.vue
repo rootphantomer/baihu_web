@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {  RouterLink} from 'vue-router'
+import { RouterLink } from 'vue-router'
 
 const articles = ref([
   { id: 1, title: '第一篇文章' },
@@ -17,15 +17,13 @@ const articles = ref([
       </li>
       <!-- 可以添加更多新闻项 -->
     </ul>
-
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 ul {
   margin: 0 20px;
-  li{
+  li {
     margin-bottom: 50px;
   }
 }

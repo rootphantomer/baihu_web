@@ -51,10 +51,8 @@ header {
   width: 100%;
   justify-content: space-between;
   font-weight: bold;
-
   // 统一设置头部内所有元素的字体和字母间距
   * {
-    font-family: 'AlibabaPuhuiTi';
     letter-spacing: 2px;
   }
 
