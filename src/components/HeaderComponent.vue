@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 const navs = [
   { path: '/', label: '首页', en: 'Home' },
   { path: '/book', label: '作品', en: 'Work' },
-  { path: '/news', label: '新闻', en: 'News' },
+  { path: '#news-container', label: '新闻', en: 'News' },
   { path: '/about', label: '关于', en: 'About' },
   { path: '/contact', label: '联系', en: 'Contact' },
   { path: '/join', label: '招聘', en: 'Join' },
@@ -18,10 +18,18 @@ const navs = [
     </RouterLink>
     <ul>
       <li v-for="nav in navs" :key="nav.path">
-        <RouterLink :to="nav.path">
-          <p>{{ nav.label }}</p>
-          <p class="none">{{ nav.en }}</p>
-        </RouterLink>
+        <template v-if="nav.path.startsWith('#')">
+          <a :href="nav.path">
+            <p>{{ nav.label }}</p>
+            <p class="none">{{ nav.en }}</p>
+          </a>
+        </template>
+        <template v-else>
+          <RouterLink :to="nav.path">
+            <p>{{ nav.label }}</p>
+            <p class="none">{{ nav.en }}</p>
+          </RouterLink>
+        </template>
       </li>
     </ul>
   </header>
@@ -35,6 +43,7 @@ header {
   align-items: center;
   font-weight: bold;
   border-bottom: 1px solid black;
+
   * {
     letter-spacing: 2px;
   }
@@ -42,9 +51,11 @@ header {
   #logo {
     height: 80px;
   }
-  > a {
+
+  >a {
     margin-left: 100px;
   }
+
   ul {
     width: 40%;
     height: 100%;
@@ -53,14 +64,17 @@ header {
     align-items: center;
     text-align: center;
     margin-right: 100px;
+
     li {
       list-style: none;
+
       a {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         text-decoration: none;
         color: inherit;
+
         p {
           margin: 12px 0 0 0;
         }

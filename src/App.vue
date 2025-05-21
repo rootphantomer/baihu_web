@@ -6,6 +6,6 @@
     <HeaderComponent />
     <RouterView />
     <!-- 将 footer 移到 app-container 内部 -->
-    <!-- <FooterComponent /> -->
+    <FooterComponent />
   </div>
 </template>

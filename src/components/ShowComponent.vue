@@ -11,7 +11,7 @@
           :class="getPositionClass(idx)"
           @click="selectWork(idx)"
         >
-          <img :src="work.img" :alt="work.title" />
+          <img :src="work.img" :alt="work.name" />
         </div>
       </div>
       <button class="arrow right" @click="nextWork" :disabled="currentIndex === works.length - 1">
@@ -19,8 +19,15 @@
       </button>
     </div>
     <div class="work-desc">
-      <h2>{{ works[currentIndex].title }}</h2>
-      <p>{{ works[currentIndex].desc }}</p>
+      <div class="white">
+        <p class="title1">参与作品</p>
+        <p class="title2">works</p>
+        <p class="work_name">{{ works[currentIndex].name }}</p>
+      </div>
+      <div class="black">
+        <p>Artist:{{ works[currentIndex].author }}</p>
+        <p>{{ works[currentIndex].desc }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -31,68 +38,81 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const works = [
   {
     img: '/img1/地缚少年花子君.png',
-    title: '地缚少年花子君',
-    desc: '这是地缚少年花子君的介绍内容。',
+    name: '地缚少年花子君',
+    author: '罗丽',
+    desc: '美术设定',
   },
   {
     img: '/img1/反叛的鲁路修·夺还的罗赛.jpg',
-    title: '反叛的鲁路修·夺还的罗赛',
-    desc: '这是反叛的鲁路修·夺还的罗赛的介绍内容。',
+    name: '反叛的鲁路修·夺还的罗赛',
+    author: '周美辰',
+    desc: '原画',
   },
   {
     img: '/img1/进击的巨人 the final season .jpg',
-    title: '进击的巨人 the final season',
-    desc: '这是进击的巨人 the final season 的介绍内容。',
+    name: '进击的巨人 the final season',
+    author: '罗丽',
+    desc: '美术设定，背景制作',
   },
   {
     img: '/img1/卡片决斗先导者G.png',
-    title: '卡片决斗先导者G',
-    desc: '这是卡片决斗先导者G的介绍内容。',
+    name: '卡片决斗先导者G',
+    author: '周鸿能',
+    desc: 'LAYOUT制作',
   },
   {
     img: '/img1/老虎和兔子2.jpg',
-    title: '老虎和兔子2',
-    desc: '这是老虎和兔子2的介绍内容。',
+    name: '老虎和兔子2',
+    author: '周美辰',
+    desc: '第二原画， 动画检查',
   },
   {
     img: '/img1/鲁邦三世 PART6.png',
-    title: '鲁邦三世 PART6',
-    desc: '这是鲁邦三世 PART6的介绍内容。',
+    name: '鲁邦三世 PART6',
+    author: '佟北南',
+    desc: '背景美术制作',
   },
   {
     img: '/img1/偶像大师-闪耀色彩.jpg',
-    title: '偶像大师-闪耀色彩',
-    desc: '这是偶像大师-闪耀色彩的介绍内容。',
+    name: '偶像大师-闪耀色彩',
+    author: '罗丽',
+    desc: '美术设定',
   },
   {
     img: '/img1/食戟之灵_神之皿.png',
-    title: '食戟之灵 神之皿',
-    desc: '这是食戟之灵 神之皿的介绍内容。',
+    name: '食戟之灵 神之皿',
+    author: '佟北南',
+    desc: '背景美术制作',
   },
   {
     img: '/img1/水星的魔女.png',
-    title: '水星的魔女',
-    desc: '这是水星的魔女的介绍内容。',
+    name: '水星的魔女',
+    author: '周美辰',
+    desc: '原画',
   },
   {
     img: '/img1/异世界自杀小队.png',
-    title: '异世界自杀小队',
-    desc: '这是异世界自杀小队的介绍内容。',
+    name: '异世界自杀小队',
+    author: '周美辰',
+    desc: '原画，作画监督',
   },
   {
     img: '/img1/游戏王VRAINS.jpg',
-    title: '游戏王VRAINS',
-    desc: '这是游戏王VRAINS的介绍内容。',
+    name: '游戏王VRAINS',
+    author: '周鸿能',
+    desc: 'LAYOUT制作',
   },
   {
     img: '/img1/SMILE光之美少女.webp',
-    title: 'SMILE光之美少女',
-    desc: '这是SMILE光之美少女的介绍内容。',
+    name: 'SMILE光之美少女',
+    author: '周鸿能',
+    desc: 'LAYOUT制作',
   },
   {
-    img: '/img1/とある科学の超電磁砲T .png',
-    title: 'とある科学の超電磁砲T',
-    desc: '这是とある科学の超電磁砲T的介绍内容。',
+    img: '/img1/とある科学の超電磁砲T.png',
+    name: 'とある科学の超電磁砲T',
+    author: '佟北南',
+    desc: '背景美术制作',
   },
 ]
 const currentIndex = ref(0)
@@ -128,7 +148,7 @@ function startAutoPlay() {
     } else {
       currentIndex.value = 0
     }
-  }, 2000)
+  }, 1500)
 }
 function stopAutoPlay() {
   if (intervalId.value) {
@@ -163,13 +183,14 @@ function handleMouseLeave() {
   gap: 0;
   padding: 0 60px;
 }
+
 .work-showcase {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 1 1 0;
+  flex: 2; /* 占父容器宽度的 2/3 */
   min-width: 0;
-  max-width: 50%;
+  max-width: 66.666%; /* 2/3 的精确值 */
   height: 500px;
   .arrow {
     position: absolute;
@@ -187,7 +208,7 @@ function handleMouseLeave() {
       left: -50px;
     }
     &.right {
-      right: -50px;
+      right: 150px;
     }
     &:disabled {
       opacity: 0.3;
@@ -254,24 +275,46 @@ function handleMouseLeave() {
   }
 }
 .work-desc {
-  flex: 1 1 0;
+  display: flex;
+  flex: 1; /* 占父容器宽度的 1/3 */
   min-width: 0;
-  max-width: 50%;
+  max-width: 33.333%; /* 1/3 的精确值 */
   margin-left: 40px;
   width: 320px;
-  background: #fffbe0;
+  // background: #fffbe0;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 32px 24px;
-  h2 {
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  p {
+    width: 100%;
     margin: 0 0 16px 0;
     font-size: 1.5em;
-    color: #333;
+    font-family: 'Courier New', Courier, monospace;
   }
-  p {
-    color: #666;
-    font-size: 1.1em;
-    line-height: 1.7;
+  * {
+    margin: 100px 0;
   }
+  .white {
+    color: white;
+    font-weight: bold;
+    .title1{
+      font-size: 3em;
+    }
+    .work_name{
+      font-size: 4em;
+    }
+    .title2 {
+      font-size: 1.5em;
+    }
+  }
+  .black{
+    color: black;
+    font-weight: bold;
+    font-size: 2em;
+  }
+
 }
 </style>

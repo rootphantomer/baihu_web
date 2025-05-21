@@ -1,7 +1,7 @@
 <template>
   <!-- 主内容区域，显示新闻页面 -->
   <div id="news-container">
-    <h1>最新情报</h1>
+    <h1>新闻 NEWS</h1>
 
     <div class="main-content">
       <el-timeline style="max-width: 600px">
@@ -73,7 +73,7 @@ h1 {
 }
 
 #news-container {
-  height: calc(80vh - 140px);
+  height: 700px;
   padding: 0 22%;
   display: flex;
   flex-direction: column;

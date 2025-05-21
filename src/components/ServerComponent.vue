@@ -1,11 +1,11 @@
 <template>
-  <selection class="section section-lg text-center">
+  <div class="server-container"><selection class="section section-lg text-center">
     <div class="container">
-      <h1 class="font-condensed wow-outer">
+      <!-- <h1 class="font-condensed wow-outer">
         <span class="wow slideInUp" style="visibility: visible; animation-name: slideInUp"
           >我们的服务</span
         >
-      </h1>
+      </h1> -->
       <div class="row row-50">
         <div class="col-sm-6 col-lg-4 wow-outer">
           <!-- Box Creative-->
@@ -97,10 +97,16 @@
         </div>
       </div>
     </div>
-  </selection>
+  </selection></div>
 </template>
 
 <style lang="scss" scoped>
+.server-container{
+  height: 200px;
+}
+*{
+  font-family: 'Courier New', Courier, monospace;
+}
 .section {
   display: block;
   unicode-bidi: isolate;
@@ -119,7 +125,7 @@
 
 @media (min-width: 1200px) {
   .section-lg {
-    padding: 120px 0; /* 补充可能遗漏的大尺寸样式 */
+    padding: 0; /* 补充可能遗漏的大尺寸样式 */
   }
   .container,
   .container-sm,
@@ -161,7 +167,7 @@ h1 {
 }
 
 .font-condensed {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .wow {
