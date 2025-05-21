@@ -246,12 +246,12 @@ function handleMouseLeave() {
         cursor: default;
       }
       &.left1 {
-        transform: translate(-20%, -50%) scale(0.8) rotateY(10deg);
+        transform: translate(-100%, -50%) scale(0.8) rotateY(10deg);
         opacity: 0.8;
         z-index: 4;
       }
       &.left2 {
-        transform: translate(-10%, -50%) scale(0.7) rotateY(20deg);
+        transform: translate(-150%, -50%) scale(0.7) rotateY(20deg);
         opacity: 0.5;
         z-index: 3;
       }
