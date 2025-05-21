@@ -15,7 +15,7 @@ declare module 'vue' {
     ArticleDetailComponent: typeof import('./src/components/ArticleDetailComponent.vue')['default']
     ArticleDetailComponents: typeof import('./src/components/ArticleDetailComponents.vue')['default']
     ContactComponent: typeof import('./src/components/ContactComponent.vue')['default']
-    ContactComponents: typeof import('./src/components/ContactComponents.vue')['default']
+    ContactComponents: typeof import('./src/./src/components/JoinComponent.vuet']
     ContactView: typeof import('./src/components/ContactView.vue')['default']
     copy: typeof import('./src/components/AboutComponents copy.vue')['default']
     CursorComponent: typeof import('./src/components/CursorComponent.vue')['default']

@@ -25,7 +25,7 @@
 <style lang="scss" scoped>
 // 联系我们页面的主容器样式
 .contact-container {
-  height: 800px;
+  height: 700px;
   display: flex;
   // 采用垂直方向的弹性布局
   flex-direction: column;

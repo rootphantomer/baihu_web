@@ -102,7 +102,7 @@
 
 <style lang="scss" scoped>
 .server-container{
-  height: 200px;
+  height: auto;
 }
 *{
   font-family: 'Courier New', Courier, monospace;
