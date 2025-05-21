@@ -212,7 +212,7 @@ function handleMouseLeave() {
     }
 
     &.right {
-      right: 50px;
+      right: 20px;
     }
 
     &:disabled {
@@ -297,13 +297,13 @@ function handleMouseLeave() {
   min-width: 0;
   max-width: 33.333%;
   /* 1/3 的精确值 */
-  // margin-left: 40px;
+  margin-left: 40px;
   width: 320px;
   // background: #fffbe0;
   border-radius: 12px;
   // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  //padding: 32px 24px;
-  // justify-content: flex-start;
+  padding: 32px 24px;
+  justify-content: flex-start;
   flex-direction: column;
   text-align: center;
 
