@@ -40,7 +40,7 @@ header {
   }
 
   #logo {
-    height: 70px;
+    height: 80px;
   }
   > a {
     margin-left: 100px;
@@ -52,6 +52,7 @@ header {
     justify-content: space-around;
     align-items: center;
     text-align: center;
+    margin-right: 100px;
     li {
       list-style: none;
       a {
@@ -60,6 +61,9 @@ header {
         align-items: center;
         text-decoration: none;
         color: inherit;
+        p {
+          margin: 12px 0 0 0;
+        }
       }
     }
   }
