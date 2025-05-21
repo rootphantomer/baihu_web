@@ -119,6 +119,7 @@ const selectJob = (index: number) => {
 }
 
 .job-details {
+  min-height: 534px;
   background: #fff;
   padding: 24px 32px;
   border-radius: 8px;
@@ -136,6 +137,7 @@ const selectJob = (index: number) => {
 
   .job-section {
     margin-bottom: 24px;
+    min-height: 212px;
 
     h3 {
       font-size: 1.8rem;
