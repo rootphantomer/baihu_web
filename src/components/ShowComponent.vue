@@ -22,7 +22,9 @@
       <div class="white">
         <p class="title1">参与作品</p>
         <p class="title2">works</p>
-        <p class="work_name">{{ works[currentIndex].name }}</p>
+        <div>
+          <p class="work_name">{{ works[currentIndex].name }}</p>
+        </div>
       </div>
       <div class="black">
         <p>Artist:{{ works[currentIndex].author }}</p>
@@ -308,8 +310,8 @@ function handleMouseLeave() {
       margin-bottom: 0.2em;
     }
     .work_name {
+      height: 150px;
       font-size: 4em;
-      margin-top: 1em;
     }
     .title2 {
       font-size: 1.5em;
