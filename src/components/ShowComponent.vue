@@ -209,7 +209,7 @@ function handleMouseLeave() {
       left: -50px;
     }
     &.right {
-      right: 150px;
+      right: 50px;
     }
     &:disabled {
       opacity: 0.3;
@@ -241,28 +241,28 @@ function handleMouseLeave() {
         background: #fff;
       }
       &.center {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-10%, -50%) scale(1.3) ;
         opacity: 1;
         z-index: 5;
         cursor: default;
       }
       &.left1 {
-        transform: translate(-100%, -50%) scale(0.8) rotateY(10deg);
+        transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
         opacity: 0.8;
         z-index: 4;
       }
       &.left2 {
-        transform: translate(-150%, -50%) scale(0.7) rotateY(20deg);
+        transform: translate(-100%, -50%) scale(0.7) rotateY(20deg);
         opacity: 0.5;
         z-index: 3;
       }
       &.right1 {
-        transform: translate(10%, -50%) scale(0.8) rotateY(-10deg);
+        transform: translate(30%, -50%) scale(0.8) rotateY(-10deg);
         opacity: 0.8;
         z-index: 4;
       }
       &.right2 {
-        transform: translate(20%, -50%) scale(0.7) rotateY(-20deg);
+        transform: translate(80%, -50%) scale(0.7) rotateY(-20deg);
         opacity: 0.5;
         z-index: 3;
       }
