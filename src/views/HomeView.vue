@@ -7,6 +7,7 @@
     <!-- <BookView /> -->
     <ServerComponent />
     <ContactComponent />
+    <JoinComponent />
   </div>
 </template>
 
@@ -16,4 +17,5 @@ import ServerComponent from '@/components/ServerComponent.vue'
 import NewsComponent from '@/components/NewsComponent.vue'
 import ContactComponent from '@/components/ContactComponent.vue'
 import ShowComponent from '@/components/ShowComponent.vue'
+import JoinComponent from '@/components/JoinComponent.vue'
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="server-container"><selection class="section section-lg text-center">
+  <div id="server-container" class="server-container"><selection class="section section-lg text-center">
     <div class="container">
       <!-- <h1 class="font-condensed wow-outer">
         <span class="wow slideInUp" style="visibility: visible; animation-name: slideInUp"

@@ -24,6 +24,7 @@ declare module 'vue' {
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     FooterComponent: typeof import('./src/components/FooterComponent.vue')['default']
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
+    JoinComponent: typeof import('./src/components/JoinComponent.vue')['default']
     NewsComponent: typeof import('./src/components/NewsComponent.vue')['default']
     NewsComponents: typeof import('./src/components/NewsComponents.vue')['default']
     NewsView: typeof import('./src/components/NewsView.vue')['default']

@@ -5,9 +5,9 @@ const navs = [
   { path: '/', label: '首页', en: 'Home' },
   { path: '/book', label: '作品', en: 'Work' },
   { path: '#news-container', label: '新闻', en: 'News' },
-  { path: '/about', label: '关于', en: 'About' },
-  { path: '/contact', label: '联系', en: 'Contact' },
-  { path: '/join', label: '招聘', en: 'Join' },
+  { path: '#about-container', label: '关于', en: 'About' },
+  { path: '#contact-container', label: '联系', en: 'Contact' },
+  { path: '#join-container', label: '招聘', en: 'Join' },
 ]
 </script>
 

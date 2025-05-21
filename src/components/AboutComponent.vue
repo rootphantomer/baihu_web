@@ -1,6 +1,6 @@
 <template>
   <!-- 关于我们页面的主容器 -->
-  <div class="about-container">
+  <div id="about-container" class="about-container">
     <!-- 关于公司的介绍段落 -->
     <p class="about-description">
       <span>关于白鹄 ABOUT US</span>
