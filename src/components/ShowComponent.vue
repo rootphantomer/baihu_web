@@ -176,6 +176,7 @@ function handleMouseLeave() {
 .show-container {
   margin-top: 10px;
   height: calc(100vh - 180px);
+  min-height: 850px;
   background-color: #fbe58e;
   display: flex;
   justify-content: space-between;
