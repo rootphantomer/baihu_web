@@ -57,6 +57,14 @@ header {
     margin-left: 100px;
   }
 
+  ul::before {
+    content: '|';
+  }
+
+  ul::after {
+    content: '|';
+  }
+
   ul {
     width: 40%;
     height: 100%;

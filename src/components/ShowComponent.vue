@@ -174,7 +174,7 @@ function handleMouseLeave() {
 <style lang="scss" scoped>
 /* 关于我们页面的主容器样式 */
 .show-container {
-  margin-top: 20px;
+  margin-top: 10px;
   height: calc(100vh - 180px);
   background-color: #fbe58e;
   display: flex;
@@ -192,7 +192,7 @@ function handleMouseLeave() {
   flex: 2; /* 占父容器宽度的 2/3 */
   min-width: 0;
   max-width: 66.666%; /* 2/3 的精确值 */
-  height: 500px;
+  // height: 80%;
   .arrow {
     position: absolute;
     top: 50%;

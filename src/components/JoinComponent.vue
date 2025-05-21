@@ -1,5 +1,5 @@
 <template>
-  <div class="join-container">
+  <div id="join-container" class="join-container">
     <h1 class="join-title">
       招聘信息 <span>JOIN US</span>
     </h1>
