@@ -175,13 +175,14 @@ function handleMouseLeave() {
 /* 关于我们页面的主容器样式 */
 .show-container {
   margin-top: 20px;
-  height: 700px;
+  height: calc(100vh - 180px);
   background-color: #fbe58e;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0;
   padding: 0 60px;
+  overflow: hidden;
 }
 
 .work-showcase {
@@ -285,7 +286,7 @@ function handleMouseLeave() {
   border-radius: 12px;
   // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 32px 24px;
-  justify-content: center;
+  // justify-content: flex-start;
   flex-direction: column;
   text-align: center;
   p {
@@ -300,14 +301,18 @@ function handleMouseLeave() {
   .white {
     color: white;
     font-weight: bold;
+    margin-bottom: 32px;
     .title1{
       font-size: 3em;
+      margin-bottom: 0.2em;
     }
     .work_name{
       font-size: 4em;
+      margin-top:1em;
     }
     .title2 {
       font-size: 1.5em;
+      margin-bottom: 0.5em;
     }
   }
   .black{

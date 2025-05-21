@@ -25,41 +25,44 @@
 <style lang="scss" scoped>
 // 联系我们页面的主容器样式
 .contact-container {
-  height: 700px;
+  height: 600px;
   display: flex;
   // 采用垂直方向的弹性布局
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-*{
-  font-family: 'Courier New', Courier, monospace;
-}
+
 // 页面标题样式
 .contact-title {
-  font-size: 2em;
+  font-size: 45px;
   margin-bottom: 1em;
+
 }
 
 // 联系说明样式
 .contact-description {
-
   font-size: 1.1em;
   margin-bottom: 1.5em;
   text-align: center;
+
   // 联系信息列表样式
+  * {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 24px;
+  }
 
   .contact-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 1.1rem;
   }
 
   // 邮箱链接样式
   .contact-link {
     color: #007bff;
     text-decoration: none;
+
     // 鼠标悬停时添加下划线
     &:hover {
       text-decoration: underline;

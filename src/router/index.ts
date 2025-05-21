@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import WorkView from '@/views/WorkView.vue'
+// import WorkView from '@/views/WorkView.vue'
 // import NewsView from '@/views/NewsView.vue'
 // import AboutView from '@/views/AboutView.vue'
 // import ContactView from '@/views/ContactView.vue'
@@ -26,11 +26,11 @@ const router = createRouter({
     //   name: 'news',
     //   component: NewsView,
     // },
-    {
-      path: '/work',
-      name: 'work',
-      component: WorkView,
-    },
+    // {
+    //   path: '/work',
+    //   name: 'work',
+    //   component: WorkView,
+    // },
     // {
     //   path: '/contact',
     //   name: 'contact',

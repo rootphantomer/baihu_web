@@ -1,99 +1,155 @@
 <template>
-  <!-- 主内容区域，显示新闻页面 -->
-  <div id="news-container">
-    <h1>新闻 NEWS</h1>
-    <div class="main-content">
-      <el-timeline style="max-width: 600px">
-        <el-timeline-item
-          v-for="(activity, index) in activities"
-          :key="index"
-          :icon="activity.icon"
-          :type="activity.type"
-          :color="activity.color"
-          :size="activity.size"
-          :hollow="activity.hollow"
-          :timestamp="activity.timestamp"
-        >
-          {{ activity.content }}
-        </el-timeline-item>
-      </el-timeline>
-      <p>zxsdfsd</p>
+  <div id="news-container" class="news-container">
+    <h1 class="news-title">
+      <span class="icon"></span>
+      <span>新闻 NEWS</span>
+    </h1>
+    <div class="timeline">
+      <div class="news-item" v-for="item in newsList" :key="item.date">
+        <div class="timeline-dot"></div>
+        <div class="news-content">
+          <div class="news-header">
+            <span class="info-tag">info</span>
+            <span class="news-date">{{ item.date }}</span>
+            <span class="news-main-title" v-html="item.title"></span>
+          </div>
+          <div class="news-body">
+            <img v-if="item.img" :src="item.img" class="news-img" />
+            <div class="news-desc" v-html="item.desc"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { MoreFilled } from '@element-plus/icons-vue'
-import type { TimelineItemProps } from 'element-plus'
-
-interface ActivityType extends Partial<TimelineItemProps> {
-  content: string
-}
-
-const activities: ActivityType[] = [
+const newsList = [
   {
-    content: 'Custom icon',
-    timestamp: '2018-04-12 20:46',
-    size: 'large',
-    type: 'primary',
-    // icon: MoreFilled,
+    date: '2025.05.15',
+    title: '白鹭主页锐意制作中',
+    img: '/img1/news1.jpg', // 示例图片路径
+    desc: '主页顶部条参与作品框区外观设计与新闻区设计进行',
   },
   {
-    content: 'Custom color',
-    timestamp: '2018-04-03 20:46',
-    color: '#0bbd87',
-  },
-  {
-    content: 'Custom size',
-    timestamp: '2018-04-03 20:46',
-    size: 'large',
-  },
-  {
-    content: 'Custom hollow',
-    timestamp: '2018-04-03 20:46',
-    type: 'primary',
-    hollow: true,
-  },
-  {
-    content: '公司成立',
-    timestamp: '2025-03-01',
+    date: '2025.01.23',
+    title: '祝！白鹭动画正式成立！',
+    img: '/img1/news2.jpg',
+    desc: '成功入驻圆伦大厦，祝公司顺利开张',
   },
 ]
 </script>
+
 <style lang="scss" scoped>
-h1 {
-  font-size: 40px;
-  font-weight: bold;
-  color: #29293a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
+.news-container {
+  min-height: 700px;
+  padding: 0 8vw;
+  background: #fdfcf6;
 }
 
-#news-container {
-  height: 700px;
-  padding: 0 22%;
+.news-title {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  h1 {
-    margin-bottom: 100px;
+  font-size: 45px;
+  font-weight: bold;
+  margin: 40px 0 48px 0;
+  color: #222;
+  justify-content: center;
+  .icon {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #fbe58e 60%, transparent 60%);
+    border-radius: 6px;
+    margin-right: 16px;
   }
-  .main-content {
-    display: flex;
-    align-items: center; /* 垂直居中对齐 */
-    justify-content: space-between; /* 子元素之间的间距自动分配 */
-    gap: 20px; /* 设置子元素之间的间距 */
-    width: 100%; /* 确保内容占满容器宽度 */
-  }
-  .main-content > * {
-    flex: 1; /* 子元素平分可用空间 */
-  }
+}
 
-  .main-content p {
-    text-align: center; /* 文本居中 */
+.timeline {
+  position: relative;
+  margin-left: 40px;
+  border-left: 3px solid #fbe58e;
+  padding-left: 40px;
+}
+
+.news-item {
+  position: relative;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid #fbe58e;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -56px;
+  top: 24px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 3px solid #fbe58e;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.news-content {
+  margin-left: 0;
+}
+
+.news-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  .info-tag {
+    background: #fbe58e;
+    color: #fff;
+    font-size: 2rem;
+    font-family: 'Arial', sans-serif;
+    padding: 4px 18px 4px 10px;
+    border-radius: 2px;
+    margin-right: 18px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    min-width: 60px;
+    text-align: left;
+    display: inline-block;
+  }
+  .news-date {
+    font-size: 1.6rem;
+    color: #222;
+    margin-right: 24px;
+    font-weight: 400;
+  }
+  .news-main-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111;
+    margin-right: 12px;
+    letter-spacing: 1px;
+  }
+}
+
+.news-body {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 80px;
+  margin-top: 8px;
+  .news-img {
+    width: 180px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 32px;
+    box-shadow: 0 2px 8px #0001;
+  }
+  .news-desc {
+    font-size: 1.4rem;
+    color: #444;
+    margin-top: 12px;
+    line-height: 1.8;
+    font-weight: 400;
   }
 }
 </style>

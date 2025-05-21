@@ -36,7 +36,7 @@
   font-family: 'Courier New', Courier, monospace;
 
   span {
-    font-size: 40px;
+    font-size: 45px;
     font-weight: bold;
     color: #29293a;
     background: transparent;

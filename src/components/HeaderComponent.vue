@@ -3,7 +3,8 @@ import { RouterLink } from 'vue-router'
 
 const navs = [
   { path: '/', label: '首页', en: 'Home' },
-  { path: '/book', label: '作品', en: 'Work' },
+  // { path: '/book', label: '作品', en: 'Work' },
+  { path: '/', label: '作品', en: 'Work' },
   { path: '#news-container', label: '新闻', en: 'News' },
   { path: '#about-container', label: '关于', en: 'About' },
   { path: '#contact-container', label: '联系', en: 'Contact' },

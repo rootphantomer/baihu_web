@@ -1,223 +1,115 @@
 <template>
-  <div id="server-container" class="server-container"><selection class="section section-lg text-center">
-    <div class="container">
-      <!-- <h1 class="font-condensed wow-outer">
-        <span class="wow slideInUp" style="visibility: visible; animation-name: slideInUp"
-          >我们的服务</span
-        >
-      </h1> -->
-      <div class="row row-50">
-        <div class="col-sm-6 col-lg-4 wow-outer">
-          <!-- Box Creative-->
-          <article
-            class="box-creative wow slideInLeft"
-            style="visibility: visible; animation-name: slideInLeft"
-          >
-            <div class="box-creative-icon linearicons-lamp"></div>
-            <h4 class="font-condensed box-creative-title">
-              <a>内部/外观设计 </a>
-            </h4>
-            <p>
-              我们将室内和室外设计服务相结合，并经常将它们作为单一解决方案提供。它帮助我们加强创造真正独特的空间。
-            </p>
-          </article>
+  <div class="server-container">
+    <div class="server-row">
+      <!-- 左列 -->
+      <div class="server-col">
+        <div class="server-title">
+          <span class="icon"></span>
+          <span>动画制作服务</span>
         </div>
-        <div class="col-sm-6 col-lg-4 wow-outer">
-          <!-- Box Creative-->
-          <article
-            class="box-creative wow slideInLeft"
-            data-wow-delay=".1s"
-            style="visibility: visible; animation-delay: 0.1s; animation-name: slideInLeft"
-          >
-            <div class="box-creative-icon linearicons-compass"></div>
-            <h4 class="font-condensed box-creative-title">
-              <a>前期设计 </a>
-            </h4>
-            <p>
-              我们的前期设计解决方案包括分析和规划服务，帮助客户和建筑师共同完成即将到来的项目。
-            </p>
-          </article>
+        <div class="server-desc">
+          凭借核心团队在业界深耕多年的技术力专注优质2D动画制作，并拥有制作高质量游戏PV与产品推广动画的丰富经验。<br />
+          从创意到成片，以精湛技艺打造极致内容，为您的IP与品牌注入超凡视觉魅力。
         </div>
-        <div class="col-sm-6 col-lg-4 wow-outer">
-          <!-- Box Creative-->
-          <article
-            class="box-creative wow slideInLeft"
-            data-wow-delay=".2s"
-            style="visibility: visible; animation-delay: 0.2s; animation-name: slideInLeft"
-          >
-            <div class="box-creative-icon linearicons-3d-rotate"></div>
-            <h4 class="font-condensed box-creative-title">
-              <a>3D 建模 </a>
-            </h4>
-            <p>我们提供全面的建筑工程服务，包括室内设计、总体规划、3D 建模、施工图和文档编制。</p>
-          </article>
+      </div>
+      <!-- 右列 -->
+      <div class="server-col">
+        <div class="server-title">
+          <span class="icon"></span>
+          <span>覆盖范围</span>
         </div>
-        <div class="col-sm-6 col-lg-4 wow-outer">
-          <!-- Box Creative-->
-          <article
-            class="box-creative wow slideInLeft"
-            style="visibility: visible; animation-name: slideInLeft"
-          >
-            <div class="box-creative-icon linearicons-pencil3"></div>
-            <h4 class="font-condensed box-creative-title">
-              <a>建筑工程 </a>
-            </h4>
-            <p>我们为客户提供一系列建筑 3D 建模服务，以协助建筑项目的设计、规划和可视化阶段。</p>
-          </article>
-        </div>
-        <div class="col-sm-6 col-lg-4 wow-outer">
-          <!-- Box Creative-->
-          <article
-            class="box-creative wow slideInLeft"
-            data-wow-delay=".1s"
-            style="visibility: visible; animation-delay: 0.1s; animation-name: slideInLeft"
-          >
-            <div class="box-creative-icon linearicons-hammer-wrench"></div>
-            <h4 class="font-condensed box-creative-title">
-              <a>项目管理 </a>
-            </h4>
-            <p>项目管理是我们的团队计划和执行您的项目的过程。我们将使用最好的方法来开发它。</p>
-          </article>
-        </div>
-        <div class="col-sm-6 col-lg-4 wow-outer">
-          <!-- Box Creative-->
-          <article
-            class="box-creative wow slideInLeft"
-            data-wow-delay=".2s"
-            style="visibility: visible; animation-delay: 0.2s; animation-name: slideInLeft"
-          >
-            <div class="box-creative-icon linearicons-bubble-text"></div>
-            <h4 class="font-condensed box-creative-title">
-              <a>磋商</a>
-            </h4>
-            <p>
-              我们的团队还提供有关所有建筑问题的咨询，即使您需要有关室内装修或外观设计任务的具体信息。
-            </p>
-          </article>
+        <div class="server-desc">
+          动画电影（2D/3D 长篇或短片）<br />
+          剧集动画（TV动画、网络番剧）<br />
+          广告PV（品牌宣传片、产品动画）<br /><br />
+          角色动画（Idle、Attack、Run等动作库）<br />
+          过场动画（Cinematic Cutscenes）
         </div>
       </div>
     </div>
-  </selection></div>
+    <div class="server-row">
+      <!-- 左列 -->
+      <div class="server-col">
+        <div class="server-title">
+          <span class="icon"></span>
+          <span>专业前期设计</span>
+        </div>
+        <div class="server-desc">
+          创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。
+        </div>
+      </div>
+      <!-- 右列 -->
+      <div class="server-col">
+        <div class="server-title">
+          <span class="icon"></span>
+          <span>剧本与美术</span>
+        </div>
+        <div class="server-desc">
+          剧本与分镜（Storyboard & Scriptwriting）<br />
+          概念设计（角色/场景/道具原画）<br />
+          美术风格定调（Color Script & Mood Board）
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.server-container{
-  height: auto;
-}
-*{
-  font-family: 'Courier New', Courier, monospace;
-}
-.section {
-  display: block;
-  unicode-bidi: isolate;
-}
-
-.text-center {
-  text-align: center !important;
-}
-
-/* 合并媒体查询 */
-@media (min-width: 1600px) {
-  .section-lg {
-    padding: 120px 0;
-  }
-}
-
-@media (min-width: 1200px) {
-  .section-lg {
-    padding: 0; /* 补充可能遗漏的大尺寸样式 */
-  }
-  .container,
-  .container-sm,
-  .container-md,
-  .container-lg,
-  .container-xl {
-    max-width: 1200px;
-  }
-  h4,
-  .heading-4 {
-    font-size: 24px;
-    line-height: 1.33333;
-  }
-}
-
-.container {
+.server-container {
+  background: #fdfcf6;
+  padding: 40px 0 60px 0;
   width: 100%;
-  padding-right: var(--bs-gutter-x, 15px);
-  padding-left: var(--bs-gutter-x, 15px);
-  margin-right: auto;
-  margin-left: auto;
+  font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
-
-/* 合并重复的 .wow-outer 样式 */
-.wow-outer {
-  position: relative;
-  overflow: hidden;
-  span {
-    display: block;
-  }
-}
-
-h1 {
-  letter-spacing: 0;
-  margin: 1em 0;
-  color: #29293a;
-  font-weight: 400;
-  unicode-bidi: isolate;
-}
-
-.font-condensed {
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.wow {
-  backface-visibility: hidden;
-}
-
-.row {
-  --bs-gutter-x: 100px;
-  --bs-gutter-y: 0;
+.server-row {
   display: flex;
-  flex-wrap: wrap;
-  margin-right: calc(var(--bs-gutter-x) / -2);
-  margin-left: calc(var(--bs-gutter-x) / -2);
-  justify-content: center; /* 添加水平居中对齐 */
-
-  > * {
-    max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x) / 2);
-    padding-left: calc(var(--bs-gutter-x) / 2);
-    margin-top: var(--bs-gutter-y);
-  }
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 60px;
+  gap: 8vw;
 }
-
-.row-50 {
-  margin-bottom: -50px;
-
-  > * {
-    margin-bottom: 50px;
-  }
-}
-
-.box-creative {
-  max-width: 330px;
-  margin: 0 auto;
+.server-col {
+  width: 36vw;
+  min-width: 340px;
+  max-width: 600px;
   text-align: center;
-  cursor: default;
 }
-
-h4 {
-  letter-spacing: 0;
+.server-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  .icon {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #fbe58e 60%, transparent 60%);
+    border-radius: 6px;
+    margin-right: 16px;
+  }
+}
+.server-desc {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5em;
+  color: #444;
+  line-height: 2.1;
+  font-weight: 400;
+  letter-spacing: 1px;
   margin-bottom: 0;
-  color: #29293a;
+  text-align: center;
 }
-
-h4 + p {
-  margin-top: 16px;
-}
-
-p {
-  margin: 1em 0;
-  unicode-bidi: isolate;
+@media (max-width: 900px) {
+  .server-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .server-col {
+    width: 90vw;
+    min-width: unset;
+    max-width: unset;
+  }
 }
 </style>
