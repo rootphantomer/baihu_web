@@ -1,81 +1,124 @@
 <template>
-  <div class="backcolor">
-    <p>我们的作品</p>
-    <!-- 主容器，用于展示书籍图片信息 -->
-    <div id="book-container">
-      <!-- 动态渲染图片信息 -->
-
-      <div class="book-grid">
-        <template v-for="(item, index) in bookImages" :key="index">
-          <!-- 正确引用图片 -->
-          <!-- 使用相对路径来解决 URL 相关类型错误 -->
-          <img :src="`./img/${index + 1}.png`" :alt="item" class="book-image" />
-        </template>
+  <div id="work-container" class="work-container">
+    <!-- 标题 -->
+    <h2 class="work-title">参与作品一览 TIME LINE</h2>
+    <!-- 时间轴 -->
+    <div class="work-timeline">
+      <h3>2020年-</h3>
+    </div>
+    <!-- 作品网格 -->
+    <div class="work-grid">
+      <div v-for="(work, index) in works" :key="index" class="work-item">
+        <img :src="work.image" :alt="work.title" />
+        <p class="work-title">{{ work.title }}</p>
+        <p class="work-role">{{ work.role }}</p>
       </div>
     </div>
+    <!-- 左右箭头 -->
+    <div class="arrow left-arrow">◀</div>
+    <div class="arrow right-arrow">▶</div>
   </div>
 </template>
 
 <script setup lang="ts">
-// 定义书籍图片信息数组
-const bookImages = Array.from({ length: 10 }, (_, index) => `图片 ${index + 1}`)
+const works = [
+  { image: 'path/to/image1.jpg', title: '地缚少年花子君', role: '美术设定' },
+  { image: 'path/to/image2.jpg', title: '盾之勇者成名录', role: 'Layout' },
+  { image: 'path/to/image3.jpg', title: '失格纹的最强贤者', role: '背景美术' },
+  { image: 'path/to/image4.jpg', title: '药屋的ひとりごと', role: 'LO,原画' },
+  { image: 'path/to/image5.jpg', title: '异世界自杀小队', role: '作画监督,原画' },
+  { image: 'path/to/image6.jpg', title: '筋肉マン', role: 'LO,原画' },
+  { image: 'path/to/image7.jpg', title: 'ダンまち', role: '背景美术' },
+  { image: 'path/to/image8.jpg', title: '失格纹的最强贤者', role: '背景美术' },
+  { image: 'path/to/image9.jpg', title: 'バディファイトX', role: 'LO,原画' },
+  { image: 'path/to/image10.jpg', title: 'ブラッククローバー', role: '原画' },
+]
 </script>
 
-<style lang="scss" scoped>
-.backcolor {
-  background-color: #f2f4f9;
-}
-p {
-  font-size: 40px;
-  font-weight: bold;
-  color: #29293a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 140px;
-}
-#book-container {
-  height: calc(100vh - 140px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+<style scoped>
+/* 容器样式 */
+.work-container {
+  height: calc(100vh - 225px);
+  min-height: 740px;
+  text-align: center;
+  padding: 20px;
+  background-color: #fdfbf5;
 }
 
-.book-grid {
+/* 标题样式 */
+.work-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* 时间轴样式 */
+.work-timeline {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* 作品网格样式 */
+.work-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px 75px;
-  grid-auto-flow: row;
-  width: 80%;
-  height: 90%;
-  max-width: 100%;
-  max-height: 100%;
-  justify-items: stretch;
-  align-items: stretch;
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
 }
 
-.book-image {
-  width: auto;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  align-self: flex-start;
-  overflow: hidden;
-  transition: transform 0.3s ease;
+/* 单个作品样式 */
+.work-item {
+  text-align: center;
 }
 
-.book-image:hover {
-  transform: scale(2);
-  z-index: 10;
+.work-item img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* 移动端媒体查询 */
-@media (max-width: 768px) {
-  .book-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-  }
+.work-item img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.work-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+}
+
+.work-role {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 箭头样式 */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
 }
 </style>
