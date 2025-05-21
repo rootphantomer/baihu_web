@@ -28,13 +28,13 @@ const newsList = [
   {
     date: '2025.05.15',
     title: '白鹭主页锐意制作中',
-    img: '/img1/news1.jpg', // 示例图片路径
+    img: '/img_index_work/news1.jpg', // 示例图片路径
     desc: '主页顶部条参与作品框区外观设计与新闻区设计进行',
   },
   {
     date: '2025.01.23',
     title: '祝！白鹭动画正式成立！',
-    img: '/img1/news2.jpg',
+    img: '/img_index_work/news2.jpg',
     desc: '成功入驻圆伦大厦，祝公司顺利开张',
   },
 ]
