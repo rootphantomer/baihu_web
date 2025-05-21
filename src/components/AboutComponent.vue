@@ -33,7 +33,7 @@
 .about-description {
   font-size: 24px;
   color: #151515;
-  font-family: 'Courier New', Courier, monospace;
+  // font-family: 'Courier New', Courier, monospace;
 
   span {
     font-size: 45px;

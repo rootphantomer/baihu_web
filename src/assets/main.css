@@ -12,14 +12,9 @@ p {
   padding: 0;
 }
 
-@font-face {
-  font-family: 'AlibabaPuhuiTi';
-  src: url('./fonts/AlibabaPuHuiTi-3-115-Black.ttf');
-}
-
 * {
   font-family:
-    'AlibabaPuhuiTi', 'Microsoft YaHei', 'Cabin', 'Hiragino Kaku Gothic ProN',
+    PingFangSC-Regular, sans-serif, 'Microsoft YaHei', 'Cabin', 'Hiragino Kaku Gothic ProN',
     'ヒラギノ角ゴ ProN W3', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;

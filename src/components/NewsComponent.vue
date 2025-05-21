@@ -55,6 +55,7 @@ const newsList = [
   margin: 40px 0 48px 0;
   color: #222;
   justify-content: center;
+
   .icon {
     display: inline-block;
     width: 32px;
@@ -77,6 +78,7 @@ const newsList = [
   margin-bottom: 48px;
   padding-bottom: 32px;
   border-bottom: 2px solid #fbe58e;
+
   &:last-child {
     border-bottom: none;
   }
@@ -102,11 +104,12 @@ const newsList = [
   display: flex;
   align-items: center;
   margin-bottom: 12px;
+
   .info-tag {
     background: #fbe58e;
     color: #fff;
     font-size: 2rem;
-    font-family: 'Arial', sans-serif;
+    // font-family: 'Arial', sans-serif;
     padding: 4px 18px 4px 10px;
     border-radius: 2px;
     margin-right: 18px;
@@ -116,12 +119,14 @@ const newsList = [
     text-align: left;
     display: inline-block;
   }
+
   .news-date {
     font-size: 1.6rem;
     color: #222;
     margin-right: 24px;
     font-weight: 400;
   }
+
   .news-main-title {
     font-size: 2rem;
     font-weight: bold;
@@ -136,6 +141,7 @@ const newsList = [
   align-items: flex-start;
   margin-left: 80px;
   margin-top: 8px;
+
   .news-img {
     width: 180px;
     height: 90px;
@@ -144,6 +150,7 @@ const newsList = [
     margin-right: 32px;
     box-shadow: 0 2px 8px #0001;
   }
+
   .news-desc {
     font-size: 1.4rem;
     color: #444;

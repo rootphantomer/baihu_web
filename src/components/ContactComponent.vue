@@ -48,7 +48,7 @@
 
   // 联系信息列表样式
   * {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    // font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 24px;
   }
 

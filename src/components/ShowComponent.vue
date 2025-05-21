@@ -4,13 +4,8 @@
     <div class="work-showcase" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <button class="arrow left" @click="prevWork" :disabled="currentIndex === 0">&#9664;</button>
       <div class="work-list">
-        <div
-          v-for="(work, idx) in works"
-          :key="idx"
-          class="work-item"
-          :class="getPositionClass(idx)"
-          @click="selectWork(idx)"
-        >
+        <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
+          @click="selectWork(idx)">
           <img :src="work.img" :alt="work.name" />
         </div>
       </div>
@@ -192,9 +187,12 @@ function handleMouseLeave() {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 2; /* 占父容器宽度的 2/3 */
+  flex: 2;
+  /* 占父容器宽度的 2/3 */
   min-width: 0;
-  max-width: 66.666%; /* 2/3 的精确值 */
+  max-width: 66.666%;
+
+  /* 2/3 的精确值 */
   // height: 80%;
   .arrow {
     position: absolute;
@@ -208,17 +206,21 @@ function handleMouseLeave() {
     border-radius: 8px;
     cursor: pointer;
     transform: translateY(-50%);
+
     &.left {
       left: -50px;
     }
+
     &.right {
       right: 50px;
     }
+
     &:disabled {
       opacity: 0.3;
       cursor: not-allowed;
     }
   }
+
   .work-list {
     position: relative;
     width: 700px;
@@ -226,6 +228,7 @@ function handleMouseLeave() {
     display: flex;
     justify-content: center;
     align-items: center;
+
     .work-item {
       position: absolute;
       top: 50%;
@@ -235,6 +238,7 @@ function handleMouseLeave() {
       z-index: 1;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
+
       img {
         width: 450px;
         height: auto;
@@ -243,32 +247,38 @@ function handleMouseLeave() {
         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
         background: #fff;
       }
+
       &.center {
         transform: translate(-10%, -50%) scale(1.2);
         opacity: 1;
         z-index: 5;
         cursor: default;
       }
+
       &.left1 {
         transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
         opacity: 0.8;
         z-index: 4;
       }
+
       &.left2 {
         transform: translate(-100%, -50%) scale(0.7) rotateY(20deg);
         opacity: 0.5;
         z-index: 3;
       }
+
       &.right1 {
         transform: translate(30%, -50%) scale(0.8) rotateY(-10deg);
         opacity: 0.8;
         z-index: 4;
       }
+
       &.right2 {
         transform: translate(80%, -50%) scale(0.7) rotateY(-20deg);
         opacity: 0.5;
         z-index: 3;
       }
+
       &.hide-left,
       &.hide-right {
         opacity: 0;
@@ -278,46 +288,57 @@ function handleMouseLeave() {
     }
   }
 }
+
 .work-desc {
   display: flex;
-  flex: 1; /* 占父容器宽度的 1/3 */
+  max-height: 100%;
+  flex: 1;
+  /* 占父容器宽度的 1/3 */
   min-width: 0;
-  max-width: 33.333%; /* 1/3 的精确值 */
-  margin-left: 40px;
+  max-width: 33.333%;
+  /* 1/3 的精确值 */
+  // margin-left: 40px;
   width: 320px;
   // background: #fffbe0;
   border-radius: 12px;
   // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  padding: 32px 24px;
+  //padding: 32px 24px;
   // justify-content: flex-start;
   flex-direction: column;
   text-align: center;
+
   p {
     width: 100%;
     margin: 0 0 16px 0;
     font-size: 1.5em;
-    font-family: 'Courier New', Courier, monospace;
+    // font-family: 'Courier New', Courier, monospace;
   }
+
   * {
-    margin: 100px 0;
+    margin: 50px 0 0 0;
   }
+
   .white {
     color: white;
     font-weight: bold;
     margin-bottom: 32px;
+
     .title1 {
       font-size: 3em;
       margin-bottom: 0.2em;
     }
+
     .work_name {
       height: 150px;
       font-size: 4em;
     }
+
     .title2 {
       font-size: 1.5em;
       margin-bottom: 0.5em;
     }
   }
+
   .black {
     color: black;
     font-weight: bold;

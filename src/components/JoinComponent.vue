@@ -4,7 +4,8 @@
       招聘信息 <span>JOIN US</span>
     </h1>
     <div class="job-positions">
-      <div class="job-tab" v-for="(job, index) in jobs" :key="index" :class="{ active: index === activeJob }" @click="selectJob(index)">
+      <div class="job-tab" v-for="(job, index) in jobs" :key="index" :class="{ active: index === activeJob }"
+        @click="selectJob(index)">
         {{ job.title }}
       </div>
     </div>
@@ -79,7 +80,7 @@ const selectJob = (index: number) => {
 .join-container {
   padding: 40px 8vw;
   background: #fdfcf6;
-  font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 
 .join-title {
@@ -87,6 +88,7 @@ const selectJob = (index: number) => {
   font-weight: bold;
   text-align: center;
   margin-bottom: 40px;
+
   span {
     font-size: 2rem;
     font-weight: normal;
@@ -98,6 +100,7 @@ const selectJob = (index: number) => {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+
   .job-tab {
     padding: 12px 24px;
     margin: 0 8px;
@@ -108,6 +111,7 @@ const selectJob = (index: number) => {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
+
     &.active {
       background: #ffa726;
     }
@@ -119,24 +123,30 @@ const selectJob = (index: number) => {
   padding: 24px 32px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
   .job-title {
     font-size: 2rem;
     margin-bottom: 24px;
+
     .highlight {
       color: #ffa726;
       font-weight: bold;
     }
   }
+
   .job-section {
     margin-bottom: 24px;
+
     h3 {
       font-size: 1.8rem;
       margin-bottom: 12px;
       color: #222;
     }
+
     ul {
       list-style: none;
       padding-left: 0;
+
       li {
         font-size: 1.4rem;
         line-height: 1.8;
@@ -144,9 +154,11 @@ const selectJob = (index: number) => {
       }
     }
   }
+
   .contact {
     font-size: 1.4rem;
     color: #444;
+
     .email {
       color: #ffa726;
       font-weight: bold;

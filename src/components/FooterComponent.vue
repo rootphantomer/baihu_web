@@ -17,7 +17,7 @@ const year = new Date().getFullYear()
         <ul>
           <li>
             <!-- 路由链接，包含社交图标 -->
-             <!-- <RouterLink to="/"><img src="@/assets/sns/icon_sns_white_15.png" alt="" /></RouterLink> -->
+            <!-- <RouterLink to="/"><img src="@/assets/sns/icon_sns_white_15.png" alt="" /></RouterLink> -->
             <RouterLink to="/"><img src="@/assets/sns/icon_sns_white_15.png" alt="" /></RouterLink>
           </li>
         </ul>
@@ -59,6 +59,12 @@ footer {
     img {
       width: 23px;
       height: auto;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
   }
 }

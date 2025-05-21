@@ -59,8 +59,9 @@
   background: #fdfcf6;
   padding: 40px 0 60px 0;
   width: 100%;
-  font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
+
 .server-row {
   display: flex;
   justify-content: center;
@@ -68,12 +69,14 @@
   margin-bottom: 60px;
   gap: 8vw;
 }
+
 .server-col {
   width: 36vw;
   min-width: 340px;
   max-width: 600px;
   text-align: center;
 }
+
 .server-title {
   display: flex;
   align-items: center;
@@ -81,6 +84,7 @@
   font-size: 45px;
   font-weight: bold;
   margin-bottom: 24px;
+
   .icon {
     display: inline-block;
     width: 28px;
@@ -90,8 +94,9 @@
     margin-right: 16px;
   }
 }
+
 .server-desc {
-  font-family: 'Courier New', Courier, monospace;
+  // font-family: 'Courier New', Courier, monospace;
   font-size: 1.5em;
   color: #444;
   line-height: 2.1;
@@ -100,12 +105,14 @@
   margin-bottom: 0;
   text-align: center;
 }
+
 @media (max-width: 900px) {
   .server-row {
     flex-direction: column;
     align-items: center;
     gap: 32px;
   }
+
   .server-col {
     width: 90vw;
     min-width: unset;

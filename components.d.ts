@@ -16,6 +16,7 @@ declare module 'vue' {
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
     JoinComponent: typeof import('./src/components/JoinComponent.vue')['default']
     NewsComponent: typeof import('./src/components/NewsComponent.vue')['default']
+    PhotoComponent: typeof import('./src/components/PhotoComponent.vue')['default']
     PreloadComponents: typeof import('./src/components/PreloadComponents.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
