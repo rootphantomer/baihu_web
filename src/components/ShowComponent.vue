@@ -2,14 +2,14 @@
   <!-- 关于我们页面的主容器 -->
   <div class="show-container">
     <div class="work-showcase" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
-      <button class="arrow left" @click="prevWork" :disabled="currentIndex === 0">&#9664;</button>
+      <button class="arrow left" @click="prevWork">&#9664;</button>
       <div class="work-list">
         <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
           @click="selectWork(idx)">
           <img :src="work.img" :alt="work.name" />
         </div>
       </div>
-      <button class="arrow right" @click="nextWork" :disabled="currentIndex === works.length - 1">
+      <button class="arrow right" @click="nextWork">
         &#9654;
       </button>
     </div>
@@ -119,10 +119,14 @@ const selectWork = (idx: number) => {
   currentIndex.value = idx
 }
 const prevWork = () => {
-  if (currentIndex.value > 0) currentIndex.value--
+  currentIndex.value = currentIndex.value === 0
+    ? works.length - 1  // 若当前是第一个，跳转到最后一个
+    : currentIndex.value - 1
 }
 const nextWork = () => {
-  if (currentIndex.value < works.length - 1) currentIndex.value++
+  currentIndex.value = currentIndex.value === works.length - 1
+    ? 0  // 若当前是最后一个，跳转到第一个
+    : currentIndex.value + 1
 }
 
 function getPositionClass(idx: number) {
