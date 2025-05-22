@@ -1,7 +1,12 @@
 <template>
   <div id="news-container" class="news-container">
     <h1 class="news-title">
-      <span class="icon"></span>
+      <span class="icon">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </span>
       <span>新闻 NEWS</span>
     </h1>
     <div class="timeline">
@@ -57,12 +62,29 @@ const newsList = [
   justify-content: center;
 
   .icon {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, #fbe58e 60%, transparent 60%);
-    border-radius: 6px;
-    margin-right: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 15px);
+    /* 两列，每列宽度5px */
+    grid-template-rows: repeat(2, 15px);
+    /* 两行，每5高度12px */
+    gap: 4px;
+    /* 方块之间的间距 */
+    width: 50px;
+    /* 图标总宽度 */
+    height: auto;
+    /* 图标总高度 */
+
+    div {
+      width: 12px;
+      height: 12px;
+      background-color: #000;
+      /* 默认黑色 */
+    }
+
+    div:nth-child(4) {
+      background-color: #fbe58e;
+      /* 右下角为黄色 */
+    }
   }
 }
 
@@ -107,13 +129,13 @@ const newsList = [
 
   .info-tag {
     background: #fbe58e;
-    color: #fff;
+    color: #ffffff;
     font-size: 2rem;
     // font-family: 'Arial', sans-serif;
     padding: 4px 18px 4px 10px;
     border-radius: 2px;
     margin-right: 18px;
-    font-weight: 300;
+    font-weight: bold;
     letter-spacing: 1px;
     min-width: 60px;
     text-align: left;

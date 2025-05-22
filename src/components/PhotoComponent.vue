@@ -10,6 +10,8 @@
         <img :src="photo" alt="公司照片" />
       </div>
     </div>
+    <br />
+    <div class="photo-divider"></div>
   </div>
 </template>
 
