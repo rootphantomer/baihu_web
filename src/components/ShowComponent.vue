@@ -14,15 +14,15 @@
       </button>
     </div>
     <div class="work-desc">
-      <div class="white">
+      <div class="up">
         <p class="title1">参与作品</p>
         <p class="title2">works</p>
         <div>
           <p class="work_name">{{ works[currentIndex].name }}</p>
         </div>
       </div>
-      <div class="black">
-        <p>Artist:{{ works[currentIndex].author }}</p>
+      <div class="down">
+        <!-- <p>Artist:{{ works[currentIndex].author }}</p> -->
         <p>{{ works[currentIndex].desc }}</p>
       </div>
     </div>
@@ -322,8 +322,8 @@ function handleMouseLeave() {
     margin: 50px 0 0 0;
   }
 
-  .white {
-    color: white;
+  .up {
+    color: black;
     font-weight: bold;
     margin-bottom: 32px;
 
@@ -343,8 +343,8 @@ function handleMouseLeave() {
     }
   }
 
-  .black {
-    color: black;
+  .down {
+    color: white;
     font-weight: bold;
     font-size: 2em;
   }
