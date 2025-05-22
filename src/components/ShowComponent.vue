@@ -204,7 +204,7 @@ function handleMouseLeave() {
     z-index: 10;
     width: 40px;
     height: 60px;
-    font-size: 2.5em;
+    font-size: 40px;
     background: rgba(255, 255, 255, 0.7);
     border: none;
     border-radius: 8px;
@@ -314,7 +314,7 @@ function handleMouseLeave() {
   p {
     width: 100%;
     margin: 0 0 16px 0;
-    font-size: 1.5em;
+    font-size: 50px;
     // font-family: 'Courier New', Courier, monospace;
   }
 
@@ -328,25 +328,23 @@ function handleMouseLeave() {
     margin-bottom: 32px;
 
     .title1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
+      font-size: 50px;
+      margin-bottom: 20px;
     }
 
     .work_name {
       height: 150px;
-      font-size: 4em;
+      font-size: 50px;
     }
 
     .title2 {
-      font-size: 1.5em;
-      margin-bottom: 0.5em;
+      font-size: 20px;
     }
   }
 
   .down {
     color: white;
     font-weight: bold;
-    font-size: 2em;
   }
 }
 </style>

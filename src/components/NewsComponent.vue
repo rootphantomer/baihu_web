@@ -130,7 +130,7 @@ const newsList = [
   .info-tag {
     background: #fbe58e;
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 40px;
     // font-family: 'Arial', sans-serif;
     padding: 4px 18px 4px 10px;
     border-radius: 2px;
@@ -143,14 +143,14 @@ const newsList = [
   }
 
   .news-date {
-    font-size: 1.6rem;
+    font-size: 40px;
     color: #222;
     margin-right: 24px;
     font-weight: 400;
   }
 
   .news-main-title {
-    font-size: 2rem;
+    font-size: 40px;
     font-weight: bold;
     color: #111;
     margin-right: 12px;
@@ -174,7 +174,7 @@ const newsList = [
   }
 
   .news-desc {
-    font-size: 1.4rem;
+    font-size: 40px;
     color: #444;
     margin-top: 12px;
     line-height: 1.8;

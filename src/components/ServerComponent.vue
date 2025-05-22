@@ -97,7 +97,7 @@
 
 .server-desc {
   // font-family: 'Courier New', Courier, monospace;
-  font-size: 1.5em;
+  font-size: 20px;
   color: #444;
   line-height: 2.1;
   font-weight: 400;

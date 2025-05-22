@@ -20,9 +20,9 @@ p {
   text-decoration: none;
 }
 
-/* 移动端媒体查询 */
+/* 移动端媒体查询
 @media (max-width: 768px) {
   * {
     font-size: 14px;
   }
-}
+} */

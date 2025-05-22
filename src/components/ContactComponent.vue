@@ -36,14 +36,12 @@
 // 页面标题样式
 .contact-title {
   font-size: 45px;
-  margin-bottom: 1em;
+  margin-bottom: 20px;
 
 }
 
 // 联系说明样式
 .contact-description {
-  font-size: 1.1em;
-  margin-bottom: 1.5em;
   text-align: center;
 
   // 联系信息列表样式
@@ -71,7 +69,7 @@
 
   // 联系信息项样式
   .contact-item {
-    margin-bottom: 0.5rem;
+    margin-bottom: 10px;
     text-align: center;
   }
 

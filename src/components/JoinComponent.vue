@@ -84,13 +84,13 @@ const selectJob = (index: number) => {
 }
 
 .join-title {
-  font-size: 2.8rem;
+  font-size:50px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 40px;
 
   span {
-    font-size: 2rem;
+    font-size: 50px;
     font-weight: normal;
     margin-left: 8px;
   }
@@ -106,7 +106,7 @@ const selectJob = (index: number) => {
     margin: 0 8px;
     background: #fbe58e;
     color: #fff;
-    font-size: 1.6rem;
+    font-size: 30px;
     font-weight: bold;
     border-radius: 4px;
     cursor: pointer;
@@ -126,7 +126,7 @@ const selectJob = (index: number) => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .job-title {
-    font-size: 2rem;
+    font-size: 40px;
     margin-bottom: 24px;
 
     .highlight {
@@ -140,7 +140,7 @@ const selectJob = (index: number) => {
     min-height: 212px;
 
     h3 {
-      font-size: 1.8rem;
+      font-size: 30px;
       margin-bottom: 12px;
       color: #222;
     }
@@ -150,7 +150,7 @@ const selectJob = (index: number) => {
       padding-left: 0;
 
       li {
-        font-size: 1.4rem;
+        font-size: 25px;
         line-height: 1.8;
         color: #444;
       }
@@ -158,7 +158,7 @@ const selectJob = (index: number) => {
   }
 
   .contact {
-    font-size: 1.4rem;
+    font-size: 40px;
     color: #444;
 
     .email {
