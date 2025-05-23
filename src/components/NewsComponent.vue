@@ -47,7 +47,7 @@ const newsList = [
 
 <style lang="scss" scoped>
 .news-container {
-  min-height: 700px;
+  min-height: 800px;
   padding: 0 8vw;
   background: #fdfcf6;
 }
@@ -57,7 +57,7 @@ const newsList = [
   align-items: center;
   font-size: 45px;
   font-weight: bold;
-  margin: 40px 0 48px 0;
+  margin: 40px 0;
   color: #222;
   justify-content: center;
 
@@ -91,7 +91,7 @@ const newsList = [
 .timeline {
   position: relative;
   margin-left: 40px;
-  border-left: 3px solid #fbe58e;
+  // border-left: 3px solid #fbe58e;
   padding-left: 40px;
 }
 
@@ -99,11 +99,19 @@ const newsList = [
   position: relative;
   margin-bottom: 48px;
   padding-bottom: 32px;
-  border-bottom: 2px solid #fbe58e;
 
-  &:last-child {
-    border-bottom: none;
+  // border-bottom: 2px solid #fbe58e;
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -48px; // 与timeline-dot中心对齐
+    top: 33px; // timeline-dot底部
+    width: 3px;
+    height: calc(100% + 40px); // 从dot底部到下一个dot顶部
+    background: #fbe58e;
+    z-index: 0;
   }
+  border-bottom: none;
 }
 
 .timeline-dot {

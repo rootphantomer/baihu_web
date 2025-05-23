@@ -40,10 +40,11 @@
       </div>
       <!-- 右列 -->
       <div class="server-col">
-        <div class="server-title">
+        <br />
+        <!-- <div class="server-title">
           <span class="icon"></span>
           <span>剧本与美术</span>
-        </div>
+        </div> -->
         <div class="server-desc">
           剧本与分镜（Storyboard & Scriptwriting）<br />
           概念设计（角色/场景/道具原画）<br />
