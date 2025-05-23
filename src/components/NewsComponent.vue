@@ -58,6 +58,7 @@ const newsList = [
   font-size: 45px;
   font-weight: bold;
   margin: 40px 0;
+  padding-top: 20px;
   color: #222;
   justify-content: center;
 

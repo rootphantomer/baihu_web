@@ -16,13 +16,13 @@
       <h2 class="job-title">
         招聘岗位：<span class="highlight">{{ jobs[activeJob].title }}</span>
       </h2>
-      <div class="job-section job-duty">
+      <div class="job-section">
         <h3>岗位职责</h3>
         <ul>
           <li v-for="(duty, index) in jobs[activeJob].duties" :key="index">{{ duty }}</li>
         </ul>
       </div>
-      <div class="job-section job-description">
+      <div class="job-section">
         <h3>任职要求</h3>
         <ul>
           <li v-for="(requirement, index) in jobs[activeJob].requirements" :key="index">
