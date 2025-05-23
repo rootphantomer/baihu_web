@@ -4,14 +4,17 @@
     <div class="work-showcase" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <button class="arrow left" @click="prevWork">&#9664;</button>
       <div class="work-list">
-        <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
-          @click="selectWork(idx)">
+        <div
+          v-for="(work, idx) in works"
+          :key="idx"
+          class="work-item"
+          :class="getPositionClass(idx)"
+          @click="selectWork(idx)"
+        >
           <img :src="work.img" :alt="work.name" />
         </div>
       </div>
-      <button class="arrow right" @click="nextWork">
-        &#9654;
-      </button>
+      <button class="arrow right" @click="nextWork">&#9654;</button>
     </div>
     <div class="work-desc">
       <div class="up">
@@ -34,7 +37,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const works = [
   {
-    img: '/img_index_work/地缚少年花子君.png',
+    img: '/img_index_work/地缚少年花子君.jpg',
     name: '地缚少年花子君',
     author: '罗丽',
     desc: '美术设定',
@@ -52,7 +55,7 @@ const works = [
     desc: '美术设定，背景制作',
   },
   {
-    img: '/img_index_work/卡片决斗先导者G.png',
+    img: '/img_index_work/卡片决斗先导者G.jpg',
     name: '卡片决斗先导者G',
     author: '周鸿能',
     desc: 'LAYOUT制作',
@@ -64,7 +67,7 @@ const works = [
     desc: '第二原画， 动画检查',
   },
   {
-    img: '/img_index_work/鲁邦三世 PART6.png',
+    img: '/img_index_work/鲁邦三世 PART6.jpg',
     name: '鲁邦三世 PART6',
     author: '佟北南',
     desc: '背景美术制作',
@@ -76,19 +79,19 @@ const works = [
     desc: '美术设定',
   },
   {
-    img: '/img_index_work/食戟之灵_神之皿.png',
+    img: '/img_index_work/食戟之灵_神之皿.jpg',
     name: '食戟之灵 神之皿',
     author: '佟北南',
     desc: '背景美术制作',
   },
   {
-    img: '/img_index_work/水星的魔女.png',
+    img: '/img_index_work/水星的魔女.jpg',
     name: '水星的魔女',
     author: '周美辰',
     desc: '原画',
   },
   {
-    img: '/img_index_work/异世界自杀小队.png',
+    img: '/img_index_work/异世界自杀小队.jpg',
     name: '异世界自杀小队',
     author: '周美辰',
     desc: '原画，作画监督',
@@ -106,7 +109,7 @@ const works = [
     desc: 'LAYOUT制作',
   },
   {
-    img: '/img_index_work/とある科学の超電磁砲T.png',
+    img: '/img_index_work/とある科学の超電磁砲T.jpg',
     name: 'とある科学の超電磁砲T',
     author: '佟北南',
     desc: '背景美术制作',
@@ -119,14 +122,16 @@ const selectWork = (idx: number) => {
   currentIndex.value = idx
 }
 const prevWork = () => {
-  currentIndex.value = currentIndex.value === 0
-    ? works.length - 1  // 若当前是第一个，跳转到最后一个
-    : currentIndex.value - 1
+  currentIndex.value =
+    currentIndex.value === 0
+      ? works.length - 1 // 若当前是第一个，跳转到最后一个
+      : currentIndex.value - 1
 }
 const nextWork = () => {
-  currentIndex.value = currentIndex.value === works.length - 1
-    ? 0  // 若当前是最后一个，跳转到第一个
-    : currentIndex.value + 1
+  currentIndex.value =
+    currentIndex.value === works.length - 1
+      ? 0 // 若当前是最后一个，跳转到第一个
+      : currentIndex.value + 1
 }
 
 function getPositionClass(idx: number) {
