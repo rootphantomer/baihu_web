@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 const navs = [
   { path: '/', label: '首页', en: 'Home' },
@@ -10,8 +10,7 @@ const navs = [
   { path: '/#contact-container', label: '联系', en: 'Contact' },
   { path: '/#join-container', label: '招聘', en: 'Join' },
 ]
-
-
+const route = useRoute()
 </script>
 
 <template>
@@ -20,7 +19,13 @@ const navs = [
       <img id="logo" src="@/assets/logo.png" alt="Company Logo" />
     </RouterLink>
     <ul>
-      <li v-for="nav in navs" :key="nav.path">
+      <li
+        v-for="nav in navs"
+        :key="nav.path"
+        :class="{
+          active: route.path == nav.path,
+        }"
+      >
         <template v-if="nav.path.startsWith('#')">
           <a :href="nav.path">
             <p>{{ nav.label }}</p>
@@ -55,7 +60,7 @@ header {
     height: 80px;
   }
 
-  >a {
+  > a {
     margin-left: 100px;
   }
 
@@ -78,6 +83,11 @@ header {
 
     li {
       list-style: none;
+      &.active {
+        border-bottom: 3px solid #fbe58e;
+        color: white;
+        background: #fbe58e;
+      }
 
       a {
         display: inline-flex;
