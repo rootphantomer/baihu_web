@@ -1,70 +1,69 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
+
+const navs = [
+  { path: '/', label: '首页', en: 'Home' },
+  { path: '/work', label: '作品', en: 'Work' },
+  // 修改为带斜杠的路径格式
+  { path: '/#news-container', label: '新闻', en: 'News' },
+  { path: '/#about-container', label: '关于', en: 'About' },
+  { path: '/#contact-container', label: '联系', en: 'Contact' },
+  { path: '/#join-container', label: '招聘', en: 'Join' },
+]
+const route = useRoute()
 </script>
 
 <template>
-  <!-- 页面头部导航 -->
   <header>
-    <!-- 主页路由链接，包含公司 logo -->
-    <RouterLink to="/"><img id="logo" src="@/assets/logo.png" alt="Company Logo" /></RouterLink>
-    <!-- 导航菜单列表 -->
-    <!-- <ul>
-      <li>
-        <RouterLink to="/">
-          <p>主页</p>
-          <p class="none">home</p>
+    <RouterLink to="/">
+      <img id="logo" src="@/assets/logo.png" alt="Company Logo" />
+    </RouterLink>
+    <ul>
+      <li
+        v-for="nav in navs"
+        :key="nav.path"
+        :class="{
+          active: route.path == nav.path,
+        }"
+      >
+        <RouterLink :to="nav.path">
+          <p>{{ nav.label }}</p>
+          <p class="none">{{ nav.en }}</p>
         </RouterLink>
       </li>
-      <li>
-        <RouterLink to="/news">
-          <p>新闻</p>
-          <p class="none">news</p>
-        </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/book">
-          <p>作品</p>
-          <p class="none">books</p>
-        </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/contact">
-          <p>联系</p>
-          <p class="none">contact</p>
-        </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/about">
-          <p>关于</p>
-          <p class="none">about</p>
-        </RouterLink>
-      </li>
-    </ul> -->
+    </ul>
   </header>
 </template>
 
 <style lang="scss" scoped>
-// 头部导航样式
 header {
   display: flex;
-  height: 140px;
-  width: 100%;
+  height: 120px;
   justify-content: space-between;
+  align-items: center;
   font-weight: bold;
-  // 统一设置头部内所有元素的字体和字母间距
+  border-bottom: 1px solid black;
+
   * {
     letter-spacing: 2px;
   }
 
-  // 导航链接样式
-  a {
-    width: 20%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+  #logo {
+    height: 80px;
   }
 
-  // 导航菜单列表样式
+  > a {
+    margin-left: 100px;
+  }
+
+  ul::before {
+    content: '|';
+  }
+
+  ul::after {
+    content: '|';
+  }
+
   ul {
     width: 40%;
     height: 100%;
@@ -72,48 +71,28 @@ header {
     justify-content: space-around;
     align-items: center;
     text-align: center;
+    margin-right: 100px;
 
-    // 菜单项内的链接样式
-    a {
-      width: auto;
-      display: inline-block;
+    li {
+      list-style: none;
+      &.active {
+        border-bottom: 3px solid #fbe58e;
+        color: white;
+        background: #fbe58e;
+      }
 
-      // 默认隐藏英文菜单项
-      .none {
-        display: none;
+      a {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+
+        p {
+          margin: 12px 0 0 0;
+        }
       }
     }
-
-    // 鼠标悬停时显示英文菜单项
-    a:hover {
-      .none {
-        display: block;
-      }
-    }
-  }
-}
-
-// 公司 logo 样式
-#logo {
-  width: auto;
-  height: 60%;
-}
-
-/* 移动端媒体查询 */
-@media (max-width: 768px) {
-  header {
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  header ul {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  header ul li {
-    margin: 10px 0;
   }
 }
 </style>

@@ -17,6 +17,7 @@ const year = new Date().getFullYear()
         <ul>
           <li>
             <!-- 路由链接，包含社交图标 -->
+            <!-- <RouterLink to="/"><img src="@/assets/sns/icon_sns_white_15.png" alt="" /></RouterLink> -->
             <RouterLink to="/"><img src="@/assets/sns/icon_sns_white_15.png" alt="" /></RouterLink>
           </li>
         </ul>
@@ -32,9 +33,7 @@ footer {
   background-color: black;
 
   // 统一设置底部内所有元素的文字颜色为白色
-  * {
-    color: white;
-  }
+  color: white;
 
   // 底部内容容器样式
   .table {
@@ -60,6 +59,12 @@ footer {
     img {
       width: 23px;
       height: auto;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
   }
 }

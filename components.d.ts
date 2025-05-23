@@ -8,16 +8,19 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ArticleDetail: typeof import('./src/components/ArticleDetail.vue')['default']
-    CursorComponents: typeof import('./src/components/CursorComponents.vue')['default']
-    ElCarousel: typeof import('element-plus/es')['ElCarousel']
-    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
-    ElTimeline: typeof import('element-plus/es')['ElTimeline']
-    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
+    AboutComponent: typeof import('./src/components/AboutComponent.vue')['default']
+    ArticleDetailComponent: typeof import('./src/components/ArticleDetailComponent.vue')['default']
+    ContactComponent: typeof import('./src/components/ContactComponent.vue')['default']
+    CursorComponent: typeof import('./src/components/CursorComponent.vue')['default']
     FooterComponent: typeof import('./src/components/FooterComponent.vue')['default']
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
+    JoinComponent: typeof import('./src/components/JoinComponent.vue')['default']
+    NewsComponent: typeof import('./src/components/NewsComponent.vue')['default']
+    PhotoComponent: typeof import('./src/components/PhotoComponent.vue')['default']
     PreloadComponents: typeof import('./src/components/PreloadComponents.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ServerComponent: typeof import('./src/components/ServerComponent.vue')['default']
+    ShowComponent: typeof import('./src/components/ShowComponent.vue')['default']
   }
 }
