@@ -26,18 +26,10 @@ const route = useRoute()
           active: route.path == nav.path,
         }"
       >
-        <template v-if="nav.path.startsWith('#')">
-          <a :href="nav.path">
-            <p>{{ nav.label }}</p>
-            <p class="none">{{ nav.en }}</p>
-          </a>
-        </template>
-        <template v-else>
-          <RouterLink :to="nav.path">
-            <p>{{ nav.label }}</p>
-            <p class="none">{{ nav.en }}</p>
-          </RouterLink>
-        </template>
+        <RouterLink :to="nav.path">
+          <p>{{ nav.label }}</p>
+          <p class="none">{{ nav.en }}</p>
+        </RouterLink>
       </li>
     </ul>
   </header>
