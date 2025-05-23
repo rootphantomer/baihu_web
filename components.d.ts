@@ -12,6 +12,8 @@ declare module 'vue' {
     ArticleDetailComponent: typeof import('./src/components/ArticleDetailComponent.vue')['default']
     ContactComponent: typeof import('./src/components/ContactComponent.vue')['default']
     CursorComponent: typeof import('./src/components/CursorComponent.vue')['default']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     FooterComponent: typeof import('./src/components/FooterComponent.vue')['default']
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
     JoinComponent: typeof import('./src/components/JoinComponent.vue')['default']
