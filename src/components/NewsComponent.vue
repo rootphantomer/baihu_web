@@ -105,7 +105,7 @@ const newsList = [
   &:not(:last-child)::before {
     content: '';
     position: absolute;
-    left: -48px; // 与timeline-dot中心对齐
+    left: -46px; // 与timeline-dot中心对齐
     top: 33px; // timeline-dot底部
     width: 3px;
     height: calc(100% + 40px); // 从dot底部到下一个dot顶部
