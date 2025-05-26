@@ -180,15 +180,15 @@ function handleMouseLeave() {
 <style lang="scss" scoped>
 /* 关于我们页面的主容器样式 */
 .show-container {
-  margin-top: 10px;
-  height: calc(100vh - 180px);
-  min-height: 800px;
+  margin-top: 1rem;
+  height: calc(100vh - 18rem);
+  min-height: 80rem;
   background-color: #fbe58e;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0;
-  padding: 0 60px;
+  padding: 0 6rem;
   overflow: hidden;
 }
 
@@ -207,21 +207,21 @@ function handleMouseLeave() {
     position: absolute;
     top: 50%;
     z-index: 10;
-    width: 40px;
-    height: 60px;
-    font-size: 40px;
+    width: 4rem;
+    height: 6rem;
+    font-size: 4rem;
     background: rgba(255, 255, 255, 0.7);
     border: none;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     cursor: pointer;
     transform: translateY(-50%);
 
     &.left {
-      left: -50px;
+      left: -5rem;
     }
 
     &.right {
-      right: 20px;
+      right: 2rem;
     }
 
     &:disabled {
@@ -232,8 +232,8 @@ function handleMouseLeave() {
 
   .work-list {
     position: relative;
-    width: 700px;
-    height: 500px;
+    width: 70rem;
+    height: 50rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -249,11 +249,11 @@ function handleMouseLeave() {
       cursor: pointer;
 
       img {
-        width: 450px;
+        width: 45rem;
         height: auto;
         object-fit: cover;
-        border-radius: 16px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        border-radius: 1.6rem;
+        box-shadow: 0 0.4rem 2.4rem rgba(0, 0, 0, 0.15);
         background: #fff;
       }
 
@@ -306,44 +306,44 @@ function handleMouseLeave() {
   min-width: 0;
   max-width: 33.333%;
   /* 1/3 的精确值 */
-  margin-left: 40px;
-  width: 320px;
+  margin-left: 4rem;
+  width: 32rem;
   // background: #fffbe0;
-  border-radius: 12px;
-  // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  padding: 32px 24px;
+  border-radius: 1.2rem;
+  // box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.08);
+  padding: 3.2rem 2.4rem;
   justify-content: flex-start;
   flex-direction: column;
   text-align: center;
 
   p {
     width: 100%;
-    margin: 0 0 16px 0;
-    font-size: 50px;
+    margin: 0 0 1.6rem 0;
+    font-size: 5rem;
     // font-family: 'Courier New', Courier, monospace;
   }
 
   * {
-    margin: 50px 0 0 0;
+    margin: 5rem 0 0 0;
   }
 
   .up {
     color: black;
     font-weight: bold;
-    margin-bottom: 32px;
+    margin-bottom: 3.2rem;
 
     .title1 {
-      font-size: 50px;
-      margin-bottom: 20px;
+      font-size: 5rem;
+      margin-bottom: 2rem;
     }
 
     .work_name {
-      height: 150px;
-      font-size: 50px;
+      height: 15rem;
+      font-size: 5rem;
     }
 
     .title2 {
-      font-size: 20px;
+      font-size: 2rem;
     }
   }
 

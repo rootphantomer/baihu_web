@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 2rem;
   transition: 0.3s all ease;
   pointer-events: none;
   backface-visibility: hidden;
@@ -88,7 +88,7 @@
   position: relative;
   z-index: 10;
   transform: translate3d(0, -50%, 0);
-  padding: 40px;
+  padding: 4rem;
 }
 
 .preloader-body {
@@ -103,10 +103,10 @@
 
 #loadingProgressG {
   width: 100vw;
-  height: 5px;
+  height: 0.5rem;
   overflow: hidden;
   background: #e8e9ee;
-  border-radius: 6px;
+  border-radius: 0.6rem;
   margin: auto;
 }
 
@@ -119,7 +119,7 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   width: 100vw;
-  height: 5px;
+  height: 0.5rem;
   transition: 0.5s;
 }
 

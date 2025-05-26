@@ -21,7 +21,7 @@
 /* 关于我们页面的主容器样式 */
 .about-container {
   // background-color: #74757f;
-  height: 400px;
+  height: 40rem;
   // background-color: bisque;
   display: flex;
   flex-direction: column;
@@ -31,12 +31,12 @@
 
 /* 关于公司描述的段落样式 */
 .about-description {
-  font-size: 24px;
+  font-size: 2.4rem;
   color: #151515;
   // font-family: 'Courier New', Courier, monospace;
 
   span {
-    font-size: 45px;
+    font-size: 4.5rem;
     font-weight: bold;
     color: #29293a;
     background: transparent;

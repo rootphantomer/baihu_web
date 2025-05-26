@@ -58,7 +58,7 @@
 <style lang="scss" scoped>
 .server-container {
   background: #fdfcf6;
-  padding: 40px 0 60px 0;
+  padding: 4rem 0 6rem 0;
   width: 100%;
   // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
@@ -67,14 +67,14 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-bottom: 60px;
+  margin-bottom: 6rem;
   gap: 8vw;
 }
 
 .server-col {
   width: 36vw;
-  min-width: 340px;
-  max-width: 600px;
+  min-width: 34rem;
+  max-width: 60rem;
   text-align: center;
 }
 
@@ -82,36 +82,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 45px;
+  font-size: 4.5rem;
   font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: 2.4rem;
 
   .icon {
     display: inline-block;
-    width: 28px;
-    height: 28px;
+    width: 2.8rem;
+    height: 2.8rem;
     background: linear-gradient(135deg, #fbe58e 60%, transparent 60%);
-    border-radius: 6px;
-    margin-right: 16px;
+    border-radius: 0.6rem;
+    margin-right: 1.6rem;
   }
 }
 
 .server-desc {
   // font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
+  font-size: 2rem;
   color: #444;
   line-height: 2.1;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
   margin-bottom: 0;
   text-align: center;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 90rem) {
   .server-row {
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 3.2rem;
   }
 
   .server-col {

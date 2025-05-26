@@ -33,24 +33,24 @@ const photos = [
 .photo-container {
   height: auto;
   text-align: center;
-  padding: 20px;
+  padding: 2rem;
   /* background-color: white; */
 }
 
 /* 标题样式 */
 .photo-title {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
   color: #333;
 }
 
 /* 分割线样式 */
 .photo-divider {
   width: 80%;
-  height: 2px;
+  height: 0.2rem;
   background-color: #333;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 2rem auto;
   position: relative;
 }
 
@@ -58,25 +58,25 @@ const photos = [
 .photo-divider::after {
   content: '';
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 1rem;
+  height: 1rem;
   background-color: #fdd835;
-  top: -4px;
+  top: -0.4rem;
 }
 
 .photo-divider::before {
-  left: -20px;
+  left: -2rem;
 }
 
 .photo-divider::after {
-  right: -20px;
+  right: -2rem;
 }
 
 /* 图片网格样式 */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 1rem;
   justify-items: center;
   align-items: center;
 }
@@ -85,9 +85,9 @@ const photos = [
 .photo-item img {
   width: 100%;
   height: auto;
-  max-width: 200px;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 20rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -95,6 +95,6 @@ const photos = [
 
 .photo-item img:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
 }
 </style>

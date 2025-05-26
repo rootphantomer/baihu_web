@@ -94,37 +94,37 @@ const selectJob = (index: number) => {
 
 <style lang="scss" scoped>
 .join-container {
-  padding: 40px 8vw;
+  padding: 4rem 8vw;
   background: #fdfcf6;
   // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 
 .join-title {
-  font-size: 50px;
+  font-size: 5rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
 
   span {
-    font-size: 50px;
+    font-size: 5rem;
     font-weight: normal;
-    margin-left: 8px;
+    margin-left: 0.8rem;
   }
 }
 
 .job-positions {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
 
   .job-tab {
-    padding: 12px 24px;
-    margin: 0 8px;
+    padding: 1.2rem 2.4rem;
+    margin: 0 0.8rem;
     background: #fbe58e;
     color: #fff;
-    font-size: 30px;
+    font-size: 3rem;
     font-weight: bold;
-    border-radius: 4px;
+    border-radius: 0.4rem;
     cursor: pointer;
     transition: all 0.3s;
 
@@ -137,13 +137,13 @@ const selectJob = (index: number) => {
 
 .job-details {
   background: #fff;
-  padding: 24px 32px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2.4rem 3.2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.1);
 
   .job-title {
-    font-size: 40px;
-    margin-bottom: 24px;
+    font-size: 4rem;
+    margin-bottom: 2.4rem;
 
     .highlight {
       color: #ffa726;
@@ -152,11 +152,11 @@ const selectJob = (index: number) => {
   }
 
   .job-section {
-    margin-bottom: 24px;
+    margin-bottom: 2.4rem;
 
     h3 {
-      font-size: 30px;
-      margin-bottom: 12px;
+      font-size: 3rem;
+      margin-bottom: 1.2rem;
       color: #222;
     }
 
@@ -165,7 +165,7 @@ const selectJob = (index: number) => {
       padding-left: 0;
 
       li {
-        font-size: 25px;
+        font-size: 2.5rem;
         line-height: 1.8;
         color: #444;
       }
@@ -173,7 +173,7 @@ const selectJob = (index: number) => {
   }
 
   .contact {
-    font-size: 40px;
+    font-size: 4rem;
     color: #444;
 
     .email {

@@ -25,7 +25,7 @@
 <style lang="scss" scoped>
 // 联系我们页面的主容器样式
 .contact-container {
-  height: 600px;
+  height: 60rem;
   display: flex;
   // 采用垂直方向的弹性布局
   flex-direction: column;
@@ -35,8 +35,8 @@
 
 // 页面标题样式
 .contact-title {
-  font-size: 45px;
-  margin-bottom: 20px;
+  font-size: 4.5rem;
+  margin-bottom: 2rem;
 
 }
 
@@ -47,7 +47,7 @@
   // 联系信息列表样式
   * {
     // font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 2.4rem;
   }
 
   .contact-list {
@@ -69,7 +69,7 @@
 
   // 联系信息项样式
   .contact-item {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     text-align: center;
   }
 

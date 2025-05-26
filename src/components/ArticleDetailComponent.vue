@@ -22,9 +22,9 @@ const articles = ref([
 
 <style lang="scss" scoped>
 ul {
-  margin: 0 20px;
+  margin: 0 2rem;
   li {
-    margin-bottom: 50px;
+    margin-bottom: 5rem;
   }
 }
 </style>

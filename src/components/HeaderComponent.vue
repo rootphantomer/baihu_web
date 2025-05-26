@@ -38,22 +38,23 @@ const route = useRoute()
 <style lang="scss" scoped>
 header {
   display: flex;
-  height: 120px;
+  height: 12rem;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  border-bottom: 1px solid black;
+  border-bottom: 0.1rem solid black;
 
   * {
-    letter-spacing: 2px;
+    letter-spacing: 0.2rem;
   }
 
   #logo {
-    height: 80px;
+    height: 8rem;
+    max-height: 8rem;
   }
 
   > a {
-    margin-left: 100px;
+    margin-left: 10rem;
   }
 
   ul::before {
@@ -71,12 +72,12 @@ header {
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    margin-right: 100px;
+    margin-right: 10rem;
 
     li {
       list-style: none;
       &.active {
-        border-bottom: 3px solid #fbe58e;
+        border-bottom: 0.3rem solid #fbe58e;
         color: white;
         background: #fbe58e;
       }
@@ -88,10 +89,12 @@ header {
         text-decoration: none;
         color: inherit;
 
-        p {
-          margin: 12px 0 0 0;
-        }
+
       }
+      p {
+          margin: 1.2rem 0 0 0;
+        font-size: 2rem;
+        }
     }
   }
 }

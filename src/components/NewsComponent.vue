@@ -47,7 +47,7 @@ const newsList = [
 
 <style lang="scss" scoped>
 .news-container {
-  min-height: 600px;
+  min-height: 60rem;
   padding: 0 8vw;
   background: #fdfcf6;
 }
@@ -55,29 +55,27 @@ const newsList = [
 .news-title {
   display: flex;
   align-items: center;
-  font-size: 45px;
+  font-size: 4.5rem;
   font-weight: bold;
-  margin: 40px 0;
-  padding-top: 20px;
+  margin: 4rem 0;
+  padding-top: 2rem;
   color: #222;
   justify-content: center;
 
   .icon {
     display: grid;
-    grid-template-columns: repeat(2, 15px);
-    /* 两列，每列宽度5px */
-    grid-template-rows: repeat(2, 15px);
-    /* 两行，每5高度12px */
-    gap: 4px;
+    grid-template-columns: repeat(2, 1.5rem);
+    grid-template-rows: repeat(2, 1.5rem);
+    gap: 0.4rem;
     /* 方块之间的间距 */
-    width: 50px;
+    width: 5rem;
     /* 图标总宽度 */
     height: auto;
     /* 图标总高度 */
 
     div {
-      width: 12px;
-      height: 12px;
+      width: 1.2rem;
+      height: 1.2rem;
       background-color: #000;
       /* 默认黑色 */
     }
@@ -91,24 +89,24 @@ const newsList = [
 
 .timeline {
   position: relative;
-  margin-left: 40px;
-  // border-left: 3px solid #fbe58e;
-  padding-left: 40px;
+  margin-left: 4rem;
+  // border-left: 0.3rem solid #fbe58e;
+  padding-left: 4rem;
 }
 
 .news-item {
   position: relative;
-  margin-bottom: 48px;
-  padding-bottom: 32px;
+  margin-bottom: 4.8rem;
+  padding-bottom: 3.2rem;
 
-  // border-bottom: 2px solid #fbe58e;
+  // border-bottom: 0.2rem solid #fbe58e;
   &:not(:last-child)::before {
     content: '';
     position: absolute;
-    left: -46px; // 与timeline-dot中心对齐
-    top: 33px; // timeline-dot底部
-    width: 3px;
-    height: calc(100% + 40px); // 从dot底部到下一个dot顶部
+    left: -4.6rem; // 与timeline-dot中心对齐
+    top: 3.3rem; // timeline-dot底部
+    width: 0.3rem;
+    height: calc(100% + 4rem); // 从dot底部到下一个dot顶部
     background: #fbe58e;
     z-index: 0;
   }
@@ -117,12 +115,12 @@ const newsList = [
 
 .timeline-dot {
   position: absolute;
-  left: -56px;
-  top: 24px;
-  width: 18px;
-  height: 18px;
+  left: -5.6rem; /* 与timeline的padding-left对齐 */
+  top: 2.4rem; /* 从顶部开始 */
+  width: 1.8rem;
+  height: 1.8rem;
   background: #fff;
-  border: 3px solid #fbe58e;
+  border: 0.3rem solid #fbe58e;
   border-radius: 50%;
   z-index: 1;
 }
@@ -134,58 +132,58 @@ const newsList = [
 .news-header {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 1.2rem;
 
   .info-tag {
     background: #fbe58e;
     color: #ffffff;
-    font-size: 40px;
+    font-size: 4rem;
     // font-family: 'Arial', sans-serif;
-    padding: 4px 18px 4px 10px;
-    border-radius: 2px;
-    margin-right: 18px;
+    padding: 0.4rem 1.8rem 0.4rem 1rem;
+    border-radius: 0.2rem;
+    margin-right: 1.8rem;
     font-weight: bold;
-    letter-spacing: 1px;
-    min-width: 60px;
+    letter-spacing: 0.1rem;
+    min-width: 6rem;
     text-align: left;
     display: inline-block;
   }
 
   .news-date {
-    font-size: 40px;
+    font-size: 4rem;
     color: #222;
-    margin-right: 24px;
+    margin-right: 2.4rem;
     font-weight: 400;
   }
 
   .news-main-title {
-    font-size: 40px;
+    font-size: 4rem;
     font-weight: bold;
     color: #111;
-    margin-right: 12px;
-    letter-spacing: 1px;
+    margin-right: 1.2rem;
+    letter-spacing: 0.1rem;
   }
 }
 
 .news-body {
   display: flex;
   align-items: flex-start;
-  margin-left: 80px;
-  margin-top: 8px;
+  margin-left: 8rem;
+  margin-top: 0.8rem;
 
   .news-img {
-    width: 180px;
-    height: 90px;
+    width: 18rem;
+    height: 9rem;
     object-fit: cover;
-    border-radius: 4px;
-    margin-right: 32px;
-    box-shadow: 0 2px 8px #0001;
+    border-radius: 0.4rem;
+    margin-right: 3.2rem;
+    box-shadow: 0 0.2rem 0.8rem #0001;
   }
 
   .news-desc {
-    font-size: 40px;
+    font-size: 4rem;
     color: #444;
-    margin-top: 12px;
+    margin-top: 1.2rem;
     line-height: 1.8;
     font-weight: 400;
   }

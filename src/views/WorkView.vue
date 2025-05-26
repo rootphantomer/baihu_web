@@ -38,26 +38,26 @@ const works = [
 <style scoped>
 /* 容器样式 */
 .work-container {
-  height: calc(100vh - 225px);
-  min-height: 740px;
+  height: calc(100vh - 22.5rem);
+  min-height: 74rem;
   text-align: center;
-  padding: 20px;
+  padding: 2rem;
   background-color: #fdfbf5;
 }
 
 /* 标题样式 */
 .work-title {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
   color: #333;
 }
 
 /* 时间轴样式 */
 .work-timeline {
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
   color: #666;
 }
 
@@ -65,7 +65,7 @@ const works = [
 .work-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 2rem;
   justify-items: center;
   align-items: center;
 }
@@ -77,10 +77,10 @@ const works = [
 
 .work-item img {
   width: 100%;
-  max-width: 150px;
+  max-width: 15rem;
   height: auto;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -88,18 +88,18 @@ const works = [
 
 .work-item img:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .work-title {
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 1rem;
   color: #333;
 }
 
 .work-role {
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #666;
 }
 
@@ -108,17 +108,17 @@ const works = [
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: bold;
   cursor: pointer;
   color: #333;
 }
 
 .left-arrow {
-  left: 10px;
+  left: 1rem;
 }
 
 .right-arrow {
-  right: 10px;
+  right: 1rem;
 }
 </style>
