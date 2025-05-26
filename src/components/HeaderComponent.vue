@@ -88,8 +88,6 @@ header {
         align-items: center;
         text-decoration: none;
         color: inherit;
-
-
       }
       p {
           margin: 1.2rem 0 0 0;
