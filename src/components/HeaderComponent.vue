@@ -19,16 +19,13 @@ const route = useRoute()
       <img id="logo" src="@/assets/logo.png" alt="Company Logo" />
     </RouterLink>
     <ul>
-      <li
-        v-for="nav in navs"
-        :key="nav.path"
-        :class="{
-          active: route.path == nav.path,
-        }"
-      >
+      <li v-for="nav in navs" :key="nav.path" :class="{
+        active: route.path == nav.path,
+      }">
         <RouterLink :to="nav.path">
           <p>{{ nav.label }}</p>
           <p class="none">{{ nav.en }}</p>
+          <div></div>
         </RouterLink>
       </li>
     </ul>
@@ -53,7 +50,7 @@ header {
     max-height: 8rem;
   }
 
-  > a {
+  >a {
     margin-left: 10rem;
   }
 
@@ -75,25 +72,50 @@ header {
     margin-right: 10rem;
 
     li {
-      list-style: none;
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+
       &.active {
-        border-bottom: 0.3rem solid #fbe58e;
         color: white;
         background: #f5dd82;
+
+
+        a {
+          color: #fff;
+        }
+
+        // 橙色底部线
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -1rem; // 让橙色线紧贴黑色主线
+          width: 100%;
+          height: 1rem;
+          background: #ffb13b;
+          z-index: 2;
+        }
 
       }
 
       a {
-        display: inline-flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
         text-decoration: none;
         color: inherit;
+        height: 100%;
+        justify-content: center;
       }
+
       p {
         margin: 1.2rem 0 0 0;
         font-size: 2rem;
-        }
+      }
+
     }
   }
 }
