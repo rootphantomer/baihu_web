@@ -173,7 +173,7 @@ const newsList = [
 
   .news-img {
     width: 18rem;
-    height: 9rem;
+    height: 18rem;
     object-fit: cover;
     border-radius: 0.4rem;
     margin-right: 3.2rem;
@@ -183,7 +183,7 @@ const newsList = [
   .news-desc {
     font-size: 4rem;
     color: #444;
-    margin-top: 1.2rem;
+    margin-top: 5rem;
     line-height: 1.8;
     font-weight: 400;
   }
