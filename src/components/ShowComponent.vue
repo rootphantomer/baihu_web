@@ -300,10 +300,10 @@ function handleMouseLeave() {
 
 .work-desc {
   display: flex;
-  max-height: 100%;
+  // max-height: 100%;
   flex: 1;
   /* 占父容器宽度的 1/3 */
-  min-width: 0;
+  // min-width: 0rem;
   max-width: 33.333%;
   /* 1/3 的精确值 */
   margin-left: 4rem;

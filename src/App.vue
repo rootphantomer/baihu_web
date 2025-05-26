@@ -16,9 +16,9 @@ html {
   /* 设计稿宽度1920px时，1rem=10px */
 }
 
-@media (max-width: 100px) {
+@media (max-width: 800px) {
   html {
-    font-size: 5vw;
+    font-size: 5px;
     /* 移动端适配 */
   }
 }
