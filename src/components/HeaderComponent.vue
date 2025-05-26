@@ -79,7 +79,8 @@ header {
       &.active {
         border-bottom: 0.3rem solid #fbe58e;
         color: white;
-        background: #fbe58e;
+        background: #f5dd82;
+
       }
 
       a {
@@ -90,7 +91,7 @@ header {
         color: inherit;
       }
       p {
-          margin: 1.2rem 0 0 0;
+        margin: 1.2rem 0 0 0;
         font-size: 2rem;
         }
     }
