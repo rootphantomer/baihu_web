@@ -1,38 +1,43 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy GitHub Pages
 
+# 触发：推送 v* 标签 + 手动触发
 on:
-  # 当代码推送到主分支时触发工作流
   push:
     tags:
-      - 'v*' # 匹配以 'v' 开头的标签:
-  # 允许手动触发工作流
+      - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 检出代码
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 设置 Node.js 环境
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
 
-      # 安装依赖
+      # 👇 这里去掉了 yarn.lock 强制检查，解决你现在的报错
       - name: Install dependencies
         run: npm install
 
-      # 编译项目
       - name: Build project
         run: npm run build
 
-      # 部署到 GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: './dist' # 你的打包目录，一般是 dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

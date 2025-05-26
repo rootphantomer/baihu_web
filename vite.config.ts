@@ -4,41 +4,49 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+const isDev = process.env.NODE_ENV !== 'production'
 
-
-// https://vite.dev/config/
 export default defineConfig({
-  base: './', // 确保正确的路径到你的 HTML 文件
-  plugins: [
-    vue(),
-    vueDevTools(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    })
-  ],
+  base: './',
+  plugins: [vue(), ...(isDev ? [vueDevTools()] : [])],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  esbuild: {
-    drop: ['console', 'debugger']
-  },
-  assetsInclude: ['**/*.png'], // 确保包含 PNG 图片
+  // esbuild: {
+  //   drop: ['console', 'debugger'],
+  // },
+  assetsInclude: ['**/*.png', '**/*.svg'], // 确保包含 PNG 图片
   build: {
+    target: 'es2020', // 确保兼容目标浏览器
+    cssTarget: 'es2020', // 确保兼容目标浏览器
+    outDir: 'dist',
     chunkSizeWarningLimit: 1000,
+
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['vue', 'pinia', 'vue-router']
-        }
-      }
-    }
-  }
+        // 入口文件命名
+        entryFileNames: 'js/[name]_[hash:8].js',
+        // chunk 分包命名（解决你看到的乱码符号）
+        chunkFileNames: 'js/[name]_[hash:8].js',
+        // 静态资源
+        assetFileNames: '[ext]/[name]_[hash:8].[ext]',
+
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('vue') || id.includes('pinia') || id.includes('vue-router')) {
+              return 'vendor'
+            }
+            return 'libs'
+          }
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext',
+    },
+  },
 })

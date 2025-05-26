@@ -1,48 +1,60 @@
-name: Auto Release
+name: auto-release
+
+permissions:
+  contents: write
 
 on:
-  # 当有新的 tag 被推送到仓库时触发
   push:
     tags:
-      - 'v*' # 匹配以 'v' 开头的 tag，例如 v1.0.0
+      - 'v*'
+  workflow_dispatch:
+
 
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
+  tagged-release:
+    name: 'Tagged Release'
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: Checkout code
+      - name: 🛎️ 检出代码
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 获取完整的提交历史
+          fetch-depth: 0 # 获取完整的git历史记录
 
-      - name: Get previous tag
-        id: previous_tag
+      - name: 📝 输出提交信息
         run: |
-          PREVIOUS_TAG=$(git tag --sort=-creatordate | grep -E '^v' | sed -n '2p')
-          if [ -z "$PREVIOUS_TAG" ]; then
-            PREVIOUS_TAG=$(git rev-list --max-parents=0 HEAD)
+          echo "======================================"
+          echo "🚀 触发 Release 工作流"
+          echo "分支: ${{ github.ref }}"
+          echo "Tag: ${{ github.ref_name }}"
+          echo "提交者: ${{ github.actor }}"
+          echo "提交信息: ${{ github.event.head_commit.message }}"
+          echo "提交时间: ${{ github.event.head_commit.timestamp }}"
+          echo "======================================"
+
+      - name: 📜 生成更新日志
+        run: |
+          # 获取上一个标签
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+
+          # 生成更新日志
+          echo "## 📝 更新内容" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+
+          if [ -z "$PREV_TAG" ]; then
+            # 如果没有先前的标签，获取所有提交记录
+            echo "### 🔄 完整提交记录" >> CHANGELOG.md
+            git log --pretty=format:"* %s %n  - 提交者: %an%n  - 提交时间: %ad%n  - 提交ID: %h%n" --date=format:"%Y-%m-%d %H:%M:%S" >> CHANGELOG.md
+          else
+            # 获取从上一个标签到现在的提交记录
+            echo "### 🔄 更新记录 ($PREV_TAG -> ${{ github.ref_name }})" >> CHANGELOG.md
+            git log --pretty=format:"* %s %n  - 提交者: %an%n  - 提交时间: %ad%n  - 提交ID: %h%n" --date=format:"%Y-%m-%d %H:%M:%S" $PREV_TAG..HEAD >> CHANGELOG.md
           fi
-          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
 
-      - name: Get commit history
-        id: commit_history
-        run: |
-          COMMIT_HISTORY=$(git log ${{ steps.previous_tag.outputs.previous_tag }}..${{ github.ref_name }} --pretty=format:"- %s (%h)" --reverse)
-          echo "commit_history<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMIT_HISTORY" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 🎉 创建 Release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          body: |
-            这是 ${{ github.ref_name }} 的自动发布版本。
-            提交历史如下：
-            ${{ steps.commit_history.outputs.commit_history }}
-          draft: false
-          prerelease: false
+          name: '🎉 Release ${{ github.ref_name }}'
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
