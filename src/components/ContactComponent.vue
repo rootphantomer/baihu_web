@@ -8,7 +8,7 @@
       <p>如果您有任何问题或合作意向，请通过以下方式联系我们：</p>
       <!-- 联系信息列表 -->
       <ul class="contact-list">
-        <li class="contact-item">电话：+138XXXX0519</li>
+        <li class="contact-item">电话：+86（571）88307797</li>
         <li class="contact-item">
           邮箱：
           <!-- 邮箱链接，使用 mailto 协议 -->
