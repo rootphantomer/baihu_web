@@ -12,7 +12,7 @@
         <li class="contact-item">
           邮箱：
           <!-- 邮箱链接，使用 mailto 协议 -->
-          <a class="contact-link" data-email="baihu_admination@163.com" href="mailto:johndoe@example.com">
+          <a class="contact-link" data-email="baihu_admination@163.com" href="mailto:baihu_admination@163.com">
             baihu_admination@163.com
           </a>
         </li>
