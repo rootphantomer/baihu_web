@@ -13,17 +13,16 @@
         </div>
         <br />
         <div class="server-col">
-        <div class="server-title">
-          <span class="icon"></span>
-          <span>专业前期设计</span>
+          <div class="server-title">
+            <span class="icon"></span>
+            <span>专业前期设计</span>
+          </div>
+          <div class="server-desc">
+            创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。
+          </div>
         </div>
-        <div class="server-desc">
-          创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。
-        </div>
-      </div>
       </div>
       <!-- 右列 -->
-      <br />
       <div class="server-col">
         <div class="server-title">
           <span class="icon"></span>
@@ -37,13 +36,13 @@
           过场动画（Cinematic Cutscenes）
         </div>
         <div class="server-col">
-        <br />
-        <div class="server-desc">
-          剧本与分镜（Storyboard & Scriptwriting）<br />
-          概念设计（角色/场景/道具原画）<br />
-          美术风格定调（Color Script & Mood Board）
+          <br />
+          <div class="server-desc">
+            剧本与分镜（Storyboard & Scriptwriting）<br />
+            概念设计（角色/场景/道具原画）<br />
+            美术风格定调（Color Script & Mood Board）
+          </div>
         </div>
-      </div>
       </div>
     </div>
 
