@@ -124,10 +124,38 @@ header {
     }
   }
 }
-
-@media (max-width: 768px) {
-
+@media (max-width: 480px) {
   header {
+    height: 10rem;
+    justify-content: center;
+    * {
+      letter-spacing: 0.1rem;
+    }
+
+    ul{
+      margin-left: 6rem;
+    }
+  }
+
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  header {
+    height: 10rem;
+    justify-content: center;
+    * {
+      letter-spacing: 0.1rem;
+    }
+
+    ul{
+      margin-left: 6rem;
+    }
+  }
+
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+   header {
     height: 10rem;
     justify-content: center;
     * {

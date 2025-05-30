@@ -354,9 +354,7 @@ function handleMouseLeave() {
 
 
 @media (max-width: 480px) {
-  html {
-    font-size: 5px;
-  }
+
 
   .work-list {
     max-width: 66.666%;
@@ -373,10 +371,7 @@ function handleMouseLeave() {
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  html {
-    font-size: 7px;
-    /* 平板竖屏或大屏手机 */
-  }
+
 
   .work-list {
     max-width: 66.666%;
@@ -392,5 +387,18 @@ function handleMouseLeave() {
 
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
 
+  .work-list {
+    max-width: 66.666%;
+  }
+
+  /* 隐藏其他所有元素 */
+  .work-desc,
+  button.arrow,
+  .up,
+  .down {
+    display: none !important;
+  }
+}
 </style>
