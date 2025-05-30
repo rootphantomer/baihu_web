@@ -4,10 +4,9 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+// import AutoImport from 'unplugin-auto-import/vite'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,30 +14,32 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    })
+    // AutoImport({
+    //   resolvers: [ElementPlusResolver()],
+    // }),
+    // Components({
+    //   resolvers: [ElementPlusResolver()],
+    // }),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   esbuild: {
-    drop: ['console', 'debugger']
+    drop: ['console', 'debugger'],
   },
   assetsInclude: ['**/*.png'], // 确保包含 PNG 图片
   build: {
+    target: ['chrome90', 'edge90', 'safari13'],
+    outDir: 'dist',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['vue', 'pinia', 'vue-router']
-        }
-      }
-    }
-  }
+          vendor: ['vue', 'pinia', 'vue-router'],
+        },
+      },
+    },
+  },
 })
