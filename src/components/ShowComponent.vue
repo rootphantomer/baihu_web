@@ -215,11 +215,11 @@ function handleMouseLeave() {
     transform: translateY(-50%);
 
     &.left {
-      left: -5rem;
+      left: -6rem;
     }
 
     &.right {
-      right: 2rem;
+      right: 4rem;
     }
 
     &:disabled {
