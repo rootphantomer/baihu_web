@@ -7,15 +7,21 @@
     <!-- 图片网格 -->
     <div class="photo-grid">
       <div v-for="(photo, index) in photos" :key="index" class="photo-item">
-        <img :src="photo" alt="公司照片" />
+        <img :src="photo" alt="公司照片" @click="openPreview(photo)"/>
       </div>
     </div>
     <br />
     <div class="photo-divider"></div>
+    <!-- 全屏预览 -->
+    <div v-if="previewImg" class="photo-preview" @click="closePreview">
+      <img :src="previewImg" alt="预览" />
+      <span class="close-btn" @click.stop="closePreview">&times;</span>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 const photos = [
   '/img_photo/025cd9bde8dce16bcc7180026054286.jpg',
   '/img_photo/65f60a9002870c118f789852c219e85.jpg',
@@ -26,9 +32,19 @@ const photos = [
   '/img_photo/d4bd9110d4013c05a2354c6a52633e0.jpg',
   '/img_photo/e0dbb7cd267a82871334199c7bd2cd7.jpg',
 ]
+const previewImg = ref<string | null>(null)
+function openPreview(photo: string) {
+  previewImg.value = photo
+  document.body.style.overflow = 'hidden'
+}
+function closePreview() {
+  previewImg.value = null
+  document.body.style.overflow = ''
+}
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 /* 容器样式 */
 .photo-container {
   height: auto;
@@ -94,9 +110,47 @@ const photos = [
 }
 
 .photo-item img:hover {
-  transform: scale(2);
+  transform: scale(1.2);
   box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
   z-index: 10;
   position: relative;
+}
+
+.photo-preview {
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  animation: fadeIn 0.2s;
+}
+.photo-preview img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 1rem;
+  box-shadow: 0 0 2rem #000a;
+  background: #fff;
+  cursor: auto;
+}
+.close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  font-size: 3rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10000;
+  user-select: none;
+  transition: color 0.2s;
+}
+.close-btn:hover {
+  color: #fdd835;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>
