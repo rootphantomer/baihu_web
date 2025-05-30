@@ -351,4 +351,55 @@ function handleMouseLeave() {
     font-weight: bold;
   }
 }
+
+@media (max-width: 480px) {
+  html {
+    font-size: 5px;
+    /* 移动端适配：小屏手机 */
+  }
+  .show-container {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .work-desc {
+    all: unset;
+  }
+  .work-showcase .arrow {
+    display: none !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  html {
+    font-size: 7px;
+    /* 平板竖屏或大屏手机 */
+  }
+  .show-container {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .work-desc {
+    all: unset;
+  }
+  .work-showcase .arrow {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 8.5px;
+    /* 平板横屏 */
+  }
+  .show-container {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .work-desc {
+    all: unset;
+  }
+  .work-showcase .arrow {
+    display: none !important;
+  }
+}
 </style>
