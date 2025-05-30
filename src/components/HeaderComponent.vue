@@ -114,12 +114,28 @@ header {
       p {
         margin: 1.2rem 0 0 0;
         font-size: 2rem;
+
         &.none {
           font-size: 1rem;
           // color: #999;
         }
       }
 
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  header {
+    height: 10rem;
+    justify-content: center;
+    * {
+      letter-spacing: 0.1rem;
+    }
+
+    ul{
+      margin-left: 6rem;
     }
   }
 }

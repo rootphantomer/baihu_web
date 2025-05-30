@@ -351,36 +351,25 @@ function handleMouseLeave() {
   }
 }
 
+
+
 @media (max-width: 480px) {
   html {
     font-size: 5px;
-    /* 移动端适配：小屏手机 */
   }
 
-  .show-container {
-    width: 100%;
+  .work-list {
+    max-width: 66.666%;
   }
 
-  .work-showcase {
-    width: 100% !important;
-
-    button {
-      display: none !important;
-    }
-
-    justify-content: center !important;
-  }
-
-
-
-  .work-desc {
-    display: none !important;
-    /* 隐藏描述部分 */
-  }
-
-  button.arrow {
+  /* 隐藏其他所有元素 */
+  .work-desc,
+  button.arrow,
+  .up,
+  .down {
     display: none !important;
   }
+
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -389,57 +378,19 @@ function handleMouseLeave() {
     /* 平板竖屏或大屏手机 */
   }
 
-  .show-container {
-    width: 100%;
+  .work-list {
+    max-width: 66.666%;
   }
 
-  .work-showcase {
-    width: 100% !important;
-
-    button {
-      display: none !important;
-    }
-
-    justify-content: center !important;
-  }
-
-  .work-desc {
-    display: none !important;
-    /* 隐藏描述部分 */
-  }
-
-  button.arrow {
+  /* 隐藏其他所有元素 */
+  .work-desc,
+  button.arrow,
+  .up,
+  .down {
     display: none !important;
   }
+
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  html {
-    font-size: 8.5px;
-    /* 平板横屏 */
-  }
 
-  .show-container {
-    width: 100%;
-  }
-
-  .work-showcase {
-    width: 100% !important;
-
-    button {
-      display: none !important;
-    }
-
-    justify-content: center !important;
-  }
-
-  .work-desc {
-    display: none !important;
-    /* 隐藏描述部分 */
-  }
-
-  button.arrow {
-    display: none !important;
-  }
-}
 </style>
