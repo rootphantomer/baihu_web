@@ -2,19 +2,18 @@
   <!-- 关于我们页面的主容器 -->
   <div class="show-container">
     <div class="work-showcase" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
-      <button class="arrow left" @click="prevWork">&#9664;</button>
+      <button class="arrow left" @click="prevWork" style="background: transparent; box-shadow: none;"><img
+          src="@/assets/left.svg" alt=""
+          style="width: auto; height: 100%; object-fit: contain; display: block;" /></button>
       <div class="work-list">
-        <div
-          v-for="(work, idx) in works"
-          :key="idx"
-          class="work-item"
-          :class="getPositionClass(idx)"
-          @click="selectWork(idx)"
-        >
+        <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
+          @click="selectWork(idx)">
           <img :src="work.img" :alt="work.name" />
         </div>
       </div>
-      <button class="arrow right" @click="nextWork">&#9654;</button>
+      <button class="arrow right" @click="nextWork" style="background: transparent; box-shadow: none;">
+        <img src="@/assets/right.svg" alt="" style="width: auto; height: 100%; object-fit: contain; display: block;" />
+      </button>
     </div>
     <div class="work-desc">
       <div class="up">
@@ -357,14 +356,29 @@ function handleMouseLeave() {
     font-size: 5px;
     /* 移动端适配：小屏手机 */
   }
+
   .show-container {
+    width: 100%;
+  }
+
+  .work-showcase {
     width: 100% !important;
-    padding: 0 !important;
+
+    button {
+      display: none !important;
+    }
+
+    justify-content: center !important;
   }
+
+
+
   .work-desc {
-    all: unset;
+    display: none !important;
+    /* 隐藏描述部分 */
   }
-  .work-showcase .arrow {
+
+  button.arrow {
     display: none !important;
   }
 }
@@ -374,14 +388,27 @@ function handleMouseLeave() {
     font-size: 7px;
     /* 平板竖屏或大屏手机 */
   }
+
   .show-container {
+    width: 100%;
+  }
+
+  .work-showcase {
     width: 100% !important;
-    padding: 0 !important;
+
+    button {
+      display: none !important;
+    }
+
+    justify-content: center !important;
   }
+
   .work-desc {
-    all: unset;
+    display: none !important;
+    /* 隐藏描述部分 */
   }
-  .work-showcase .arrow {
+
+  button.arrow {
     display: none !important;
   }
 }
@@ -391,14 +418,27 @@ function handleMouseLeave() {
     font-size: 8.5px;
     /* 平板横屏 */
   }
+
   .show-container {
+    width: 100%;
+  }
+
+  .work-showcase {
     width: 100% !important;
-    padding: 0 !important;
+
+    button {
+      display: none !important;
+    }
+
+    justify-content: center !important;
   }
+
   .work-desc {
-    all: unset;
+    display: none !important;
+    /* 隐藏描述部分 */
   }
-  .work-showcase .arrow {
+
+  button.arrow {
     display: none !important;
   }
 }
