@@ -11,8 +11,19 @@
           凭借核心团队在业界深耕多年的技术力专注优质2D动画制作，并拥有制作高质量游戏PV与产品推广动画的丰富经验。<br />
           从创意到成片，以精湛技艺打造极致内容，为您的IP与品牌注入超凡视觉魅力。
         </div>
+        <br />
+        <div class="server-col">
+        <div class="server-title">
+          <span class="icon"></span>
+          <span>专业前期设计</span>
+        </div>
+        <div class="server-desc">
+          创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。
+        </div>
+      </div>
       </div>
       <!-- 右列 -->
+      <br />
       <div class="server-col">
         <div class="server-title">
           <span class="icon"></span>
@@ -25,33 +36,17 @@
           角色动画（Idle、Attack、Run等动作库）<br />
           过场动画（Cinematic Cutscenes）
         </div>
-      </div>
-    </div>
-    <div class="server-row">
-      <!-- 左列 -->
-      <div class="server-col">
-        <div class="server-title">
-          <span class="icon"></span>
-          <span>专业前期设计</span>
-        </div>
-        <div class="server-desc">
-          创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。
-        </div>
-      </div>
-      <!-- 右列 -->
-      <div class="server-col">
+        <div class="server-col">
         <br />
-        <!-- <div class="server-title">
-          <span class="icon"></span>
-          <span>剧本与美术</span>
-        </div> -->
         <div class="server-desc">
           剧本与分镜（Storyboard & Scriptwriting）<br />
           概念设计（角色/场景/道具原画）<br />
           美术风格定调（Color Script & Mood Board）
         </div>
       </div>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -60,7 +55,6 @@
   background: #fdfcf6;
   padding: 4rem 0 6rem 0;
   width: 100%;
-  // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 
 .server-row {
