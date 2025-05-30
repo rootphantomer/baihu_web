@@ -114,6 +114,10 @@ header {
       p {
         margin: 1.2rem 0 0 0;
         font-size: 2rem;
+        &.none {
+          font-size: 1rem;
+          // color: #999;
+        }
       }
 
     }

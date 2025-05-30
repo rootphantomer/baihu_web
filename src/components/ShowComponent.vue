@@ -154,7 +154,7 @@ function startAutoPlay() {
     } else {
       currentIndex.value = 0
     }
-  }, 1500)
+  }, 4000) // 每4秒切换一次
 }
 function stopAutoPlay() {
   if (intervalId.value) {

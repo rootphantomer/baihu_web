@@ -94,7 +94,9 @@ const photos = [
 }
 
 .photo-item img:hover {
-  transform: scale(1.05);
+  transform: scale(2);
   box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  position: relative;
 }
 </style>
