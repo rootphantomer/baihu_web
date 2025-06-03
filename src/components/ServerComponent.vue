@@ -51,8 +51,6 @@
 
 <style lang="scss" scoped>
 .server-container {
-  background: #fdfcf6;
-  padding: 4rem 0 6rem 0;
   width: 100%;
 }
 

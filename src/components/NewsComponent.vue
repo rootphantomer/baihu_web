@@ -47,9 +47,10 @@ const newsList = [
 
 <style lang="scss" scoped>
 .news-container {
-  min-height: 60rem;
+  // min-height: 60rem;
   padding: 0 8vw;
   background: #fdfcf6;
+
 }
 
 .news-title {
@@ -178,6 +179,8 @@ const newsList = [
   align-items: flex-start;
   margin-left: 8rem;
   margin-top: 0.8rem;
+  border-bottom: 0.4rem solid #fbe58e;
+  padding-bottom: 2.4rem;
 
   .news-img {
     width: 18rem;

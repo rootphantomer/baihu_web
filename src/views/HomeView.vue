@@ -4,7 +4,6 @@
     <ShowComponent />
     <NewsComponent />
     <AboutComponent />
-    <!-- <BookView /> -->
     <ServerComponent />
     <PhotoComponent />
     <ContactComponent />
@@ -25,5 +24,8 @@ import PhotoComponent from '@/components/PhotoComponent.vue'
 <style lang="scss" scoped>
 #home-container {
   background: #fdfcf6;
+  display: flex;
+  flex-direction: column;
+  gap: 10rem; // 每个组件之间固定间距4rem，可根据需要调整
 }
 </style>

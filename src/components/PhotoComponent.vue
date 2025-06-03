@@ -47,9 +47,9 @@ function closePreview() {
 <style scoped lang="scss">
 /* 容器样式 */
 .photo-container {
-  height: auto;
+  // height: auto;
   text-align: center;
-  padding: 2rem;
+  padding: 0 2rem;
   /* background-color: white; */
 }
 

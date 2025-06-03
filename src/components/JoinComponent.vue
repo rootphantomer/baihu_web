@@ -94,7 +94,7 @@ const selectJob = (index: number) => {
 
 <style lang="scss" scoped>
 .join-container {
-  padding: 4rem 8vw;
+  padding: 0 8vw;
   background: #fdfcf6;
   // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }

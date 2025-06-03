@@ -19,13 +19,19 @@
         <li class="contact-item">地址：浙江省杭州市滨江区长河街道齐飞路 350 号园伦大厦一幢 1607 室</li>
       </ul>
     </div>
+    <div class="contact-divider">
+      <span class="block"></span>
+      <span class="block"></span>
+      <span class="line"></span>
+      <span class="block"></span>
+      <span class="block"></span>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 // 联系我们页面的主容器样式
 .contact-container {
-  height: 60rem;
   display: flex;
   // 采用垂直方向的弹性布局
   flex-direction: column;
@@ -53,15 +59,10 @@
 
   // 联系信息列表样式
   * {
-    // font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 2.4rem;
   }
 
-  .contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+
 
   // 邮箱链接样式
   .contact-link {
@@ -76,10 +77,36 @@
 
   // 联系信息项样式
   .contact-item {
-    margin-bottom: 1rem;
+    margin: 1rem;
     text-align: center;
   }
 
 
+}
+
+.contact-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .block {
+    width: 1.6rem;
+    height: 1.6rem;
+    background: #fbe58e;
+    margin: 0 0.5rem;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .line {
+    flex: 1;
+    height: 0.2rem;
+    background: #bbb;
+    margin: 0 1.5rem;
+    border-radius: 1px;
+    min-width: 10rem;
+    max-width: 90vw;
+  }
 }
 </style>
