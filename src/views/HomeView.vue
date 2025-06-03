@@ -21,3 +21,9 @@ import ShowComponent from '@/components/ShowComponent.vue'
 import JoinComponent from '@/components/JoinComponent.vue'
 import PhotoComponent from '@/components/PhotoComponent.vue'
 </script>
+
+<style lang="scss" scoped>
+#home-container {
+  background: #fdfcf6;
+}
+</style>

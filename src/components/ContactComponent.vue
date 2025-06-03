@@ -2,7 +2,7 @@
   <!-- 联系我们页面的主容器 -->
   <div id="contact-container" class="contact-container">
     <!-- 页面标题 -->
-    <h1 class="contact-title">联系我们</h1>
+    <h1 class="contact-title">联系我们 <span>CONTACT</span></h1>
     <!-- 联系说明 -->
     <div class="contact-description">
       <p>如果您有任何问题或合作意向，请通过以下方式联系我们：</p>
@@ -35,9 +35,16 @@
 
 // 页面标题样式
 .contact-title {
-  font-size: 4.5rem;
-  margin-bottom: 2rem;
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4rem;
 
+  span {
+    font-size: 5rem;
+    font-weight: normal;
+    margin-left: 0.8rem;
+  }
 }
 
 // 联系说明样式

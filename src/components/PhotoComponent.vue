@@ -1,13 +1,13 @@
 <template>
   <div id="photo-container" class="photo-container">
     <!-- 标题 -->
-    <h2 class="photo-title">公司摄影 PHOTO</h2>
+    <h1 class="photo-title">公司掠影 <span>PHOTO</span> </h1>
     <!-- 分割线 -->
     <div class="photo-divider"></div>
     <!-- 图片网格 -->
     <div class="photo-grid">
       <div v-for="(photo, index) in photos" :key="index" class="photo-item">
-        <img :src="photo" alt="公司照片" @click="openPreview(photo)"/>
+        <img :src="photo" alt="公司照片" @click="openPreview(photo)" />
       </div>
     </div>
     <br />
@@ -55,10 +55,16 @@ function closePreview() {
 
 /* 标题样式 */
 .photo-title {
-  font-size: 2.4rem;
+  font-size: 5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
-  color: #333;
+  text-align: center;
+  margin-bottom: 4rem;
+
+  span {
+    font-size: 5rem;
+    font-weight: normal;
+    margin-left: 0.8rem;
+  }
 }
 
 /* 分割线样式 */
@@ -119,14 +125,18 @@ function closePreview() {
 .photo-preview {
   position: fixed;
   z-index: 9999;
-  left: 0; top: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.85);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: zoom-out;
   animation: fadeIn 0.2s;
 }
+
 .photo-preview img {
   max-width: 90vw;
   max-height: 90vh;
@@ -135,6 +145,7 @@ function closePreview() {
   background: #fff;
   cursor: auto;
 }
+
 .close-btn {
   position: absolute;
   top: 2rem;
@@ -146,11 +157,18 @@ function closePreview() {
   user-select: none;
   transition: color 0.2s;
 }
+
 .close-btn:hover {
   color: #fdd835;
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 </style>
