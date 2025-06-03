@@ -7,7 +7,7 @@
         <div></div>
         <div></div>
       </span>
-      <span>新闻 NEWS</span>
+      新闻 <span>NEWS</span>
     </h1>
     <div class="timeline">
       <div class="news-item" v-for="item in newsList" :key="item.date">
@@ -55,12 +55,17 @@ const newsList = [
 .news-title {
   display: flex;
   align-items: center;
-  font-size: 4.5rem;
+  font-size: 5rem;
   font-weight: bold;
   margin: 4rem 0;
   padding-top: 2rem;
   color: #222;
   justify-content: center;
+  span {
+    font-size: 5rem;
+    font-weight: normal;
+    margin-left: 0.8rem;
+  }
 
   .icon {
     display: grid;
@@ -110,13 +115,16 @@ const newsList = [
     background: #fbe58e;
     z-index: 0;
   }
+
   border-bottom: none;
 }
 
 .timeline-dot {
   position: absolute;
-  left: -5.6rem; /* 与timeline的padding-left对齐 */
-  top: 2.4rem; /* 从顶部开始 */
+  left: -5.6rem;
+  /* 与timeline的padding-left对齐 */
+  top: 2.4rem;
+  /* 从顶部开始 */
   width: 1.8rem;
   height: 1.8rem;
   background: #fff;
