@@ -189,7 +189,7 @@ const soure: works[] = [
     role: '',
   },
   {
-    path: './img_work/2022.04,盾の勇者の成り上が Season2 (制作进行).jpg',
+    path: './img_work/2022.04,盾の勇者の成り上がり Season2 (制作进行).jpg',
     title: '',
     role: '',
   },
@@ -239,7 +239,7 @@ const soure: works[] = [
     role: '',
   },
   {
-    path: './img_work/2023.10, 盾の勇者の成り上が Season3 (制作进行,美術設定).jpg',
+    path: './img_work/2023.10, 盾の勇者の成り上がり Season3 (制作进行,美術設定).jpg',
     title: '',
     role: '',
   },
