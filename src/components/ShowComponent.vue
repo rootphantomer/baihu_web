@@ -114,7 +114,7 @@ const works = [
     desc: '背景美术制作',
   },
 ]
-const currentIndex = ref(0)
+const currentIndex = ref(3)
 const intervalId = ref<number | null>(null)
 
 const selectWork = (idx: number) => {
@@ -134,7 +134,13 @@ const nextWork = () => {
 }
 
 function getPositionClass(idx: number) {
-  const diff = idx - currentIndex.value
+  const total = works.length
+  let diff = idx - currentIndex.value
+
+  // 循环轮播的关键：让diff始终落在 [-2, -1, 0, 1, 2] 之间
+  if (diff > total / 2) diff -= total
+  if (diff < -total / 2) diff += total
+
   if (diff === 0) return 'center'
   if (diff === -1) return 'left1'
   if (diff === -2) return 'left2'
