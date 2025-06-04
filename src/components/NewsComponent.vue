@@ -147,7 +147,6 @@ const newsList = [
     background: #fbe58e;
     color: #ffffff;
     font-size: 4rem;
-    // font-family: 'Arial', sans-serif;
     padding: 0.4rem 1.8rem 0.4rem 1rem;
     border-radius: 0.2rem;
     margin-right: 1.8rem;

@@ -324,7 +324,6 @@ function handleMouseLeave() {
     width: 100%;
     margin: 0 0 1.6rem 0;
     font-size: 5rem;
-    // font-family: 'Courier New', Courier, monospace;
   }
 
   * {

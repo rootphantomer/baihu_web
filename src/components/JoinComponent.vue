@@ -96,7 +96,6 @@ const selectJob = (index: number) => {
 .join-container {
   padding: 0 8vw;
   background: #fdfcf6;
-  // font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 
 .join-title {

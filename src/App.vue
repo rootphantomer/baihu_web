@@ -16,6 +16,7 @@ import FooterComponent from './components/FooterComponent.vue'
 html {
   font-size: calc(100vw / 192);
   /* 设计稿宽度1920px时，1rem=10px */
+  font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 
 @media (max-width: 480px) {

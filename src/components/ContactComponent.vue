@@ -79,6 +79,7 @@
   .contact-item {
     margin: 1rem;
     text-align: center;
+    list-style: none;
   }
 
 

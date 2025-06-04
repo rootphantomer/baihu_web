@@ -124,6 +124,22 @@ header {
     }
   }
 }
+li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+li p.none {
+  display: block;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  word-break: break-all;
+}
+
 @media (max-width: 480px) {
   header {
     height: 10rem;
