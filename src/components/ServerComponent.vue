@@ -36,18 +36,18 @@
           <span>覆盖范围</span>
         </div>
         <div class="server-desc">
-          <p>动画电影（2D/3D 长篇或短片</p>
-          <p>剧集动画（TV动画、网络番剧</p>
-          <p>广告PV（品牌宣传片、产品动画</p>
+          <p>动画电影（2D/3D 长篇或短片）</p>
+          <p>剧集动画（TV动画、网络番剧）</p>
+          <p>广告PV（品牌宣传片、产品动画）</p>
           <br />
-          <p>角色动画（Idle、Attack、Run等动作库</p>
+          <p>角色动画（Idle、Attack、Run等动作库）</p>
           <p>过场动画（Cinematic Cutscenes）</p>
           <br />
         </div>
         <div class="server-col">
           <div class="server-desc">
             <p>剧本与分镜（Storyboard & Scriptwriting）</p>
-            <p>概念设计（角色/场景/道具原画</p>
+            <p>概念设计（角色/场景/道具原画）</p>
             <p>美术风格定调（Color Script & Mood Board）</p>
           </div>
         </div>
