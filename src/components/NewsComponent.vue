@@ -47,10 +47,8 @@ const newsList = [
 
 <style lang="scss" scoped>
 .news-container {
-  // min-height: 60rem;
   padding: 0 8vw;
   background: #fdfcf6;
-
 }
 
 .news-title {

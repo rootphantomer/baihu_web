@@ -19,9 +19,13 @@ const route = useRoute()
       <img id="logo" src="@/assets/logo.png" alt="Company Logo" />
     </RouterLink>
     <ul>
-      <li v-for="nav in navs" :key="nav.path" :class="{
-        active: route.path == nav.path,
-      }">
+      <li
+        v-for="nav in navs"
+        :key="nav.path"
+        :class="{
+          active: route.path == nav.path,
+        }"
+      >
         <RouterLink :to="nav.path">
           <p>{{ nav.label }}</p>
           <p class="none">{{ nav.en }}</p>
@@ -50,7 +54,7 @@ header {
     max-height: 8rem;
   }
 
-  >a {
+  > a {
     margin-left: 10rem;
   }
 
@@ -82,7 +86,6 @@ header {
         color: white;
         background: #f5dd82;
 
-
         a {
           color: #fff;
         }
@@ -98,7 +101,6 @@ header {
           background: #ffb13b;
           z-index: 2;
         }
-
       }
 
       a {
@@ -120,7 +122,6 @@ header {
           // color: #999;
         }
       }
-
     }
   }
 }
@@ -148,11 +149,10 @@ li p.none {
       letter-spacing: 0.1rem;
     }
 
-    ul{
+    ul {
       margin-left: 6rem;
     }
   }
-
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -163,22 +163,21 @@ li p.none {
       letter-spacing: 0.1rem;
     }
 
-    ul{
+    ul {
       margin-left: 6rem;
     }
   }
-
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-   header {
+  header {
     height: 10rem;
     justify-content: center;
     * {
       letter-spacing: 0.1rem;
     }
 
-    ul{
+    ul {
       margin-left: 6rem;
     }
   }

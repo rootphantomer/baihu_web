@@ -12,11 +12,17 @@
         <li class="contact-item">
           邮箱：
           <!-- 邮箱链接，使用 mailto 协议 -->
-          <a class="contact-link" data-email="baihu_animation@163.com" href="mailto:baihu_animation@163.com">
+          <a
+            class="contact-link"
+            data-email="baihu_animation@163.com"
+            href="mailto:baihu_animation@163.com"
+          >
             baihu_animation@163.com
           </a>
         </li>
-        <li class="contact-item">地址：浙江省杭州市滨江区长河街道齐飞路 350 号园伦大厦一幢 1607 室</li>
+        <li class="contact-item">
+          地址：浙江省杭州市滨江区长河街道齐飞路 350 号园伦大厦一幢 1607 室
+        </li>
       </ul>
     </div>
     <div class="contact-divider">
@@ -62,8 +68,6 @@
     font-size: 2.4rem;
   }
 
-
-
   // 邮箱链接样式
   .contact-link {
     color: #007bff;
@@ -81,8 +85,6 @@
     text-align: center;
     list-style: none;
   }
-
-
 }
 
 .contact-divider {

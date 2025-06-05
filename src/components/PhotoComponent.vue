@@ -1,7 +1,7 @@
 <template>
   <div id="photo-container" class="photo-container">
     <!-- 标题 -->
-    <h1 class="photo-title">公司掠影 <span>PHOTO</span> </h1>
+    <h1 class="photo-title">公司掠影 <span>PHOTO</span></h1>
     <!-- 分割线 -->
     <div class="photo-divider"></div>
     <!-- 图片网格 -->
@@ -41,7 +41,6 @@ function closePreview() {
   previewImg.value = null
   document.body.style.overflow = ''
 }
-
 </script>
 
 <style scoped lang="scss">

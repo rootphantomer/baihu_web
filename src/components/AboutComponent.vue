@@ -15,8 +15,6 @@
   </div>
 </template>
 
-
-
 <style lang="scss" scoped>
 /* 关于我们页面的主容器样式 */
 .about-container {
@@ -46,7 +44,6 @@
   color: #151515;
   color: #29293a;
   background: transparent;
-
 
   max-width: 80%;
   /* 限制段落宽度，提高可读性 */

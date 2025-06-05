@@ -17,7 +17,9 @@ const year = new Date().getFullYear()
         <ul>
           <li>
             <!-- 路由链接，包含社交图标 -->
-            <RouterLink to="https://weibo.com/u/8001978950"><img src="@/assets/sns/icon_sns_white_15.png" alt="" /></RouterLink>
+            <RouterLink to="https://weibo.com/u/8001978950"
+              ><img src="@/assets/sns/icon_sns_white_15.png" alt=""
+            /></RouterLink>
           </li>
         </ul>
       </div>
