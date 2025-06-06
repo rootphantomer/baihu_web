@@ -14,14 +14,14 @@
     <div class="photo-divider"></div>
     <!-- 全屏预览 -->
     <div v-if="previewImg" class="photo-preview" @click="closePreview">
-      <img :src="previewImg" alt="预览" />
+      <img :src="previewImg" alt="预览" tabindex="-1" />
       <span class="close-btn" @click.stop="closePreview">&times;</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 const photos = [
   '/img_photo/025cd9bde8dce16bcc7180026054286.jpg',
   '/img_photo/65f60a9002870c118f789852c219e85.jpg',
@@ -39,7 +39,7 @@ const previewImg = ref<string | null>(null)
 // 键盘事件处理函数
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape' && previewImg.value) {
-    e.preventDefault() // 防止 ESC 键的默认行为（如退出全屏）
+    e.preventDefault()
     closePreview()
   }
 }
@@ -47,16 +47,23 @@ function handleKeydown(e: KeyboardEvent) {
 function openPreview(photo: string) {
   previewImg.value = photo
   document.body.style.overflow = 'hidden'
-  // 确保每次打开时只添加一次监听（避免重复绑定）
-  window.removeEventListener('keydown', handleKeydown) // 先移除旧监听
-  window.addEventListener('keydown', handleKeydown)
+  // 失去当前焦点，确保ESC事件能被window捕获
+  document.activeElement && (document.activeElement as HTMLElement).blur()
 }
+
 function closePreview() {
   previewImg.value = null
   document.body.style.overflow = ''
-  // 关闭预览时移除键盘监听
-  window.removeEventListener('keydown', handleKeydown)
 }
+
+// 只在预览打开时监听ESC
+watch(previewImg, (val) => {
+  if (val) {
+    window.addEventListener('keydown', handleKeydown)
+  } else {
+    window.removeEventListener('keydown', handleKeydown)
+  }
+})
 </script>
 
 <style scoped lang="scss">
