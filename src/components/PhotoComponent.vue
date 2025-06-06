@@ -30,16 +30,30 @@ const photos = [
   '/img_photo/b0a61f6c82b4b0fbc62a8c391149e3f.jpg',
   '/img_photo/beb5568d28838c6648cf8de7d36e252.jpg',
   '/img_photo/d4bd9110d4013c05a2354c6a52633e0.jpg',
-  '/img_photo/WechatIMG426.jpg',
+  '/img_photo/WechatIMG441.jpg',
 ]
 const previewImg = ref<string | null>(null)
+
+// 键盘事件处理函数
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && previewImg.value) {
+    e.preventDefault() // 防止 ESC 键的默认行为（如退出全屏）
+    closePreview()
+  }
+}
+
 function openPreview(photo: string) {
   previewImg.value = photo
   document.body.style.overflow = 'hidden'
+  // 确保每次打开时只添加一次监听（避免重复绑定）
+  window.removeEventListener('keydown', handleKeydown) // 先移除旧监听
+  window.addEventListener('keydown', handleKeydown)
 }
 function closePreview() {
   previewImg.value = null
   document.body.style.overflow = ''
+  // 关闭预览时移除键盘监听
+  window.removeEventListener('keydown', handleKeydown)
 }
 </script>
 
