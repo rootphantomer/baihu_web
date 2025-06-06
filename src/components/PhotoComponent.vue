@@ -31,6 +31,8 @@ const photos = [
   '/img_photo/beb5568d28838c6648cf8de7d36e252.jpg',
   '/img_photo/d4bd9110d4013c05a2354c6a52633e0.jpg',
   '/img_photo/WechatIMG445.jpg',
+  '/img_photo/WechatIMG304.jpg',
+  '/img_photo/WechatIMG305.jpg',
 ]
 const previewImg = ref<string | null>(null)
 
@@ -110,7 +112,7 @@ function closePreview() {
 /* 图片网格样式 */
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
   justify-items: center;
   align-items: center;
