@@ -30,7 +30,7 @@ const photos = [
   '/img_photo/b0a61f6c82b4b0fbc62a8c391149e3f.jpg',
   '/img_photo/beb5568d28838c6648cf8de7d36e252.jpg',
   '/img_photo/d4bd9110d4013c05a2354c6a52633e0.jpg',
-  '/img_photo/e0dbb7cd267a82871334199c7bd2cd7.jpg',
+  '/img_photo/WechatIMG426.jpg',
 ]
 const previewImg = ref<string | null>(null)
 function openPreview(photo: string) {
