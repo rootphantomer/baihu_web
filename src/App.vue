@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <!-- <CursorComponents /> -->
-    <HeaderComponent />
-    <RouterView />
-    <FooterComponent />
-  </div>
+  <HeaderComponent />
+  <RouterView />
+  <FooterComponent />
 </template>
 
 <script setup lang="ts">
