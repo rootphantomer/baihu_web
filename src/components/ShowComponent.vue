@@ -21,7 +21,7 @@
           :class="getPositionClass(idx)"
           @click="selectWork(idx)"
         >
-          <img :src="work.img" :alt="work.name" />
+          <img v-lazy="work.img" :alt="work.name" />
         </div>
       </div>
       <button

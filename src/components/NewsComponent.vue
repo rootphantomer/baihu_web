@@ -19,7 +19,7 @@
             <span class="news-main-title" v-html="item.title"></span>
           </div>
           <div class="news-body">
-            <img v-if="item.img" :src="item.img" class="news-img" />
+            <img v-if="item.img" v-lazy="item.img" class="news-img" />
             <div class="news-desc" v-html="item.desc"></div>
           </div>
         </div>

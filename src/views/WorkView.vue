@@ -9,7 +9,7 @@
     <!-- 作品网格 -->
     <div class="work-grid">
       <div v-for="(work, index) in soure" :key="index" class="work-item">
-        <img :src="work.path" :alt="work.title" />
+        <img v-lazy="work.path" :alt="work.title" />
         <p class="work-title">{{ work.title }}</p>
         <p class="work-role">{{ work.role }}</p>
       </div>

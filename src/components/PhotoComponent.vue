@@ -7,14 +7,14 @@
     <!-- 图片网格 -->
     <div class="photo-grid">
       <div v-for="(photo, index) in photos" :key="index" class="photo-item">
-        <img :src="photo" alt="公司照片" @click="openPreview(photo)" />
+        <img v-lazy="photo" alt="公司照片" @click="openPreview(photo)" />
       </div>
     </div>
     <br />
     <div class="photo-divider"></div>
     <!-- 全屏预览 -->
     <div v-if="previewImg" class="photo-preview" @click="closePreview">
-      <img :src="previewImg" alt="预览" />
+      <img v-lazy="previewImg" alt="预览" />
       <span class="close-btn" @click.stop="closePreview">&times;</span>
     </div>
   </div>
