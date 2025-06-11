@@ -29,3 +29,5 @@ coverage
 
 *.tsbuildinfo
 public/对应名单.txt
+yarn.lock
+package-lock.json
