@@ -23,16 +23,16 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 const photos = [
-  '/img_photo/025cd9bde8dce16bcc7180026054286.jpg',
-  '/img_photo/65f60a9002870c118f789852c219e85.jpg',
-  '/img_photo/650b088453e5b07cf41430f3361f160.jpg',
-  '/img_photo/WechatIMG319.jpg',
-  '/img_photo/b0a61f6c82b4b0fbc62a8c391149e3f.jpg',
-  '/img_photo/beb5568d28838c6648cf8de7d36e252.jpg',
-  '/img_photo/d4bd9110d4013c05a2354c6a52633e0.jpg',
-  '/img_photo/WechatIMG318.jpg',
-  '/img_photo/WechatIMG320.jpg',
-  '/img_photo/WechatIMG321.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/025cd9bde8dce16bcc7180026054286.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/65f60a9002870c118f789852c219e85.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/650b088453e5b07cf41430f3361f160.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/WechatIMG319.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/b0a61f6c82b4b0fbc62a8c391149e3f.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/beb5568d28838c6648cf8de7d36e252.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/d4bd9110d4013c05a2354c6a52633e0.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/WechatIMG318.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/WechatIMG320.jpg',
+  'https://photos.ph4nt0mer.xyz/img_photo/WechatIMG321.jpg',
 ]
 const previewImg = ref<string | null>(null)
 
