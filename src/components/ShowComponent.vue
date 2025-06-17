@@ -2,43 +2,22 @@
   <!-- 关于我们页面的主容器 -->
   <div class="show-container">
     <div class="work-showcase" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
-      <button
-        class="arrow left"
-        @click="prevWork"
-        style="background: transparent; box-shadow: none"
-      >
-        <img
-          src="@/assets/left.svg"
-          alt=""
-          style="width: auto; height: 100%; object-fit: contain; display: block"
-        />
+      <button class="arrow left" @click="prevWork" style="background: transparent; box-shadow: none">
+        <img src="@/assets/left.svg" alt="" style="width: auto; height: 100%; object-fit: contain; display: block" />
       </button>
       <div class="work-list">
-        <div
-          v-for="(work, idx) in works"
-          :key="idx"
-          class="work-item"
-          :class="getPositionClass(idx)"
-          @click="selectWork(idx)"
-        >
+        <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
+          @click="selectWork(idx)">
           <img v-lazy="work.img" :alt="work.name" />
         </div>
       </div>
-      <button
-        class="arrow right"
-        @click="nextWork"
-        style="background: transparent; box-shadow: none"
-      >
-        <img
-          src="@/assets/right.svg"
-          alt=""
-          style="width: auto; height: 100%; object-fit: contain; display: block"
-        />
+      <button class="arrow right" @click="nextWork" style="background: transparent; box-shadow: none">
+        <img src="@/assets/right.svg" alt="" style="width: auto; height: 100%; object-fit: contain; display: block" />
       </button>
     </div>
     <div class="work-desc">
       <div class="up">
-        <p class="title1">参与作品</p>
+        <p class="title1">{{ $t('show.title') }}</p>
         <p class="title2">works</p>
         <div>
           <p class="work_name">{{ works[currentIndex].name }}</p>
@@ -54,6 +33,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const works = [
   {

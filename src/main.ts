@@ -15,9 +15,18 @@ import zhCN from './locales/zh-CN'
 import jaJP from './locales/ja-JP'
 
 
+// 检测 UA 是否为日语
+function detectLang() {
+  const ua = navigator.language || navigator.language || ''
+  if (ua.startsWith('ja')) {
+    return 'ja-JP'
+  }
+  return 'zh-CN'
+}
+
 const i18n = createI18n({
   legacy: false,
-  locale: 'zh-CN',
+  locale: detectLang(),
   fallbackLocale: 'zh-CN',
   messages: {
     'zh-CN': zhCN,

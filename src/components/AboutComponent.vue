@@ -2,10 +2,10 @@
   <!-- 关于我们页面的主容器 -->
 
   <div id="about-container" class="about-container">
-    <h1 class="about-title"> {{$t('about.title')}} <span>ABOUT US</span></h1>
+    <h1 class="about-title">{{ $t('about.title') }} <span>ABOUT US</span></h1>
     <!-- 关于公司的介绍段落 -->
     <p class="about-description">
-      {{$t('about.description')}}
+      {{ $t('about.description') }}
     </p>
     <br />
   </div>

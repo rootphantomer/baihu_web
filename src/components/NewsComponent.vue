@@ -29,18 +29,20 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const newsList = [
   {
     date: '2025.05.15',
-    title: '白鹄主页锐意制作中',
+    title: t('news.items.0.title'),
     img: 'https://photos.baihu-animation.com/img_news/1747989770390.jpg', // 示例图片路径
-    desc: '主页顶部条参与作品框区外观设计与新闻区设计进行',
+    desc: t('news.items.0.desc'),
   },
   {
     date: '2025.01.23',
-    title: '祝！白鹄动画正式成立！',
+    title: t('news.items.1.title'),
     img: 'https://photos.baihu-animation.com/img_news/71b545bde9231126abb4bfe5b5f2c16.jpg',
-    desc: '成功入驻圆伦大厦，祝公司顺利开张',
+    desc: t('news.items.1.desc'),
   },
 ]
 </script>

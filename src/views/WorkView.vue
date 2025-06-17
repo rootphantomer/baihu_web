@@ -1,11 +1,8 @@
 <template>
   <div id="work-container" class="work-container">
     <!-- 标题 -->
-    <h2 class="work-title">参与作品一览 TIME LINE</h2>
+    <h2 class="work-title">{{ $t('work.title') }} TIME LINE</h2>
     <!-- 时间轴 -->
-    <!-- <div class="work-timeline">
-      <h3>2020年-</h3>
-    </div> -->
     <!-- 作品网格 -->
     <div class="work-grid">
       <div v-for="(work, index) in soure" :key="index" class="work-item">

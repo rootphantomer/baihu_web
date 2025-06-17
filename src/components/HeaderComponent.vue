@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
 
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 const navs = [
-  { path: '/', label: '首页', en: 'Home' },
-  { path: '/work', label: '作品', en: 'Work' },
+  { path: '/', label: t('header.home'), en: 'Home' },
+  { path: '/work', label: t('header.work'), en: 'Work' },
   // 修改为带斜杠的路径格式
-  { path: '/#news-container', label: '新闻', en: 'News' },
-  { path: '/#about-container', label: '关于', en: 'About' },
-  { path: '/#contact-container', label: '联系', en: 'Contact' },
-  { path: '/#join-container', label: '招聘', en: 'Join' },
+  { path: '/#news-container', label: t('header.news'), en: 'News' },
+  { path: '/#about-container', label: t('header.about'), en: 'About' },
+  { path: '/#contact-container', label: t('header.contact'), en: 'Contact' },
+  { path: '/#join-container', label: t('header.join'), en: 'Join' },
 ]
 const route = useRoute()
 </script>
@@ -19,13 +22,9 @@ const route = useRoute()
       <img id="logo" src="@/assets/logo.png" alt="Company Logo" />
     </RouterLink>
     <ul>
-      <li
-        v-for="nav in navs"
-        :key="nav.path"
-        :class="{
-          active: route.path == nav.path,
-        }"
-      >
+      <li v-for="nav in navs" :key="nav.path" :class="{
+        active: route.path == nav.path,
+      }">
         <RouterLink :to="nav.path">
           <p>{{ nav.label }}</p>
           <p class="none">{{ nav.en }}</p>
@@ -54,7 +53,7 @@ header {
     max-height: 8rem;
   }
 
-  > a {
+  >a {
     margin-left: 10rem;
   }
 
@@ -125,6 +124,7 @@ header {
     }
   }
 }
+
 li a {
   display: flex;
   flex-direction: column;
@@ -145,6 +145,7 @@ li p.none {
   header {
     height: 10rem;
     justify-content: center;
+
     * {
       letter-spacing: 0.1rem;
     }
@@ -159,6 +160,7 @@ li p.none {
   header {
     height: 10rem;
     justify-content: center;
+
     * {
       letter-spacing: 0.1rem;
     }
@@ -173,6 +175,7 @@ li p.none {
   header {
     height: 10rem;
     justify-content: center;
+
     * {
       letter-spacing: 0.1rem;
     }
