@@ -5,13 +5,11 @@
       <div class="server-col">
         <div class="server-title">
           <span class="icon"></span>
-          <span>动画制作服务</span>
+          <span>{{ $t('server.animation.title') }}</span>
         </div>
         <div class="server-desc">
           <p>
-            凭借核心团队在业界深耕多年的技术力专注优质2D动画制作，并拥有制作高质量游戏PV与产品推广动画的丰富经验。
-          </p>
-          <p>从创意到成片，以精湛技艺打造极致内容，为您的IP与品牌注入超凡视觉魅力。</p>
+            {{ $t('server.animation.desc') }}</p>
         </div>
         <br />
         <br />
@@ -20,12 +18,11 @@
         <div class="server-col">
           <div class="server-title">
             <span class="icon"></span>
-            <span>专业前期设计</span>
+            <span>{{ $t('server.preDesign.title') }}</span>
           </div>
           <div class="server-desc">
             <p>
-              创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。
-            </p>
+              {{ $t('server.preDesign.desc') }} </p>
           </div>
         </div>
       </div>
@@ -33,10 +30,10 @@
       <div class="server-col">
         <div class="server-title">
           <span class="icon"></span>
-          <span>覆盖范围</span>
+          <span>{{ $t('server.coverage.title') }}</span>
         </div>
         <div class="server-desc">
-          <p>动画电影（2D/3D 长篇或短片）</p>
+          <p>{{ $t('server.coverage.items.movie') }}</p>
           <p>剧集动画（TV动画、网络番剧）</p>
           <p>广告PV（品牌宣传片、产品动画）</p>
           <br />

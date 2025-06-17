@@ -7,7 +7,7 @@
         <div></div>
         <div></div>
       </span>
-      新闻 <span>NEWS</span>
+      {{ $t('news.title') }} <span>NEWS</span>
     </h1>
     <div class="timeline">
       <div class="news-item" v-for="item in newsList" :key="item.date">

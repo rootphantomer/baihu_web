@@ -2,15 +2,15 @@
   <!-- 联系我们页面的主容器 -->
   <div id="contact-container" class="contact-container">
     <!-- 页面标题 -->
-    <h1 class="contact-title">联系我们 <span>CONTACT</span></h1>
+    <h1 class="contact-title">{{$t('contact.title')}} <span>CONTACT</span></h1>
     <!-- 联系说明 -->
     <div class="contact-description">
-      <p>如果您有任何问题或合作意向，请通过以下方式联系我们：</p>
+      <p>{{$t('contact.description')}}</p>
       <!-- 联系信息列表 -->
       <ul class="contact-list">
-        <li class="contact-item">电话：+86（571）88307797</li>
+        <li class="contact-item">{{$t('contact.phone')}}+86（571）88307797</li>
         <li class="contact-item">
-          邮箱：
+         {{$t('contact.email')}}
           <!-- 邮箱链接，使用 mailto 协议 -->
           <a
             class="contact-link"
@@ -21,7 +21,7 @@
           </a>
         </li>
         <li class="contact-item">
-          地址：浙江省杭州市滨江区长河街道齐飞路 350 号园伦大厦一幢 1607 室
+          {{$t('contact.address')}}
         </li>
       </ul>
     </div>

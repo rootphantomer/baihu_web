@@ -11,7 +11,7 @@ const year = new Date().getFullYear()
     <div class="table">
       <div class="td">
         <!-- 版权信息 -->
-        <address>Power By 杭州白鹄动画有限公司 @ {{ year }}</address>
+        <address>Power By  {{$t('footer.copyright')}} @ {{ year }}</address>
       </div>
       <div class="td">
         <ul>

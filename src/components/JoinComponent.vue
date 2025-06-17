@@ -1,6 +1,6 @@
 <template>
   <div id="join-container" class="join-container">
-    <h1 class="join-title">招聘信息 <span>JOIN US</span></h1>
+    <h1 class="join-title">{{ $t('join.title') }} <span>JOIN US</span></h1>
     <div class="job-positions">
       <div
         class="job-tab"
@@ -17,13 +17,13 @@
         招聘岗位：<span class="highlight">{{ jobs[activeJob].title }}</span>
       </h2>
       <div class="job-section">
-        <h3>岗位职责</h3>
+        <h3>{{ $t('join.duties') }}</h3>
         <ul>
           <li v-for="(duty, index) in jobs[activeJob].duties" :key="index">{{ duty }}</li>
         </ul>
       </div>
       <div class="job-section">
-        <h3>任职要求</h3>
+        <h3>{{ $t('join.requirements') }}</h3>
         <ul>
           <li v-for="(requirement, index) in jobs[activeJob].requirements" :key="index">
             {{ requirement }}
@@ -33,7 +33,7 @@
       <br />
       <div>
         <p class="contact">
-          请将个人简历和作品集投递至邮箱：<span class="email">baihu_animation@163.com</span>
+          {{ $t('join.contact') }}<span class="email">baihu_animation@163.com</span>
         </p>
       </div>
     </div>
