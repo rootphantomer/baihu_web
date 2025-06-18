@@ -17,7 +17,7 @@ import jaJP from './locales/ja-JP'
 
 // 检测 UA 是否为日语
 function detectLang() {
-  const ua = navigator.language || navigator.language || ''
+  const ua = navigator.language || ''
   if (ua.startsWith('ja')) {
     return 'ja-JP'
   }
