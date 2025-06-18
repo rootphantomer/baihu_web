@@ -5,7 +5,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 // import { createPinia } from 'pinia'
 import Lazyload from 'vue3-lazyload'
-import loadingImg from '@/assets/loading.gif'
+import loadingImg from '@/assets/loading.svg'
 
 
 import App from './App.vue'
