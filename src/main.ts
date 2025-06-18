@@ -18,10 +18,10 @@ import jaJP from './locales/ja-JP'
 // 检测 UA 是否为日语
 function detectLang() {
   const ua = navigator.language || ''
-  if (ua.startsWith('ja')) {
-    return 'ja-JP'
+  if (ua.startsWith('zh')) {
+    return 'zh-CN'
   }
-  return 'zh-CN'
+  return 'ja-JP'
 }
 
 const i18n = createI18n({
