@@ -112,7 +112,7 @@ export default {
     artDesign: {
       title: '剧本与美术',
       items: {
-        ss: '剧本与分镜（Storyboard & Scriptwriting）',
+        script: '剧本与分镜（Storyboard & Scriptwriting）',
         concept: '概念设计（角色/场景/道具原画）',
         style: '美术风格定调（Color Script & Mood Board）',
       },

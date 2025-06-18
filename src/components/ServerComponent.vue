@@ -45,7 +45,7 @@
         </div>
         <div class="server-col">
           <div class="server-desc">
-            <p>{{ $t('server.artDesign.items.ss') }}</p>
+            <p>{{ $t('server.artDesign.items.script') }}</p>
             <p>{{ $t('server.artDesign.items.concept') }}</p>
             <p>{{ $t('server.artDesign.items.style') }}</p>
           </div>

@@ -111,7 +111,7 @@ export default {
     artDesign: {
       title: '脚本と美術',
       items: {
-        ss: '脚本と分鏡（Storyboard & Scriptwriting）',
+        script: '脚本と分鏡（Storyboard & Scriptwriting）',
         concept: 'コンセプトデザイン（キャラクター/シーン/プロップ原画）',
         style: '美術スタイル定調（Color Script & Mood Board）',
       },
