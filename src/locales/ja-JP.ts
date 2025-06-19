@@ -1,4 +1,8 @@
 export default {
+  index: {
+    title: '杭州白鵠アニメーション有限会社',
+    noscript: 'このページはブラウザでJavaScriptを有効にする必要があります。',
+  },
   about: {
     title: '白鵠（しらとり）について',
     description:
@@ -12,7 +16,7 @@ export default {
     address: '住所：中国浙江省杭州市浜江区長河街道斉飛路350号円倫大厦A座1607室',
   },
   footer: {
-    copyright: '杭州白鵠アニメーション有限公司',
+    copyright: '杭州白鵠アニメーション有限会社',
   },
   header: {
     home: 'ホーム',

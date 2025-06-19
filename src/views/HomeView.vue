@@ -1,4 +1,8 @@
 <template>
+  <title>{{ $t('index.title') }}</title>
+  <noscript>
+    <strong>{{ $t('index.noscript') }}</strong>
+  </noscript>
   <!-- 主容器，用于将内部内容居中显示 -->
   <div id="home-container">
     <ShowComponent />
@@ -19,6 +23,8 @@ import ContactComponent from '@/components/ContactComponent.vue'
 import ShowComponent from '@/components/ShowComponent.vue'
 import JoinComponent from '@/components/JoinComponent.vue'
 import PhotoComponent from '@/components/PhotoComponent.vue'
+
+
 
 </script>
 

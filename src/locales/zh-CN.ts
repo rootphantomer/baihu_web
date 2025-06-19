@@ -1,4 +1,8 @@
 export default {
+  index: {
+    title: '杭州白鹄动画有限公司',
+    noscript: '本页面需要浏览器支持（启用）JavaScript。',
+  },
   about: {
     title: '关于白鹄（bái hú）',
     description:
