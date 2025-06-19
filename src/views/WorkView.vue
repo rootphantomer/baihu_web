@@ -8,7 +8,7 @@
       <div v-for="(work, index) in soure" :key="index" class="work-item">
         <img v-lazy="work.path" :alt="work.title" />
         <p class="work-title">{{ work.title }}</p>
-        <p class="work-role">{{ work.role }}</p>
+        <!-- <p class="work-role">{{ work.role }}</p> -->
       </div>
     </div>
     <!-- 左右箭头 -->
@@ -267,8 +267,8 @@ soure.forEach((item) => {
   const title = item.path.split('/').pop()?.replace('.jpg', '') || '未知作品'
   item.title = title.split(/[(（]/)[0].trim() || '未知作品'
   // item.year = item.path.split('/')[2].split('.')[0] || '未知年份';
-  const match = item.path.match(/[（(](.*?)[）)]/)
-  item.role = match ? match[1] : '未知角色'
+  // const match = item.path.match(/[（(](.*?)[）)]/)
+  // item.role = match ? match[1] : '未知角色'
   // item.path =item.path;
 })
 </script>
@@ -318,6 +318,7 @@ p.work-title {
 /* 单个作品样式 */
 .work-item {
   text-align: center;
+  height: 60rem;
 }
 
 .work-item img {
