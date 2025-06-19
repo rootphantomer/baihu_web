@@ -49,7 +49,7 @@ const router = createRouter({
         behavior: 'smooth',
       }
     }
-  }
+  },
 })
 
 export default router

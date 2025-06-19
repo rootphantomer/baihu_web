@@ -62,6 +62,7 @@ const newsList = [
   padding-top: 2rem;
   color: #222;
   justify-content: center;
+
   span {
     font-size: 5rem;
     font-weight: normal;

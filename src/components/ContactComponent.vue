@@ -2,26 +2,22 @@
   <!-- 联系我们页面的主容器 -->
   <div id="contact-container" class="contact-container">
     <!-- 页面标题 -->
-    <h1 class="contact-title">{{$t('contact.title')}} <span>CONTACT</span></h1>
+    <h1 class="contact-title">{{ $t('contact.title') }} <span>CONTACT</span></h1>
     <!-- 联系说明 -->
     <div class="contact-description">
-      <p>{{$t('contact.description')}}</p>
+      <p>{{ $t('contact.description') }}</p>
       <!-- 联系信息列表 -->
       <ul class="contact-list">
-        <li class="contact-item">{{$t('contact.phone')}}+86（571）88307797</li>
+        <li class="contact-item">{{ $t('contact.phone') }}+86（571）88307797</li>
         <li class="contact-item">
-         {{$t('contact.email')}}
+          {{ $t('contact.email') }}
           <!-- 邮箱链接，使用 mailto 协议 -->
-          <a
-            class="contact-link"
-            data-email="baihu_animation@163.com"
-            href="mailto:baihu_animation@163.com"
-          >
+          <a class="contact-link" data-email="baihu_animation@163.com" href="mailto:baihu_animation@163.com">
             baihu_animation@163.com
           </a>
         </li>
         <li class="contact-item">
-          {{$t('contact.address')}}
+          {{ $t('contact.address') }}
         </li>
       </ul>
     </div>

@@ -49,7 +49,7 @@ function openPreview(photo: string) {
   document.body.style.overflow = 'hidden'
   // 失去当前焦点，确保ESC事件能被window捕获
   if (document.activeElement) {
-    ;(document.activeElement as HTMLElement).blur()
+    ; (document.activeElement as HTMLElement).blur()
   }
 }
 

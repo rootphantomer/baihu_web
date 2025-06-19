@@ -11,15 +11,14 @@ const year = new Date().getFullYear()
     <div class="table">
       <div class="td">
         <!-- 版权信息 -->
-        <address>Power By  {{$t('footer.copyright')}} @ {{ year }}</address>
+        <address>Power By {{ $t('footer.copyright') }} @ {{ year }}</address>
       </div>
       <div class="td">
         <ul>
           <li>
             <!-- 路由链接，包含社交图标 -->
-            <RouterLink to="https://weibo.com/u/8001978950"
-              ><img src="@/assets/sns/icon_sns_white_15.png" alt=""
-            /></RouterLink>
+            <RouterLink to="https://weibo.com/u/8001978950"><img src="@/assets/sns/icon_sns_white_15.png" alt="" />
+            </RouterLink>
           </li>
         </ul>
       </div>
