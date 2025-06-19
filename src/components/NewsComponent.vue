@@ -49,7 +49,7 @@ const newsList = [
 
 <style lang="scss" scoped>
 .news-container {
-  padding: 0 8vw;
+  padding: 0 30rem;
   background: #fdfcf6;
 }
 

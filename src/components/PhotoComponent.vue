@@ -73,7 +73,7 @@ watch(previewImg, (val) => {
 .photo-container {
   // height: auto;
   text-align: center;
-  padding: 0 2rem;
+  padding: 0 15rem;
   /* background-color: white; */
 }
 

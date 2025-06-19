@@ -27,6 +27,8 @@ import PhotoComponent from '@/components/PhotoComponent.vue'
   background: #fdfcf6;
   display: flex;
   flex-direction: column;
-  gap: 10rem; // 每个组件之间固定间距4rem，可根据需要调整
+  gap: 5rem; // 每个组件之间固定间距4rem，可根据需要调整
+  padding: 2rem 0; // 每个组件的上下内边距
+
 }
 </style>

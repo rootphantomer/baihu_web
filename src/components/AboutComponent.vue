@@ -19,6 +19,7 @@
   justify-content: center;
   align-items: center;
   background: #fdfcf6;
+  padding: 0 15rem;
 }
 
 .about-title {

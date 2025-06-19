@@ -58,6 +58,7 @@
 <style lang="scss" scoped>
 .server-container {
   width: 100%;
+
 }
 
 .server-row {

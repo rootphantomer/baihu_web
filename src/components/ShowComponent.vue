@@ -8,14 +8,14 @@
       <div class="work-list">
         <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
           @click="selectWork(idx)">
-          <img v-lazy="work.img" :alt="work.name" />
+          <img v-lazy="work.img" />
         </div>
       </div>
       <button class="arrow right" @click="nextWork" style="background: transparent; box-shadow: none">
         <img src="@/assets/right.svg" alt="" style="width: auto; height: 100%; object-fit: contain; display: block" />
       </button>
     </div>
-    <div class="work-desc">
+    <!-- <div class="work-desc">
       <div class="up">
         <p class="title1">{{ $t('show.title') }}</p>
         <p class="title2">works</p>
@@ -24,96 +24,96 @@
         </div>
       </div>
       <div class="down">
-        <!-- <p>Artist:{{ works[currentIndex].author }}</p> -->
+        <p>Artist:{{ works[currentIndex].author }}</p>
         <p>{{ works[currentIndex].desc }}</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+// import { useI18n } from 'vue-i18n'
+// const { t } = useI18n()
 
 const works = [
   {
     img: 'https://photos.baihu-animation.com/img_index_work/地缚少年花子君.jpg',
-    name: '地缚少年花子君',
-    author: '罗丽',
-    desc: '美术设定',
+    // name: '地缚少年花子君',
+    // author: '罗丽',
+    // desc: '美术设定',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/反叛的鲁路修·夺还的罗赛.jpg',
-    name: '反叛的鲁路修·夺还的罗赛',
-    author: '周美辰',
-    desc: '原画',
+    // name: '反叛的鲁路修·夺还的罗赛',
+    // author: '周美辰',
+    // desc: '原画',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/进击的巨人 the final season .jpg',
-    name: '进击的巨人 the final season',
-    author: '罗丽',
-    desc: '美术设定，背景制作',
+    // name: '进击的巨人 the final season',
+    // author: '罗丽',
+    // desc: '美术设定，背景制作',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/卡片决斗先导者G.jpg',
-    name: '卡片决斗先导者G',
-    author: '周鸿能',
-    desc: 'LAYOUT制作',
+    // name: '卡片决斗先导者G',
+    // author: '周鸿能',
+    // desc: 'LAYOUT制作',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/老虎和兔子2.jpg',
-    name: '老虎和兔子2',
-    author: '周美辰',
-    desc: '第二原画， 动画检查',
+    // name: '老虎和兔子2',
+    // author: '周美辰',
+    // desc: '第二原画， 动画检查',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/鲁邦三世 PART6.jpg',
-    name: '鲁邦三世 PART6',
-    author: '佟北南',
-    desc: '背景美术制作',
+    // name: '鲁邦三世 PART6',
+    // author: '佟北南',
+    // desc: '背景美术制作',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/偶像大师-闪耀色彩.jpg',
-    name: '偶像大师-闪耀色彩',
-    author: '罗丽',
-    desc: '美术设定',
+    // name: '偶像大师-闪耀色彩',
+    // author: '罗丽',
+    // desc: '美术设定',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/食戟之灵_神之皿.jpg',
-    name: '食戟之灵 神之皿',
-    author: '佟北南',
-    desc: '背景美术制作',
+    // name: '食戟之灵 神之皿',
+    // author: '佟北南',
+    // desc: '背景美术制作',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/水星的魔女.jpg',
-    name: '水星的魔女',
-    author: '周美辰',
-    desc: '原画',
+    // name: '水星的魔女',
+    // author: '周美辰',
+    // desc: '原画',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/异世界自杀小队.jpg',
-    name: '异世界自杀小队',
-    author: '周美辰',
-    desc: '原画，作画监督',
+    // name: '异世界自杀小队',
+    // author: '周美辰',
+    // desc: '原画，作画监督',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/游戏王VRAINS.jpg',
-    name: '游戏王VRAINS',
-    author: '周鸿能',
-    desc: 'LAYOUT制作',
+    // name: '游戏王VRAINS',
+    // author: '周鸿能',
+    // desc: 'LAYOUT制作',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/SMILE光之美少女.webp',
-    name: 'SMILE光之美少女',
-    author: '周鸿能',
-    desc: 'LAYOUT制作',
+    // name: 'SMILE光之美少女',
+    // author: '周鸿能',
+    // desc: 'LAYOUT制作',
   },
   {
     img: 'https://photos.baihu-animation.com/img_index_work/とある科学の超電磁砲T.jpg',
-    name: 'とある科学の超電磁砲T',
-    author: '佟北南',
-    desc: '背景美术制作',
+    // name: 'とある科学の超電磁砲T',
+    // author: '佟北南',
+    // desc: '背景美术制作',
   },
 ]
 const currentIndex = ref(3)
@@ -186,6 +186,7 @@ function handleMouseLeave() {
 
 <style lang="scss" scoped>
 /* 关于我们页面的主容器样式 */
+
 .show-container {
   margin-top: 2rem;
   // height: calc(100vh - 18rem);
@@ -193,6 +194,7 @@ function handleMouseLeave() {
   background-color: #fbe58e;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   gap: 0;
   padding: 0 6rem;
@@ -205,7 +207,7 @@ function handleMouseLeave() {
   align-items: center;
   flex: 2;
   /* 占父容器宽度的 2/3 */
-  max-width: 66.666%;
+  // max-width: 66.666%;
 
   /* 2/3 的精确值 */
   // height: 80%;
@@ -223,11 +225,11 @@ function handleMouseLeave() {
     transform: translateY(-50%);
 
     &.left {
-      left: -6rem;
+      left: -55rem;
     }
 
     &.right {
-      right: 4rem;
+      right: -52rem;
     }
 
     &:disabled {
@@ -264,20 +266,20 @@ function handleMouseLeave() {
       }
 
       &.center {
-        transform: translate(-10%, -50%) scale(1.2);
+        transform: translate(-50%, -50%) scale(1.2); // 居中显示主图
         opacity: 1;
         z-index: 5;
         cursor: default;
       }
 
       &.left1 {
-        transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+        transform: translate(-130%, -50%) scale(0.8) rotateY(10deg);
         opacity: 0.8;
         z-index: 4;
       }
 
       &.left2 {
-        transform: translate(-100%, -50%) scale(0.7) rotateY(20deg);
+        transform: translate(-200%, -50%) scale(0.7) rotateY(20deg);
         opacity: 0.5;
         z-index: 3;
       }
@@ -289,7 +291,7 @@ function handleMouseLeave() {
       }
 
       &.right2 {
-        transform: translate(80%, -50%) scale(0.7) rotateY(-20deg);
+        transform: translate(100%, -50%) scale(0.7) rotateY(-20deg);
         opacity: 0.5;
         z-index: 3;
       }
@@ -359,9 +361,9 @@ function handleMouseLeave() {
 }
 
 @media (max-width: 480px) {
-  .work-list {
-    max-width: 66.666%;
-  }
+  // .work-list {
+  //   max-width: 66.666%;
+  // }
 
   /* 隐藏其他所有元素 */
   .work-desc,
@@ -373,9 +375,9 @@ function handleMouseLeave() {
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  .work-list {
-    max-width: 66.666%;
-  }
+  // .work-list {
+  //   max-width: 66.666%;
+  // }
 
   /* 隐藏其他所有元素 */
   .work-desc,
@@ -387,9 +389,9 @@ function handleMouseLeave() {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .work-list {
-    max-width: 66.666%;
-  }
+  // .work-list {
+  //   max-width: 66.666%;
+  // }
 
   /* 隐藏其他所有元素 */
   .work-desc,

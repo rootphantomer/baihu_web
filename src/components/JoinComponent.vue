@@ -87,7 +87,7 @@ const selectJob = (index: number) => {
 
 <style lang="scss" scoped>
 .join-container {
-  padding: 0 8vw;
+  padding: 0 20rem;
   background: #fdfcf6;
 }
 
