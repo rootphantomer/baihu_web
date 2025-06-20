@@ -1,7 +1,7 @@
 <template>
-  <title>{{ $t('index.title') }}</title>
+  <title>{{ $t('home.title') }}</title>
   <noscript>
-    <strong>{{ $t('index.noscript') }}</strong>
+    <strong>{{ $t('home.noscript') }}</strong>
   </noscript>
   <!-- 主容器，用于将内部内容居中显示 -->
   <div id="home-container">

@@ -1,5 +1,5 @@
 export default {
-  index: {
+  home: {
     title: '杭州白鵠アニメーション有限会社',
     noscript: 'このページはブラウザでJavaScriptを有効にする必要があります。',
   },

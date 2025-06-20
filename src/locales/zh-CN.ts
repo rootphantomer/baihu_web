@@ -1,5 +1,5 @@
 export default {
-  index: {
+  home: {
     title: '杭州白鹄动画有限公司',
     noscript: '本页面需要浏览器支持（启用）JavaScript。',
   },
