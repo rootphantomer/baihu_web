@@ -108,6 +108,7 @@ const selectJob = (index: number) => {
   display: flex;
   justify-content: center;
   margin-bottom: 4rem;
+  flex-wrap: wrap;
 
   .job-tab {
     padding: 1.2rem 2.4rem;
@@ -171,6 +172,65 @@ const selectJob = (index: number) => {
     .email {
       color: #ffa726;
       font-weight: bold;
+    }
+  }
+}
+
+/* mobile responsive styles */
+@media (max-width: 768px) {
+  .join-container {
+    padding: 0 1rem;
+  }
+
+  .join-title {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+
+    span {
+      // font-size: 5rem;
+      font-weight: normal;
+      margin-left: 0.8rem;
+    }
+  }
+
+  .job-positions {
+    margin-bottom: 2rem;
+    gap: 0.8rem;
+
+    .job-tab {
+      padding: 0.8rem 1.2rem;
+      margin: 0.4rem;
+      font-size: 1.4rem;
+    }
+  }
+
+  .job-details {
+    padding: 1.2rem 1.6rem;
+    border-radius: 0.4rem;
+
+    .job-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .job-section {
+      margin-bottom: 1.2rem;
+
+      h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+      }
+
+      ul {
+        li {
+          font-size: 1.4rem;
+          line-height: 1.6;
+        }
+      }
+    }
+
+    .contact {
+      font-size: 1.6rem;
     }
   }
 }

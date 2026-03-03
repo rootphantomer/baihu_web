@@ -199,4 +199,105 @@ const newsList = [
     font-weight: 400;
   }
 }
+
+/* mobile responsive styles */
+@media (max-width: 768px) {
+  .news-container {
+    padding: 0 1rem;
+  }
+
+  .news-title {
+    font-size: 5rem;
+    margin: 2rem 0;
+    padding-top: 1rem;
+
+    span {
+      // font-size: 5rem;
+      margin-left: 0.4rem;
+    }
+
+    .icon {
+      grid-template-columns: repeat(2, 1rem);
+      grid-template-rows: repeat(2, 1rem);
+      width: 2.5rem;
+      gap: 0.2rem;
+
+      div {
+        width: 0.8rem;
+        height: 0.8rem;
+      }
+    }
+  }
+
+  .timeline {
+    margin-left: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .news-item {
+    margin-bottom: 2.4rem;
+    padding-bottom: 1.6rem;
+
+    &:not(:last-child)::before {
+      left: -2.3rem;
+      top: 1.6rem;
+    }
+  }
+
+  .timeline-dot {
+    left: -2.8rem;
+    top: 1.2rem;
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2rem;
+  }
+
+  .news-header {
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+    gap: 0.8rem;
+
+    .info-tag {
+      font-size: 1.6rem;
+      padding: 0.2rem 0.8rem 0.2rem 0.5rem;
+      margin-right: 0.8rem;
+      min-width: 3rem;
+    }
+
+    .news-date {
+      font-size: 1.6rem;
+      margin-right: 0.8rem;
+    }
+
+    .news-main-title {
+      font-size: 1.6rem;
+      margin-right: 0.6rem;
+      width: 100%;
+    }
+  }
+
+  .news-body {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 0.4rem;
+    border-bottom: 0.2rem solid #fbe58e;
+    padding-bottom: 1.2rem;
+
+    .news-img {
+      width: 100%;
+      max-width: 12rem;
+      height: auto;
+      aspect-ratio: 1;
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+
+    .news-desc {
+      font-size: 1.6rem;
+      margin-top: 0;
+      line-height: 1.6;
+    }
+  }
+}
 </style>
