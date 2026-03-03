@@ -82,7 +82,7 @@ watch(previewImg, (val) => {
   font-size: 5rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   span {
     font-size: 5rem;

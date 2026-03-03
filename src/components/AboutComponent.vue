@@ -19,17 +19,17 @@
   justify-content: center;
   align-items: center;
   background: #fdfcf6;
-  padding: 0 15rem;
+  // padding: 0 15rem;
 }
 
 .about-title {
   font-size: 5rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   span {
-    font-size: 5rem;
+    // font-size: 5rem;
     font-weight: normal;
     margin-left: 0.8rem;
   }

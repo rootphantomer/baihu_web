@@ -208,7 +208,8 @@ const newsList = [
 
   .news-title {
     font-size: 5rem;
-    margin: 2rem 0;
+    // margin: 2rem 0;
+    margin-bottom: 2rem;
     padding-top: 1rem;
 
     span {
