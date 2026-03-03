@@ -46,7 +46,7 @@
   font-size: 5rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   span {
     font-size: 5rem;
@@ -62,6 +62,12 @@
   // 联系信息列表样式
   * {
     font-size: 2.4rem;
+  }
+
+  .contact-list {
+    padding: 0;
+    margin: 2rem 0;
+    list-style: none;
   }
 
   // 邮箱链接样式
