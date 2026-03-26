@@ -1,145 +1,71 @@
 <template>
-  <!-- 关于我们页面的主容器 -->
   <div class="show-container">
-    <div class="work-showcase" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+    <div
+      class="work-showcase"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave"
+      @touchstart.passive="handleTouchStart"
+      @touchend.passive="handleTouchEnd"
+    >
       <button class="arrow left" @click="prevWork" style="background: transparent; box-shadow: none">
-        <img src="@/assets/left.svg" alt="" style="width: auto; height: 100%; object-fit: contain; display: block" />
+        <img src="@/assets/left.svg" alt="上一张" style="width: auto; height: 100%; object-fit: contain; display: block" />
       </button>
       <div class="work-list">
-        <div v-for="(work, idx) in works" :key="idx" class="work-item" :class="getPositionClass(idx)"
-          @click="selectWork(idx)">
+        <div
+          v-for="(work, idx) in works"
+          :key="idx"
+          class="work-item"
+          :class="getPositionClass(idx)"
+          @click="selectWork(idx)"
+        >
           <img v-lazy="work.img" />
         </div>
       </div>
       <button class="arrow right" @click="nextWork" style="background: transparent; box-shadow: none">
-        <img src="@/assets/right.svg" alt="" style="width: auto; height: 100%; object-fit: contain; display: block" />
+        <img src="@/assets/right.svg" alt="下一张" style="width: auto; height: 100%; object-fit: contain; display: block" />
       </button>
     </div>
-    <!-- <div class="work-desc">
-      <div class="up">
-        <p class="title1">{{ $t('show.title') }}</p>
-        <p class="title2">works</p>
-        <div>
-          <p class="work_name">{{ works[currentIndex].name }}</p>
-        </div>
-      </div>
-      <div class="down">
-        <p>Artist:{{ works[currentIndex].author }}</p>
-        <p>{{ works[currentIndex].desc }}</p>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-// import { useI18n } from 'vue-i18n'
-// const { t } = useI18n()
 
 const works = [
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/地缚少年花子君.jpg',
-    // name: '地缚少年花子君',
-    // author: '罗丽',
-    // desc: '美术设定',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/反叛的鲁路修·夺还的罗赛.jpg',
-    // name: '反叛的鲁路修·夺还的罗赛',
-    // author: '周美辰',
-    // desc: '原画',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/进击的巨人 the final season .jpg',
-    // name: '进击的巨人 the final season',
-    // author: '罗丽',
-    // desc: '美术设定，背景制作',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/卡片决斗先导者G.jpg',
-    // name: '卡片决斗先导者G',
-    // author: '周鸿能',
-    // desc: 'LAYOUT制作',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/老虎和兔子2.jpg',
-    // name: '老虎和兔子2',
-    // author: '周美辰',
-    // desc: '第二原画， 动画检查',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/鲁邦三世 PART6.jpg',
-    // name: '鲁邦三世 PART6',
-    // author: '佟北南',
-    // desc: '背景美术制作',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/偶像大师-闪耀色彩.jpg',
-    // name: '偶像大师-闪耀色彩',
-    // author: '罗丽',
-    // desc: '美术设定',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/食戟之灵_神之皿.jpg',
-    // name: '食戟之灵 神之皿',
-    // author: '佟北南',
-    // desc: '背景美术制作',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/水星的魔女.jpg',
-    // name: '水星的魔女',
-    // author: '周美辰',
-    // desc: '原画',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/异世界自杀小队.jpg',
-    // name: '异世界自杀小队',
-    // author: '周美辰',
-    // desc: '原画，作画监督',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/游戏王VRAINS.jpg',
-    // name: '游戏王VRAINS',
-    // author: '周鸿能',
-    // desc: 'LAYOUT制作',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/SMILE光之美少女.webp',
-    // name: 'SMILE光之美少女',
-    // author: '周鸿能',
-    // desc: 'LAYOUT制作',
-  },
-  {
-    img: 'https://photos.baihu-animation.com/img_index_work/とある科学の超電磁砲T.jpg',
-    // name: 'とある科学の超電磁砲T',
-    // author: '佟北南',
-    // desc: '背景美术制作',
-  },
+  { img: 'https://photos.baihu-animation.com/img_index_work/地缚少年花子君.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/反叛的鲁路修·夺还的罗赛.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/进击的巨人 the final season .jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/卡片决斗先导者G.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/老虎和兔子2.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/鲁邦三世 PART6.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/偶像大师-闪耀色彩.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/食戟之灵_神之皿.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/水星的魔女.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/异世界自杀小队.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/游戏王VRAINS.jpg' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/SMILE光之美少女.webp' },
+  { img: 'https://photos.baihu-animation.com/img_index_work/とある科学の超電磁砲T.jpg' },
 ]
+
 const currentIndex = ref(3)
 const intervalId = ref<number | null>(null)
 
+// ── 轮播控制 ──────────────────────────────────────────
 const selectWork = (idx: number) => {
   currentIndex.value = idx
 }
+
 const prevWork = () => {
-  currentIndex.value =
-    currentIndex.value === 0
-      ? works.length - 1 // 若当前是第一个，跳转到最后一个
-      : currentIndex.value - 1
+  currentIndex.value = currentIndex.value === 0 ? works.length - 1 : currentIndex.value - 1
 }
+
 const nextWork = () => {
-  currentIndex.value =
-    currentIndex.value === works.length - 1
-      ? 0 // 若当前是最后一个，跳转到第一个
-      : currentIndex.value + 1
+  currentIndex.value = currentIndex.value === works.length - 1 ? 0 : currentIndex.value + 1
 }
 
 function getPositionClass(idx: number) {
   const total = works.length
   let diff = idx - currentIndex.value
-
-  // 循环轮播的关键：让diff始终落在 [-2, -1, 0, 1, 2] 之间
   if (diff > total / 2) diff -= total
   if (diff < -total / 2) diff += total
 
@@ -153,43 +79,49 @@ function getPositionClass(idx: number) {
   return ''
 }
 
+// ── 自动播放 ──────────────────────────────────────────
 function startAutoPlay() {
   if (intervalId.value) return
   intervalId.value = window.setInterval(() => {
-    if (currentIndex.value < works.length - 1) {
-      currentIndex.value++
-    } else {
-      currentIndex.value = 0
-    }
-  }, 4000) // 每4秒切换一次
+    currentIndex.value = currentIndex.value < works.length - 1 ? currentIndex.value + 1 : 0
+  }, 4000)
 }
+
 function stopAutoPlay() {
   if (intervalId.value) {
     clearInterval(intervalId.value)
     intervalId.value = null
   }
 }
-onMounted(() => {
-  startAutoPlay()
-})
-onUnmounted(() => {
-  stopAutoPlay()
-})
-// 鼠标悬停暂停，移出继续
-function handleMouseEnter() {
+
+// ── 鼠标悬停暂停 ──────────────────────────────────────
+function handleMouseEnter() { stopAutoPlay() }
+function handleMouseLeave() { startAutoPlay() }
+
+// ── 移动端 Touch 滑动支持 ─────────────────────────────
+const touchStartX = ref(0)
+const SWIPE_THRESHOLD = 50 // px，超过此距离才触发切换
+
+function handleTouchStart(e: TouchEvent) {
+  touchStartX.value = e.changedTouches[0].clientX
   stopAutoPlay()
 }
-function handleMouseLeave() {
+
+function handleTouchEnd(e: TouchEvent) {
+  const deltaX = e.changedTouches[0].clientX - touchStartX.value
+  if (Math.abs(deltaX) >= SWIPE_THRESHOLD) {
+    deltaX < 0 ? nextWork() : prevWork()
+  }
   startAutoPlay()
 }
+
+onMounted(() => { startAutoPlay() })
+onUnmounted(() => { stopAutoPlay() })
 </script>
 
 <style lang="scss" scoped>
-/* 关于我们页面的主容器样式 */
-
 .show-container {
   margin-top: 2rem;
-  // height: calc(100vh - 18rem);
   min-height: 80rem;
   background-color: #fbe58e;
   display: flex;
@@ -206,11 +138,7 @@ function handleMouseLeave() {
   display: flex;
   align-items: center;
   flex: 2;
-  /* 占父容器宽度的 2/3 */
-  // max-width: 66.666%;
 
-  /* 2/3 的精确值 */
-  // height: 80%;
   .arrow {
     position: absolute;
     top: 50%;
@@ -224,13 +152,8 @@ function handleMouseLeave() {
     cursor: pointer;
     transform: translateY(-50%);
 
-    &.left {
-      left: -55rem;
-    }
-
-    &.right {
-      right: -52rem;
-    }
+    &.left { left: -55rem; }
+    &.right { right: -52rem; }
 
     &:disabled {
       opacity: 0.3;
@@ -266,7 +189,7 @@ function handleMouseLeave() {
       }
 
       &.center {
-        transform: translate(-50%, -50%) scale(1.2); // 居中显示主图
+        transform: translate(-50%, -50%) scale(1.2);
         opacity: 1;
         z-index: 5;
         cursor: default;
@@ -306,98 +229,9 @@ function handleMouseLeave() {
   }
 }
 
-.work-desc {
-  display: flex;
-  // max-height: 100%;
-  flex: 1;
-  /* 占父容器宽度的 1/3 */
-  // min-width: 0rem;
-  max-width: 33.333%;
-  /* 1/3 的精确值 */
-  margin-left: 4rem;
-  width: 32rem;
-  // background: #fffbe0;
-  border-radius: 1.2rem;
-  // box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.08);
-  padding: 3.2rem 2.4rem;
-  justify-content: flex-start;
-  flex-direction: column;
-  text-align: center;
-
-  p {
-    width: 100%;
-    margin: 0 0 1.6rem 0;
-    font-size: 5rem;
-  }
-
-  * {
-    margin: 5rem 0 0 0;
-  }
-
-  .up {
-    color: black;
-    font-weight: bold;
-    margin-bottom: 3.2rem;
-
-    .title1 {
-      font-size: 5rem;
-      margin-bottom: 2rem;
-    }
-
-    .work_name {
-      height: 15rem;
-      font-size: 5rem;
-    }
-
-    .title2 {
-      font-size: 2rem;
-    }
-  }
-
-  .down {
-    color: white;
-    font-weight: bold;
-  }
-}
-
-@media (max-width: 480px) {
-  // .work-list {
-  //   max-width: 66.666%;
-  // }
-
-  /* 隐藏其他所有元素 */
-  .work-desc,
-  button.arrow,
-  .up,
-  .down {
-    display: none !important;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  // .work-list {
-  //   max-width: 66.666%;
-  // }
-
-  /* 隐藏其他所有元素 */
-  .work-desc,
-  button.arrow,
-  .up,
-  .down {
-    display: none !important;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  // .work-list {
-  //   max-width: 66.666%;
-  // }
-
-  /* 隐藏其他所有元素 */
-  .work-desc,
-  button.arrow,
-  .up,
-  .down {
+// 移动端：隐藏箭头按钮（用 touch 滑动代替），保留轮播图
+@media (max-width: 1024px) {
+  button.arrow {
     display: none !important;
   }
 }
