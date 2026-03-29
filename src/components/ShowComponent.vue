@@ -165,38 +165,68 @@ const {
   }
 }
 
-// 移动端：纯单卡片展示，隐藏两侧卡片
+// 移动端：单卡展示，高度跟随图片自然撑开
 @media (max-width: 768px) {
   .show-container {
-    min-height: 44rem;
-    padding: 0 1rem;
+    min-height: unset;
+    padding: 4rem 1rem 5rem;
+    overflow: visible;
   }
 
   .work-showcase {
     width: 100%;
+    flex: unset;
+    // 不再使用绝对定位 + 固定高度，改为普通流
+    display: block;
+    position: relative;
   }
 
+  // work-list 不再固定高度，由内部单张图片撑开
   .work-list {
+    position: relative !important;
     width: 100% !important;
-    height: 36rem !important;
+    // 高度由图片内容决定，给予足够的占位空间
+    height: auto !important;
+    min-height: 50vw;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
   }
 
   .work-item {
-    img {
-      width: 82vw !important;
-    }
-
-    // 两侧卡片在移动端隐藏，只显示中央
+    // 两侧卡片隐藏（仍用 absolute）
     &.left1,
     &.left2,
     &.right1,
-    &.right2 {
+    &.right2,
+    &.hide-left,
+    &.hide-right {
       opacity: 0 !important;
       pointer-events: none !important;
+      position: absolute !important;
     }
 
+    // 中央卡片脱离 absolute，自然撑开高度
     &.center {
-      transform: translate(-50%, -50%) scale(1) !important;
+      position: relative !important;
+      top: unset !important;
+      left: unset !important;
+      transform: none !important;
+      opacity: 1 !important;
+      z-index: 5;
+      cursor: default;
+      width: 82vw;
+
+      img {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+      }
+    }
+
+    img {
+      width: 82vw !important;
+      height: auto !important;
     }
   }
 }
