@@ -114,4 +114,22 @@
     max-width: 90vw;
   }
 }
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 0 2rem;
+  }
+
+  .contact-title {
+    font-size: 3.5rem;
+
+    span {
+      font-size: 3.5rem;
+    }
+  }
+
+  .contact-description {
+    * { font-size: 1.8rem; }
+  }
+}
 </style>
