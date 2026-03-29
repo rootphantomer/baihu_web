@@ -1,27 +1,30 @@
 <template>
   <div id="photo-container" class="photo-container">
-    <!-- 标题 -->
     <h1 class="photo-title">{{ $t('photo.title') }} <span>PHOTO</span></h1>
-    <!-- 分割线 -->
+
     <div class="photo-divider"></div>
-    <!-- 图片网格 -->
+
     <div class="photo-grid">
       <div v-for="(photo, index) in photos" :key="index" class="photo-item">
         <img v-lazy="photo" alt="公司照片" @click="openPreview(photo)" />
       </div>
     </div>
-    <br />
+
     <div class="photo-divider"></div>
-    <!-- 全屏预览 -->
-    <div v-if="previewImg" class="photo-preview" @click="closePreview">
-      <img v-lazy="previewImg" alt="预览" />
-      <span class="close-btn" @click.stop="closePreview">&times;</span>
-    </div>
+
+    <!-- 全屏预览遮罩 -->
+    <Teleport to="body">
+      <div v-if="previewImg" class="photo-preview" @click="closePreview">
+        <img :src="previewImg" alt="预览" @click.stop />
+        <button class="close-btn" aria-label="关闭预览" @click.stop="closePreview">&times;</button>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+
 const photos = [
   'https://photos.baihu-animation.com/img_photo/025cd9bde8dce16bcc7180026054286.jpg',
   'https://photos.baihu-animation.com/img_photo/65f60a9002870c118f789852c219e85.jpg',
@@ -34,23 +37,12 @@ const photos = [
   'https://photos.baihu-animation.com/img_photo/WechatIMG320.jpg',
   'https://photos.baihu-animation.com/img_photo/WechatIMG321.jpg',
 ]
-const previewImg = ref<string | null>(null)
 
-// 键盘事件处理函数
-function handleKeydown(e: KeyboardEvent) {
-  if (e.key === 'Escape' && previewImg.value) {
-    e.preventDefault()
-    closePreview()
-  }
-}
+const previewImg = ref<string | null>(null)
 
 function openPreview(photo: string) {
   previewImg.value = photo
   document.body.style.overflow = 'hidden'
-  // 失去当前焦点，确保ESC事件能被window捕获
-  if (document.activeElement) {
-    ; (document.activeElement as HTMLElement).blur()
-  }
 }
 
 function closePreview() {
@@ -58,67 +50,55 @@ function closePreview() {
   document.body.style.overflow = ''
 }
 
-// 只在预览打开时监听ESC
-watch(previewImg, (val) => {
-  if (val) {
-    window.addEventListener('keydown', handleKeydown)
-  } else {
-    window.removeEventListener('keydown', handleKeydown)
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && previewImg.value) {
+    e.preventDefault()
+    closePreview()
   }
-})
+}
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <style scoped lang="scss">
-/* 容器样式 */
 .photo-container {
-  // height: auto;
   text-align: center;
   padding: 0 15rem;
-  /* background-color: white; */
 }
 
-/* 标题样式 */
 .photo-title {
   font-size: 5rem;
   font-weight: bold;
-  text-align: center;
   margin-bottom: 2rem;
 
   span {
-    font-size: 5rem;
     font-weight: normal;
     margin-left: 0.8rem;
   }
 }
 
-/* 分割线样式 */
 .photo-divider {
   width: 80%;
   height: 0.2rem;
   background-color: #333;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 2rem;
   position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: #fdd835;
+    top: -0.4rem;
+  }
+
+  &::before { left: -2rem; }
+  &::after  { right: -2rem; }
 }
 
-.photo-divider::before,
-.photo-divider::after {
-  content: '';
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  background-color: #fdd835;
-  top: -0.4rem;
-}
-
-.photo-divider::before {
-  left: -2rem;
-}
-
-.photo-divider::after {
-  right: -2rem;
-}
-
-/* 图片网格样式 */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -127,7 +107,6 @@ watch(previewImg, (val) => {
   align-items: center;
 }
 
-/* 单个图片样式 */
 .photo-item img {
   width: 100%;
   height: auto;
@@ -137,37 +116,36 @@ watch(previewImg, (val) => {
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
+  cursor: zoom-in;
+
+  &:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+  }
 }
 
-.photo-item img:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  position: relative;
-}
-
+// ── 全屏预览 ──────────────────────────────────────────
 .photo-preview {
   position: fixed;
+  inset: 0;
   z-index: 9999;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
   background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: zoom-out;
   animation: fadeIn 0.2s;
-}
 
-.photo-preview img {
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 1rem;
-  box-shadow: 0 0 2rem #000a;
-  background: #fff;
-  cursor: auto;
+  img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.67);
+    background: #fff;
+    cursor: auto;
+  }
 }
 
 .close-btn {
@@ -176,23 +154,53 @@ watch(previewImg, (val) => {
   right: 3rem;
   font-size: 3rem;
   color: #fff;
+  background: none;
+  border: none;
   cursor: pointer;
   z-index: 10000;
   user-select: none;
   transition: color 0.2s;
-}
 
-.close-btn:hover {
-  color: #fdd835;
+  &:hover { color: #fdd835; }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// 平板：3 列
+@media (max-width: 1024px) {
+  .photo-container {
+    padding: 0 4rem;
   }
 
-  to {
-    opacity: 1;
+  .photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// 移动端：2 列
+@media (max-width: 768px) {
+  .photo-container {
+    padding: 0 1.5rem;
+  }
+
+  .photo-title {
+    font-size: 3.5rem;
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .photo-item img {
+    max-width: 100%;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 </style>

@@ -38,15 +38,25 @@
 /* 关于公司描述的段落样式 */
 .about-description {
   font-size: 2.4rem;
-  color: #151515;
   color: #29293a;
   background: transparent;
-
   max-width: 80%;
-  /* 限制段落宽度，提高可读性 */
   line-height: 1.6;
-  /* 增加行高，提高可读性 */
   text-align: center;
-  /* 文本居中显示 */
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 0 2rem;
+  }
+
+  .about-title {
+    font-size: 3.5rem;
+  }
+
+  .about-description {
+    font-size: 1.8rem;
+    max-width: 95%;
+  }
 }
 </style>
