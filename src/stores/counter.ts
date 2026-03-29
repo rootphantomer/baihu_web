@@ -1,12 +1,2 @@
-// import { ref, computed } from 'vue'
-// import { defineStore } from 'pinia'
-
-// export const useCounterStore = defineStore('counter', () => {
-//   const count = ref(0)
-//   const doubleCount = computed(() => count.value * 2)
-//   function increment() {
-//     count.value++
-//   }
-
-//   return { count, doubleCount, increment }
-// })
+// 此文件为 Pinia store 占位，暂无使用中的 store。
+// 如需添加全局状态，请在此目录下新建对应 store 文件。

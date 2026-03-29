@@ -4,11 +4,14 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 export default defineConfig({
   base: './', // 确保正确的路径到你的 HTML 文件
   plugins: [
     vue(),
-    vueDevTools(),
+    // DevTools 仅在开发环境加载，避免打包进生产包
+    ...(isDev ? [vueDevTools()] : []),
   ],
   resolve: {
     alias: {

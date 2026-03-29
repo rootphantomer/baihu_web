@@ -16,24 +16,31 @@ html {
   font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 
-@media (max-width: 480px) {
+// iPhone SE (375px) 及以下
+@media (max-width: 390px) {
   html {
-    font-size: 5px;
-    /* 移动端适配：小屏手机 */
+    font-size: 6px;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+// iPhone XR/11/12/13 (390–430px)
+@media (min-width: 391px) and (max-width: 430px) {
   html {
     font-size: 7px;
-    /* 平板竖屏或大屏手机 */
   }
 }
 
+// 大屏手机 / 平板竖屏 (431–768px)
+@media (min-width: 431px) and (max-width: 768px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+// 平板横屏 (769–1024px)
 @media (min-width: 769px) and (max-width: 1024px) {
   html {
     font-size: 8.5px;
-    /* 平板横屏 */
   }
 }
 </style>
