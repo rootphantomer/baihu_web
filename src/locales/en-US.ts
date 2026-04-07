@@ -15,7 +15,7 @@ export default {
     phone: 'Phone:',
     email: 'Email:',
     address:
-      'Address: Room 1607, Building 1, Yuanlun Building, No. 350 Qifei Road, Changhe Street, Binjiang District, Hangzhou, Zhejiang Province',
+      'Address: Room 1901, Building A, Yuanlun Building, No. 350 Qifei Road, Changhe Street, Binjiang District, Hangzhou, Zhejiang Province',
   },
   footer: {
     copyright: 'Hangzhou Baihu Animation Co., Ltd.',
