@@ -287,7 +287,7 @@ const newsList = [
 
     .news-img {
       width: 100%;
-      max-width: 12rem;
+      max-width: 50rem;
       height: auto;
       aspect-ratio: 1;
       margin-right: 0;
