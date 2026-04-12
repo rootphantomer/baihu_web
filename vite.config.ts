@@ -29,17 +29,13 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-        if (id.includes('node_modules')) {
-          if (
-            id.includes('vue') ||
-            id.includes('pinia') ||
-            id.includes('vue-router')
-          ) {
-            return 'vendor'
+          if (id.includes('node_modules')) {
+            if (id.includes('vue') || id.includes('pinia') || id.includes('vue-router')) {
+              return 'vendor'
+            }
+            return 'libs'
           }
-          return 'libs'
-        }
-      },
+        },
       },
     },
   },
