@@ -72,9 +72,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-
-const { locale } = useI18n()
+import { locale, setLocale } from '@/composables/useI18n'
 
 // ─── Scroll state ────────────────────────────────────────────────────────────
 const scrolled = ref(false)
@@ -96,7 +94,8 @@ const closeMenu = () => {
 // ─── Language ─────────────────────────────────────────────────────────────────
 const currentLang = computed(() => locale.value)
 const toggleLang = () => {
-  locale.value = locale.value === 'zh-CN' ? 'ja-JP' : 'zh-CN'
+  const newLocale = locale.value === 'zh-CN' ? 'ja-JP' : 'zh-CN'
+  setLocale(newLocale)
 }
 
 // ─── Nav items ────────────────────────────────────────────────────────────────

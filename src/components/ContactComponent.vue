@@ -12,7 +12,11 @@
         <li class="contact-item">
           {{ $t('contact.email') }}
           <!-- 邮箱链接，使用 mailto 协议 -->
-          <a class="contact-link" data-email="baihu_animation@163.com" href="mailto:baihu_animation@163.com">
+          <a
+            class="contact-link"
+            data-email="baihu_animation@163.com"
+            href="mailto:baihu_animation@163.com"
+          >
             baihu_animation@163.com
           </a>
         </li>
@@ -129,7 +133,9 @@
   }
 
   .contact-description {
-    * { font-size: 1.8rem; }
+    * {
+      font-size: 1.8rem;
+    }
   }
 }
 </style>

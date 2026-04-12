@@ -18,12 +18,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  esbuild: {
-    drop: ['console', 'debugger'],
-  },
+  // esbuild: {
+  //   drop: ['console', 'debugger'],
+  // },
   assetsInclude: ['**/*.png', '**/*.svg'], // 确保包含 PNG 图片
   build: {
-    target: 'esnext', // 确保兼容目标浏览器
+    target: 'es2020', // 确保兼容目标浏览器
     outDir: 'dist',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {

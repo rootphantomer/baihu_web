@@ -35,7 +35,8 @@
                 target="_blank"
                 rel="noopener"
                 class="social-link"
-              >{{ $t('contact.social.weibo') }} →</a>
+                >{{ $t('contact.social.weibo') }} →</a
+              >
             </div>
           </div>
         </div>
@@ -52,6 +53,10 @@
   </main>
 </template>
 
+<script setup lang="ts">
+// ContactView
+</script>
+
 <style lang="scss" scoped>
 .page-contact {
   padding-top: var(--header-h);
@@ -63,9 +68,15 @@
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
-  @media (max-width: 900px)  { padding: 5rem 5vw 3.5rem; }
-  @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 5rem 5vw 3.5rem;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw 3rem;
+  }
 }
 
 .page-header-inner {
@@ -84,7 +95,9 @@
   letter-spacing: 0.04em;
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 4rem; }
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 }
 
 .page-intro {
@@ -104,9 +117,15 @@
   margin: 0 auto;
   padding: 8rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem; }
-  @media (max-width: 900px)  { padding: 5rem 5vw; }
-  @media (max-width: 768px)  { padding: 5rem 5vw; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 5rem 5vw;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw;
+  }
 }
 
 .info-grid {
@@ -135,7 +154,9 @@
   gap: 2rem;
   transition: background var(--duration-fast);
 
-  &:hover { background: var(--c-surface); }
+  &:hover {
+    background: var(--c-surface);
+  }
 }
 
 .info-label {
@@ -155,10 +176,17 @@
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  transition: gap var(--duration-fast), color var(--duration-fast);
+  transition:
+    gap var(--duration-fast),
+    color var(--duration-fast);
 
-  .info-arrow { color: var(--c-accent); }
-  &:hover { color: var(--c-accent); gap: 1.5rem; }
+  .info-arrow {
+    color: var(--c-accent);
+  }
+  &:hover {
+    color: var(--c-accent);
+    gap: 1.5rem;
+  }
 }
 
 .info-socials {
@@ -173,7 +201,9 @@
   color: var(--c-secondary);
   transition: color var(--duration-fast);
 
-  &:hover { color: var(--c-accent); }
+  &:hover {
+    color: var(--c-accent);
+  }
 }
 
 .email-cta {
@@ -205,10 +235,16 @@
 
   &:hover {
     color: var(--c-accent);
-    &::after { width: 100%; }
+    &::after {
+      width: 100%;
+    }
   }
 
-  @media (max-width: 1024px) { font-size: 2.2rem; }
-  @media (max-width: 768px)  { font-size: 1.6rem; }
+  @media (max-width: 1024px) {
+    font-size: 2.2rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
 }
 </style>

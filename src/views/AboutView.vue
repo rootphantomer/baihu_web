@@ -70,9 +70,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
+import { t } from '@/composables/useI18n'
 
 const stats = computed(() => [
   { value: '2025', unit: '', label: t('home.about.stats.founded') },

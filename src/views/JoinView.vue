@@ -24,20 +24,20 @@
               <h2 class="pos-title">{{ $t(`join.positions.${pos.roleId}.title`) }}</h2>
             </div>
             <div class="position-tags">
-              <span class="pos-tag">{{ $t(`join.positions.${pos.roleId}.location`) }}</span>
-              <span class="pos-tag">{{ $t(`join.positions.${pos.roleId}.type`) }}</span>
+              <span class="pos-tag">{{ pos.location }}</span>
+              <span class="pos-tag">{{ pos.type }}</span>
               <span class="pos-expand">{{ openPosition === pos.id ? '−' : '+' }}</span>
             </div>
           </button>
 
           <!-- Accordion Content -->
           <Transition name="accordion">
-            <div v-if="openPosition === pos.id" class="position-body" key="pos-body">
+            <div v-if="openPosition === pos.id" class="position-body">
               <div class="pos-cols">
                 <div class="pos-col">
                   <h3 class="pos-col-title">{{ $t(`join.positions.${pos.roleId}.duties`) }}</h3>
                   <ul class="pos-list">
-                    <li v-for="(item, i) in getPositionDetails(pos.roleId).duties" :key="i">
+                    <li v-for="(item, i) in pos.duties" :key="i">
                       {{ item }}
                     </li>
                   </ul>
@@ -47,7 +47,7 @@
                     {{ $t(`join.positions.${pos.roleId}.requirements`) }}
                   </h3>
                   <ul class="pos-list">
-                    <li v-for="(item, i) in getPositionDetails(pos.roleId).requirements" :key="i">
+                    <li v-for="(item, i) in pos.requirements" :key="i">
                       {{ item }}
                     </li>
                   </ul>
@@ -75,34 +75,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
 import { positions } from '@/data/recruitment'
 
-const { tm } = useI18n()
-
-const openPosition = ref<string>(positions[0].id)
+const openPosition = ref<string>(positions[0]?.id || '')
 
 const togglePosition = (id: string) => {
-  // 防止快速点击
   if (openPosition.value === id) {
     openPosition.value = ''
   } else {
     openPosition.value = id
   }
-}
-
-// 缓存翻译结果，避免重复计算
-const detailsCache = new Map<string, { duties: string[]; requirements: string[] }>()
-
-const getPositionDetails = (roleId: string) => {
-  if (!detailsCache.has(roleId)) {
-    detailsCache.set(roleId, {
-      duties: tm(`join.positions.${roleId}.items.duties`) as string[],
-      requirements: tm(`join.positions.${roleId}.items.requirements`) as string[],
-    })
-  }
-  return detailsCache.get(roleId)!
 }
 </script>
 
@@ -110,6 +93,7 @@ const getPositionDetails = (roleId: string) => {
 .page-join {
   padding-top: var(--header-h);
   background: var(--c-bg);
+  min-height: 100vh;
 }
 
 .page-header {

@@ -30,20 +30,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { locale } from '@/composables/useI18n'
 import zhCN from '@/locales/zh-CN'
-import enUS from '@/locales/en-US'
-import zhTW from '@/locales/zh-TW'
 import jaJP from '@/locales/ja-JP'
-
-const { locale } = useI18n()
 
 // 根据当前语言获取新闻数据
 const newsList = computed(() => {
   const localeMap: Record<string, any> = {
     'zh-CN': zhCN,
-    'en-US': enUS,
-    'zh-TW': zhTW,
     'ja-JP': jaJP,
   }
 

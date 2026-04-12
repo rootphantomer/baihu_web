@@ -6,7 +6,7 @@ import Lazyload from 'vue3-lazyload'
 
 import App from './App.vue'
 import router from './router'
-import { i18n } from './plugins/i18n'
+import { i18n } from './plugins/simple-i18n'
 
 const app = createApp(App)
 

@@ -2,8 +2,13 @@
   <div id="join-container" class="join-container">
     <h1 class="join-title">{{ $t('join.title') }} <span>JOIN US</span></h1>
     <div class="job-positions">
-      <div class="job-tab" v-for="(job, index) in jobs" :key="index" :class="{ active: index === activeJob }"
-        @click="selectJob(index)">
+      <div
+        class="job-tab"
+        v-for="(job, index) in jobs"
+        :key="index"
+        :class="{ active: index === activeJob }"
+        @click="selectJob(index)"
+      >
         {{ job.title }}
       </div>
     </div>
@@ -37,8 +42,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+import { t } from '@/composables/useI18n'
 const jobs = ref([
   {
     title: t('join.positions.animator.title'),
