@@ -32,24 +32,24 @@
 
           <!-- Accordion Content -->
           <Transition name="accordion">
-            <div v-if="openPosition === pos.id" class="position-body">
+            <div v-if="openPosition === pos.id" class="position-body" key="pos-body">
               <div class="pos-cols">
                 <div class="pos-col">
                   <h3 class="pos-col-title">{{ $t(`join.positions.${pos.roleId}.duties`) }}</h3>
                   <ul class="pos-list">
-                    <li
-                      v-for="(item, i) in $tm(`join.positions.${pos.roleId}.items.duties`)"
-                      :key="i"
-                    >{{ item }}</li>
+                    <li v-for="(item, i) in getPositionDetails(pos.roleId).duties" :key="i">
+                      {{ item }}
+                    </li>
                   </ul>
                 </div>
                 <div class="pos-col">
-                  <h3 class="pos-col-title">{{ $t(`join.positions.${pos.roleId}.requirements`) }}</h3>
+                  <h3 class="pos-col-title">
+                    {{ $t(`join.positions.${pos.roleId}.requirements`) }}
+                  </h3>
                   <ul class="pos-list">
-                    <li
-                      v-for="(item, i) in $tm(`join.positions.${pos.roleId}.items.requirements`)"
-                      :key="i"
-                    >{{ item }}</li>
+                    <li v-for="(item, i) in getPositionDetails(pos.roleId).requirements" :key="i">
+                      {{ item }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -75,13 +75,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { positions } from '@/data/recruitment'
+
+const { tm } = useI18n()
 
 const openPosition = ref<string>(positions[0].id)
 
 const togglePosition = (id: string) => {
-  openPosition.value = openPosition.value === id ? '' : id
+  // 防止快速点击
+  if (openPosition.value === id) {
+    openPosition.value = ''
+  } else {
+    openPosition.value = id
+  }
+}
+
+// 缓存翻译结果，避免重复计算
+const detailsCache = new Map<string, { duties: string[]; requirements: string[] }>()
+
+const getPositionDetails = (roleId: string) => {
+  if (!detailsCache.has(roleId)) {
+    detailsCache.set(roleId, {
+      duties: tm(`join.positions.${roleId}.items.duties`) as string[],
+      requirements: tm(`join.positions.${roleId}.items.requirements`) as string[],
+    })
+  }
+  return detailsCache.get(roleId)!
 }
 </script>
 
@@ -95,9 +116,15 @@ const togglePosition = (id: string) => {
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
-  @media (max-width: 900px)  { padding: 5rem 5vw 3.5rem; }
-  @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 5rem 5vw 3.5rem;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw 3rem;
+  }
 }
 
 .page-header-inner {
@@ -116,7 +143,9 @@ const togglePosition = (id: string) => {
   letter-spacing: 0.04em;
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 4rem; }
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 }
 
 .page-intro {
@@ -140,7 +169,9 @@ const togglePosition = (id: string) => {
 .position-item {
   border-bottom: 1px solid var(--c-border);
 
-  &.is-open .position-header { background: var(--c-surface); }
+  &.is-open .position-header {
+    background: var(--c-surface);
+  }
 }
 
 .position-header {
@@ -156,11 +187,22 @@ const togglePosition = (id: string) => {
   gap: 2rem;
   transition: background var(--duration-fast);
 
-  &:hover { background: var(--c-surface); }
+  &:hover {
+    background: var(--c-surface);
+  }
 
-  @media (max-width: 1024px) { padding: 3rem 4rem; }
-  @media (max-width: 900px)  { padding: 2.5rem 5vw; flex-wrap: wrap; }
-  @media (max-width: 768px)  { padding: 2.5rem 5vw; flex-direction: column; align-items: flex-start; }
+  @media (max-width: 1024px) {
+    padding: 3rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 2.5rem 5vw;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 768px) {
+    padding: 2.5rem 5vw;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .position-meta {
@@ -182,7 +224,9 @@ const togglePosition = (id: string) => {
   color: var(--c-primary);
   letter-spacing: 0.04em;
 
-  @media (max-width: 768px) { font-size: 2rem; }
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 .position-tags {
@@ -213,9 +257,15 @@ const togglePosition = (id: string) => {
 .position-body {
   padding: 0 8rem 5rem;
 
-  @media (max-width: 1024px) { padding: 0 4rem 4rem; }
-  @media (max-width: 900px)  { padding: 0 5vw 3rem; }
-  @media (max-width: 768px)  { padding: 0 5vw 4rem; }
+  @media (max-width: 1024px) {
+    padding: 0 4rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 0 5vw 3rem;
+  }
+  @media (max-width: 768px) {
+    padding: 0 5vw 4rem;
+  }
 }
 
 .pos-cols {
@@ -225,8 +275,14 @@ const togglePosition = (id: string) => {
   border-top: 1px solid var(--c-border);
   padding-top: 4rem;
 
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 3rem; }
-  @media (max-width: 768px) { grid-template-columns: 1fr; gap: 3rem; }
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 }
 
 .pos-col-title {
@@ -262,18 +318,18 @@ const togglePosition = (id: string) => {
   }
 }
 
-// Accordion transition
+// Accordion transition - 优化性能
 .accordion-enter-active,
 .accordion-leave-active {
-  transition: opacity var(--duration-base) var(--ease-out),
-              max-height var(--duration-slow) var(--ease-out);
-  max-height: 60rem;
-  overflow: hidden;
+  transition:
+    opacity 250ms ease-out,
+    transform 250ms ease-out;
+  will-change: opacity, transform;
 }
 .accordion-enter-from,
 .accordion-leave-to {
   opacity: 0;
-  max-height: 0;
+  transform: translateY(-10px);
 }
 
 // ─── Apply Section ────────────────────────────────────────────────────────────
@@ -289,9 +345,15 @@ const togglePosition = (id: string) => {
   flex-direction: column;
   gap: 2rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem; }
-  @media (max-width: 900px)  { padding: 5rem 5vw; }
-  @media (max-width: 768px)  { padding: 5rem 5vw; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 5rem 5vw;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw;
+  }
 }
 
 .apply-text {
@@ -310,14 +372,20 @@ const togglePosition = (id: string) => {
   letter-spacing: 0.04em;
   transition: gap var(--duration-fast);
 
-  .apply-arrow { transition: transform var(--duration-fast); }
+  .apply-arrow {
+    transition: transform var(--duration-fast);
+  }
 
   &:hover {
     gap: 2rem;
-    .apply-arrow { transform: translateX(0.4rem); }
+    .apply-arrow {
+      transform: translateX(0.4rem);
+    }
   }
 
-  @media (max-width: 768px) { font-size: 1.5rem; }
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 }
 
 .apply-note {

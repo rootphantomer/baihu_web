@@ -28,20 +28,22 @@
               class="pill"
               :class="{ active: selectedYear === '' }"
               @click="selectedYear = ''"
-            >{{ $t('works.filter.all') }}</button>
+            >
+              {{ $t('works.filter.all') }}
+            </button>
             <button
               v-for="year in availableYears"
               :key="year"
               class="pill"
               :class="{ active: selectedYear === year }"
               @click="selectedYear = year"
-            >{{ year }}</button>
+            >
+              {{ year }}
+            </button>
           </div>
         </div>
       </div>
-      <span class="filter-count label">
-        {{ filteredWorks.length }} titles
-      </span>
+      <span class="filter-count label"> {{ filteredWorks.length }} titles </span>
     </div>
 
     <!-- Works Grid -->
@@ -98,7 +100,11 @@ import { works } from '@/data/works'
 // ─── Extend works with year ───────────────────────────────────────────────────
 const worksWithYear = works.map((w) => ({
   ...w,
-  year: w.path.split('/').pop()?.match(/^(\d{4})/)?.[1] ?? '',
+  year:
+    w.path
+      .split('/')
+      .pop()
+      ?.match(/^(\d{4})/)?.[1] ?? '',
 }))
 
 // ─── Filter state ─────────────────────────────────────────────────────────────
@@ -122,12 +128,18 @@ const filteredWorks = computed(() => {
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
 const lightboxWork = ref<(typeof worksWithYear)[0] | null>(null)
-const openLightbox = (work: (typeof worksWithYear)[0]) => { lightboxWork.value = work }
-const closeLightbox = () => { lightboxWork.value = null }
+const openLightbox = (work: (typeof worksWithYear)[0]) => {
+  lightboxWork.value = work
+}
+const closeLightbox = () => {
+  lightboxWork.value = null
+}
 
 // Keyboard close
 import { onMounted, onUnmounted } from 'vue'
-const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeLightbox() }
+const handleKey = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') closeLightbox()
+}
 onMounted(() => document.addEventListener('keydown', handleKey))
 onUnmounted(() => document.removeEventListener('keydown', handleKey))
 </script>
@@ -144,8 +156,12 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
-  @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem 4rem;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw 3rem;
+  }
 }
 
 .page-header-inner {
@@ -164,7 +180,9 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   letter-spacing: 0.04em;
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 4rem; }
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 }
 
 // ─── Filter Bar ───────────────────────────────────────────────────────────────
@@ -181,14 +199,16 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   align-items: center;
   gap: 3rem;
 
-  @media (max-width: 1024px) { padding: 1.5rem 4rem; }
-  @media (max-width: 900px)  {
+  @media (max-width: 1024px) {
+    padding: 1.5rem 4rem;
+  }
+  @media (max-width: 900px) {
     padding: 1.5rem 5vw;
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
   }
-  @media (max-width: 768px)  {
+  @media (max-width: 768px) {
     padding: 1.5rem 5vw;
     flex-direction: column;
     align-items: flex-start;
@@ -202,8 +222,16 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   flex-wrap: wrap;
   flex: 1;
 
-  @media (max-width: 900px) { gap: 1.5rem; width: 100%; flex-direction: column; align-items: flex-start; }
-  @media (max-width: 768px) { gap: 1.5rem; width: 100%; }
+  @media (max-width: 900px) {
+    gap: 1.5rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+    width: 100%;
+  }
 }
 
 .search-input {
@@ -216,13 +244,17 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   width: 24rem;
   transition: border-color var(--duration-fast);
 
-  &::placeholder { color: var(--c-muted); }
+  &::placeholder {
+    color: var(--c-muted);
+  }
   &:focus {
     outline: none;
     border-color: var(--c-accent);
   }
 
-  @media (max-width: 768px) { width: 100%; }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .filter-group {
@@ -256,8 +288,14 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   min-height: 3.2rem; // 触控目标
   transition: all var(--duration-fast);
 
-  &:hover { border-color: var(--c-secondary); color: var(--c-primary); }
-  &.active { border-color: var(--c-accent); color: var(--c-accent); }
+  &:hover {
+    border-color: var(--c-secondary);
+    color: var(--c-primary);
+  }
+  &.active {
+    border-color: var(--c-accent);
+    color: var(--c-accent);
+  }
 }
 
 .filter-count {
@@ -272,9 +310,15 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   margin: 0 auto;
   padding: 4rem 8rem 10rem;
 
-  @media (max-width: 1024px) { padding: 4rem 4rem 8rem; }
-  @media (max-width: 900px)  { padding: 3rem 5vw 6rem; }
-  @media (max-width: 768px)  { padding: 3rem 5vw 6rem; }
+  @media (max-width: 1024px) {
+    padding: 4rem 4rem 8rem;
+  }
+  @media (max-width: 900px) {
+    padding: 3rem 5vw 6rem;
+  }
+  @media (max-width: 768px) {
+    padding: 3rem 5vw 6rem;
+  }
 }
 
 .works-grid {
@@ -282,9 +326,15 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
 
-  @media (max-width: 1280px) { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 900px)  { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 480px)  { grid-template-columns: 1fr; }
+  @media (max-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .work-card {
@@ -292,8 +342,12 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   background: var(--c-surface);
   overflow: hidden;
 
-  &:hover .card-img { transform: scale(1.04); }
-  &:hover .card-overlay { opacity: 1; }
+  &:hover .card-img {
+    transform: scale(1.04);
+  }
+  &:hover .card-overlay {
+    opacity: 1;
+  }
 }
 
 .card-img-wrap {
@@ -397,9 +451,14 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border-color var(--duration-fast), color var(--duration-fast);
+  transition:
+    border-color var(--duration-fast),
+    color var(--duration-fast);
 
-  &:hover { border-color: var(--c-accent); color: var(--c-accent); }
+  &:hover {
+    border-color: var(--c-accent);
+    color: var(--c-accent);
+  }
 }
 
 .lightbox-content {
@@ -408,8 +467,15 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   gap: 3rem;
   max-height: 90vh;
 
-  @media (max-width: 900px) { flex-direction: column; align-items: center; gap: 2rem; }
-  @media (max-width: 768px) { flex-direction: column; align-items: center; }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .lightbox-img {
@@ -417,8 +483,14 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   max-width: 60vw;
   object-fit: contain;
 
-  @media (max-width: 900px) { max-width: 85vw; max-height: 55vh; }
-  @media (max-width: 768px) { max-width: 90vw; max-height: 60vh; }
+  @media (max-width: 900px) {
+    max-width: 85vw;
+    max-height: 55vh;
+  }
+  @media (max-width: 768px) {
+    max-width: 90vw;
+    max-height: 60vh;
+  }
 }
 
 .lightbox-info {
@@ -427,7 +499,10 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   gap: 1rem;
   min-width: 18rem;
 
-  @media (max-width: 900px) { min-width: unset; width: 85vw; }
+  @media (max-width: 900px) {
+    min-width: unset;
+    width: 85vw;
+  }
 }
 
 .lightbox-role {
@@ -452,8 +527,9 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
 // ─── Transitions ─────────────────────────────────────────────────────────────
 .grid-fade-enter-active,
 .grid-fade-leave-active {
-  transition: opacity var(--duration-base) var(--ease-out),
-              transform var(--duration-base) var(--ease-out);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
 }
 .grid-fade-enter-from,
 .grid-fade-leave-to {
@@ -466,5 +542,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   transition: opacity var(--duration-base) var(--ease-out);
 }
 .lightbox-enter-from,
-.lightbox-leave-to { opacity: 0; }
+.lightbox-leave-to {
+  opacity: 0;
+}
 </style>
