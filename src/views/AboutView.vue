@@ -18,7 +18,9 @@
     <section class="about-stats">
       <div class="section-inner stats-grid">
         <div class="stat-item" v-for="stat in stats" :key="stat.value">
-          <span class="stat-num">{{ stat.value }}<span class="stat-unit">{{ stat.unit }}</span></span>
+          <span class="stat-num"
+            >{{ stat.value }}<span class="stat-unit">{{ stat.unit }}</span></span
+          >
           <span class="stat-label">{{ stat.label }}</span>
         </div>
       </div>
@@ -44,9 +46,7 @@
     <section class="about-mission">
       <div class="section-inner mission-inner">
         <span class="label">{{ $t('about.mission.label') }}</span>
-        <blockquote class="mission-text">
-          "{{ $t('about.mission.text') }}"
-        </blockquote>
+        <blockquote class="mission-text">"{{ $t('about.mission.text') }}"</blockquote>
       </div>
     </section>
 
@@ -89,10 +89,10 @@ const values = computed(() => [
 
 const history = [
   { year: '2025', desc: '白鹄动画在杭州正式成立，承接首批日本动画项目。' },
-  { year: '2017', desc: '参与《メイドインアビス》制作进行，踏入知名日本动画圈。' },
-  { year: '2020', desc: '团队规模扩展至 10 人以上，参与《シン・エヴァンゲリオン》原画制作。' },
-  { year: '2022', desc: '参与《水星の魔女》原画制作，进入日本主流动画合作行列。' },
-  { year: '2024', desc: '参与《Gundam SEED Freedom》剧场版原画 & 作画监督，规模再扩展。' },
+  // { year: '2017', desc: '参与《メイドインアビス》制作进行，踏入知名日本动画圈。' },
+  // { year: '2020', desc: '团队规模扩展至 10 人以上，参与《シン・エヴァンゲリオン》原画制作。' },
+  // { year: '2022', desc: '参与《水星の魔女》原画制作，进入日本主流动画合作行列。' },
+  // { year: '2024', desc: '参与《Gundam SEED Freedom》剧场版原画 & 作画监督，规模再扩展。' },
 ]
 </script>
 
