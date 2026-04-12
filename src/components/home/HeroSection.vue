@@ -47,7 +47,7 @@ const currentYear = computed(() => new Date().getFullYear())
 <style lang="scss" scoped>
 .hero {
   position: relative;
-  min-height: 100vh;
+  height: calc(100vh - var(--header-h));
   display: flex;
   align-items: center;
   overflow: hidden;

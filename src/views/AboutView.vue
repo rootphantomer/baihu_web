@@ -157,6 +157,11 @@ const history = computed(() => {
 .about-statement {
   border-bottom: 1px solid var(--c-border);
   background: var(--c-surface);
+  .section-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .statement-text {
@@ -167,6 +172,7 @@ const history = computed(() => {
   line-height: 2;
   letter-spacing: 0.06em;
   max-width: 100rem;
+  text-align: center;
 
   @media (max-width: 768px) {
     font-size: 1.8rem;
@@ -198,6 +204,8 @@ const history = computed(() => {
   gap: 1rem;
   padding: 4rem 0;
   border-right: 1px solid var(--c-border);
+  justify-content: center;
+  align-items: center;
 
   &:last-child {
     border-right: none;
