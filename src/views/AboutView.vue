@@ -75,7 +75,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 const stats = computed(() => [
-  { value: '2015', unit: '', label: t('home.about.stats.founded') },
+  { value: '2025', unit: '', label: t('home.about.stats.founded') },
   { value: '10', unit: '+', label: t('home.about.stats.team') },
   { value: '45', unit: '+', label: t('home.about.stats.projects') },
   { value: '8', unit: '+', label: t('about.clients.label') },
@@ -84,11 +84,11 @@ const stats = computed(() => [
 const values = computed(() => [
   { title: t('about.values.quality.title'), desc: t('about.values.quality.desc') },
   { title: t('about.values.culture.title'), desc: t('about.values.culture.desc') },
-  { title: t('about.values.scale.title'),   desc: t('about.values.scale.desc') },
+  { title: t('about.values.scale.title'), desc: t('about.values.scale.desc') },
 ])
 
 const history = [
-  { year: '2015', desc: '白鹄动画在杭州正式成立，承接首批日本动画项目。' },
+  { year: '2025', desc: '白鹄动画在杭州正式成立，承接首批日本动画项目。' },
   { year: '2017', desc: '参与《メイドインアビス》制作进行，踏入知名日本动画圈。' },
   { year: '2020', desc: '团队规模扩展至 10 人以上，参与《シン・エヴァンゲリオン》原画制作。' },
   { year: '2022', desc: '参与《水星の魔女》原画制作，进入日本主流动画合作行列。' },
@@ -106,8 +106,13 @@ const history = [
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
-  @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem 4rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 5rem 5vw 3rem;
+  }
 }
 
 .page-header-inner {
@@ -126,7 +131,9 @@ const history = [
   letter-spacing: 0.04em;
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 4rem; }
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 }
 
 .section-inner {
@@ -134,8 +141,13 @@ const history = [
   margin: 0 auto;
   padding: 8rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem; }
-  @media (max-width: 768px)  { padding: 5rem 5vw; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 5rem 5vw;
+  }
 }
 
 // ─── Statement ────────────────────────────────────────────────────────────────
@@ -153,7 +165,9 @@ const history = [
   letter-spacing: 0.06em;
   max-width: 100rem;
 
-  @media (max-width: 768px) { font-size: 1.8rem; }
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
 }
 
 // ─── Stats ────────────────────────────────────────────────────────────────────
@@ -166,7 +180,9 @@ const history = [
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
 
-  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .stat-item {
@@ -176,11 +192,16 @@ const history = [
   padding: 4rem 0;
   border-right: 1px solid var(--c-border);
 
-  &:last-child { border-right: none; }
+  &:last-child {
+    border-right: none;
+  }
 
   @media (max-width: 768px) {
     padding: 3rem 0;
-    &:nth-child(2n) { border-right: none; }
+
+    &:nth-child(2n) {
+      border-right: none;
+    }
   }
 }
 
@@ -191,7 +212,9 @@ const history = [
   color: var(--c-primary);
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 3.5rem; }
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+  }
 }
 
 .stat-unit {
@@ -223,7 +246,9 @@ const history = [
   gap: 1px;
   background: var(--c-border);
 
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .value-card {
@@ -234,7 +259,9 @@ const history = [
   gap: 1.5rem;
   transition: background var(--duration-fast);
 
-  &:hover { background: var(--c-surface-2); }
+  &:hover {
+    background: var(--c-surface-2);
+  }
 }
 
 .value-num {
@@ -278,7 +305,9 @@ const history = [
   border-left: 2px solid var(--c-accent);
   padding-left: 3rem;
 
-  @media (max-width: 768px) { font-size: 2rem; }
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 // ─── History ──────────────────────────────────────────────────────────────────
@@ -304,7 +333,9 @@ const history = [
     width: 1px;
     background: var(--c-border);
 
-    @media (max-width: 768px) { left: 5rem; }
+    @media (max-width: 768px) {
+      left: 5rem;
+    }
   }
 }
 
@@ -316,7 +347,9 @@ const history = [
   padding: 3rem 0;
   border-bottom: 1px solid var(--c-border);
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 4rem 2rem 1fr;

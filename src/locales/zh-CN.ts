@@ -144,10 +144,7 @@ export default {
         duties: '岗位职责',
         requirements: '任职要求',
         items: {
-          duties: [
-            '根据 Layout 原图进行高精度背景绘制',
-            '有能力根据需求独立完成美术设计',
-          ],
+          duties: ['根据 Layout 原图进行高精度背景绘制', '有能力根据需求独立完成美术设计'],
           requirements: [
             '良好美术基础与色彩控制力，熟悉空间与空气透视理论',
             '熟练使用手绘板及 Photoshop 进行数字绘制',
@@ -164,8 +161,7 @@ export default {
   contact: {
     title: '联系我们',
     subtitle: 'Contact',
-    intro:
-      '如您有动画制作外包需求，或希望了解合作方式，欢迎通过以下渠道联系我们。',
+    intro: '如您有动画制作外包需求，或希望了解合作方式，欢迎通过以下渠道联系我们。',
     email: {
       label: '邮箱',
       value: 'contact@baihu-animation.com',
@@ -201,5 +197,33 @@ export default {
     join: '招募',
     contact: '联系',
     news: '新闻',
+  },
+  server: {
+    animation: {
+      title: '动画制作服务',
+      desc: '凭借核心团队在业界深耕多年的技术力专注优质2D动画制作，并拥有制作高质量游戏PV与产品推广动画的丰富经验。从创意到成片，以精湛技艺打造极致内容，为您的IP与品牌注入超凡视觉魅力。',
+    },
+    coverage: {
+      title: '承接范围',
+      items: {
+        movie: '动画电影（2D/3D 长篇或短片）',
+        series: '剧集动画（TV动画、网络番剧）',
+        pv: '广告PV（品牌宣传片、产品动画）',
+        character: '角色动画（Idle、Attack、Run等动作库）',
+        cinematic: '过场动画（Cinematic Cutscenes）',
+      },
+    },
+    preDesign: {
+      title: '专业前期设计',
+      desc: '创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。',
+    },
+    artDesign: {
+      title: '剧本与美术',
+      items: {
+        script: '剧本与分镜（Storyboard & Scriptwriting）',
+        concept: '概念设计（角色/场景/道具原画）',
+        style: '美术风格定调（Color Script & Mood Board）',
+      },
+    },
   },
 }

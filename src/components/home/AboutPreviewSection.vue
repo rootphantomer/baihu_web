@@ -19,7 +19,7 @@
       <div class="ap-right">
         <div class="stats-grid">
           <div class="stat-item">
-            <span class="stat-num">2015</span>
+            <span class="stat-num">2025</span>
             <span class="stat-label">{{ $t('home.about.stats.founded') }}</span>
           </div>
           <div class="stat-item">
@@ -57,7 +57,9 @@
   max-width: 1600px;
   margin: 0 auto;
 
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 // ─── Left ────────────────────────────────────────────────────────────────────
@@ -68,8 +70,15 @@
   gap: 3rem;
   border-right: 1px solid var(--c-border);
 
-  @media (max-width: 1024px) { padding: 8rem 4rem; }
-  @media (max-width: 768px)  { padding: 6rem 5vw; border-right: none; border-bottom: 1px solid var(--c-border); }
+  @media (max-width: 1024px) {
+    padding: 8rem 4rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 6rem 5vw;
+    border-right: none;
+    border-bottom: 1px solid var(--c-border);
+  }
 }
 
 .ap-title {
@@ -86,8 +95,13 @@
   color: var(--c-primary);
   letter-spacing: 0.02em;
 
-  @media (max-width: 1024px) { font-size: 4rem; }
-  @media (max-width: 768px)  { font-size: 3.5rem; }
+  @media (max-width: 1024px) {
+    font-size: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+  }
 }
 
 .ap-title-accent {
@@ -113,7 +127,9 @@
   letter-spacing: 0.1em;
   transition: gap var(--duration-fast);
 
-  &:hover { gap: 1.2rem; }
+  &:hover {
+    gap: 1.2rem;
+  }
 }
 
 // ─── Right ────────────────────────────────────────────────────────────────────
@@ -124,8 +140,13 @@
   justify-content: space-between;
   gap: 5rem;
 
-  @media (max-width: 1024px) { padding: 8rem 4rem; }
-  @media (max-width: 768px)  { padding: 6rem 5vw; }
+  @media (max-width: 1024px) {
+    padding: 8rem 4rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 6rem 5vw;
+  }
 }
 
 .stats-grid {
@@ -148,7 +169,9 @@
   letter-spacing: -0.02em;
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 3.5rem; }
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+  }
 }
 
 .stat-unit {

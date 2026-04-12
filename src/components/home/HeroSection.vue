@@ -34,7 +34,7 @@
     </div>
 
     <!-- Large decorative number -->
-    <span class="hero-deco" aria-hidden="true">2015</span>
+    <span class="hero-deco" aria-hidden="true">2025</span>
   </section>
 </template>
 
@@ -65,7 +65,9 @@
   border-right: 1px solid var(--c-border);
   opacity: 0.5;
 
-  &:last-child { border-right: none; }
+  &:last-child {
+    border-right: none;
+  }
 }
 
 // ─── Content ─────────────────────────────────────────────────────────────────
@@ -153,8 +155,13 @@
     gap: 1.5rem;
   }
 
-  .btn-arrow { transition: transform var(--duration-fast); }
-  &:hover .btn-arrow { transform: translateX(0.3rem); }
+  .btn-arrow {
+    transition: transform var(--duration-fast);
+  }
+
+  &:hover .btn-arrow {
+    transform: translateX(0.3rem);
+  }
 }
 
 .hero-btn-ghost {
@@ -180,7 +187,10 @@
 
   &:hover {
     color: var(--c-primary);
-    &::after { width: 100%; }
+
+    &::after {
+      width: 100%;
+    }
   }
 }
 
@@ -229,36 +239,97 @@
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 @keyframes heroEnter {
-  from { opacity: 0; transform: translateY(3rem); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
-  50%       { opacity: 1;   transform: scaleY(1); }
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }
 
 // ─── Responsive ──────────────────────────────────────────────────────────────
 @media (max-width: 1280px) {
-  .hero-name-en { font-size: 8rem; }
-  .hero-name-zh { font-size: 4rem; }
+  .hero-name-en {
+    font-size: 8rem;
+  }
+
+  .hero-name-zh {
+    font-size: 4rem;
+  }
 }
 
 @media (max-width: 1024px) {
-  .hero-content { padding: 0 4rem; }
-  .hero-scroll  { left: 4rem; }
-  .hero-name-en { font-size: 6rem; }
-  .hero-name-zh { font-size: 3.2rem; }
-  .hero-deco    { font-size: 20rem; }
+  .hero-content {
+    padding: 0 4rem;
+  }
+
+  .hero-scroll {
+    left: 4rem;
+  }
+
+  .hero-name-en {
+    font-size: 6rem;
+  }
+
+  .hero-name-zh {
+    font-size: 3.2rem;
+  }
+
+  .hero-deco {
+    font-size: 20rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .hero-content { padding: 0 5vw; gap: 2rem; }
-  .hero-scroll  { display: none; }
-  .hero-name-en { font-size: 4.5rem; }
-  .hero-name-zh { font-size: 2.4rem; letter-spacing: 0.25em; }
-  .hero-tagline { font-size: 1.5rem; }
-  .hero-actions { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-  .hero-deco    { font-size: 14rem; right: -1rem; bottom: -2rem; }
+  .hero-content {
+    padding: 0 5vw;
+    gap: 2rem;
+  }
+
+  .hero-scroll {
+    display: none;
+  }
+
+  .hero-name-en {
+    font-size: 4.5rem;
+  }
+
+  .hero-name-zh {
+    font-size: 2.4rem;
+    letter-spacing: 0.25em;
+  }
+
+  .hero-tagline {
+    font-size: 1.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .hero-deco {
+    font-size: 14rem;
+    right: -1rem;
+    bottom: -2rem;
+  }
 }
 </style>
