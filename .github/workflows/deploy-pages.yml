@@ -1,0 +1,46 @@
+# 自动打包并部署 GitHub Pages
+name: Build and Deploy GitHub Pages
+
+# 触发条件：推送到 main 分支时自动运行（可改成你的分支名）
+on:
+  push:
+    tags: 
+      - 'v*'           # 只要推送以 v 开头的标签（v1.0、v2.1.0 等）就自动运行
+  workflow_dispatch: # 允许手动触发
+
+# 设置 Pages 权限（必须）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: 安装依赖
+        run: yarn install --frozen-lockfile
+
+      - name: 打包构建
+        run: yarn run build
+
+      - name: 配置 GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 这里是你的打包输出目录！99% 项目是 dist，少数是 build / public
+          path: './dist'
+
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v4
