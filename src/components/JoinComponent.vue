@@ -14,18 +14,18 @@
     </div>
     <div class="job-details">
       <h2 class="job-title">
-        {{ $t('join.job.title') }}<span class="highlight">{{ jobs[activeJob].title }}</span>
+        {{ $t('join.job.title') }}<span class="highlight">{{ jobs[activeJob]?.title }}</span>
       </h2>
       <div class="job-section">
-        <h3>{{ $t('join.duties') }}</h3>
+        <h3>{{ jobs[activeJob]?.dutiesLabel }}</h3>
         <ul>
-          <li v-for="(duty, index) in jobs[activeJob].duties" :key="index">{{ duty }}</li>
+          <li v-for="(duty, index) in jobs[activeJob]?.duties" :key="index">{{ duty }}</li>
         </ul>
       </div>
       <div class="job-section">
-        <h3>{{ $t('join.requirements') }}</h3>
+        <h3>{{ jobs[activeJob]?.requirementsLabel }}</h3>
         <ul>
-          <li v-for="(requirement, index) in jobs[activeJob].requirements" :key="index">
+          <li v-for="(requirement, index) in jobs[activeJob]?.requirements" :key="index">
             {{ requirement }}
           </li>
         </ul>
@@ -41,46 +41,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { t } from '@/composables/useI18n'
-const jobs = ref([
-  {
-    title: t('join.positions.animator.title'),
-    duties: [
-      t('join.positions.animator.duties.0'),
-      t('join.positions.animator.duties.1'),
-      t('join.positions.animator.duties.2'),
-      t('join.positions.animator.duties.3'),
-    ],
-    requirements: [
-      t('join.positions.animator.requirements.0'),
-      t('join.positions.animator.requirements.1'),
-      t('join.positions.animator.requirements.2'),
-      t('join.positions.animator.requirements.3'),
-    ],
-  },
-  {
-    title: t('join.positions.supervisor.title'),
-    duties: [t('join.positions.supervisor.duties.0'), t('join.positions.supervisor.duties.1')],
-    requirements: [
-      t('join.positions.supervisor.requirements.0'),
-      t('join.positions.supervisor.requirements.1'),
-      t('join.positions.supervisor.requirements.2'),
-      t('join.positions.supervisor.requirements.3'),
-    ],
-  },
-  {
-    title: t('join.positions.background.title'),
-    duties: [t('join.positions.background.duties.0'), t('join.positions.background.duties.1')],
-    requirements: [
-      t('join.positions.background.requirements.0'),
-      t('join.positions.background.requirements.1'),
-      t('join.positions.background.requirements.2'),
-      t('join.positions.background.requirements.3'),
-      t('join.positions.background.requirements.4'),
-    ],
-  },
-])
+import { ref, computed, watch } from 'vue'
+import { locale } from '@/composables/useI18n'
+import zhCN from '@/locales/zh-CN'
+import jaJP from '@/locales/ja-JP'
+
+// 每次 locale 变化时重新计算
+const jobs = computed(() => {
+  const messages = locale.value === 'ja-JP' ? jaJP : zhCN
+  const positions = messages.join?.positions
+
+  if (!positions) {
+    return []
+  }
+
+  return [
+    {
+      title: positions.animator?.title || '',
+      dutiesLabel: positions.animator?.duties || '',
+      requirementsLabel: positions.animator?.requirements || '',
+      duties: positions.animator?.items?.duties || [],
+      requirements: positions.animator?.items?.requirements || [],
+    },
+    {
+      title: positions.supervisor?.title || '',
+      dutiesLabel: positions.supervisor?.duties || '',
+      requirementsLabel: positions.supervisor?.requirements || '',
+      duties: positions.supervisor?.items?.duties || [],
+      requirements: positions.supervisor?.items?.requirements || [],
+    },
+    {
+      title: positions.background?.title || '',
+      dutiesLabel: positions.background?.duties || '',
+      requirementsLabel: positions.background?.requirements || '',
+      duties: positions.background?.items?.duties || [],
+      requirements: positions.background?.items?.requirements || [],
+    },
+  ]
+})
+
+// 监听语言切换，重置到第一个岗位
+watch(
+  () => locale.value,
+  () => {
+    activeJob.value = 0
+  }
+)
 
 const activeJob = ref(0)
 
