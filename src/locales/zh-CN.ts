@@ -86,6 +86,7 @@ export default {
     },
     history: {
       label: '发展历程',
+      items: [{ year: '2025', desc: '白鹄动画在杭州正式成立，承接首批日本动画项目。' }],
     },
     clients: {
       label: '主要合作伙伴',

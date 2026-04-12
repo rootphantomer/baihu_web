@@ -21,11 +21,11 @@
           <button class="position-header" @click="togglePosition(pos.id)">
             <div class="position-meta">
               <span class="pos-num label">{{ pos.id.padStart(2, '0') }}</span>
-              <h2 class="pos-title">{{ $t(`join.positions.${pos.roleId}.title`) }}</h2>
+              <h2 class="pos-title">{{ getTranslatedPosition(pos.roleId).title }}</h2>
             </div>
             <div class="position-tags">
-              <span class="pos-tag">{{ pos.location }}</span>
-              <span class="pos-tag">{{ pos.type }}</span>
+              <span class="pos-tag">{{ getTranslatedPosition(pos.roleId).location }}</span>
+              <span class="pos-tag">{{ getTranslatedPosition(pos.roleId).type }}</span>
               <span class="pos-expand">{{ openPosition === pos.id ? '−' : '+' }}</span>
             </div>
           </button>
@@ -35,19 +35,22 @@
             <div v-if="openPosition === pos.id" class="position-body">
               <div class="pos-cols">
                 <div class="pos-col">
-                  <h3 class="pos-col-title">{{ $t(`join.positions.${pos.roleId}.duties`) }}</h3>
+                  <h3 class="pos-col-title">{{ getTranslatedPosition(pos.roleId).duties }}</h3>
                   <ul class="pos-list">
-                    <li v-for="(item, i) in pos.duties" :key="i">
+                    <li v-for="(item, i) in getTranslatedPosition(pos.roleId).dutiesList" :key="i">
                       {{ item }}
                     </li>
                   </ul>
                 </div>
                 <div class="pos-col">
                   <h3 class="pos-col-title">
-                    {{ $t(`join.positions.${pos.roleId}.requirements`) }}
+                    {{ getTranslatedPosition(pos.roleId).requirements }}
                   </h3>
                   <ul class="pos-list">
-                    <li v-for="(item, i) in pos.requirements" :key="i">
+                    <li
+                      v-for="(item, i) in getTranslatedPosition(pos.roleId).requirementsList"
+                      :key="i"
+                    >
                       {{ item }}
                     </li>
                   </ul>
@@ -75,8 +78,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { positions } from '@/data/recruitment'
+import { t } from '@/composables/useI18n'
 
 const openPosition = ref<string>(positions[0]?.id || '')
 
@@ -85,6 +89,19 @@ const togglePosition = (id: string) => {
     openPosition.value = ''
   } else {
     openPosition.value = id
+  }
+}
+
+// 获取翻译后的职位信息
+const getTranslatedPosition = (roleId: string) => {
+  return {
+    title: t(`join.positions.${roleId}.title`),
+    location: t(`join.positions.${roleId}.location`),
+    type: t(`join.positions.${roleId}.type`),
+    duties: t(`join.positions.${roleId}.duties`),
+    requirements: t(`join.positions.${roleId}.requirements`),
+    dutiesList: t(`join.positions.${roleId}.items.duties`) as string[],
+    requirementsList: t(`join.positions.${roleId}.items.requirements`) as string[],
   }
 }
 </script>

@@ -85,13 +85,10 @@ const values = computed(() => [
   { title: t('about.values.scale.title'), desc: t('about.values.scale.desc') },
 ])
 
-const history = [
-  { year: '2025', desc: '白鹄动画在杭州正式成立，承接首批日本动画项目。' },
-  // { year: '2017', desc: '参与《メイドインアビス》制作进行，踏入知名日本动画圈。' },
-  // { year: '2020', desc: '团队规模扩展至 10 人以上，参与《シン・エヴァンゲリオン》原画制作。' },
-  // { year: '2022', desc: '参与《水星の魔女》原画制作，进入日本主流动画合作行列。' },
-  // { year: '2024', desc: '参与《Gundam SEED Freedom》剧场版原画 & 作画监督，规模再扩展。' },
-]
+const history = computed(() => {
+  const items = t('about.history.items')
+  return Array.isArray(items) ? items : []
+})
 </script>
 
 <style lang="scss" scoped>

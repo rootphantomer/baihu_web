@@ -41,7 +41,7 @@ function getNestedValue(obj: any, path: string): any {
  * @param key - 翻译键，如 'home.hero.name'
  * @param params - 可选的参数对象（暂未使用，保留扩展性）
  */
-export function t(key: string, params?: Record<string, any>): string {
+export function t(key: string, params?: Record<string, any>): any {
   const localeMessages = messages[currentLocale.value] || messages[fallbackLocale]
   const value = getNestedValue(localeMessages, key)
 
@@ -49,11 +49,6 @@ export function t(key: string, params?: Record<string, any>): string {
   if (value === undefined || value === null) {
     console.warn(`Translation key not found: ${key}`)
     return key
-  }
-
-  // 如果是数组或对象，直接返回（用于 news.items 等场景）
-  if (typeof value !== 'string') {
-    return value
   }
 
   return value

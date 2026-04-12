@@ -86,6 +86,12 @@ export default {
     },
     history: {
       label: '沿革',
+      items: [
+        {
+          year: '2025',
+          desc: '白鵠アニメーションが杭州で正式に設立され、首批の日本アニメプロジェクトを受注。',
+        },
+      ],
     },
     clients: {
       label: '主要取引先',
