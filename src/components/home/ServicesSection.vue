@@ -2,10 +2,10 @@
   <section class="services-section">
     <div class="services-inner">
       <div class="services-header">
-        <span class="services-label">{{ $t('server.animation.title') }}</span>
+        <span class="services-label">{{ $t('server.services.title') }}</span>
         <h2 class="services-title">What We Do</h2>
         <p class="services-lead">
-          {{ $t('server.animation.desc') || $t('server.preDesign.desc') }}
+          {{ $t('server.services.desc') }}
         </p>
       </div>
 
