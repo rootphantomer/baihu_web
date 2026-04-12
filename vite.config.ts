@@ -7,12 +7,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default defineConfig({
-  base: './', // 确保正确的路径到你的 HTML 文件
-  plugins: [
-    vue(),
-    // DevTools 仅在开发环境加载，避免打包进生产包
-    ...(isDev ? [vueDevTools()] : []),
-  ],
+  base: './',
+  plugins: [vue(), ...(isDev ? [vueDevTools()] : [])],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -21,9 +17,10 @@ export default defineConfig({
   esbuild: {
     drop: ['console', 'debugger'],
   },
-  assetsInclude: ['**/*.png', '**/*.svg'], // 确保包含 PNG 图片
+  assetsInclude: ['**/*.png', '**/*.svg'],
   build: {
-    target: 'esnext', // 直接用这个，100%解决兼容性问题
+    target: 'esnext',
+    cssTarget: 'esnext',
     outDir: 'dist',
     chunkSizeWarningLimit: 1000,
 
