@@ -211,19 +211,14 @@ export default {
         pv: '广告PV（品牌宣传片、产品动画）',
         character: '角色动画（Idle、Attack、Run等动作库）',
         cinematic: '过场动画（Cinematic Cutscenes）',
+        script: '剧本与分镜（Storyboard & Scriptwriting）',
+        concept: '概念设计（角色/场景/道具原画）',
+        style: '美术风格定调（Color Script & Mood Board）',
       },
     },
     preDesign: {
       title: '专业前期设计',
       desc: '创意赋能，设计领航。团队提供剧本分镜、角色场景设计、美术风格定制等全流程前期服务，用匠心打造独特视觉叙事，为您的项目奠定卓越基石。',
-    },
-    artDesign: {
-      title: '剧本与美术',
-      items: {
-        script: '剧本与分镜（Storyboard & Scriptwriting）',
-        concept: '概念设计（角色/场景/道具原画）',
-        style: '美术风格定调（Color Script & Mood Board）',
-      },
     },
   },
 }

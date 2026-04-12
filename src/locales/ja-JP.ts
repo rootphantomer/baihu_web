@@ -215,19 +215,14 @@ export default {
         pv: '広告PV（ブランドプロモーションビデオ、製品アニメ）',
         character: 'キャラクターアニメ（Idle、Attack、Runなどのアクションライブラリ）',
         cinematic: 'シネマティックカットシーン',
+        script: '脚本と絵コンテ（Storyboard & Scriptwriting）',
+        concept: 'コンセプトデザイン（キャラクター/シーン/小物の原画）',
+        style: '美術スタイルの設定（Color Script & Mood Board）',
       },
     },
     preDesign: {
       title: '専門的な前期設計',
       desc: 'クリエイティビティを強化し、デザインが先導します。チームは脚本分鏡、キャラクター・シーンデザイン、美術スタイルのカスタマイズなど、全プロセスの前期サービスを提供し、匠の技で独自の視覚的ストーリーテリングを作り上げ、あなたのプロジェクトの優れた基盤を築きます。',
-    },
-    artDesign: {
-      title: '脚本と美術',
-      items: {
-        script: '脚本と絵コンテ（Storyboard & Scriptwriting）',
-        concept: 'コンセプトデザイン（キャラクター/シーン/小物の原画）',
-        style: '美術スタイルの設定（Color Script & Mood Board）',
-      },
     },
   },
 }
