@@ -37,7 +37,7 @@
     <!-- Bottom Bar -->
     <div class="footer-bottom">
       <span class="footer-copy">
-        &copy; {{ year }} {{ $t('footer.copyright') }}. {{ $t('footer.rights') }}
+        &copy; {{ currentYear }} {{ $t('footer.copyright') }}. {{ $t('footer.rights') }}
       </span>
       <span class="footer-made">Hangzhou, China</span>
     </div>
@@ -45,7 +45,9 @@
 </template>
 
 <script setup lang="ts">
-const year = new Date().getFullYear()
+import { computed } from 'vue'
+
+const currentYear = computed(() => new Date().getFullYear())
 const navItems = [
   { to: '/', label: 'header.home' },
   { to: '/works', label: 'header.works' },

@@ -34,12 +34,14 @@
     </div>
 
     <!-- Large decorative number -->
-    <span class="hero-deco" aria-hidden="true">2025</span>
+    <span class="hero-deco" aria-hidden="true">{{ currentYear }}</span>
   </section>
 </template>
 
 <script setup lang="ts">
-// No data needed
+import { computed } from 'vue'
+
+const currentYear = computed(() => new Date().getFullYear())
 </script>
 
 <style lang="scss" scoped>
@@ -251,7 +253,6 @@
 }
 
 @keyframes scrollPulse {
-
   0%,
   100% {
     opacity: 0.3;

@@ -9,11 +9,7 @@
 
     <section class="news-list-section">
       <div class="news-inner">
-        <div
-          v-for="(item, i) in newsItems"
-          :key="item.id"
-          class="news-item"
-        >
+        <div v-for="(item, i) in newsItems" :key="item.id" class="news-item">
           <span class="news-num label">{{ String(i + 1).padStart(2, '0') }}</span>
           <div class="news-content">
             <span class="news-date label">{{ item.date }}</span>
@@ -46,9 +42,15 @@ const newsItems = news
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
-  @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
-  @media (max-width: 900px)  { padding: 5rem 5vw 3.5rem; }
-  @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
+  @media (max-width: 1024px) {
+    padding: 6rem 4rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 5rem 5vw 3.5rem;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw 3rem;
+  }
 }
 
 .page-header-inner {
@@ -67,7 +69,9 @@ const newsItems = news
   letter-spacing: 0.04em;
   line-height: 1;
 
-  @media (max-width: 768px) { font-size: 4rem; }
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 }
 
 .news-list-section {
@@ -87,16 +91,23 @@ const newsItems = news
   border-bottom: 1px solid var(--c-border);
   transition: background var(--duration-fast);
 
-  &:last-child { border-bottom: none; }
-  &:hover { background: var(--c-surface); }
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover {
+    background: var(--c-surface);
+  }
 
-  @media (max-width: 1024px) { padding: 4rem; gap: 3rem; }
-  @media (max-width: 900px)  {
+  @media (max-width: 1024px) {
+    padding: 4rem;
+    gap: 3rem;
+  }
+  @media (max-width: 900px) {
     padding: 3rem 5vw;
     grid-template-columns: 4rem 1fr;
     gap: 2rem;
   }
-  @media (max-width: 768px)  {
+  @media (max-width: 768px) {
     padding: 3rem 5vw;
     grid-template-columns: 4rem 1fr;
     gap: 2rem;
@@ -129,7 +140,9 @@ const newsItems = news
   letter-spacing: 0.06em;
   line-height: 1.4;
 
-  @media (max-width: 768px) { font-size: 1.8rem; }
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
 }
 
 .news-summary {
