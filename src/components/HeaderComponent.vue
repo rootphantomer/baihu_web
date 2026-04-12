@@ -1,296 +1,374 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
-const route = useRoute()
-const menuOpen = ref(false)
-
-const navItems = [
-  { path: '/',               label: () => t('header.home'),    en: 'Home'    },
-  { path: '/work',           label: () => t('header.work'),    en: 'Work'    },
-  { path: '/#news-container',    label: () => t('header.news'),    en: 'News'    },
-  { path: '/#about-container',   label: () => t('header.about'),   en: 'About'   },
-  { path: '/#contact-container', label: () => t('header.contact'), en: 'Contact' },
-  { path: '/#join-container',    label: () => t('header.join'),    en: 'Join'    },
-]
-
-function closeMenu() {
-  menuOpen.value = false
-}
-</script>
-
 <template>
-  <header>
-    <RouterLink to="/" class="logo-link" @click="closeMenu">
-      <img id="logo" src="@/assets/logo.png" alt="Company Logo" />
-    </RouterLink>
+  <header :class="['site-header', { 'is-scrolled': scrolled, 'menu-open': menuOpen }]">
+    <div class="header-inner">
+      <!-- Logo -->
+      <RouterLink to="/" class="logo" @click="closeMenu">
+        <span class="logo-en">BAIHU</span>
+        <span class="logo-sep">｜</span>
+        <span class="logo-zh">白鹄动画</span>
+      </RouterLink>
 
-    <!-- 汉堡按钮（仅移动端显示） -->
-    <button
-      class="hamburger"
-      :class="{ open: menuOpen }"
-      aria-label="导航菜单"
-      @click="menuOpen = !menuOpen"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <!-- 导航列表 -->
-    <ul :class="{ 'menu-open': menuOpen }">
-      <li
-        v-for="nav in navItems"
-        :key="nav.path"
-        :class="{ active: route.path === nav.path }"
-      >
-        <RouterLink :to="nav.path" @click="closeMenu">
-          <p>{{ nav.label() }}</p>
-          <p class="en-label">{{ nav.en }}</p>
+      <!-- Desktop Nav -->
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <RouterLink v-for="item in navItems" :key="item.to" :to="item.to" class="nav-link">
+          {{ $t(item.label) }}
         </RouterLink>
-      </li>
-    </ul>
+      </nav>
 
-    <!-- 移动端遮罩 -->
-    <div v-if="menuOpen" class="nav-overlay" @click="closeMenu"></div>
+      <!-- Right Controls -->
+      <div class="header-controls">
+        <!-- Language Switch -->
+        <button class="lang-btn" @click="toggleLang" :aria-label="currentLang === 'zh-CN' ? '切换到日本語' : '中文に切り替える'">
+          <span :class="{ active: currentLang === 'zh-CN' }">中</span>
+          <span class="lang-divider">/</span>
+          <span :class="{ active: currentLang === 'ja-JP' }">日</span>
+        </button>
+
+        <!-- Hamburger (mobile) -->
+        <button
+          class="hamburger"
+          :class="{ 'is-open': menuOpen }"
+          @click="toggleMenu"
+          :aria-label="menuOpen ? '关闭菜单' : '打开菜单'"
+          :aria-expanded="menuOpen"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <Transition name="drawer">
+      <div v-if="menuOpen" class="mobile-drawer" @click.self="closeMenu">
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+          <RouterLink
+            v-for="(item, i) in navItems"
+            :key="item.to"
+            :to="item.to"
+            class="mobile-nav-link"
+            :style="{ '--i': i }"
+            @click="closeMenu"
+          >
+            <span class="mobile-nav-num">0{{ i + 1 }}</span>
+            <span class="mobile-nav-label">{{ $t(item.label) }}</span>
+            <span class="mobile-nav-arrow">→</span>
+          </RouterLink>
+        </nav>
+      </div>
+    </Transition>
   </header>
+
+  <!-- Overlay -->
+  <Transition name="fade">
+    <div v-if="menuOpen" class="header-overlay" @click="closeMenu"></div>
+  </Transition>
 </template>
 
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { locale } = useI18n()
+
+// ─── Scroll state ────────────────────────────────────────────────────────────
+const scrolled = ref(false)
+const handleScroll = () => { scrolled.value = window.scrollY > 40 }
+onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true }))
+onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+
+// ─── Mobile menu ─────────────────────────────────────────────────────────────
+const menuOpen = ref(false)
+const toggleMenu = () => { menuOpen.value = !menuOpen.value }
+const closeMenu = () => { menuOpen.value = false }
+
+// ─── Language ─────────────────────────────────────────────────────────────────
+const currentLang = computed(() => locale.value)
+const toggleLang = () => {
+  locale.value = locale.value === 'zh-CN' ? 'ja-JP' : 'zh-CN'
+}
+
+// ─── Nav items ────────────────────────────────────────────────────────────────
+const navItems = [
+  { to: '/',           label: 'header.home' },
+  { to: '/works',      label: 'header.works' },
+  { to: '/about',      label: 'header.about' },
+  { to: '/news',       label: 'header.news' },
+  { to: '/join',       label: 'header.join' },
+  { to: '/contact',    label: 'header.contact' },
+]
+</script>
+
 <style lang="scss" scoped>
-header {
-  position: relative;
-  display: flex;
-  height: 12rem;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  border-bottom: 0.1rem solid black;
-  background: #fdfcf6;
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
+  height: var(--header-h);
+  transition:
+    background var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+  border-bottom: 1px solid transparent;
 
-  * {
-    letter-spacing: 0.2rem;
+  &.is-scrolled {
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--c-border);
   }
 
-  .logo-link {
-    flex-shrink: 0;
-    margin-left: 10rem;
-  }
-
-  #logo {
-    height: 8rem;
-    max-height: 8rem;
-    display: block;
-  }
-
-  // 汉堡按钮 — 默认隐藏
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 5rem;
-    height: 5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    gap: 0.7rem;
-    padding: 0;
-    flex-shrink: 0;
-    margin-right: 4rem;
-    z-index: 200;
-
-    span {
-      display: block;
-      width: 3rem;
-      height: 0.3rem;
-      background: #222;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-      transform-origin: center;
-    }
-
-    &.open span:nth-child(1) { transform: translateY(1rem) rotate(45deg); }
-    &.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    &.open span:nth-child(3) { transform: translateY(-1rem) rotate(-45deg); }
-  }
-
-  ul {
-    width: 40%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-    margin-right: 10rem;
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-
-    &::before { content: '|'; }
-    &::after  { content: '|'; }
-
-    li {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-
-      &.active {
-        color: white;
-        background: #f5dd82;
-
-        a { color: #fff; }
-
-        &::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          bottom: -1rem;
-          width: 100%;
-          height: 1rem;
-          background: #ffb13b;
-          z-index: 2;
-        }
-      }
-
-      a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: inherit;
-        height: 100%;
-      }
-
-      p {
-        margin: 1.2rem 0 0;
-        font-size: 2rem;
-      }
-
-      .en-label {
-        font-size: 1rem;
-        margin: 0;
-        padding: 0;
-        line-height: 1.2;
-        word-break: break-all;
-      }
-    }
+  &.menu-open {
+    background: rgba(10, 10, 10, 0.98);
+    border-bottom-color: var(--c-border);
   }
 }
 
-// 遮罩层
-.nav-overlay {
+.header-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 6rem;
+  gap: 4rem;
+}
+
+// ─── Logo ────────────────────────────────────────────────────────────────────
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+
+  .logo-en {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--c-accent);
+    letter-spacing: 0.2em;
+  }
+
+  .logo-sep {
+    color: var(--c-border);
+    font-size: 1.2rem;
+  }
+
+  .logo-zh {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--c-primary);
+    letter-spacing: 0.15em;
+  }
+
+  &:hover .logo-en { color: var(--c-primary); }
+  transition: opacity var(--duration-fast);
+}
+
+// ─── Desktop Nav ─────────────────────────────────────────────────────────────
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  margin-left: auto;
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--c-secondary);
+  letter-spacing: 0.1em;
+  position: relative;
+  transition: color var(--duration-fast);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.4rem;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--c-accent);
+    transition: width var(--duration-base) var(--ease-out);
+  }
+
+  &:hover,
+  &.router-link-active {
+    color: var(--c-primary);
+    &::after { width: 100%; }
+  }
+}
+
+// ─── Header Controls ─────────────────────────────────────────────────────────
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  background: none;
+  border: 1px solid var(--c-border);
+  color: var(--c-secondary);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: border-color var(--duration-fast), color var(--duration-fast);
+
+  .lang-divider { opacity: 0.3; }
+
+  span.active {
+    color: var(--c-accent);
+  }
+
+  &:hover {
+    border-color: var(--c-accent);
+    color: var(--c-primary);
+  }
+}
+
+// ─── Hamburger ───────────────────────────────────────────────────────────────
+.hamburger {
   display: none;
-}
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
 
-// 平板：缩小间距
-@media (max-width: 1024px) {
-  header {
-    height: 10rem;
-
-    * { letter-spacing: 0.1rem; }
-
-    .logo-link { margin-left: 3rem; }
-
-    ul { margin-right: 3rem; }
-  }
-}
-
-// 移动端：汉堡菜单
-@media (max-width: 768px) {
-  header {
-    height: 8rem;
-    padding: 0;
-
-    .logo-link { margin-left: 2rem; }
-
-    #logo { height: 5.5rem; }
-
-    // 显示汉堡按钮
-    .hamburger {
-      display: flex;
-      margin-right: 2rem;
-    }
-
-    // 导航变为抽屉式下拉
-    ul {
-      position: fixed;
-      top: 8rem;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: auto;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: flex-start;
-      background: #fdfcf6;
-      border-bottom: 0.2rem solid #fbe58e;
-      box-shadow: 0 0.4rem 1.2rem rgba(0,0,0,0.12);
-      margin: 0;
-      padding: 1rem 0;
-      transform: translateY(-120%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.3s ease, opacity 0.25s ease;
-      z-index: 150;
-
-      &::before,
-      &::after { content: none; }
-
-      &.menu-open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      li {
-        height: auto;
-        padding: 0;
-        border-bottom: 0.1rem solid #f0eed8;
-
-        &:last-child { border-bottom: none; }
-
-        &.active {
-          background: #f5dd82;
-
-          &::after { display: none; }
-        }
-
-        a {
-          flex-direction: row;
-          justify-content: center;
-          gap: 1rem;
-          height: auto;
-          padding: 1.6rem 2rem;
-          width: 100%;
-        }
-
-        p {
-          font-size: 2.2rem;
-          margin: 0;
-        }
-
-        .en-label {
-          font-size: 1.4rem;
-          letter-spacing: 0.05rem;
-        }
-      }
-    }
-  }
-
-  .nav-overlay {
+  span {
     display: block;
-    position: fixed;
-    inset: 0;
-    top: 8rem;
-    background: rgba(0,0,0,0.3);
-    z-index: 140;
+    height: 1px;
+    background: var(--c-primary);
+    transition: transform var(--duration-base) var(--ease-out),
+                opacity var(--duration-fast);
+
+    &:nth-child(1) { width: 100%; }
+    &:nth-child(2) { width: 70%; margin-left: auto; }
+    &:nth-child(3) { width: 100%; }
   }
+
+  &.is-open {
+    span:nth-child(1) { transform: translateY(0.6rem) rotate(45deg); width: 100%; }
+    span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    span:nth-child(3) { transform: translateY(-0.6rem) rotate(-45deg); }
+  }
+}
+
+// ─── Mobile Drawer ───────────────────────────────────────────────────────────
+.mobile-drawer {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 10, 0.98);
+  z-index: 99;
+  overflow-y: auto;
+  padding: 3rem 0;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 5vw;
+  border-bottom: 1px solid var(--c-border);
+  transition: background var(--duration-fast);
+  animation: slideInUp var(--duration-base) calc(var(--i) * 60ms) var(--ease-out) both;
+
+  .mobile-nav-num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--c-accent);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav-label {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: var(--c-primary);
+    flex: 1;
+    letter-spacing: 0.1em;
+  }
+
+  .mobile-nav-arrow {
+    color: var(--c-muted);
+    font-size: 1.6rem;
+    transition: transform var(--duration-fast), color var(--duration-fast);
+  }
+
+  &:hover,
+  &.router-link-active {
+    background: var(--c-accent-dim);
+    .mobile-nav-arrow { transform: translateX(0.4rem); color: var(--c-accent); }
+  }
+}
+
+// ─── Overlay ─────────────────────────────────────────────────────────────────
+.header-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 98;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+// ─── Transitions ─────────────────────────────────────────────────────────────
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: opacity var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+.drawer-enter-from,
+.drawer-leave-to {
+  opacity: 0;
+  transform: translateY(-1rem);
+}
+
+.fade-enter-active,
+.fade-leave-active { transition: opacity var(--duration-base); }
+.fade-enter-from,
+.fade-leave-to     { opacity: 0; }
+
+// ─── Keyframes ───────────────────────────────────────────────────────────────
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(1rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .header-inner {
+    padding: 0 3rem;
+    gap: 2rem;
+  }
+  .desktop-nav { gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    padding: 0 4vw;
+  }
+  .desktop-nav { display: none; }
+  .hamburger   { display: flex; }
 }
 </style>
