@@ -21,10 +21,13 @@
         </div>
         <div class="footer-col">
           <span class="footer-col-title">Contact</span>
-          <a href="mailto:contact@baihu-animation.com" class="footer-link">
-            contact@baihu-animation.com
-          </a>
-          <a href="https://weibo.com/u/8001978950" target="_blank" rel="noopener" class="footer-link">
+          <a href="mailto:baihu_animation@163.com" class="footer-link"> baihu_animation@163.com </a>
+          <a
+            href="https://weibo.com/u/8001978950"
+            target="_blank"
+            rel="noopener"
+            class="footer-link"
+          >
             微博 Weibo
           </a>
         </div>
@@ -44,11 +47,11 @@
 <script setup lang="ts">
 const year = new Date().getFullYear()
 const navItems = [
-  { to: '/',        label: 'header.home' },
-  { to: '/works',   label: 'header.works' },
-  { to: '/about',   label: 'header.about' },
-  { to: '/news',    label: 'header.news' },
-  { to: '/join',    label: 'header.join' },
+  { to: '/', label: 'header.home' },
+  { to: '/works', label: 'header.works' },
+  { to: '/about', label: 'header.about' },
+  { to: '/news', label: 'header.news' },
+  { to: '/join', label: 'header.join' },
   { to: '/contact', label: 'header.contact' },
 ]
 </script>
@@ -115,7 +118,9 @@ const navItems = [
     color: var(--c-primary);
   }
 
-  &:hover { opacity: 0.7; }
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .footer-tagline {
@@ -130,8 +135,13 @@ const navItems = [
   display: flex;
   gap: 6rem;
 
-  @media (max-width: 768px) { gap: 4rem; }
-  @media (max-width: 480px) { flex-direction: column; gap: 3rem; }
+  @media (max-width: 768px) {
+    gap: 4rem;
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 3rem;
+  }
 }
 
 .footer-col {
@@ -155,7 +165,9 @@ const navItems = [
   color: var(--c-secondary);
   transition: color var(--duration-fast);
 
-  &:hover { color: var(--c-primary); }
+  &:hover {
+    color: var(--c-primary);
+  }
 }
 
 // ─── Bottom Bar ──────────────────────────────────────────────────────────────

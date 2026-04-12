@@ -158,7 +158,7 @@ export default {
       },
     },
     apply: '履歴書とポートフォリオを以下のメールアドレスに送信してください：',
-    email: 'contact@baihu-animation.com',
+    email: 'baihu_animation@163.com',
     note: 'メール件名形式：お名前 + 応募職種',
   },
   contact: {
@@ -168,7 +168,7 @@ export default {
       'アニメーションの外注をご希望の方、または協業について知りたい方は、以下の渠道よりお問い合わせください。',
     email: {
       label: 'メール',
-      value: 'contact@baihu-animation.com',
+      value: 'baihu_animation@163.com',
     },
     address: {
       label: '住所',

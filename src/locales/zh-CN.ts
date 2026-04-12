@@ -155,7 +155,7 @@ export default {
       },
     },
     apply: '投递简历与作品集至以下邮箱：',
-    email: 'contact@baihu-animation.com',
+    email: 'baihu_animation@163.com',
     note: '邮件标题格式：姓名 + 应聘岗位',
   },
   contact: {
@@ -164,7 +164,7 @@ export default {
     intro: '如您有动画制作外包需求，或希望了解合作方式，欢迎通过以下渠道联系我们。',
     email: {
       label: '邮箱',
-      value: 'contact@baihu-animation.com',
+      value: 'baihu_animation@163.com',
     },
     address: {
       label: '地址',

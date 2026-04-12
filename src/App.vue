@@ -16,40 +16,42 @@ import FooterComponent from './components/FooterComponent.vue'
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 :root {
   // Color
-  --c-bg:          #0a0a0a;
-  --c-surface:     #111111;
-  --c-surface-2:   #181818;
-  --c-border:      #242424;
-  --c-muted:       #444444;
-  --c-secondary:   #888888;
-  --c-primary:     #e8e4dc;
-  --c-accent:      #c4a35a;
-  --c-accent-dim:  rgba(196, 163, 90, 0.12);
+  --c-bg: #0a0a0a;
+  --c-surface: #111111;
+  --c-surface-2: #181818;
+  --c-border: #242424;
+  --c-muted: #444444;
+  --c-secondary: #888888;
+  --c-primary: #e8e4dc;
+  --c-accent: #c4a35a;
+  --c-accent-dim: rgba(196, 163, 90, 0.12);
 
   // Typography
-  --font-display:  'Shippori Mincho', 'Noto Serif SC', serif;
-  --font-body:     'DM Sans', 'Noto Sans SC', sans-serif;
-  --font-mono:     'DM Mono', monospace;
+  --font-display: 'Shippori Mincho', 'Noto Serif SC', serif;
+  --font-body: 'DM Sans', 'Noto Sans SC', sans-serif;
+  --font-mono: 'DM Mono', monospace;
 
   // Motion
-  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 200ms;
   --duration-base: 400ms;
   --duration-slow: 700ms;
 
   // Header height
-  --header-h:      6rem;
+  --header-h: 6rem;
 }
 
 // ─── Reset & Base ─────────────────────────────────────────────────────────────
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  font-size: calc(100vw / 192);   // 1920px 设计稿，1rem = 10px
+  font-size: calc(100vw / 192); // 1920px 设计稿，1rem = 10px
   background: var(--c-bg);
   color: var(--c-primary);
   overflow-x: hidden;
@@ -68,32 +70,56 @@ body {
 // ─── Responsive Font Scale ────────────────────────────────────────────────────
 // 超小屏 iPhone SE (375px)
 @media (max-width: 390px) {
-  html { font-size: 13px; }
-  :root { --header-h: 5.5rem; }
+  html {
+    font-size: 13px;
+  }
+  :root {
+    --header-h: 5.5rem;
+  }
 }
 // 标准手机 iPhone XR (414px) ~ 430px
 @media (min-width: 391px) and (max-width: 430px) {
-  html { font-size: 14px; }
-  :root { --header-h: 5.5rem; }
+  html {
+    font-size: 14px;
+  }
+  :root {
+    --header-h: 5.5rem;
+  }
 }
 // 大手机 431~767px
 @media (min-width: 431px) and (max-width: 767px) {
-  html { font-size: 14.5px; }
-  :root { --header-h: 6rem; }
+  html {
+    font-size: 14.5px;
+  }
+  :root {
+    --header-h: 6rem;
+  }
 }
 // 平板竖屏 768~1023px
 @media (min-width: 768px) and (max-width: 1023px) {
-  html { font-size: 13px; }
-  :root { --header-h: 6.5rem; }
+  html {
+    font-size: 13px;
+  }
+  :root {
+    --header-h: 6.5rem;
+  }
 }
 // 平板横屏/小桌面 1024~1279px
 @media (min-width: 1024px) and (max-width: 1279px) {
-  html { font-size: calc(100vw / 192); }
-  :root { --header-h: 6rem; }
+  html {
+    font-size: calc(100vw / 192);
+  }
+  :root {
+    --header-h: 6rem;
+  }
 }
 
 // ─── Typography Scale ─────────────────────────────────────────────────────────
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.2;
@@ -101,7 +127,8 @@ h1, h2, h3, h4, h5 {
   color: var(--c-primary);
 }
 
-p, li {
+p,
+li {
   font-family: var(--font-body);
   color: var(--c-secondary);
   font-weight: 300;
@@ -152,7 +179,9 @@ img {
 ::-webkit-scrollbar-thumb {
   background: var(--c-border);
   border-radius: 2px;
-  &:hover { background: var(--c-muted); }
+  &:hover {
+    background: var(--c-muted);
+  }
 }
 
 // ─── Selection ────────────────────────────────────────────────────────────────
