@@ -297,6 +297,39 @@
   }
 }
 
+// 平板竖屏
+@media (max-width: 900px) {
+  .hero-content {
+    padding: 0 5vw;
+    gap: 2.4rem;
+  }
+
+  .hero-scroll {
+    left: 5vw;
+    bottom: 3rem;
+  }
+
+  .hero-name-en {
+    font-size: 5.5rem;
+  }
+
+  .hero-name-zh {
+    font-size: 2.8rem;
+    letter-spacing: 0.3em;
+  }
+
+  .hero-tagline {
+    font-size: 1.6rem;
+    max-width: 80%;
+  }
+
+  .hero-deco {
+    font-size: 16rem;
+    right: -1.5rem;
+    bottom: -3rem;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-content {
     padding: 0 5vw;
@@ -326,10 +359,42 @@
     gap: 1.5rem;
   }
 
+  .hero-btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding: 1.6rem 2rem;
+    font-size: 1.3rem;
+  }
+
+  .hero-btn-ghost {
+    font-size: 1.3rem;
+  }
+
   .hero-deco {
     font-size: 14rem;
     right: -1rem;
     bottom: -2rem;
+  }
+}
+
+// iPhone SE / 超小屏
+@media (max-width: 390px) {
+  .hero-name-en {
+    font-size: 3.8rem;
+  }
+
+  .hero-name-zh {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+  }
+
+  .hero-tagline {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .hero-deco {
+    font-size: 10rem;
   }
 }
 </style>

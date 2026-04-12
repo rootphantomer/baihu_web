@@ -66,10 +66,31 @@ body {
 }
 
 // ─── Responsive Font Scale ────────────────────────────────────────────────────
-@media (max-width: 390px)  { html { font-size: 6px; } }
-@media (min-width: 391px)  and (max-width: 430px)  { html { font-size: 7px; } }
-@media (min-width: 431px)  and (max-width: 768px)  { html { font-size: 8px; } }
-@media (min-width: 769px)  and (max-width: 1024px) { html { font-size: 8.5px; } }
+// 超小屏 iPhone SE (375px)
+@media (max-width: 390px) {
+  html { font-size: 13px; }
+  :root { --header-h: 5.5rem; }
+}
+// 标准手机 iPhone XR (414px) ~ 430px
+@media (min-width: 391px) and (max-width: 430px) {
+  html { font-size: 14px; }
+  :root { --header-h: 5.5rem; }
+}
+// 大手机 431~767px
+@media (min-width: 431px) and (max-width: 767px) {
+  html { font-size: 14.5px; }
+  :root { --header-h: 6rem; }
+}
+// 平板竖屏 768~1023px
+@media (min-width: 768px) and (max-width: 1023px) {
+  html { font-size: 13px; }
+  :root { --header-h: 6.5rem; }
+}
+// 平板横屏/小桌面 1024~1279px
+@media (min-width: 1024px) and (max-width: 1279px) {
+  html { font-size: calc(100vw / 192); }
+  :root { --header-h: 6rem; }
+}
 
 // ─── Typography Scale ─────────────────────────────────────────────────────────
 h1, h2, h3, h4, h5 {

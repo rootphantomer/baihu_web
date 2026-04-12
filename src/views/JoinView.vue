@@ -96,6 +96,7 @@ const togglePosition = (id: string) => {
   padding: 8rem 8rem 5rem;
 
   @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
+  @media (max-width: 900px)  { padding: 5rem 5vw 3.5rem; }
   @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
 }
 
@@ -158,6 +159,7 @@ const togglePosition = (id: string) => {
   &:hover { background: var(--c-surface); }
 
   @media (max-width: 1024px) { padding: 3rem 4rem; }
+  @media (max-width: 900px)  { padding: 2.5rem 5vw; flex-wrap: wrap; }
   @media (max-width: 768px)  { padding: 2.5rem 5vw; flex-direction: column; align-items: flex-start; }
 }
 
@@ -212,6 +214,7 @@ const togglePosition = (id: string) => {
   padding: 0 8rem 5rem;
 
   @media (max-width: 1024px) { padding: 0 4rem 4rem; }
+  @media (max-width: 900px)  { padding: 0 5vw 3rem; }
   @media (max-width: 768px)  { padding: 0 5vw 4rem; }
 }
 
@@ -222,6 +225,7 @@ const togglePosition = (id: string) => {
   border-top: 1px solid var(--c-border);
   padding-top: 4rem;
 
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 3rem; }
   @media (max-width: 768px) { grid-template-columns: 1fr; gap: 3rem; }
 }
 
@@ -286,6 +290,7 @@ const togglePosition = (id: string) => {
   gap: 2rem;
 
   @media (max-width: 1024px) { padding: 6rem 4rem; }
+  @media (max-width: 900px)  { padding: 5rem 5vw; }
   @media (max-width: 768px)  { padding: 5rem 5vw; }
 }
 

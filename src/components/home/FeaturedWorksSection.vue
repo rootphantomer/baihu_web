@@ -82,7 +82,8 @@ const featuredWorks = [
   margin: 0 auto;
 
   @media (max-width: 1024px) { padding: 8rem 4rem; }
-  @media (max-width: 768px)  { padding: 6rem 5vw; }
+  @media (max-width: 900px)  { padding: 6rem 5vw; }
+  @media (max-width: 768px)  { padding: 5rem 5vw; }
 }
 
 // ─── Header ──────────────────────────────────────────────────────────────────
@@ -131,6 +132,7 @@ const featuredWorks = [
   gap: 2px;
 
   @media (max-width: 1024px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 900px)  { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 480px)  { grid-template-columns: 1fr; }
 }
 

@@ -47,6 +47,7 @@ const newsItems = news
   padding: 8rem 8rem 5rem;
 
   @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
+  @media (max-width: 900px)  { padding: 5rem 5vw 3.5rem; }
   @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
 }
 
@@ -90,6 +91,11 @@ const newsItems = news
   &:hover { background: var(--c-surface); }
 
   @media (max-width: 1024px) { padding: 4rem; gap: 3rem; }
+  @media (max-width: 900px)  {
+    padding: 3rem 5vw;
+    grid-template-columns: 4rem 1fr;
+    gap: 2rem;
+  }
   @media (max-width: 768px)  {
     padding: 3rem 5vw;
     grid-template-columns: 4rem 1fr;

@@ -110,6 +110,10 @@ const history = [
     padding: 6rem 4rem 4rem;
   }
 
+  @media (max-width: 900px) {
+    padding: 5rem 5vw 3.5rem;
+  }
+
   @media (max-width: 768px) {
     padding: 5rem 5vw 3rem;
   }
@@ -143,6 +147,10 @@ const history = [
 
   @media (max-width: 1024px) {
     padding: 6rem 4rem;
+  }
+
+  @media (max-width: 900px) {
+    padding: 5rem 5vw;
   }
 
   @media (max-width: 768px) {
@@ -179,6 +187,10 @@ const history = [
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -246,6 +258,10 @@ const history = [
   gap: 1px;
   background: var(--c-border);
 
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -261,6 +277,10 @@ const history = [
 
   &:hover {
     background: var(--c-surface-2);
+  }
+
+  @media (max-width: 900px) {
+    padding: 3rem 5vw;
   }
 }
 
@@ -349,6 +369,12 @@ const history = [
 
   &:last-child {
     border-bottom: none;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 4.5rem 2rem 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
   }
 
   @media (max-width: 768px) {

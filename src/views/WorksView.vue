@@ -182,6 +182,12 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   gap: 3rem;
 
   @media (max-width: 1024px) { padding: 1.5rem 4rem; }
+  @media (max-width: 900px)  {
+    padding: 1.5rem 5vw;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
   @media (max-width: 768px)  {
     padding: 1.5rem 5vw;
     flex-direction: column;
@@ -196,6 +202,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   flex-wrap: wrap;
   flex: 1;
 
+  @media (max-width: 900px) { gap: 1.5rem; width: 100%; flex-direction: column; align-items: flex-start; }
   @media (max-width: 768px) { gap: 1.5rem; width: 100%; }
 }
 
@@ -246,6 +253,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   letter-spacing: 0.08em;
   padding: 0.3rem 1rem;
   cursor: pointer;
+  min-height: 3.2rem; // 触控目标
   transition: all var(--duration-fast);
 
   &:hover { border-color: var(--c-secondary); color: var(--c-primary); }
@@ -265,6 +273,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   padding: 4rem 8rem 10rem;
 
   @media (max-width: 1024px) { padding: 4rem 4rem 8rem; }
+  @media (max-width: 900px)  { padding: 3rem 5vw 6rem; }
   @media (max-width: 768px)  { padding: 3rem 5vw 6rem; }
 }
 
@@ -274,7 +283,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   gap: 2px;
 
   @media (max-width: 1280px) { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 768px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 900px)  { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 480px)  { grid-template-columns: 1fr; }
 }
 
@@ -399,6 +408,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   gap: 3rem;
   max-height: 90vh;
 
+  @media (max-width: 900px) { flex-direction: column; align-items: center; gap: 2rem; }
   @media (max-width: 768px) { flex-direction: column; align-items: center; }
 }
 
@@ -407,6 +417,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   max-width: 60vw;
   object-fit: contain;
 
+  @media (max-width: 900px) { max-width: 85vw; max-height: 55vh; }
   @media (max-width: 768px) { max-width: 90vw; max-height: 60vh; }
 }
 
@@ -415,6 +426,8 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   flex-direction: column;
   gap: 1rem;
   min-width: 18rem;
+
+  @media (max-width: 900px) { min-width: unset; width: 85vw; }
 }
 
 .lightbox-role {

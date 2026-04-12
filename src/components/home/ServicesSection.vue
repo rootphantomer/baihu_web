@@ -71,7 +71,8 @@ const services = computed(() => [
   padding: 10rem 8rem;
 
   @media (max-width: 1024px) { padding: 8rem 4rem; }
-  @media (max-width: 768px)  { padding: 6rem 5vw; }
+  @media (max-width: 900px)  { padding: 6rem 5vw; }
+  @media (max-width: 768px)  { padding: 5rem 5vw; }
 }
 
 .services-header {
@@ -98,6 +99,7 @@ const services = computed(() => [
   background: var(--c-border);
 
   @media (max-width: 1024px) { grid-template-columns: 1fr; }
+  @media (max-width: 900px)  { grid-template-columns: 1fr; }
 }
 
 .service-card {

@@ -64,6 +64,7 @@
   padding: 8rem 8rem 5rem;
 
   @media (max-width: 1024px) { padding: 6rem 4rem 4rem; }
+  @media (max-width: 900px)  { padding: 5rem 5vw 3.5rem; }
   @media (max-width: 768px)  { padding: 5rem 5vw 3rem; }
 }
 
@@ -104,6 +105,7 @@
   padding: 8rem;
 
   @media (max-width: 1024px) { padding: 6rem 4rem; }
+  @media (max-width: 900px)  { padding: 5rem 5vw; }
   @media (max-width: 768px)  { padding: 5rem 5vw; }
 }
 
@@ -113,6 +115,11 @@
   gap: 1px;
   background: var(--c-border);
   margin-bottom: 10rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    margin-bottom: 6rem;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;

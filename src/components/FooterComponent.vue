@@ -68,6 +68,16 @@ const navItems = [
   max-width: 1600px;
   margin: 0 auto;
 
+  @media (max-width: 1024px) {
+    padding: 0 4rem 5rem;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    padding: 0 5vw 5rem;
+    gap: 4rem;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 0 5vw 5rem;
@@ -157,6 +167,17 @@ const navItems = [
   border-top: 1px solid var(--c-border);
   max-width: 1600px;
   margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    padding: 2rem 4rem;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 2rem 5vw;
+    text-align: center;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;

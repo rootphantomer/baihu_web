@@ -32,8 +32,13 @@
   gap: 4rem;
 
   @media (max-width: 1024px) { padding: 6rem 4rem; }
-  @media (max-width: 768px)  {
+  @media (max-width: 900px)  {
     padding: 6rem 5vw;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  @media (max-width: 768px)  {
+    padding: 5rem 5vw;
     flex-direction: column;
     align-items: flex-start;
   }
@@ -78,6 +83,7 @@
   font-weight: 300;
   color: var(--c-accent);
   letter-spacing: 0.1em;
+  min-height: 5.5rem; // 触控目标 ≥44px
   transition:
     background var(--duration-fast),
     color var(--duration-fast),
@@ -90,6 +96,12 @@
     color: var(--c-bg);
     gap: 2.6rem;
     .rc-arrow { transform: translateX(0.4rem); }
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
+    justify-content: center;
+    padding: 1.8rem 3rem;
   }
 }
 </style>

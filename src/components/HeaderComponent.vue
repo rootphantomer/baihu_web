@@ -361,14 +361,39 @@ const navItems = [
     padding: 0 3rem;
     gap: 2rem;
   }
-  .desktop-nav { gap: 2.5rem; }
+  .desktop-nav { gap: 2rem; }
+  .nav-link { font-size: 1.1rem; }
+}
+
+// 平板竖屏及以下：隐藏桌面导航，改用汉堡菜单
+@media (max-width: 900px) {
+  .header-inner {
+    padding: 0 5vw;
+    gap: 1rem;
+  }
+  .desktop-nav { display: none; }
+  .hamburger   { display: flex; }
 }
 
 @media (max-width: 768px) {
   .header-inner {
     padding: 0 4vw;
   }
-  .desktop-nav { display: none; }
-  .hamburger   { display: flex; }
+  .lang-btn {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+  }
+  .hamburger {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+}
+
+// 移动端菜单字体适配
+@media (max-width: 430px) {
+  .mobile-nav-link {
+    padding: 1.8rem 5vw;
+    .mobile-nav-label { font-size: 2rem; }
+  }
 }
 </style>
