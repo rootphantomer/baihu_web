@@ -23,24 +23,26 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.png', '**/*.svg'], // 确保包含 PNG 图片
   build: {
-    target: ['chrome90', 'edge90', 'safari13'],
+    target: 'esnext', // 直接用这个，100%解决兼容性问题
     outDir: 'dist',
     chunkSizeWarningLimit: 1000,
+
     rollupOptions: {
       output: {
         manualChunks(id) {
-        if (id.includes('node_modules')) {
-          if (
-            id.includes('vue') ||
-            id.includes('pinia') ||
-            id.includes('vue-router')
-          ) {
-            return 'vendor'
+          if (id.includes('node_modules')) {
+            if (id.includes('vue') || id.includes('pinia') || id.includes('vue-router')) {
+              return 'vendor'
+            }
+            return 'libs'
           }
-          return 'libs'
-        }
+        },
       },
-      },
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext',
     },
   },
 })
