@@ -185,6 +185,16 @@ export default {
     subtitle: 'News',
     readMore: '阅读更多',
     noNews: '暂无新闻',
+    items: [
+      {
+        title: '白鹄动画官网 V2 全新上线',
+        desc: '白鹄动画全新官方网站正式上线，以全新的视觉语言呈现我们的制作理念与代表作品。',
+      },
+      {
+        title: '祝！白鹄动画正式成立',
+        desc: '成功入驻圆伦大厦，祝公司顺利开张',
+      },
+    ],
   },
   footer: {
     copyright: '杭州白鹄动画有限公司',

@@ -29,22 +29,46 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-const newsList = [
-  {
-    date: '2025.05.15',
-    title: t('news.items.0.title'),
-    img: 'https://photos.baihu-animation.com/img_news/1747989770390.jpg', // 示例图片路径
-    desc: t('news.items.0.desc'),
-  },
-  {
-    date: '2025.01.23',
-    title: t('news.items.1.title'),
-    img: 'https://photos.baihu-animation.com/img_news/71b545bde9231126abb4bfe5b5f2c16.jpg',
-    desc: t('news.items.1.desc'),
-  },
-]
+import zhCN from '@/locales/zh-CN'
+import enUS from '@/locales/en-US'
+import zhTW from '@/locales/zh-TW'
+import jaJP from '@/locales/ja-JP'
+
+const { locale } = useI18n()
+
+// 根据当前语言获取新闻数据
+const newsList = computed(() => {
+  const localeMap: Record<string, any> = {
+    'zh-CN': zhCN,
+    'en-US': enUS,
+    'zh-TW': zhTW,
+    'ja-JP': jaJP,
+  }
+
+  const messages = localeMap[locale.value] || zhCN
+  const items = messages.news?.items || []
+
+  if (!Array.isArray(items) || items.length === 0) {
+    return []
+  }
+
+  return [
+    {
+      date: '2026.04',
+      title: items[0]?.title || '',
+      img: 'https://photos.baihu-animation.com/img_news/1747989770390.jpg',
+      desc: items[0]?.desc || '',
+    },
+    {
+      date: '2025.01.23',
+      title: items[1]?.title || '',
+      img: 'https://photos.baihu-animation.com/img_news/71b545bde9231126abb4bfe5b5f2c16.jpg',
+      desc: items[1]?.desc || '',
+    },
+  ]
+})
 </script>
 
 <style lang="scss" scoped>

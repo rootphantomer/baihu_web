@@ -27,8 +27,39 @@
 </template>
 
 <script setup lang="ts">
-import { news } from '@/data/news'
-const newsItems = news
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import zhCN from '@/locales/zh-CN'
+import enUS from '@/locales/en-US'
+import zhTW from '@/locales/zh-TW'
+import jaJP from '@/locales/ja-JP'
+
+const { locale } = useI18n()
+
+// 根据当前语言获取新闻数据
+const newsItems = computed(() => {
+  const localeMap: Record<string, any> = {
+    'zh-CN': zhCN,
+    'en-US': enUS,
+    'zh-TW': zhTW,
+    'ja-JP': jaJP,
+  }
+
+  const messages = localeMap[locale.value] || zhCN
+  const items = messages.news?.items || []
+
+  if (!Array.isArray(items)) {
+    return []
+  }
+
+  // 映射为 NewsItem 格式
+  return items.map((item: any, index: number) => ({
+    id: String(index + 1),
+    date: index === 0 ? '2026.04' : '2025.01.23',
+    title: item.title || '',
+    summary: item.desc || '',
+  }))
+})
 </script>
 
 <style lang="scss" scoped>

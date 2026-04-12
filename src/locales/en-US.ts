@@ -83,14 +83,17 @@ export default {
   },
   news: {
     title: 'News',
+    subtitle: 'News',
+    readMore: 'Read More',
+    noNews: 'No news available',
     items: [
       {
-        title: 'Baihu homepage is under active production',
-        desc: 'The appearance design of the top bar of the homepage and the news section is in progress',
+        title: 'Baihu Animation Official Website V2 Launched',
+        desc: 'The brand new official website of Baihu Animation is now live, presenting our production philosophy and representative works with a fresh visual language.',
       },
       {
-        title: 'Congratulations! Baihu Animation officially established!',
-        desc: 'Successfully settled in Yuanlun Building, wishing the company a smooth opening',
+        title: 'Congratulations! Baihu Animation Officially Established!',
+        desc: 'Successfully settled in Yuanlun Building, wishing the company a smooth opening.',
       },
     ],
   },
