@@ -57,6 +57,10 @@
   max-width: 1600px;
   margin: 0 auto;
 
+  @media (max-width: 1280px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
@@ -70,20 +74,27 @@
   gap: 3rem;
   border-right: 1px solid var(--c-border);
 
+  @media (max-width: 1280px) {
+    padding: 8rem 5rem;
+  }
+
   @media (max-width: 1024px) {
-    padding: 8rem 4rem;
+    padding: 7rem 4rem;
   }
 
   @media (max-width: 900px) {
-    padding: 6rem 5vw;
+    padding: 5rem 5vw;
     border-right: none;
     border-bottom: 1px solid var(--c-border);
   }
 
   @media (max-width: 768px) {
-    padding: 5rem 5vw;
-    border-right: none;
-    border-bottom: 1px solid var(--c-border);
+    padding: 4rem 5vw;
+  }
+
+  @media (max-width: 430px) {
+    padding: 3.5rem 4vw;
+    gap: 2rem;
   }
 }
 
@@ -101,12 +112,28 @@
   color: var(--c-primary);
   letter-spacing: 0.02em;
 
+  @media (max-width: 1280px) {
+    font-size: 4.5rem;
+  }
+
   @media (max-width: 1024px) {
     font-size: 4rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     font-size: 3.5rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 2.2rem;
   }
 }
 
@@ -121,6 +148,20 @@
   color: var(--c-secondary);
   line-height: 1.9;
   max-width: 50rem;
+
+  @media (max-width: 1024px) {
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 1.1rem;
+    line-height: 1.75;
+  }
 }
 
 .ap-link {
@@ -131,10 +172,25 @@
   font-size: 1.2rem;
   color: var(--c-accent);
   letter-spacing: 0.1em;
+  min-height: 3rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition: gap var(--duration-fast);
 
   &:hover {
     gap: 1.2rem;
+  }
+
+  &:active {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 1rem;
   }
 }
 
@@ -146,16 +202,28 @@
   justify-content: space-between;
   gap: 5rem;
 
+  @media (max-width: 1280px) {
+    padding: 8rem 5rem;
+    gap: 4rem;
+  }
+
   @media (max-width: 1024px) {
-    padding: 8rem 4rem;
+    padding: 7rem 4rem;
   }
 
   @media (max-width: 900px) {
-    padding: 5rem 5vw;
+    padding: 4rem 5vw;
+    flex-direction: column;
+    gap: 3.5rem;
   }
 
   @media (max-width: 768px) {
-    padding: 5rem 5vw;
+    padding: 3.5rem 5vw;
+  }
+
+  @media (max-width: 430px) {
+    padding: 3rem 4vw;
+    gap: 3rem;
   }
 }
 
@@ -164,8 +232,17 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
 
-  @media (max-width: 480px) {
+  @media (max-width: 1024px) {
     gap: 3rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 390px) {
+    gap: 1.5rem;
   }
 }
 
@@ -183,8 +260,24 @@
   letter-spacing: -0.02em;
   line-height: 1;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1280px) {
+    font-size: 4rem;
+  }
+
+  @media (max-width: 1024px) {
     font-size: 3.5rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 2.2rem;
   }
 }
 
@@ -199,6 +292,10 @@
   font-size: 1rem;
   color: var(--c-muted);
   letter-spacing: 0.12em;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 }
 
 .ap-quote {
@@ -210,5 +307,18 @@
   line-height: 1.8;
   border-left: 2px solid var(--c-accent);
   padding-left: 2rem;
+
+  @media (max-width: 1024px) {
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    padding-left: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 }
 </style>

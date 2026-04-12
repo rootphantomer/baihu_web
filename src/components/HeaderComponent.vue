@@ -17,6 +17,30 @@
 
       <!-- Right Controls -->
       <div class="header-controls">
+        <!-- Theme Toggle -->
+        <button
+          class="theme-btn"
+          @click="toggleTheme"
+          :aria-label="isDark ? '切换到浅色模式' : '切换到深色模式'"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg v-if="isDark" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg v-else class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
         <!-- Language Switch -->
         <button
           class="lang-btn"
@@ -73,6 +97,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { locale, setLocale } from '@/composables/useI18n'
+import { useTheme } from '@/composables/useTheme'
+
+// ─── Theme ───────────────────────────────────────────────────────────────────
+const { theme: currentTheme, toggleTheme } = useTheme()
+const isDark = computed(() => currentTheme.value === 'dark')
 
 // ─── Scroll state ────────────────────────────────────────────────────────────
 const scrolled = ref(false)
@@ -123,14 +152,29 @@ const navItems = [
   border-bottom: 1px solid transparent;
 
   &.is-scrolled {
-    background: rgba(10, 10, 10, 0.88);
-    backdrop-filter: blur(12px);
     border-bottom-color: var(--c-border);
+
+    [data-theme='dark'] & {
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(12px);
+    }
+
+    [data-theme='light'] & {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+    }
   }
 
   &.menu-open {
-    background: rgba(10, 10, 10, 0.98);
     border-bottom-color: var(--c-border);
+
+    [data-theme='dark'] & {
+      background: rgba(10, 10, 10, 0.98);
+    }
+
+    [data-theme='light'] & {
+      background: rgba(255, 255, 255, 0.96);
+    }
   }
 }
 
@@ -222,6 +266,7 @@ const navItems = [
   align-items: center;
   gap: 2rem;
   flex-shrink: 0;
+  margin-left: auto; // 始终靠右
 }
 
 .lang-btn {
@@ -251,6 +296,40 @@ const navItems = [
   &:hover {
     border-color: var(--c-accent);
     color: var(--c-primary);
+  }
+}
+
+// ─── Theme Toggle ─────────────────────────────────────────────────────────────
+.theme-btn {
+  background: none;
+  border: 1px solid var(--c-border);
+  color: var(--c-secondary);
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color var(--duration-fast),
+    color var(--duration-fast);
+
+  .theme-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &:hover {
+    border-color: var(--c-accent);
+    color: var(--c-accent);
+  }
+
+  @media (max-width: 768px) {
+    width: 3.8rem;
+    height: 3.8rem;
   }
 }
 
@@ -313,10 +392,18 @@ const navItems = [
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 10, 10, 0.98);
   z-index: 99;
   overflow-y: auto;
   padding: 3rem 0;
+  transition: background var(--duration-base);
+
+  [data-theme='dark'] & {
+    background: rgba(10, 10, 10, 0.98);
+  }
+
+  [data-theme='light'] & {
+    background: rgba(255, 255, 255, 0.98);
+  }
 }
 
 .mobile-nav {
@@ -330,8 +417,15 @@ const navItems = [
   gap: 2rem;
   padding: 2rem 5vw;
   border-bottom: 1px solid var(--c-border);
-  transition: background var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    padding var(--duration-fast);
   animation: slideInUp var(--duration-base) calc(var(--i) * 60ms) var(--ease-out) both;
+
+  // 触摸反馈（移动端替代 hover）
+  &:active {
+    background: var(--c-accent-dim);
+  }
 
   .mobile-nav-num {
     font-family: var(--font-mono);
@@ -339,6 +433,10 @@ const navItems = [
     color: var(--c-accent);
     letter-spacing: 0.1em;
     flex-shrink: 0;
+
+    @media (max-width: 430px) {
+      font-size: 0.9rem;
+    }
   }
 
   .mobile-nav-label {
@@ -348,6 +446,14 @@ const navItems = [
     color: var(--c-primary);
     flex: 1;
     letter-spacing: 0.1em;
+
+    @media (max-width: 430px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 390px) {
+      font-size: 1.8rem;
+    }
   }
 
   .mobile-nav-arrow {
@@ -366,6 +472,12 @@ const navItems = [
       transform: translateX(0.4rem);
       color: var(--c-accent);
     }
+  }
+
+  // 触摸时也显示箭头动画
+  &:active .mobile-nav-arrow {
+    transform: translateX(0.4rem);
+    color: var(--c-accent);
   }
 }
 
@@ -464,11 +576,35 @@ const navItems = [
 
 // 移动端菜单字体适配
 @media (max-width: 430px) {
+  .mobile-drawer {
+    padding: 2rem 0;
+  }
+
   .mobile-nav-link {
-    padding: 1.8rem 5vw;
+    padding: 1.6rem 5vw;
+    min-height: 5rem; // 确保触摸目标足够大
+
+    .mobile-nav-num {
+      font-size: 0.85rem;
+    }
 
     .mobile-nav-label {
-      font-size: 2rem;
+      font-size: 1.9rem;
+    }
+
+    .mobile-nav-arrow {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .mobile-nav-link {
+    padding: 1.4rem 5vw;
+    gap: 1.5rem;
+
+    .mobile-nav-label {
+      font-size: 1.7rem;
     }
   }
 }

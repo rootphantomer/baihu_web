@@ -190,14 +190,23 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   position: sticky;
   top: var(--header-h);
   z-index: 10;
-  background: rgba(10, 10, 10, 0.9);
-  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--c-border);
   padding: 1.8rem 8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
+  transition: background var(--duration-base) var(--ease-out);
+
+  [data-theme='dark'] & {
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(8px);
+  }
+
+  [data-theme='light'] & {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+  }
 
   @media (max-width: 1024px) {
     padding: 1.5rem 4rem;

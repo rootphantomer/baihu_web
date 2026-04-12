@@ -73,20 +73,28 @@ const navItems = [
   max-width: 1600px;
   margin: 0 auto;
 
+  @media (max-width: 1280px) {
+    padding: 0 5rem 5rem;
+  }
+
   @media (max-width: 1024px) {
     padding: 0 4rem 5rem;
   }
 
   @media (max-width: 900px) {
     flex-direction: column;
-    padding: 0 5vw 5rem;
+    padding: 0 5vw 4rem;
     gap: 4rem;
   }
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 5vw 5rem;
-    gap: 5rem;
+    padding: 0 5vw 4rem;
+    gap: 4rem;
+  }
+
+  @media (max-width: 430px) {
+    padding: 0 4vw 3rem;
+    gap: 3.5rem;
   }
 }
 
@@ -137,9 +145,14 @@ const navItems = [
   display: flex;
   gap: 6rem;
 
+  @media (max-width: 1024px) {
+    gap: 5rem;
+  }
+
   @media (max-width: 768px) {
     gap: 4rem;
   }
+
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 3rem;
@@ -150,6 +163,10 @@ const navItems = [
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+
+  @media (max-width: 430px) {
+    gap: 1rem;
+  }
 }
 
 .footer-col-title {
@@ -159,16 +176,38 @@ const navItems = [
   text-transform: uppercase;
   color: var(--c-muted);
   margin-bottom: 0.4rem;
+
+  @media (max-width: 430px) {
+    font-size: 0.85rem;
+  }
 }
 
 .footer-link {
   font-family: var(--font-body);
   font-size: 1.2rem;
   color: var(--c-secondary);
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition: color var(--duration-fast);
 
   &:hover {
     color: var(--c-primary);
+  }
+
+  &:active {
+    color: var(--c-accent);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 1rem;
+    min-height: 2.8rem;
   }
 }
 
@@ -181,6 +220,10 @@ const navItems = [
   border-top: 1px solid var(--c-border);
   max-width: 1600px;
   margin: 0 auto;
+
+  @media (max-width: 1280px) {
+    padding: 2rem 5rem;
+  }
 
   @media (max-width: 1024px) {
     padding: 2rem 4rem;
@@ -196,8 +239,11 @@ const navItems = [
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0.8rem;
-    padding: 2rem 5vw;
-    text-align: center;
+    padding: 1.5rem 5vw;
+  }
+
+  @media (max-width: 430px) {
+    padding: 1.5rem 4vw;
   }
 }
 
@@ -207,5 +253,9 @@ const navItems = [
   font-size: 1rem;
   color: var(--c-muted);
   letter-spacing: 0.06em;
+
+  @media (max-width: 430px) {
+    font-size: 0.85rem;
+  }
 }
 </style>

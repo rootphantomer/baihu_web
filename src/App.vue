@@ -7,6 +7,10 @@
 <script setup lang="ts">
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
+import { useTheme } from '@/composables/useTheme'
+
+// 初始化主题（自动检测系统偏好 + 读取用户持久化选择）
+useTheme()
 </script>
 
 <style lang="scss">
@@ -14,7 +18,8 @@ import FooterComponent from './components/FooterComponent.vue'
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=DM+Sans:wght@200;300;400&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@300;400;600&family=Shippori+Mincho:wght@300;400;600&display=swap');
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
-:root {
+:root,
+[data-theme="dark"] {
   // Color
   --c-bg: #0a0a0a;
   --c-surface: #111111;
@@ -25,6 +30,7 @@ import FooterComponent from './components/FooterComponent.vue'
   --c-primary: #e8e4dc;
   --c-accent: #c4a35a;
   --c-accent-dim: rgba(196, 163, 90, 0.12);
+  --c-accent-hover: #d4b36a;
 
   // Typography
   --font-display: 'Shippori Mincho', 'Noto Serif SC', serif;
@@ -39,6 +45,20 @@ import FooterComponent from './components/FooterComponent.vue'
 
   // Header height
   --header-h: 6rem;
+}
+
+// ─── Light Theme ─────────────────────────────────────────────────────────────
+[data-theme="light"] {
+  --c-bg: #ffffff;
+  --c-surface: #f7f7f5;
+  --c-surface-2: #f0f0ee;
+  --c-border: #e2e2df;
+  --c-muted: #aaaaaa;
+  --c-secondary: #666666;
+  --c-primary: #1a1a1a;
+  --c-accent: #c4a35a;
+  --c-accent-dim: rgba(196, 163, 90, 0.12);
+  --c-accent-hover: #b89545;
 }
 
 // ─── Reset & Base ─────────────────────────────────────────────────────────────
@@ -188,5 +208,26 @@ img {
 ::selection {
   background: var(--c-accent);
   color: var(--c-bg);
+}
+
+// ─── Theme Transition ─────────────────────────────────────────────────────────
+*, *::before, *::after {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+// 排除 transform 和 opacity（这些是组件自有动画，不应被主题过渡覆盖）
+.logo,
+.nav-link,
+.nav-link::after,
+.hamburger span,
+.service-card,
+.btn,
+img,
+video {
+  transition-duration: var(--duration-fast);
 }
 </style>

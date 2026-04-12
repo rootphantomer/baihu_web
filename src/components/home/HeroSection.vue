@@ -140,6 +140,7 @@ const currentYear = computed(() => new Date().getFullYear())
 .hero-btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   padding: 1.4rem 2.8rem;
   background: var(--c-accent);
@@ -148,13 +149,23 @@ const currentYear = computed(() => new Date().getFullYear())
   font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 0.12em;
+  min-height: 5rem; // 确保触摸目标足够大
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition:
     background var(--duration-fast),
-    gap var(--duration-fast);
+    gap var(--duration-fast),
+    transform var(--duration-fast);
 
   &:hover {
     background: var(--c-primary);
     gap: 1.5rem;
+  }
+
+  // 触摸反馈
+  &:active {
+    transform: scale(0.98);
+    background: var(--c-primary);
   }
 
   .btn-arrow {
@@ -174,6 +185,9 @@ const currentYear = computed(() => new Date().getFullYear())
   letter-spacing: 0.1em;
   position: relative;
   padding-bottom: 0.3rem;
+  min-height: 3rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition: color var(--duration-fast);
 
   &::after {
@@ -189,6 +203,15 @@ const currentYear = computed(() => new Date().getFullYear())
 
   &:hover {
     color: var(--c-primary);
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  // 触摸反馈
+  &:active {
+    color: var(--c-accent);
 
     &::after {
       width: 100%;
@@ -278,23 +301,64 @@ const currentYear = computed(() => new Date().getFullYear())
 
 @media (max-width: 1024px) {
   .hero-content {
-    padding: 0 4rem;
+    padding: 0 5vw;
+    gap: 2.2rem;
   }
 
   .hero-scroll {
-    left: 4rem;
+    left: 5vw;
+    bottom: 3rem;
+  }
+
+  .hero-label {
+    font-size: 1rem;
   }
 
   .hero-name-en {
-    font-size: 6rem;
+    font-size: 7rem;
   }
 
   .hero-name-zh {
-    font-size: 3.2rem;
+    font-size: 3.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.6rem;
+    max-width: 70%;
+    line-height: 1.7;
   }
 
   .hero-deco {
-    font-size: 20rem;
+    font-size: 18rem;
+    right: -1.5rem;
+    bottom: -3rem;
+  }
+}
+
+// 平板横屏专属（768px - 1024px）
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-content {
+    padding: 0 6vw;
+    max-width: 1400px;
+  }
+
+  .hero-scroll {
+    left: 6vw;
+    bottom: 4rem;
+  }
+
+  .hero-actions {
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero-btn-primary {
+    padding: 1.3rem 2.4rem;
+    font-size: 1.15rem;
+  }
+
+  .hero-btn-ghost {
+    font-size: 1.15rem;
   }
 }
 
@@ -341,6 +405,10 @@ const currentYear = computed(() => new Date().getFullYear())
     display: none;
   }
 
+  .hero-label {
+    font-size: 1rem;
+  }
+
   .hero-name-en {
     font-size: 4.5rem;
   }
@@ -352,6 +420,7 @@ const currentYear = computed(() => new Date().getFullYear())
 
   .hero-tagline {
     font-size: 1.5rem;
+    max-width: 100%;
   }
 
   .hero-actions {
@@ -378,24 +447,64 @@ const currentYear = computed(() => new Date().getFullYear())
   }
 }
 
-// iPhone SE / 超小屏
-@media (max-width: 390px) {
+// 大手机 431~767px
+@media (min-width: 431px) and (max-width: 767px) {
   .hero-name-en {
-    font-size: 3.8rem;
+    font-size: 5rem;
   }
 
   .hero-name-zh {
-    font-size: 2rem;
+    font-size: 2.6rem;
+  }
+}
+
+// iPhone SE / 超小屏
+@media (max-width: 430px) {
+  .hero-content {
+    gap: 1.8rem;
+  }
+
+  .hero-name-en {
+    font-size: 4rem;
+  }
+
+  .hero-name-zh {
+    font-size: 2.1rem;
     letter-spacing: 0.2em;
   }
 
   .hero-tagline {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     line-height: 1.7;
   }
 
+  .hero-btn-primary {
+    padding: 1.4rem 1.8rem;
+    font-size: 1.2rem;
+  }
+
   .hero-deco {
-    font-size: 10rem;
+    font-size: 12rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-name-en {
+    font-size: 3.5rem;
+  }
+
+  .hero-name-zh {
+    font-size: 1.9rem;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+    line-height: 1.65;
+  }
+
+  .hero-deco {
+    font-size: 9rem;
   }
 }
 </style>
