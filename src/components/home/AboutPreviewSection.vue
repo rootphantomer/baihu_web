@@ -32,14 +32,12 @@
           </div>
           <div class="stat-item">
             <span class="stat-num">8<span class="stat-unit">+</span></span>
-            <span class="stat-label">パートナー</span>
+            <span class="stat-label">{{ $t('home.about.stats.titles') }}</span>
           </div>
         </div>
 
         <!-- Accent quote -->
-        <blockquote class="ap-quote">
-          "每一帧，都承载着对动画的敬意。"
-        </blockquote>
+        <blockquote class="ap-quote">"每一帧，都承载着对动画的敬意。"</blockquote>
       </div>
     </div>
   </section>

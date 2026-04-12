@@ -25,7 +25,7 @@ export default {
         team: '团队成员',
         people: '人',
         projects: '累计参与作品',
-        titles: '部',
+        titles: '部作品',
       },
       viewMore: '了解更多',
     },
