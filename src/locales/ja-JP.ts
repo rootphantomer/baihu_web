@@ -5,7 +5,7 @@ export default {
     hero: {
       name: '白鵠アニメーション',
       tagline: '一帧一帧に命を吹き込む。',
-      subtitle: '杭州 / Tokyo · アニメ制作スタジオ',
+      subtitle: '杭州 · アニメ制作スタジオ',
       scroll: 'スクロール',
     },
     marquee: {

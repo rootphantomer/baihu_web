@@ -5,7 +5,7 @@ export default {
     hero: {
       name: '白鹄动画',
       tagline: '以匠心，赋每一帧以生命。',
-      subtitle: '杭州 / Tokyo · Animation Production Studio',
+      subtitle: '杭州  · Animation Production Studio',
       scroll: '向下滚动',
     },
     marquee: {
