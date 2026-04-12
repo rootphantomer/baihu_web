@@ -22,14 +22,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       # 👇 这里去掉了 yarn.lock 强制检查，解决你现在的报错
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Build project
-        run: yarn run build
+        run: npm run build
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
