@@ -23,7 +23,7 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.png', '**/*.svg'], // 确保包含 PNG 图片
   build: {
-    target: ['chrome90', 'edge90', 'safari13'],
+    target: 'es2020', // 确保兼容目标浏览器
     outDir: 'dist',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
