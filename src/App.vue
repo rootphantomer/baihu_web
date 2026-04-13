@@ -19,7 +19,7 @@ useTheme()
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 :root,
-[data-theme="dark"] {
+[data-theme='dark'] {
   // Color
   --c-bg: #0a0a0a;
   --c-surface: #111111;
@@ -48,7 +48,7 @@ useTheme()
 }
 
 // ─── Light Theme ─────────────────────────────────────────────────────────────
-[data-theme="light"] {
+[data-theme='light'] {
   --c-bg: #ffffff;
   --c-surface: #f7f7f5;
   --c-surface-2: #f0f0ee;
@@ -211,7 +211,9 @@ img {
 }
 
 // ─── Theme Transition ─────────────────────────────────────────────────────────
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   transition:
     background-color 300ms ease,
     border-color 300ms ease,
