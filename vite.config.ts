@@ -7,12 +7,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default defineConfig({
-  base: './', // 确保正确的路径到你的 HTML 文件
-  plugins: [
-    vue(),
-    // DevTools 仅在开发环境加载，避免打包进生产包
-    ...(isDev ? [vueDevTools()] : []),
-  ],
+  base: './',
+  plugins: [vue(), ...(isDev ? [vueDevTools()] : [])],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -27,6 +23,7 @@ export default defineConfig({
     cssTarget: 'es2020', // 确保兼容目标浏览器
     outDir: 'dist',
     chunkSizeWarningLimit: 1000,
+
     rollupOptions: {
       output: {
         // 入口文件命名
@@ -45,6 +42,11 @@ export default defineConfig({
           }
         },
       },
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext',
     },
   },
 })
