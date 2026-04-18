@@ -46,7 +46,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     esbuildOptions: {
-      target: 'esnext',
+      target: 'es2020', // 确保兼容目标浏览器
     },
   },
 })
