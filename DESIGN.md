@@ -17,15 +17,32 @@
 
 ### 2.2 Color Palette
 
+#### Dark Theme (默认)
 ```
---color-bg:         #0a0a0a   /* 主背景：近乎纯黑，非饱和纯黑 */
---color-surface:    #111111   /* 卡片/区块表面 */
---color-border:     #222222   /* 分割线/边框 */
---color-muted:      #444444   /* 次要文字 */
---color-secondary:  #888888   /* 辅助说明文字 */
---color-primary:    #e8e4dc   /* 主文字：暖调米白，非刺眼纯白 */
---color-accent:     #c4a35a   /* 点缀色：古铜金，克制地呼应"鹄"的金羽 */
---color-accent-dim: #6b5a30   /* 点缀色暗淡版，用于 hover 背景 */
+--c-bg:             #0a0a0a   /* 主背景：近乎纯黑，非饱和纯黑 */
+--c-surface:        #111111   /* 卡片/区块表面 */
+--c-surface-2:      #181818   /* 次级表面 */
+--c-border:         #242424   /* 分割线/边框 */
+--c-muted:          #444444   /* 次要文字 */
+--c-secondary:      #888888   /* 辅助说明文字 */
+--c-primary:        #e8e4dc   /* 主文字：暖调米白，非刺眼纯白 */
+--c-accent:         #c4a35a   /* 点缀色：古铜金，克制地呼应"鹄"的金羽 */
+--c-accent-dim:     rgba(196, 163, 90, 0.12)  /* 点缀色半透明，用于 hover 背景 */
+--c-accent-hover:   #d4b36a   /* 点缀色高亮版 */
+```
+
+#### Light Theme
+```
+--c-bg:             #ffffff
+--c-surface:        #f7f7f5
+--c-surface-2:      #f0f0ee
+--c-border:         #e2e2df
+--c-muted:          #aaaaaa
+--c-secondary:      #666666
+--c-primary:        #1a1a1a
+--c-accent:         #c4a35a
+--c-accent-dim:     rgba(196, 163, 90, 0.12)
+--c-accent-hover:   #b89545
 ```
 
 背景与文字：高对比度（>15:1），符合 WCAG AAA。
@@ -34,9 +51,9 @@
 
 | 用途 | 日文字体 | 中文字体 | 字重 | 尺寸基准 |
 |------|----------|----------|------|----------|
-| 展示/标题 | Shippori Mincho | Noto Serif SC | 400/600 | 5–10rem |
-| 正文/说明 | Shippori Mincho | Noto Serif SC | 300/400 | 1.4–2rem |
-| 标签/数字 | DM Mono | DM Mono | 400 | 1–1.4rem |
+| 展示/标题 | Shippori Mincho | Noto Serif SC | 400/600 | 5–11rem |
+| 正文/说明 | DM Sans | Noto Sans SC | 300/400 | 1.2–1.8rem |
+| 标签/数字 | DM Mono | DM Mono | 400 | 0.8–1.2rem |
 | 导航 | DM Sans | Noto Sans SC | 300 | 1.2rem |
 
 所有字体通过 Google Fonts CDN 加载（font-display: swap）。
@@ -46,16 +63,17 @@
 
 ### 2.5 Motion Philosophy
 动效是"呼吸感"，不是"表演"。
-- 页面入场：opacity 0→1 + translateY(2rem)→0，duration 600ms，ease-out
-- 交错延迟：每个子元素间隔 80ms
+- 页面入场：opacity 0→1 + translateY(3rem)→0，duration 1s，ease-out
+- 交错延迟：每个子元素间隔 60–80ms
 - Hover 过渡：200ms ease，opacity/transform/color
-- Marquee：CSS animation，linear，duration 30s，无限循环
+- Marquee：CSS animation，linear，duration 35s，无限循环
+- Scroll 指示器：pulse 动画 2s ease-in-out infinite
 - 禁止：弹跳、旋转、放大出现、过度的发光效果
 
 ### 2.6 Visual Assets
-- 图标：无图标库，纯 CSS 线条或 Unicode 符号（如 → ← ×）
-- 图片：无占位图，所有图片为真实作品截图
-- 装饰：细分割线（1px #222）、大号数字作为视觉锚点
+- 图标：无图标库，纯 CSS 线条或 Unicode 符号（如 → ← ×）或 SVG 内联
+- 图片：无占位图，所有图片为真实作品截图（via vue3-lazyload）
+- 装饰：细分割线（1px #242424）、大号年份数字作为视觉锚点（-webkit-text-stroke）
 
 ---
 
@@ -65,11 +83,12 @@
 
 ```
 / (HomeView)
-  ├── HeroSection          — 全屏，黑色背景，超大字体
-  ├── MarqueeSection       — 无限循环滚动，合作客户
-  ├── WorksSection          — 精选 6 部作品，大图网格
-  ├── AboutPreview          — 一句话公司介绍 + 入口
-  └── RecruitmentCta         — 招聘 CTA
+  ├── HeroSection          — 全屏，黑色背景，超大字体 + 背景网格线 + 滚动指示器
+  ├── MarqueeSection       — 无限循环滚动，合作作品名（hover 暂停）
+  ├── FeaturedWorksSection  — 精选 6 部作品，3列网格 + hover overlay
+  ├── AboutPreview          — 双栏：左侧公司介绍 + 右侧统计数据
+  ├── ServicesSection       — 3列服务卡片网格（动画/前期设计/覆盖范围）
+  └── RecruitCta            — 招聘 CTA（带边框按钮）
 
 /works (WorkView)
   ├── PageHeader            — 页面标题 + 筛选器
@@ -81,7 +100,11 @@
   ├── StatsGrid
   └── HistoryTimeline
 
-/recruitment (JoinView)
+/news (NewsView)
+  ├── PageHeader
+  └── NewsList
+
+/join (JoinView)
   ├── PageHeader
   ├── OpenPositions
   └── ContactCta
@@ -90,31 +113,33 @@
   ├── PageHeader
   ├── ContactInfo
   └── OfficeLocation
-
-/news (NewsView)
-  ├── PageHeader
-  └── NewsList
 ```
 
 ### 3.2 Responsive Strategy
-- Desktop first，768px / 1024px / 1280px 三个断点
+- Desktop first，390px / 430px / 768px / 900px / 1024px / 1280px 多断点
 - 移动端：单列布局，汉堡菜单，全宽内容
-- 字号：全局 font-size 由 App.vue 的 @media 控制（保留现有 calc 机制，但调整基准）
+- 字号：全局 font-size 由 App.vue 的 @media 控制（基于 1920px 设计稿，1rem = 10px）
 
 ---
 
 ## 4. Features & Interactions
 
 ### 4.1 全局
-- 固定顶部导航栏（背景透明，滚动后带 backdrop-filter）
-- 语言切换（ZH / EN），根据浏览器 UA 决定初始语言
+- 固定顶部导航栏（背景透明，滚动后带 backdrop-filter blur(12px)）
+- 深色/浅色主题切换（自动检测系统偏好 + 用户持久化选择）
+- 语言切换（ZH / JA），按钮式切换器
 - 平滑滚动锚点跳转
+- 页面切换过渡：opacity fade 400ms
 
 ### 4.2 首页
-- Hero：超大公司名（4.5rem）+ 副标题 + 向下箭头动画（1s bounce loop）
-- Marquee：CSS animation，左右无限循环，hover 时暂停
-- Works 网格：3列，hover 时图片微微放大（scale 1.03）+ overlay 显示分工类型
-- 筛选：按年份、按分工类型（LO/原画/作画监督/背景/etc.）
+- Hero：超大公司名 BAIHU（11rem）+ 中文名白鹄动画（5rem，古铜金色）+ 副标题 + 双按钮（实心 + 幽灵）
+- Hero 背景：6列网格线 + 右下角超大年份数字装饰（28rem，text-stroke）
+- Scroll 指示器：左侧竖排 + 渐变线 + pulse 动画
+- Marquee：CSS animation，左右无限循环，hover 暂停，显示合作作品日文名
+- Works 网格：3列（移动端2列/1列），aspect-ratio 2:3（移动端 3:4/16:10），hover 时图片微微放大（scale 1.04）+ overlay 显示分工类型
+- Services：3列卡片网格（移动端1列），带编号、hover 底部金线动画
+- About Preview：双栏布局，左侧标题+声明+链接，右侧 2x2 统计数据 + 引用块
+- Recruitment CTA：左右布局，幽灵按钮（古铜金边框，hover 填充）
 
 ### 4.3 Works 页面
 - 筛选栏：年份下拉 + 类型多选 + 标题搜索
@@ -126,14 +151,13 @@
 - 历史时间轴（竖向）
 - 核心优势（3 列图标+文字）
 
-### 4.5 Recruitment 页面
+### 4.5 Join 页面
 - 职位列表（手风琴展开）
 - 每个职位：职责 / 要求 / 联系方式
 - CTA：投递邮箱
 
 ### 4.6 Contact 页面
 - 联系信息（邮箱 / 地址 / 社交）
-- 简化的联系表单（可选，看是否需要后端）
 
 ### 4.7 News 页面
 - 新闻列表（标题 / 日期 / 摘要）
@@ -145,15 +169,14 @@
 
 | 组件 | 状态 | 说明 |
 |------|------|------|
-| HeaderComponent | sticky / transparent→blur | Logo + Nav + Lang Switch |
-| HeroSection | 静态 | 大字 + 副标题 + 滚动指示 |
-| MarqueeSection | 动画 / pause-on-hover | CSS infinite scroll |
-| WorksGrid | default / hover / empty | 带筛选器的作品网格 |
-| WorkCard | default / hover | 图片 + 标题 + 角色标签 |
-| AboutSection | 静态 | 数据 + 优势 |
-| RecruitmentSection | 静态 | 职位列表 |
-| ContactSection | 静态 | 联系信息 |
-| NewsSection | 静态 | 新闻列表 |
+| HeaderComponent | fixed / transparent→blur | Logo(BAIHU｜白鹄动画) + Nav + Theme Toggle + Lang Switch + Hamburger |
+| HeroSection | 静态 + CSS 动画 | 背景网格 + 大字 + 双按钮 + scroll 指示器 + 年份装饰 |
+| MarqueeSection | 动画 / pause-on-hover | CSS infinite scroll，合作作品名 |
+| FeaturedWorksSection | 响应式网格 | 3列作品卡片，hover overlay + 箭头动画 |
+| AboutPreviewSection | 双栏 | 2x2 统计数据 + 引用块 |
+| ServicesSection | 3列网格 | 编号卡片 + hover 底部金线 |
+| RecruitCta | 静态 | 幽灵按钮 CTA |
+| WorkCard | default / hover | 图片 + 标题 + 角色标签 + 日期 |
 | FooterComponent | 静态 | 版权 + 社交链接 |
 | LightboxModal | open / close | 图片预览灯箱 |
 
@@ -165,26 +188,57 @@
 - Vue 3 + Composition API + TypeScript
 - Vite + SCSS
 - vue-router（Hash 模式）
-- vue-i18n（zh-CN / ja-JP）
+- vue-i18n（zh-CN / ja-JP / en-US / zh-TW）
 - vue3-lazyload（图片懒加载）
 - 零 UI 组件库，无外部 CSS 框架
 
 ### 6.2 文件结构
 ```
 src/
-├── assets/          # 图片资源
+├── assets/          # 图片资源 + main.css（基础 reset）
 ├── components/      # UI 组件
-├── composables/      # 可复用逻辑（useCarousel 等）
-├── data/            # 静态数据（works, news, recruitment）
-├── locales/         # 翻译文件（zh-CN.ts, ja-JP.ts）
-├── plugins/         # 插件初始化（i18n.ts）
+│   ├── HeaderComponent.vue
+│   ├── FooterComponent.vue
+│   └── home/        # 首页子组件
+│       ├── HeroSection.vue
+│       ├── MarqueeSection.vue
+│       ├── FeaturedWorksSection.vue
+│       ├── AboutPreviewSection.vue
+│       ├── ServicesSection.vue
+│       └── RecruitCta.vue
+├── composables/     # 可复用逻辑（useCarousel, useI18n, useTheme）
+├── data/            # 静态数据（works, news, recruitment, showcase）
+├── locales/         # 翻译文件（zh-CN, ja-JP, en-US, zh-TW）
+├── plugins/         # 插件初始化
 ├── router/          # 路由配置
+├── stores/          # Pinia stores
+├── types/           # TypeScript 类型定义
 ├── views/           # 页面组件
-├── App.vue          # 根组件
+│   ├── HomeView.vue
+│   ├── WorksView.vue
+│   ├── WorkView.vue
+│   ├── AboutView.vue
+│   ├── NewsView.vue
+│   ├── JoinView.vue
+│   └── ContactView.vue
+├── App.vue          # 根组件（设计令牌 + 全局样式）
 └── main.ts          # 入口
 ```
 
-### 6.3 Performance
-- 图片全部 lazy load
+### 6.3 CSS 架构
+- **Design Tokens**：所有颜色、字体、动效定义在 App.vue `:root` / `[data-theme='dark']` / `[data-theme='light']`
+- **主题切换**：通过 `data-theme` 属性 + CSS 变量自动切换
+- **全局过渡**：所有元素的 background-color / border-color / color / box-shadow 带 300ms ease 过渡
+- **响应式字体**：html font-size 基于 `calc(100vw / 192)`（1920px 设计稿），各断点覆盖
+
+### 6.4 交互细节
+- **触摸优化**：`-webkit-tap-highlight-color: transparent` + `touch-action: manipulation` + 触摸反馈（scale 0.98/0.99）
+- **移动端 overlay 默认显示**：Works 卡片在移动端默认显示 overlay（opacity: 1）
+- **导航下划线**：hover / active 时底部金线从 0 展开到 100%
+- **按钮箭头**：hover 时箭头微移（translateX）
+- **汉堡菜单**：三线→X 变形动画 + slideInUp 交错入场
+
+### 6.5 Performance
+- 图片全部 lazy load（vue3-lazyload）
 - Google Fonts：preconnect + display=swap
 - 构建目标：Lighthouse 95+
