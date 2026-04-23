@@ -171,7 +171,7 @@ export default {
     title: 'お問い合わせ',
     subtitle: 'Contact',
     intro:
-      'アニメ制作の外注をご検討の方、または協業について知りたい方は、以下のご連絡先よりお問い合わせください。',
+      'アニメ制作のご依頼をご検討の方、または協業について知りたい方は、以下のご連絡先よりお問い合わせください。',
     email: {
       label: 'メール',
       value: 'baihu_animation@163.com',

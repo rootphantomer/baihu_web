@@ -47,10 +47,7 @@ export const positions: Position[] = [
     roleId: 'background',
     location: '杭州',
     type: '全职 / 远程',
-    duties: [
-      '根据 Layout 原图进行高精度背景绘制',
-      '有能力根据需求独立完成美术设计',
-    ],
+    duties: ['根据 Layout 原图进行高精度背景绘制', '有能力根据需求独立完成美术设计'],
     requirements: [
       '良好美术基础与色彩控制力，熟悉空间与空气透视理论',
       '熟练使用手绘板及 Photoshop 进行数字绘制',

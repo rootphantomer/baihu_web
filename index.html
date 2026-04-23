@@ -1,24 +1,58 @@
 <!doctype html>
-<!-- 设置文档语言为中文 -->
 <html lang="zh-CN">
   <head>
-    <!-- 设置字符编码为 UTF-8 -->
     <meta charset="UTF-8" />
-    <!-- 链接网站图标 -->
-    <link rel="icon" href="/src/assets/favicon.ico" />
-    <!-- 设置视口，确保页面在不同设备上正确显示 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- 设置页面标题 -->
-    <!-- <title>白鹄动画有限公司</title> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- 标题 -->
+    <title>白鹄动画 | 国际一流动画制作工作室</title>
+    <meta
+      name="description"
+      content="白鹄动画是一家位于杭州的日式动画工作室，核心客户为日本动画制作公司，团队成员出身 Sunrise / MAPPA / J.C.STAFF 等顶级日本动画公司。"
+    />
+    <meta name="keywords" content="日式动画,动画制作,日本动画,杭州动画公司,动画创作" />
+    <meta name="author" content="白鹄动画 Baihu Animation" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="白鹄动画 | 国际一流动画制作工作室" />
+    <meta
+      property="og:description"
+      content="白鹄动画是一家位于杭州的日式动画工作室，为日本顶级动画公司提供高品质动画制作服务。"
+    />
+    <meta property="og:site_name" content="白鹄动画" />
+    <meta property="og:locale" content="zh_CN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="白鹄动画 | 国际一流动画制作工作室" />
+    <meta
+      name="twitter:description"
+      content="白鹄动画是一家位于杭州的日式动画工作室，为日本顶级动画公司提供高品质动画制作服务。"
+    />
+
+    <!-- Favicon (Vite 会从 public 目录提供) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- DNS 预解析 -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- 字体预连接 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="/favicon.ico" as="image" />
+
+    <!-- 主题色 (支持 Android Chrome 主题色) -->
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
   </head>
   <body>
-    <!-- 提示用户需要启用 JavaScript -->
-    <!-- <noscript>
-      <strong>本页面需要浏览器支持（启用）JavaScript。</strong>
-    </noscript> -->
-    <!-- Vue 应用挂载点 -->
     <div id="app"></div>
-    <!-- 引入 TypeScript 模块 -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

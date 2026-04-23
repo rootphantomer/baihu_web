@@ -18,7 +18,7 @@ export default {
     about: {
       label: '關於白鵠',
       statement:
-        '我們是一家專注於日式二維動畫代工的工作室，由出身 Sunrise、MAPPA、J.C.STAFF 的資深動畫人創立。每一幀，都承載著對動畫的敬意。',
+        '我們是一家專注於日式二維動畫制作的工作室，由出身 Sunrise、MAPPA、J.C.STAFF 的資深動畫人創立。每一幀，都承載著對動畫的敬意。',
       stats: {
         founded: '創立於',
         year: '年',

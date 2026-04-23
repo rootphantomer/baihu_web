@@ -67,7 +67,7 @@ export default {
       'Hangzhou Baihu Animation, based in Hangzhou, has core members from major Japanese animation companies who deeply understand the production standards and cultural context of Japanese animation. We believe that only by maintaining a passion for animation itself can we deliver truly vital works.',
     mission: {
       label: 'Mission',
-      text: 'To deliver visual power worthy of being seen to every partner\'s IP with professional skills.',
+      text: "To deliver visual power worthy of being seen to every partner's IP with professional skills.",
     },
     values: {
       label: 'Core Strengths',
@@ -178,7 +178,8 @@ export default {
     },
     address: {
       label: 'Address',
-      value: 'Room 1901, Building A, Yuanlun Building, No. 350 Qifei Road, Changhe Street, Binjiang District, Hangzhou, Zhejiang Province',
+      value:
+        'Room 1901, Building A, Yuanlun Building, No. 350 Qifei Road, Changhe Street, Binjiang District, Hangzhou, Zhejiang Province',
     },
     social: {
       label: 'Social Media',

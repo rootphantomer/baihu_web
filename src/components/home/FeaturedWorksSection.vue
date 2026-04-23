@@ -81,12 +81,24 @@ const featuredWorks = [
   max-width: 1600px;
   margin: 0 auto;
 
-  @media (max-width: 1280px) { padding: 8rem 5rem; }
-  @media (max-width: 1024px) { padding: 7rem 4rem; }
-  @media (max-width: 900px)  { padding: 6rem 5vw; }
-  @media (max-width: 768px)  { padding: 5rem 5vw; }
-  @media (max-width: 430px)  { padding: 4rem 5vw; }
-  @media (max-width: 390px)  { padding: 3.5rem 4vw; }
+  @media (max-width: 1280px) {
+    padding: 8rem 5rem;
+  }
+  @media (max-width: 1024px) {
+    padding: 7rem 4rem;
+  }
+  @media (max-width: 900px) {
+    padding: 6rem 5vw;
+  }
+  @media (max-width: 768px) {
+    padding: 5rem 5vw;
+  }
+  @media (max-width: 430px) {
+    padding: 4rem 5vw;
+  }
+  @media (max-width: 390px) {
+    padding: 3.5rem 4vw;
+  }
 }
 
 // ─── Header ──────────────────────────────────────────────────────────────────
@@ -148,7 +160,9 @@ const featuredWorks = [
   min-height: 3rem;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition: color var(--duration-fast), gap var(--duration-fast);
+  transition:
+    color var(--duration-fast),
+    gap var(--duration-fast);
 
   &:hover {
     color: var(--c-accent);
@@ -174,11 +188,25 @@ const featuredWorks = [
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
 
-  @media (max-width: 1280px) { gap: 2px; }
-  @media (max-width: 1024px) { grid-template-columns: repeat(2, 1fr); gap: 2px; }
-  @media (max-width: 900px)  { grid-template-columns: repeat(2, 1fr); gap: 1.5px; }
-  @media (max-width: 767px)  { grid-template-columns: repeat(2, 1fr); gap: 1px; }
-  @media (max-width: 480px)  { grid-template-columns: 1fr; gap: 1px; }
+  @media (max-width: 1280px) {
+    gap: 2px;
+  }
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
 }
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
@@ -192,8 +220,12 @@ const featuredWorks = [
   touch-action: manipulation;
   transition: transform var(--duration-fast);
 
-  &:hover .card-img { transform: scale(1.04); }
-  &:hover .card-overlay { opacity: 1; }
+  &:hover .card-img {
+    transform: scale(1.04);
+  }
+  &:hover .card-overlay {
+    opacity: 1;
+  }
 
   // 触摸反馈
   &:active {
@@ -206,7 +238,9 @@ const featuredWorks = [
 
   @media (max-width: 767px) {
     // 移动端默认显示 overlay
-    &:hover .card-overlay { opacity: 1; }
+    &:hover .card-overlay {
+      opacity: 1;
+    }
   }
 }
 
@@ -266,7 +300,9 @@ const featuredWorks = [
     }
   }
 
-  .work-card:hover & .card-arrow { transform: translate(0.4rem, -0.4rem); }
+  .work-card:hover & .card-arrow {
+    transform: translate(0.4rem, -0.4rem);
+  }
 }
 
 .card-role {

@@ -1,8 +1,12 @@
 <template>
   <section class="marquee-section">
     <div class="marquee-label label">{{ $t('home.marquee.label') }}</div>
-    <div class="marquee-track" :class="{ paused: hovered }"
-         @mouseenter="hovered = true" @mouseleave="hovered = false">
+    <div
+      class="marquee-track"
+      :class="{ paused: hovered }"
+      @mouseenter="hovered = true"
+      @mouseleave="hovered = false"
+    >
       <div class="marquee-content">
         <span v-for="(item, i) in marqueeItems" :key="i" class="marquee-item">
           <span class="marquee-title">{{ item }}</span>
@@ -102,7 +106,11 @@ const marqueeItems = [
 }
 
 @keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-100%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 </style>

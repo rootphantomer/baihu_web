@@ -18,7 +18,7 @@ export default {
     about: {
       label: '关于白鹄',
       statement:
-        '我们是一家专注于日式二维动画代工的工作室，由出身 Sunrise、MAPPA、J.C.STAFF 的资深动画人创立。每一帧，都承载着对动画的敬意。',
+        '我们是一家专注于日式二维动画制作的工作室，由出身 Sunrise、MAPPA、J.C.STAFF 的资深动画人创立。每一帧，都承载着对动画的敬意。',
       stats: {
         founded: '创立于',
         year: '年',

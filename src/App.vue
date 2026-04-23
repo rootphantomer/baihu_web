@@ -8,9 +8,13 @@
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
 import { useTheme } from '@/composables/useTheme'
+import { useRouterPrefetch } from '@/composables/useRouterPrefetch'
 
 // 初始化主题（自动检测系统偏好 + 读取用户持久化选择）
 useTheme()
+
+// 初始化路由预加载（hover + 视口预加载）
+useRouterPrefetch()
 </script>
 
 <style lang="scss">
@@ -40,8 +44,8 @@ useTheme()
   // Motion
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 200ms;
-  --duration-base: 400ms;
-  --duration-slow: 700ms;
+  --duration-base: 600ms;
+  --duration-slow: 1000ms;
 
   // Header height
   --header-h: 6rem;
@@ -211,25 +215,20 @@ img {
 }
 
 // ─── Theme Transition ─────────────────────────────────────────────────────────
-*,
-*::before,
-*::after {
+// 过渡放在 :root 上始终生效，data-theme 属性变化时触发平滑动画
+:root {
   transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    color 300ms ease,
-    box-shadow 300ms ease;
+    background-color var(--duration-base) ease,
+    border-color var(--duration-base) ease,
+    color var(--duration-base) ease,
+    box-shadow var(--duration-base) ease;
 }
 
-// 排除 transform 和 opacity（这些是组件自有动画，不应被主题过渡覆盖）
-.logo,
-.nav-link,
-.nav-link::after,
-.hamburger span,
-.service-card,
-.btn,
+// 仅排除真正不需要过渡的元素（装饰性媒体和固定动画元素）
 img,
-video {
-  transition-duration: var(--duration-fast);
+video,
+[class*='marquee-'],
+[class*='parallax-'] {
+  transition: none !important;
 }
 </style>
