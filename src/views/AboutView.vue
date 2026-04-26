@@ -65,13 +65,32 @@
         </div>
       </div>
     </section>
+
+    <!-- FAQ -->
+    <section class="about-faq">
+      <div class="section-inner">
+        <div class="faq-header">
+          <span class="label">{{ $t('about.faq.label') }}</span>
+        </div>
+        <dl class="faq-list">
+          <div class="faq-item" v-for="(item, i) in faqItems" :key="i">
+            <dt class="faq-q">{{ item.q }}</dt>
+            <dd class="faq-a">{{ item.a }}</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
+/**
+ * 关于我们页面：公司简介、核心数据、价值观、使命、发展历程、FAQ
+ */
 import { computed } from 'vue'
 import { t } from '@/composables/useI18n'
 
+/** 核心数据统计 */
 const stats = computed(() => [
   { value: '2025', unit: '', label: t('home.about.stats.founded') },
   { value: '10', unit: '+', label: t('home.about.stats.team') },
@@ -79,14 +98,22 @@ const stats = computed(() => [
   { value: '8', unit: '+', label: t('about.clients.label') },
 ])
 
+/** 核心优势列表 */
 const values = computed(() => [
   { title: t('about.values.quality.title'), desc: t('about.values.quality.desc') },
   { title: t('about.values.culture.title'), desc: t('about.values.culture.desc') },
   { title: t('about.values.scale.title'), desc: t('about.values.scale.desc') },
 ])
 
+/** 发展历程时间线数据 */
 const history = computed(() => {
   const items = t('about.history.items')
+  return Array.isArray(items) ? items : []
+})
+
+/** FAQ 问答列表 */
+const faqItems = computed(() => {
+  const items = t('about.faq.items')
   return Array.isArray(items) ? items : []
 })
 </script>
@@ -411,5 +438,62 @@ const history = computed(() => {
   font-size: 1.4rem;
   color: var(--c-secondary);
   line-height: 1.8;
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
+.about-faq {
+  border-bottom: 1px solid var(--c-border);
+}
+
+.faq-header {
+  margin-bottom: 5rem;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.faq-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--c-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 0;
+    gap: 1.2rem;
+  }
+}
+
+.faq-q {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--c-primary);
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
+}
+
+.faq-a {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  color: var(--c-secondary);
+  line-height: 1.9;
+  max-width: 80rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 }
 </style>

@@ -54,7 +54,9 @@
 </template>
 
 <script setup lang="ts">
-// ContactView
+/**
+ * 联系我们页面：邮箱、地址、营业时间、社交媒体
+ */
 </script>
 
 <style lang="scss" scoped>

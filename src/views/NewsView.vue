@@ -27,10 +27,13 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 新闻动态页面：展示公司最新资讯列表
+ */
 import { computed } from 'vue'
 import { locale } from '@/composables/useI18n'
-import zhCN from '@/locales/zh-CN'
-import jaJP from '@/locales/ja-JP'
+import zhCN from '@/locales/zh-CN'   // 简体中文语言包（用于新闻数据回退）
+import jaJP from '@/locales/ja-JP'    // 日文语言包
 
 // 根据当前语言获取新闻数据
 const newsItems = computed(() => {

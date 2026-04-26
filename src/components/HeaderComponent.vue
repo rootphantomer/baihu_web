@@ -1,5 +1,4 @@
 <template>
-  <title>{{ $t('home.title') }}</title>
   <header :class="['site-header', { 'is-scrolled': scrolled, 'menu-open': menuOpen }]">
     <div class="header-inner">
       <!-- Logo -->
@@ -56,16 +55,29 @@
           </svg>
         </button>
 
-        <!-- Language Switch -->
-        <button
-          class="lang-btn"
-          @click="toggleLang"
-          :aria-label="currentLang === 'zh-CN' ? '切换到日本語' : '中文に切り替える'"
-        >
-          <span :class="{ active: currentLang === 'zh-CN' }">中</span>
-          <span class="lang-divider">/</span>
-          <span :class="{ active: currentLang === 'ja-JP' }">日</span>
-        </button>
+        <!-- Language Dropdown -->
+        <div class="lang-select">
+          <button
+            class="lang-btn"
+            @click.stop="langOpen = !langOpen"
+            :aria-label="`选择语言 (当前: ${langLabel})`"
+            :aria-expanded="langOpen"
+          >
+            {{ langLabel }}
+          </button>
+          <Transition name="lang-drop">
+            <ul v-if="langOpen" class="lang-menu">
+              <li
+                v-for="opt in LANG_OPTIONS"
+                :key="opt.value"
+                :class="{ active: currentLang === opt.value }"
+                @click.stop="selectLang(opt.value)"
+              >
+                {{ opt.label }}
+              </li>
+            </ul>
+          </Transition>
+        </div>
 
         <!-- Hamburger (mobile) -->
         <button
@@ -110,15 +122,22 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 全局头部导航组件：包含 Logo、桌面导航、主题切换、语言切换、移动端菜单
+ */
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { locale, setLocale } from '@/composables/useI18n'
+import { locale, setLocale, LOCALE_ORDER, LOCALE_LABEL } from '@/composables/useI18n'
+import type { Locale } from '@/composables/useI18n'
 import { useTheme } from '@/composables/useTheme'
+import { NAV_ITEMS } from '@/data/nav'
 
 // ─── Theme ───────────────────────────────────────────────────────────────────
 const { theme: currentTheme, toggleTheme } = useTheme()
+/** 当前是否为暗色主题 */
 const isDark = computed(() => currentTheme.value === 'dark')
 
 // ─── Scroll state ────────────────────────────────────────────────────────────
+/** 页面滚动后添加背景模糊效果 */
 const scrolled = ref(false)
 const handleScroll = () => {
   scrolled.value = window.scrollY > 40
@@ -127,7 +146,9 @@ onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true 
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 // ─── Mobile menu ─────────────────────────────────────────────────────────────
+/** 移动端抽屉菜单是否展开 */
 const menuOpen = ref(false)
+/** 切换移动端菜单展开/收起 */
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
@@ -136,21 +157,34 @@ const closeMenu = () => {
 }
 
 // ─── Language ─────────────────────────────────────────────────────────────────
+/** 语言下拉菜单是否展开 */
+const langOpen = ref(false)
+/** 当前语言代码 */
 const currentLang = computed(() => locale.value)
-const toggleLang = () => {
-  const newLocale = locale.value === 'zh-CN' ? 'ja-JP' : 'zh-CN'
-  setLocale(newLocale)
+/** 当前语言标签（如 '中'、'EN'） */
+const langLabel = computed(() => LOCALE_LABEL[currentLang.value])
+/** 语言选项列表 */
+const LANG_OPTIONS = computed(() =>
+  LOCALE_ORDER.map((code) => ({ value: code, label: LOCALE_LABEL[code] })),
+)
+/** 选择语言并关闭下拉 */
+const selectLang = (code: Locale) => {
+  setLocale(code)
+  langOpen.value = false
 }
 
+// 点击外部关闭下拉
+const handleClickOutside = (e: MouseEvent) => {
+  const target = e.target as HTMLElement
+  if (!target.closest('.lang-select')) {
+    langOpen.value = false
+  }
+}
+onMounted(() => document.addEventListener('click', handleClickOutside))
+onUnmounted(() => document.removeEventListener('click', handleClickOutside))
+
 // ─── Nav items ────────────────────────────────────────────────────────────────
-const navItems = [
-  { to: '/', label: 'header.home' },
-  { to: '/works', label: 'header.works' },
-  { to: '/about', label: 'header.about' },
-  { to: '/news', label: 'header.news' },
-  { to: '/join', label: 'header.join' },
-  { to: '/contact', label: 'header.contact' },
-]
+const navItems = NAV_ITEMS
 </script>
 
 <style lang="scss" scoped>
@@ -198,429 +232,339 @@ const navItems = [
   align-items: center;
   height: 100%;
   padding: 0 6rem;
-  gap: 4rem;
+
+  @media (max-width: 1280px) {
+    padding: 0 5rem;
+  }
+  @media (max-width: 1024px) {
+    padding: 0 4rem;
+  }
+  @media (max-width: 768px) {
+    padding: 0 5vw;
+  }
 }
 
-// ─── Logo ────────────────────────────────────────────────────────────────────
+// ─── Logo ──────────────────────────────────────────────────────────────────────
 .logo {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  letter-spacing: 0.08em;
   flex-shrink: 0;
+  transition: opacity var(--duration-fast);
 
   .logo-en {
     font-family: var(--font-mono);
     font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--c-accent);
     letter-spacing: 0.2em;
+    color: var(--c-accent);
   }
-
   .logo-sep {
     color: var(--c-border);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
-
   .logo-zh {
     font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--c-primary);
+    font-size: 1.3rem;
     letter-spacing: 0.15em;
-  }
-
-  &:hover .logo-en {
     color: var(--c-primary);
+    white-space: nowrap;
   }
 
-  transition: opacity var(--duration-fast);
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
-// ─── Desktop Nav ─────────────────────────────────────────────────────────────
+// ─── Desktop Nav ───────────────────────────────────────────────────────────────
 .desktop-nav {
   display: flex;
   align-items: center;
   gap: 3.5rem;
-  margin-left: auto;
+  margin-left: 6rem;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .nav-link {
   font-family: var(--font-body);
   font-size: 1.2rem;
-  font-weight: 300;
   color: var(--c-secondary);
-  letter-spacing: 0.1em;
+  font-weight: 300;
+  letter-spacing: 0.06em;
   position: relative;
+  padding-bottom: 0.4rem;
   transition: color var(--duration-fast);
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -0.4rem;
+    bottom: 0;
     left: 0;
     width: 0;
     height: 1px;
     background: var(--c-accent);
-    transition: width var(--duration-base) var(--ease-out);
+    transition: width var(--duration-fast) var(--ease-out);
   }
 
   &:hover,
   &.router-link-active {
     color: var(--c-primary);
-
     &::after {
       width: 100%;
     }
   }
 }
 
-// ─── Header Controls ─────────────────────────────────────────────────────────
+// ─── Controls ──────────────────────────────────────────────────────────────────
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  flex-shrink: 0;
-  margin-left: auto; // 始终靠右
-}
+  gap: 1.2rem;
+  margin-left: auto;
 
-.lang-btn {
-  background: none;
-  border: 1px solid var(--c-border);
-  color: var(--c-secondary);
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition:
-    border-color var(--duration-fast),
-    color var(--duration-fast);
-
-  .lang-divider {
-    opacity: 0.3;
-  }
-
-  span.active {
-    color: var(--c-accent);
-  }
-
-  &:hover {
-    border-color: var(--c-accent);
-    color: var(--c-primary);
+  @media (max-width: 430px) {
+    gap: 0.8rem;
   }
 }
 
-// ─── Theme Toggle ─────────────────────────────────────────────────────────────
 .theme-btn {
-  background: none;
-  border: 1px solid var(--c-border);
-  color: var(--c-secondary);
-  width: 3.2rem;
-  height: 3.2rem;
-  padding: 0;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    border-color var(--duration-fast),
-    color var(--duration-fast);
-
-  .theme-icon {
-    width: 1.4rem;
-    height: 1.4rem;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+  width: 3rem;
+  height: 3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--c-secondary);
+  transition: color var(--duration-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 
   &:hover {
-    border-color: var(--c-accent);
     color: var(--c-accent);
   }
 
-  @media (max-width: 768px) {
-    width: 3.8rem;
-    height: 3.8rem;
+  .theme-icon {
+    width: 1.6rem;
+    height: 1.6rem;
   }
 }
 
-// ─── Hamburger ───────────────────────────────────────────────────────────────
+// ─── Language Dropdown ─────────────────────────────────────────────────────────
+.lang-select {
+  position: relative;
+}
+
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--c-secondary);
+  background: none;
+  border: 1px solid var(--c-border);
+  border-radius: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  min-width: 3rem;
+  text-align: center;
+  transition:
+    color var(--duration-fast),
+    border-color var(--duration-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:hover {
+    color: var(--c-accent);
+    border-color: var(--c-accent);
+  }
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  min-width: 4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 0.4rem;
+  overflow: hidden;
+  z-index: 110;
+
+  li {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--c-secondary);
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    transition:
+      color var(--duration-fast),
+      background var(--duration-fast);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+
+    &:hover {
+      color: var(--c-primary);
+      background: var(--c-surface-2);
+    }
+
+    &.active {
+      color: var(--c-accent);
+    }
+  }
+}
+
+.lang-drop-enter-active,
+.lang-drop-leave-active {
+  transition:
+    opacity 0.15s var(--ease-out),
+    transform 0.15s var(--ease-out);
+}
+.lang-drop-enter-from,
+.lang-drop-leave-to {
+  opacity: 0;
+  transform: translateY(-0.4rem);
+}
+
+// ─── Hamburger ─────────────────────────────────────────────────────────────────
 .hamburger {
   display: none;
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 2.8rem;
+  height: 2.8rem;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.4rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  @media (max-width: 1024px) {
+    display: flex;
+  }
 
   span {
     display: block;
+    width: 100%;
     height: 1px;
     background: var(--c-primary);
-    transition:
-      transform var(--duration-base) var(--ease-out),
-      opacity var(--duration-fast);
-
-    &:nth-child(1) {
-      width: 100%;
-    }
-
-    &:nth-child(2) {
-      width: 70%;
-      margin-left: auto;
-    }
-
-    &:nth-child(3) {
-      width: 100%;
-    }
+    transition: transform var(--duration-fast) var(--ease-out);
+    transform-origin: center;
   }
 
   &.is-open {
     span:nth-child(1) {
-      transform: translateY(0.6rem) rotate(45deg);
-      width: 100%;
+      transform: rotate(45deg) translate(0.4rem, 0.4rem);
     }
-
     span:nth-child(2) {
       opacity: 0;
-      transform: scaleX(0);
     }
-
     span:nth-child(3) {
-      transform: translateY(-0.6rem) rotate(-45deg);
+      transform: rotate(-45deg) translate(0.4rem, -0.4rem);
     }
   }
 }
 
-// ─── Mobile Drawer ───────────────────────────────────────────────────────────
+// ─── Mobile Drawer ─────────────────────────────────────────────────────────────
 .mobile-drawer {
   position: fixed;
   top: var(--header-h);
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 99;
-  overflow-y: auto;
-  padding: 3rem 0;
-  transition: background var(--duration-base);
+  z-index: 90;
+  padding: 4rem 5vw;
+  display: flex;
+  flex-direction: column;
 
   [data-theme='dark'] & {
-    background: rgba(10, 10, 10, 0.98);
+    background: var(--c-bg);
   }
-
   [data-theme='light'] & {
-    background: rgba(255, 255, 255, 0.98);
+    background: var(--c-bg);
   }
 }
 
 .mobile-nav {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .mobile-nav-link {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem 5vw;
+  gap: 1.5rem;
+  padding: 1.8rem 0;
   border-bottom: 1px solid var(--c-border);
-  transition:
-    background var(--duration-fast),
-    padding var(--duration-fast);
-  animation: slideInUp var(--duration-base) calc(var(--i) * 60ms) var(--ease-out) both;
-
-  // 触摸反馈（移动端替代 hover）
-  &:active {
-    background: var(--c-accent-dim);
-  }
+  color: var(--c-primary);
+  font-size: 2.2rem;
+  animation: slideInUp 0.4s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 0.06s);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 
   .mobile-nav-num {
     font-family: var(--font-mono);
-    font-size: 1rem;
-    color: var(--c-accent);
-    letter-spacing: 0.1em;
-    flex-shrink: 0;
-
-    @media (max-width: 430px) {
-      font-size: 0.9rem;
-    }
-  }
-
-  .mobile-nav-label {
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    font-weight: 400;
-    color: var(--c-primary);
-    flex: 1;
-    letter-spacing: 0.1em;
-
-    @media (max-width: 430px) {
-      font-size: 2rem;
-    }
-
-    @media (max-width: 390px) {
-      font-size: 1.8rem;
-    }
-  }
-
-  .mobile-nav-arrow {
+    font-size: 0.9rem;
     color: var(--c-muted);
-    font-size: 1.6rem;
-    transition:
-      transform var(--duration-fast),
-      color var(--duration-fast);
+    min-width: 2rem;
   }
-
-  &:hover,
-  &.router-link-active {
-    background: var(--c-accent-dim);
-
-    .mobile-nav-arrow {
-      transform: translateX(0.4rem);
-      color: var(--c-accent);
-    }
+  .mobile-nav-label {
+    flex: 1;
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
   }
-
-  // 触摸时也显示箭头动画
-  &:active .mobile-nav-arrow {
-    transform: translateX(0.4rem);
+  .mobile-nav-arrow {
     color: var(--c-accent);
+    font-size: 1.6rem;
   }
 }
 
-// ─── Overlay ─────────────────────────────────────────────────────────────────
-.header-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 98;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-// ─── Transitions ─────────────────────────────────────────────────────────────
-.drawer-enter-active,
-.drawer-leave-active {
-  transition:
-    opacity var(--duration-base) var(--ease-out),
-    transform var(--duration-base) var(--ease-out);
-}
-
-.drawer-enter-from,
-.drawer-leave-to {
-  opacity: 0;
-  transform: translateY(-1rem);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity var(--duration-base);
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-// ─── Keyframes ───────────────────────────────────────────────────────────────
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(1rem);
+    transform: translateY(2rem);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-// ─── Responsive ──────────────────────────────────────────────────────────────
-@media (max-width: 1024px) {
-  .header-inner {
-    padding: 0 3rem;
-    gap: 2rem;
-  }
-
-  .desktop-nav {
-    gap: 2rem;
-  }
-
-  .nav-link {
-    font-size: 1.1rem;
-  }
+// ─── Overlay ───────────────────────────────────────────────────────────────────
+.header-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
 }
 
-// 平板竖屏及以下：隐藏桌面导航，改用汉堡菜单
-@media (max-width: 900px) {
-  .header-inner {
-    padding: 0 5vw;
-    gap: 1rem;
-  }
-
-  .desktop-nav {
-    display: none;
-  }
-
-  .hamburger {
-    display: flex;
-  }
+// ─── Transitions ───────────────────────────────────────────────────────────────
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: opacity 0.3s var(--ease-out);
+}
+.drawer-enter-from,
+.drawer-leave-to {
+  opacity: 0;
 }
 
-@media (max-width: 768px) {
-  .header-inner {
-    padding: 0 4vw;
-  }
-
-  .lang-btn {
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-  }
-
-  .hamburger {
-    width: 3.8rem;
-    height: 3.8rem;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
 }
-
-// 移动端菜单字体适配
-@media (max-width: 430px) {
-  .mobile-drawer {
-    padding: 2rem 0;
-  }
-
-  .mobile-nav-link {
-    padding: 1.6rem 5vw;
-    min-height: 5rem; // 确保触摸目标足够大
-
-    .mobile-nav-num {
-      font-size: 0.85rem;
-    }
-
-    .mobile-nav-label {
-      font-size: 1.9rem;
-    }
-
-    .mobile-nav-arrow {
-      font-size: 1.4rem;
-    }
-  }
-}
-
-@media (max-width: 390px) {
-  .mobile-nav-link {
-    padding: 1.4rem 5vw;
-    gap: 1.5rem;
-
-    .mobile-nav-label {
-      font-size: 1.7rem;
-    }
-  }
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

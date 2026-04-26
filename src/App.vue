@@ -1,20 +1,108 @@
 <template>
+  <!-- 全局头部导航 -->
   <HeaderComponent />
+  <!-- 路由视图（页面内容） -->
   <RouterView />
+  <!-- 全局底部 -->
   <FooterComponent />
 </template>
 
 <script setup lang="ts">
+/**
+ * 根组件：初始化主题、路由预加载、页面级 JSON-LD Schema
+ */
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
-import { useTheme } from '@/composables/useTheme'
+import { initTheme } from '@/composables/useTheme'
 import { useRouterPrefetch } from '@/composables/useRouterPrefetch'
+import { works } from '@/data/works'
+import { upsertSchema } from '@/composables/useSeoMeta'
 
-// 初始化主题（自动检测系统偏好 + 读取用户持久化选择）
-useTheme()
+// 初始化主题（一次性，在 setup 阶段即执行）
+initTheme()
 
-// 初始化路由预加载（hover + 视口预加载）
+// 初始化路由预加载
 useRouterPrefetch()
+
+// ─── Per-page JSON-LD Schema ───────────────────────────────────────────────────
+const route = useRoute()
+
+/**
+ * 根据当前路由路径生成对应的 JSON-LD 结构化数据
+ * @param path - 当前路由路径
+ * @returns JSON-LD 数据对象，不需要 Schema 的页面返回 undefined
+ */
+function getPageSchema(path: string): Record<string, unknown> | undefined {
+  if (path === '/works') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: '白鹄动画参与作品',
+      description: '白鹄动画参与制作的日本动画作品集，包括原画、动画、背景美术等多种分工。',
+      numberOfItems: works.length,
+      itemListElement: works.slice(0, 10).map((w, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: w.title,
+        description: `${w.title} - ${w.role}`,
+        url: 'https://baihu-animation.com/works',
+      })),
+    }
+  }
+
+  if (path === '/about') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      name: '白鹄动画常见问题',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: '白鹄动画提供哪些服务？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '白鹄动画专注于日式二维动画制作，提供动画、原画、背景美术、美术设定、作画监督等全流程服务。',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: '团队成员来自哪些公司？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '核心成员来自 Sunrise、MAPPA、J.C.STAFF 等日本顶级动画公司，深谙日式动画制作标准与文化语境。',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: '白鹄动画可以承接哪些类型的项目？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '可承接动画电影（TV/剧场版）、剧集动画、游戏PV、宣传片等多种类型的动画制作项目。',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: '在哪里可以看到白鹄动画的作品？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '您可以在作品页面查看白鹄动画参与制作的作品列表，涵盖高达、水星的魔女等多个知名日本动画项目。',
+          },
+        },
+      ],
+    }
+  }
+
+  return undefined
+}
+
+// 监听路由变化，自动更新页面 JSON-LD Schema
+watch(
+  () => route.path,
+  (path) => upsertSchema(getPageSchema(path)),
+  { immediate: true },
+)
 </script>
 
 <style lang="scss">
@@ -75,7 +163,7 @@ useRouterPrefetch()
 }
 
 html {
-  font-size: calc(100vw / 192); // 1920px 设计稿，1rem = 10px
+  font-size: calc(100vw / 192);
   background: var(--c-bg);
   color: var(--c-primary);
   overflow-x: hidden;
@@ -92,7 +180,6 @@ body {
 }
 
 // ─── Responsive Font Scale ────────────────────────────────────────────────────
-// 超小屏 iPhone SE (375px)
 @media (max-width: 390px) {
   html {
     font-size: 13px;
@@ -101,7 +188,6 @@ body {
     --header-h: 5.5rem;
   }
 }
-// 标准手机 iPhone XR (414px) ~ 430px
 @media (min-width: 391px) and (max-width: 430px) {
   html {
     font-size: 14px;
@@ -110,7 +196,6 @@ body {
     --header-h: 5.5rem;
   }
 }
-// 大手机 431~767px
 @media (min-width: 431px) and (max-width: 767px) {
   html {
     font-size: 14.5px;
@@ -119,7 +204,6 @@ body {
     --header-h: 6rem;
   }
 }
-// 平板竖屏 768~1023px
 @media (min-width: 768px) and (max-width: 1023px) {
   html {
     font-size: 13px;
@@ -128,7 +212,6 @@ body {
     --header-h: 6.5rem;
   }
 }
-// 平板横屏/小桌面 1024~1279px
 @media (min-width: 1024px) and (max-width: 1279px) {
   html {
     font-size: calc(100vw / 192);
@@ -215,7 +298,6 @@ img {
 }
 
 // ─── Theme Transition ─────────────────────────────────────────────────────────
-// 过渡放在 :root 上始终生效，data-theme 属性变化时触发平滑动画
 :root {
   transition:
     background-color var(--duration-base) ease,
@@ -224,7 +306,6 @@ img {
     box-shadow var(--duration-base) ease;
 }
 
-// 仅排除真正不需要过渡的元素（装饰性媒体和固定动画元素）
 img,
 video,
 [class*='marquee-'],

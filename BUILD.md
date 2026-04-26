@@ -170,9 +170,9 @@ export {}
 
 A: 检查以下几点：
 
-1. 确认使用 Hash 模式路由（已配置）
+1. 确认服务器已配置 History 模式路由回退（SPA 回退到 `index.html`，Nginx 示例：`try_files $uri $uri/ /index.html;`）
 2. 检查浏览器控制台是否有 404 错误
-3. 确认服务器正确配置 SPA 回退
+3. 确认 `vite.config.ts` 中 `base` 路径与部署路径一致
 
 ### Q: 如何减小打包体积？
 

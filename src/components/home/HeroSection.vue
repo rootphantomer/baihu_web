@@ -39,8 +39,12 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 首页 Hero 区域：大标题、标语、行动按钮、滚动指示器
+ */
 import { computed } from 'vue'
 
+/** 当前年份（装饰性数字） */
 const currentYear = computed(() => new Date().getFullYear())
 </script>
 

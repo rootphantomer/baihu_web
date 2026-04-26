@@ -1,4 +1,5 @@
 <template>
+  <!-- 首页「关于白鹄」预览区：左侧公司简介 + 右侧数据统计 -->
   <section class="about-preview">
     <div class="ap-inner">
       <!-- Left: Statement -->

@@ -1,10 +1,18 @@
+/**
+ * @file 新闻动态数据，用于新闻列表页面展示
+ */
 export interface NewsItem {
+  /** 新闻唯一标识 */
   id: string
+  /** 发布日期（如 '2025.01.23'） */
   date: string
+  /** 新闻标题 */
   title: string
+  /** 新闻摘要 */
   summary: string
 }
 
+/** 新闻列表数据（按时间倒序） */
 export const news: NewsItem[] = [
   {
     id: '1',

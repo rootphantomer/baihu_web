@@ -1,12 +1,22 @@
+/**
+ * @file 招聘岗位数据，用于招聘页面展示
+ */
 export interface Position {
+  /** 岗位唯一标识 */
   id: string
+  /** 对应 i18n 键的岗位角色 ID（如 'animator'） */
   roleId: string
+  /** 工作地点 */
   location: string
+  /** 用工类型（全职/远程等） */
   type: string
+  /** 岗位职责列表 */
   duties: string[]
+  /** 任职要求列表 */
   requirements: string[]
 }
 
+/** 招聘岗位列表 */
 export const positions: Position[] = [
   {
     id: 'animator',

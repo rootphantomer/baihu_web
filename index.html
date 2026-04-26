@@ -14,6 +14,9 @@
     <meta name="author" content="白鹄动画 Baihu Animation" />
     <meta name="robots" content="index, follow" />
 
+    <!-- 站点地图 -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="白鹄动画 | 国际一流动画制作工作室" />
@@ -50,6 +53,59 @@
     <!-- 主题色 (支持 Android Chrome 主题色) -->
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+
+    <!-- ── JSON-LD 结构化数据 ─────────────────────────────────────────────── -->
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "白鹄动画",
+      "alternateName": ["Baihu Animation", "白鵠アニメーション"],
+      "url": "https://www.baihu-animation.com",
+      "logo": "https://www.baihu-animation.com/logo.png",
+      "description": "杭州白鹄动画是一家专注日式二维动画制作的工作室，核心团队来自 Sunrise、MAPPA、J.C.STAFF 等日本顶级动画公司。",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "长河街道齐飞路350号圆伦大厦A座1901",
+        "addressLocality": "杭州",
+        "addressRegion": "浙江",
+        "postalCode": "310051",
+        "addressCountry": "CN"
+      },
+      "foundingDate": "2025",
+      "areaServed": "日本",
+      "knowsAbout": [
+        "日式二维动画制作",
+        "原画",
+        "动画",
+        "背景美术",
+        "作画监督",
+        "Layout",
+        "日本动画"
+      ],
+      "sameAs": [
+        "https://twitter.com/baihu_animation"
+      ]
+    }
+    </script>
+
+    <!-- WebSite Schema (支持 Sitelinks 搜索框) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "白鹄动画",
+      "url": "https://www.baihu-animation.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.baihu-animation.com/works?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
   </head>
   <body>
     <div id="app"></div>

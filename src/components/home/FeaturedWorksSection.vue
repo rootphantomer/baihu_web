@@ -19,7 +19,7 @@
         :class="`work-card--${i % 4 === 0 ? 'large' : 'normal'}`"
       >
         <div class="card-img-wrap">
-          <img v-lazy="work.img" :alt="work.title" class="card-img" />
+          <img :src="work.img" :alt="work.title" class="card-img" loading="lazy" />
           <div class="card-overlay">
             <span class="card-role label">{{ work.role }}</span>
             <span class="card-arrow">→</span>
@@ -35,6 +35,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 首页「代表作品」展示区：以卡片网格形式展示精选作品
+ */
+/** 精选作品列表（硬编码，区别于作品页的全量数据） */
 const featuredWorks = [
   {
     img: 'https://photos.baihu-animation.com/img_index_work/水星的魔女.jpg',

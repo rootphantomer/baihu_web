@@ -78,12 +78,17 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 招聘页面：手风琴式职位列表 + 投递邮箱 CTA
+ */
 import { ref, computed } from 'vue'
 import { positions } from '@/data/recruitment'
 import { t } from '@/composables/useI18n'
 
+/** 当前展开的职位 ID（空字符串表示全部收起） */
 const openPosition = ref<string>(positions[0]?.id || '')
 
+/** 切换职位展开/收起 */
 const togglePosition = (id: string) => {
   if (openPosition.value === id) {
     openPosition.value = ''
@@ -92,7 +97,10 @@ const togglePosition = (id: string) => {
   }
 }
 
-// 获取翻译后的职位信息
+/**
+ * 获取翻译后的职位信息
+ * @param roleId - 岗位角色 ID，对应 i18n 键路径
+ */
 const getTranslatedPosition = (roleId: string) => {
   return {
     title: t(`join.positions.${roleId}.title`),

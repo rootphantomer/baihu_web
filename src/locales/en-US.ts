@@ -1,3 +1,6 @@
+/**
+ * @file 英文（美国）语言包
+ */
 export default {
   home: {
     title: 'Hangzhou Baihu Animation Co., Ltd.',
@@ -94,7 +97,28 @@ export default {
       ],
     },
     clients: {
-      label: 'Major Clients',
+      label: 'Key Partners',
+    },
+    faq: {
+      label: 'FAQ',
+      items: [
+        {
+          q: 'What services does Baihu Animation offer?',
+          a: 'Baihu Animation specializes in Japanese 2D animation production, providing full-cycle services including animation, key animation, background art, art direction, and animation directing.',
+        },
+        {
+          q: 'Where do your team members come from?',
+          a: 'Our core members are from Sunrise, MAPPA, J.C.STAFF and other top Japanese animation studios, deeply familiar with Japanese animation production standards and cultural context.',
+        },
+        {
+          q: 'What types of projects can you handle?',
+          a: 'We can undertake animation films (TV/theatrical), series animation, game PVs, promotional videos, and various other types of animation production projects.',
+        },
+        {
+          q: "Where can I see Baihu Animation's work?",
+          a: 'You can view the list of works we have participated in on our Works page, covering many well-known Japanese animation projects such as Gundam and Witch from Mercury.',
+        },
+      ],
     },
   },
   join: {
@@ -171,7 +195,7 @@ export default {
     title: 'Contact Us',
     subtitle: 'Contact',
     intro:
-      'If you have animation outsourcing needs or would like to learn about cooperation methods, please contact us through the following channels.',
+      'If you have animation production needs or would like to learn about cooperation methods, please contact us through the following channels.',
     email: {
       label: 'Email',
       value: 'baihu_animation@163.com',
@@ -218,6 +242,11 @@ export default {
     join: 'Careers',
     contact: 'Contact',
     news: 'News',
+  },
+  notFound: {
+    title: 'Page Not Found',
+    desc: 'The page you are looking for does not exist or has been removed.',
+    goHome: 'Go to Homepage',
   },
   server: {
     services: {

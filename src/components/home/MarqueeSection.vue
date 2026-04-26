@@ -25,10 +25,15 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 首页跑马灯区域：横向滚动展示参与作品名称
+ */
 import { ref } from 'vue'
 
+/** 鼠标悬停时暂停滚动 */
 const hovered = ref(false)
 
+/** 跑马灯展示的作品名称列表 */
 const marqueeItems = [
   '機動戦士ガンダム SEED Freedom',
   '進撃の巨人 Final Season',

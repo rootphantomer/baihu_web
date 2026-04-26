@@ -56,7 +56,7 @@
           @click="openLightbox(work)"
         >
           <div class="card-img-wrap">
-            <img v-lazy="work.path" :alt="work.title" class="card-img" loading="lazy" />
+            <img :src="work.path" :alt="`${work.title}（${work.role}）`" class="card-img" loading="lazy" />
             <div class="card-overlay">
               <span class="card-role label">{{ work.role }}</span>
               <span class="card-year">{{ work.year }}</span>
@@ -94,10 +94,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+/**
+ * 作品列表页面：搜索 + 年份筛选 + 灯箱大图预览
+ */
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { works } from '@/data/works'
 
 // ─── Extend works with year ───────────────────────────────────────────────────
+/** 从文件路径中提取年份并扩展到作品对象 */
 const worksWithYear = works.map((w) => ({
   ...w,
   year:
@@ -108,14 +112,18 @@ const worksWithYear = works.map((w) => ({
 }))
 
 // ─── Filter state ─────────────────────────────────────────────────────────────
+/** 搜索关键词 */
 const searchQuery = ref('')
+/** 选中的年份筛选（空字符串表示全部） */
 const selectedYear = ref('')
 
+/** 所有可选年份（去重倒序） */
 const availableYears = computed(() => {
   const years = [...new Set(worksWithYear.map((w) => w.year).filter(Boolean))].sort().reverse()
   return years
 })
 
+/** 根据搜索和年份筛选后的作品列表 */
 const filteredWorks = computed(() => {
   let list = worksWithYear
   if (selectedYear.value) list = list.filter((w) => w.year === selectedYear.value)
@@ -127,16 +135,19 @@ const filteredWorks = computed(() => {
 })
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
+/** 当前灯箱中展示的作品（null 表示灯箱关闭） */
 const lightboxWork = ref<(typeof worksWithYear)[0] | null>(null)
+/** 打开灯箱展示指定作品 */
 const openLightbox = (work: (typeof worksWithYear)[0]) => {
   lightboxWork.value = work
 }
+/** 关闭灯箱 */
 const closeLightbox = () => {
   lightboxWork.value = null
 }
 
-// Keyboard close
-import { onMounted, onUnmounted } from 'vue'
+// ─── Keyboard shortcuts ────────────────────────────────────────────────────────
+/** 按 Escape 关闭灯箱 */
 const handleKey = (e: KeyboardEvent) => {
   if (e.key === 'Escape') closeLightbox()
 }

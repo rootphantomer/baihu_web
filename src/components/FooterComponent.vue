@@ -45,17 +45,15 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 全局底部组件：包含品牌信息、导航链接、联系方式、版权信息
+ */
 import { computed } from 'vue'
+import { NAV_ITEMS } from '@/data/nav'
 
+/** 当前年份，用于版权信息 */
 const currentYear = computed(() => new Date().getFullYear())
-const navItems = [
-  { to: '/', label: 'header.home' },
-  { to: '/works', label: 'header.works' },
-  { to: '/about', label: 'header.about' },
-  { to: '/news', label: 'header.news' },
-  { to: '/join', label: 'header.join' },
-  { to: '/contact', label: 'header.contact' },
-]
+const navItems = NAV_ITEMS
 </script>
 
 <style lang="scss" scoped>

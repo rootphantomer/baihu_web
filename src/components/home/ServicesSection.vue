@@ -27,9 +27,13 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 首页「服务内容」展示区：动画制作、前期设计、承接范围
+ */
 import { t } from '@/composables/useI18n'
 import { computed } from 'vue'
 
+/** 服务卡片数据（通过 i18n 获取翻译内容） */
 const services = computed(() => [
   {
     name: t('server.animation.title'),
