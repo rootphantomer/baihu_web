@@ -210,16 +210,16 @@ export default {
     subtitle: 'News',
     readMore: '閱讀更多',
     noNews: '暫無新聞',
-    items: [
-      {
+    items: {
+      v2: {
         title: '白鵠動畫官網 V2 全新上線',
         desc: '白鵠動畫全新官方網站正式上線，以全新的視覺語言呈現我們的製作理念與代表作品。',
       },
-      {
+      founding: {
         title: '祝！白鵠動畫正式成立',
         desc: '成功入駐圓倫大廈，祝公司順利開張',
       },
-    ],
+    },
   },
   footer: {
     copyright: '杭州白鵠動畫有限公司',

@@ -4,8 +4,8 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'               // Vue SFC 支持
-import vueDevTools from 'vite-plugin-vue-devtools'  // 开发者工具（仅开发环境）
+import vue from '@vitejs/plugin-vue' // Vue SFC 支持
+import vueDevTools from 'vite-plugin-vue-devtools' // 开发者工具（仅开发环境）
 
 /** 是否为开发环境 */
 const isDev = process.env.NODE_ENV !== 'production'

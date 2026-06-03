@@ -45,7 +45,7 @@ export function prefetchOnHover(e: MouseEvent) {
 /**
  * 视口预加载（Intersection Observer）
  */
-export function prefetchOnViewport(entries: IntersectionObserverEntry[]) {
+function prefetchOnViewport(entries: IntersectionObserverEntry[]) {
   for (const entry of entries) {
     if (entry.isIntersecting) {
       const link = entry.target as HTMLAnchorElement

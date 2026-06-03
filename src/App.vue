@@ -297,6 +297,14 @@ img {
   color: var(--c-bg);
 }
 
+// ─── App Container ─────────────────────────────────────────────────────
+#app {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+}
+
 // ─── Theme Transition ─────────────────────────────────────────────────────────
 :root {
   transition:

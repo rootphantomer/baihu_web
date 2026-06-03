@@ -31,32 +31,18 @@
  * 新闻动态页面：展示公司最新资讯列表
  */
 import { computed } from 'vue'
-import { locale } from '@/composables/useI18n'
-import zhCN from '@/locales/zh-CN'   // 简体中文语言包（用于新闻数据回退）
-import jaJP from '@/locales/ja-JP'    // 日文语言包
+import { t } from '@/composables/useI18n'
+import { news } from '@/data/news'
 
-// 根据当前语言获取新闻数据
-const newsItems = computed(() => {
-  const localeMap: Record<string, any> = {
-    'zh-CN': zhCN,
-    'ja-JP': jaJP,
-  }
-
-  const messages = localeMap[locale.value] || zhCN
-  const items = messages.news?.items || []
-
-  if (!Array.isArray(items)) {
-    return []
-  }
-
-  // 映射为 NewsItem 格式
-  return items.map((item: any, index: number) => ({
-    id: String(index + 1),
-    date: index === 0 ? '2026.04' : '2025.01.23',
-    title: item.title || '',
-    summary: item.desc || '',
-  }))
-})
+/** 根据当前语言映射新闻数据 */
+const newsItems = computed(() =>
+  news.map((item) => ({
+    id: item.id,
+    date: item.date,
+    title: t(item.titleKey),
+    summary: t(item.summaryKey),
+  })),
+)
 </script>
 
 <style lang="scss" scoped>

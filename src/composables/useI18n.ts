@@ -2,10 +2,10 @@
  * @file 轻量级 i18n 解决方案，支持多语言切换、浏览器语言检测、localStorage 持久化
  */
 import { ref } from 'vue'
-import zhCN from '@/locales/zh-CN'   // 简体中文语言包
-import zhTW from '@/locales/zh-TW'   // 繁体中文语言包
-import enUS from '@/locales/en-US'   // 英文语言包
-import jaJP from '@/locales/ja-JP'    // 日文语言包
+import zhCN from '@/locales/zh-CN' // 简体中文语言包
+import zhTW from '@/locales/zh-TW' // 繁体中文语言包
+import enUS from '@/locales/en-US' // 英文语言包
+import jaJP from '@/locales/ja-JP' // 日文语言包
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 export type Locale = 'zh-CN' | 'zh-TW' | 'en-US' | 'ja-JP'
@@ -114,12 +114,9 @@ export function cycleLocale(): Locale {
   return next
 }
 
-/** 初始化语言（从 localStorage 恢复） */
+/** 初始化语言（从 localStorage 恢复，同步 html lang 属性） */
 export function initLocale() {
-  const saved = localStorage.getItem('locale')
-  if (saved && isLocale(saved)) {
-    currentLocale.value = saved
-  }
+  currentLocale.value = detectLocale()
   document.documentElement.lang = currentLocale.value
 }
 

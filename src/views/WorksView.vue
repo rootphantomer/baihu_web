@@ -56,7 +56,12 @@
           @click="openLightbox(work)"
         >
           <div class="card-img-wrap">
-            <img :src="work.path" :alt="`${work.title}（${work.role}）`" class="card-img" loading="lazy" />
+            <img
+              :src="work.path"
+              :alt="`${work.title}（${work.role}）`"
+              class="card-img"
+              loading="lazy"
+            />
             <div class="card-overlay">
               <span class="card-role label">{{ work.role }}</span>
               <span class="card-year">{{ work.year }}</span>

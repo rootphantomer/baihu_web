@@ -220,16 +220,16 @@ export default {
     subtitle: 'News',
     readMore: 'Read More',
     noNews: 'No news available',
-    items: [
-      {
+    items: {
+      v2: {
         title: 'Baihu Animation Official Website V2 Launched',
         desc: 'The brand new official website of Baihu Animation is now live, presenting our production philosophy and representative works with a fresh visual language.',
       },
-      {
+      founding: {
         title: 'Congratulations! Baihu Animation Officially Established!',
         desc: 'Successfully settled in Yuanlun Building, wishing the company a smooth opening.',
       },
-    ],
+    },
   },
   footer: {
     copyright: 'Hangzhou Baihu Animation Co., Ltd.',

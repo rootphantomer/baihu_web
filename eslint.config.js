@@ -1,12 +1,12 @@
 /**
  * @file ESLint 扁平化配置，覆盖 Vue / JS / TS 文件的代码规范
  */
-import js from '@eslint/js'                         // JS 推荐规则
-import vuePlugin from 'eslint-plugin-vue'           // Vue 专用规则
-import vueParser from 'vue-eslint-parser'            // Vue 文件解析器
-import tsParser from '@typescript-eslint/parser'      // TS 解析器
-import prettierPlugin from 'eslint-plugin-prettier'   // Prettier 集成
-import vuePrettierConfig from '@vue/eslint-config-prettier'  // Vue Prettier 预设
+import js from '@eslint/js' // JS 推荐规则
+import vuePlugin from 'eslint-plugin-vue' // Vue 专用规则
+import vueParser from 'vue-eslint-parser' // Vue 文件解析器
+import tsParser from '@typescript-eslint/parser' // TS 解析器
+import prettierPlugin from 'eslint-plugin-prettier' // Prettier 集成
+import vuePrettierConfig from '@vue/eslint-config-prettier' // Vue Prettier 预设
 
 export default [
   // 忽略文件

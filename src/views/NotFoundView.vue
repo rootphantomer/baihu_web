@@ -76,7 +76,9 @@ import { RouterLink } from 'vue-router'
   font-size: 1.1rem;
   letter-spacing: 0.15em;
   text-decoration: none;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
 
   &:hover {
     background: var(--c-accent);

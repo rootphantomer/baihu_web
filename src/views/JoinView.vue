@@ -21,11 +21,11 @@
           <button class="position-header" @click="togglePosition(pos.id)">
             <div class="position-meta">
               <span class="pos-num label">{{ pos.id.padStart(2, '0') }}</span>
-              <h2 class="pos-title">{{ getTranslatedPosition(pos.roleId).title }}</h2>
+              <h2 class="pos-title">{{ getTranslatedPosition(pos.id).title }}</h2>
             </div>
             <div class="position-tags">
-              <span class="pos-tag">{{ getTranslatedPosition(pos.roleId).location }}</span>
-              <span class="pos-tag">{{ getTranslatedPosition(pos.roleId).type }}</span>
+              <span class="pos-tag">{{ getTranslatedPosition(pos.id).location }}</span>
+              <span class="pos-tag">{{ getTranslatedPosition(pos.id).type }}</span>
               <span class="pos-expand">{{ openPosition === pos.id ? '−' : '+' }}</span>
             </div>
           </button>
@@ -35,20 +35,20 @@
             <div v-if="openPosition === pos.id" class="position-body">
               <div class="pos-cols">
                 <div class="pos-col">
-                  <h3 class="pos-col-title">{{ getTranslatedPosition(pos.roleId).duties }}</h3>
+                  <h3 class="pos-col-title">{{ getTranslatedPosition(pos.id).duties }}</h3>
                   <ul class="pos-list">
-                    <li v-for="(item, i) in getTranslatedPosition(pos.roleId).dutiesList" :key="i">
+                    <li v-for="(item, i) in getTranslatedPosition(pos.id).dutiesList" :key="i">
                       {{ item }}
                     </li>
                   </ul>
                 </div>
                 <div class="pos-col">
                   <h3 class="pos-col-title">
-                    {{ getTranslatedPosition(pos.roleId).requirements }}
+                    {{ getTranslatedPosition(pos.id).requirements }}
                   </h3>
                   <ul class="pos-list">
                     <li
-                      v-for="(item, i) in getTranslatedPosition(pos.roleId).requirementsList"
+                      v-for="(item, i) in getTranslatedPosition(pos.id).requirementsList"
                       :key="i"
                     >
                       {{ item }}

@@ -1,8 +1,0 @@
-/* normalize.css 补充 — 全局 reset 统一由 App.vue 管理 */
-
-#app {
-  display: block;
-  width: 100vw;
-  max-width: 100%;
-  min-height: 100vh;
-}

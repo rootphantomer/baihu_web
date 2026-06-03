@@ -1,0 +1,30 @@
+name: Size
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+
+      - name: Check bundle size
+        run: |
+          echo "=== Bundle Size ==="
+          du -sh dist/
+          echo ""
+          echo "=== JS Assets ==="
+          ls -lh dist/assets/*.js 2>/dev/null | awk '{print $5, $NF}'
+          echo ""
+          echo "=== CSS Assets ==="
+          ls -lh dist/assets/*.css 2>/dev/null | awk '{print $5, $NF}'
