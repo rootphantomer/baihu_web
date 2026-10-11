@@ -411,3 +411,5 @@ PR 需通过 `check` 与 `size` 两项检查方可合并。
 Made with ❤️ by Baihu Animation Team
 
 </div>
+
+<!-- 临时验证 size.yml 修复效果，验证后自动关闭 -->
