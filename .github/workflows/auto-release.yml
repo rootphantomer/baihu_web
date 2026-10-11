@@ -22,6 +22,9 @@ jobs:
       tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 打包需要完整历史（dist/ 内容依赖 index.html 引用，无 tag 需求但保持一致）
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -42,18 +45,41 @@ jobs:
 
       - name: 📊 分析产物
         run: |
-          echo "### 构建产物" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| 类型 | 大小 |" >> $GITHUB_STEP_SUMMARY
-          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
-          echo "| 总大小 (uncompressed) | $(du -sh dist/ | cut -f1) |" >> $GITHUB_STEP_SUMMARY
-          echo "| 总大小 (gzip) | $(du -sh dist/ | cut -f1) |" >> $GITHUB_STEP_SUMMARY
+          # Vite 输出到 dist/js 与 dist/css（见 vite.config.ts 的 assetFileNames）
+          RAW_KB=$(du -sk dist/ | cut -f1)
+          GZIP_KB=$(tar -czf - dist/ 2>/dev/null | wc -c | awk '{printf "%d", $1/1024}')
+
+          {
+            echo "### 构建产物"
+            echo ""
+            echo "| 类型 | 大小 |"
+            echo "|------|------|"
+            echo "| 总大小 (uncompressed) | ${RAW_KB} KB |"
+            echo "| 总大小 (gzip, tar.gz) | ${GZIP_KB} KB |"
+            echo "| 压缩率 | $(awk "BEGIN{printf \"%.1f\", $GZIP_KB*100/$RAW_KB}")% |"
+          } >> $GITHUB_STEP_SUMMARY
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "#### JS 资源" >> $GITHUB_STEP_SUMMARY
-          ls -lh dist/assets/*.js 2>/dev/null | awk '{printf "- %s (%s)\n", $NF, $5}' >> $GITHUB_STEP_SUMMARY
+          for f in dist/js/*.js; do
+            [ -e "$f" ] || continue
+            printf -- "- %s (%s → %s gzip)\n" \
+              "$(basename "$f")" \
+              "$(du -h "$f" | cut -f1)" \
+              "$(gzip -c "$f" | wc -c | awk '{printf "%d", $1/1024}')KB" \
+              >> $GITHUB_STEP_SUMMARY
+          done
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "#### CSS 资源" >> $GITHUB_STEP_SUMMARY
-          ls -lh dist/assets/*.css 2>/dev/null | awk '{printf "- %s (%s)\n", $NF, $5}' >> $GITHUB_STEP_SUMMARY
+          for f in dist/css/*.css; do
+            [ -e "$f" ] || continue
+            printf -- "- %s (%s → %s gzip)\n" \
+              "$(basename "$f")" \
+              "$(du -h "$f" | cut -f1)" \
+              "$(gzip -c "$f" | wc -c | awk '{printf "%d", $1/1024}')KB" \
+              >> $GITHUB_STEP_SUMMARY
+          done
 
       - name: 📦 打包资源
         run: |
@@ -80,12 +106,16 @@ jobs:
     needs: check
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 必须拉取完整历史与 tag，否则 git describe 找不到上一个版本，
+          # 会导致 changelog 退化为「列出全部提交」而遗漏本次变更
+          fetch-depth: 0
 
       - name: 📜 生成更新日志
         id: changelog
         run: |
           TAG="${{ needs.check.outputs.tag }}"
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          PREV_TAG=$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || echo "")
 
           CHANGELOG=$(cat << 'EOF'
           ## ✨ 更新亮点

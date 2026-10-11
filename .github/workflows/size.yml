@@ -20,11 +20,52 @@ jobs:
 
       - name: Check bundle size
         run: |
-          echo "=== Bundle Size ==="
-          du -sh dist/
-          echo ""
-          echo "=== JS Assets ==="
-          ls -lh dist/assets/*.js 2>/dev/null | awk '{print $5, $NF}'
-          echo ""
-          echo "=== CSS Assets ==="
-          ls -lh dist/assets/*.css 2>/dev/null | awk '{print $5, $NF}'
+          # Vite 输出到 dist/js 与 dist/css（见 vite.config.ts 的 assetFileNames）
+          # 体积阈值与 vite.config.ts 的 chunkSizeWarningLimit (1000 KB) 对齐
+          LIMIT_KB=1000
+          FAILED=0
+
+          {
+            echo "### Bundle Size"
+            echo ""
+            RAW_KB=$(du -sk dist/ | cut -f1)
+            GZIP_KB=$(tar -czf - dist/ 2>/dev/null | wc -c | awk '{printf "%d", $1/1024}')
+            echo "| 类型 | 大小 |"
+            echo "|------|------|"
+            echo "| 总大小 (uncompressed) | ${RAW_KB} KB |"
+            echo "| 总大小 (gzip, tar.gz) | ${GZIP_KB} KB |"
+          } >> $GITHUB_STEP_SUMMARY
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| JS 资源 | 原始 | gzip |"
+          echo "|---------|------|------|"
+          for f in dist/js/*.js; do
+            [ -e "$f" ] || continue
+            RAW=$(du -k "$f" | cut -f1)
+            GZ=$(gzip -c "$f" | wc -c | awk '{printf "%d", $1/1024}')
+            printf "| %s | %s KB | %s KB |\n" "$(basename "$f")" "$RAW" "$GZ" >> $GITHUB_STEP_SUMMARY
+            if [ "$RAW" -gt "$LIMIT_KB" ]; then
+              echo "❌ $(basename "$f") 超过阈值 ${LIMIT_KB} KB" >&2
+              FAILED=1
+            fi
+          done
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| CSS 资源 | 原始 | gzip |"
+          echo "|---------|------|------|"
+          for f in dist/css/*.css; do
+            [ -e "$f" ] || continue
+            RAW=$(du -k "$f" | cut -f1)
+            GZ=$(gzip -c "$f" | wc -c | awk '{printf "%d", $1/1024}')
+            printf "| %s | %s KB | %s KB |\n" "$(basename "$f")" "$RAW" "$GZ" >> $GITHUB_STEP_SUMMARY
+            if [ "$RAW" -gt "$LIMIT_KB" ]; then
+              echo "❌ $(basename "$f") 超过阈值 ${LIMIT_KB} KB" >&2
+              FAILED=1
+            fi
+          done
+
+          if [ "$FAILED" -ne 0 ]; then
+            echo "::error::存在超过 ${LIMIT_KB} KB 的产物，请拆分或调整分包策略"
+            exit 1
+          fi
+          echo "✅ 所有产物均在 ${LIMIT_KB} KB 阈值内"
