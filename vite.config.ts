@@ -11,8 +11,8 @@ import vueDevTools from 'vite-plugin-vue-devtools' // 开发者工具（仅开�
 const isDev = process.env.NODE_ENV !== 'production'
 
 export default defineConfig({
-  /** 相对路径基础，适配静态部署 */
-  base: './',
+  /** Cloudflare Workers 根路径部署 */
+  base: '/',
   /** Vue 插件 + 开发工具（生产环境不加载 devtools） */
   plugins: [vue(), ...(isDev ? [vueDevTools()] : [])],
   resolve: {
@@ -30,8 +30,8 @@ export default defineConfig({
     cssTarget: 'es2022',
     /** 输出目录 */
     outDir: 'dist',
-    /** chunk 大小警告阈值（KB） */
-    chunkSizeWarningLimit: 1000,
+    /** chunk 大小警告阈值（KB），与 CI 体积预算保持一致 */
+    chunkSizeWarningLimit: 150,
 
     rollupOptions: {
       output: {
@@ -44,12 +44,12 @@ export default defineConfig({
 
         /**
          * 手动分包策略：
-         * - vendor: Vue 核心生态（vue / pinia / vue-router）
+         * - vendor: Vue 核心生态（vue / vue-router）
          * - libs: 其他第三方库
          */
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('vue') || id.includes('pinia') || id.includes('vue-router')) {
+            if (id.includes('vue') || id.includes('vue-router')) {
               return 'vendor'
             }
             return 'libs'

@@ -14,7 +14,8 @@ const OBSERVE_DEBOUNCE_MS = 300
  * 预加载指定路由的组件
  */
 export function prefetchRoute(path: string) {
-  const route = router.getRoutes().find((r) => r.path === path)
+  const routePath = path.split(/[?#]/)[0] || '/'
+  const route = router.getRoutes().find((r) => r.path === routePath)
   if (!route?.components) return
 
   const component = route.components.default || route.components
@@ -28,16 +29,30 @@ export function prefetchRoute(path: string) {
 }
 
 /**
+ * 从链接 href 中提取内部路由路径（兼容 Hash 与 History 模式）
+ */
+function getRoutePath(href: string): string | null {
+  if (!href || href.startsWith('//') || /^[a-z]+:/i.test(href)) return null
+
+  const hashIndex = href.indexOf('#/')
+  const rawPath = hashIndex >= 0 ? href.slice(hashIndex + 1) : href.startsWith('/') ? href : null
+  if (!rawPath) return null
+
+  return rawPath.split(/[?#]/)[0] || '/'
+}
+
+/**
  * hover 预加载
  */
-export function prefetchOnHover(e: MouseEvent) {
+export function prefetchOnHover(e: Event) {
   const target = e.target as HTMLElement
   const link = target.closest('a[href]') as HTMLAnchorElement | null
 
   if (link) {
     const href = link.getAttribute('href')
-    if (href && href.startsWith('/') && !href.startsWith('//')) {
-      prefetchRoute(href)
+    const path = href ? getRoutePath(href) : null
+    if (path) {
+      prefetchRoute(path)
     }
   }
 }
@@ -50,8 +65,9 @@ function prefetchOnViewport(entries: IntersectionObserverEntry[]) {
     if (entry.isIntersecting) {
       const link = entry.target as HTMLAnchorElement
       const href = link.getAttribute('href')
-      if (href && href.startsWith('/') && !href.startsWith('//')) {
-        prefetchRoute(href)
+      const path = href ? getRoutePath(href) : null
+      if (path) {
+        prefetchRoute(path)
       }
     }
   }
@@ -66,8 +82,9 @@ export function useRouterPrefetch() {
   let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
   onMounted(() => {
-    // Hover 预加载
+    // Hover / 键盘聚焦预加载
     document.addEventListener('mouseover', prefetchOnHover, { passive: true })
+    document.addEventListener('focusin', prefetchOnHover, { passive: true })
 
     // 视口预加载
     observer = new IntersectionObserver(prefetchOnViewport, {
@@ -77,8 +94,12 @@ export function useRouterPrefetch() {
 
     /** 观察页面内所有内部链接 */
     const observeLinks = () => {
-      const links = document.querySelectorAll<HTMLAnchorElement>('a[href^="/"]')
-      links.forEach((link) => observer?.observe(link))
+      const links = document.querySelectorAll<HTMLAnchorElement>('a[href]')
+      links.forEach((link) => {
+        // 导航和页脚的所有路由常驻视口，避免首屏一次性预取全部页面
+        if (link.closest('.site-header, .site-footer')) return
+        if (getRoutePath(link.getAttribute('href') ?? '')) observer?.observe(link)
+      })
     }
 
     observeLinks()
@@ -93,6 +114,7 @@ export function useRouterPrefetch() {
 
   onUnmounted(() => {
     document.removeEventListener('mouseover', prefetchOnHover)
+    document.removeEventListener('focusin', prefetchOnHover)
     observer?.disconnect()
     mutationObserver?.disconnect()
     if (debounceTimer) clearTimeout(debounceTimer)

@@ -17,6 +17,7 @@
             v-model="searchQuery"
             type="text"
             :placeholder="$t('works.filter.search')"
+            :aria-label="$t('works.filter.search')"
             class="search-input"
           />
         </div>
@@ -53,7 +54,12 @@
           v-for="(work, i) in filteredWorks"
           :key="work.path"
           class="work-card"
+          role="button"
+          tabindex="0"
+          :aria-label="`${work.title}（${work.role}）`"
           @click="openLightbox(work)"
+          @keydown.enter.prevent="openLightbox(work)"
+          @keydown.space.prevent="openLightbox(work)"
         >
           <div class="card-img-wrap">
             <img
@@ -82,8 +88,23 @@
     <!-- Lightbox -->
     <Teleport to="body">
       <Transition name="lightbox">
-        <div v-if="lightboxWork" class="lightbox" @click.self="closeLightbox">
-          <button class="lightbox-close" @click="closeLightbox" aria-label="close">×</button>
+        <div
+          v-if="lightboxWork"
+          class="lightbox"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="lightboxWork.title"
+          @click.self="closeLightbox"
+        >
+          <button
+            ref="lightboxClose"
+            class="lightbox-close"
+            type="button"
+            @click="closeLightbox"
+            :aria-label="$t('works.close')"
+          >
+            ×
+          </button>
           <div class="lightbox-content">
             <img :src="lightboxWork.path" :alt="lightboxWork.title" class="lightbox-img" />
             <div class="lightbox-info">
@@ -102,8 +123,11 @@
 /**
  * 作品列表页面：搜索 + 年份筛选 + 灯箱大图预览
  */
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { works } from '@/data/works'
+
+const route = useRoute()
 
 // ─── Extend works with year ───────────────────────────────────────────────────
 /** 从文件路径中提取年份并扩展到作品对象 */
@@ -118,9 +142,17 @@ const worksWithYear = works.map((w) => ({
 
 // ─── Filter state ─────────────────────────────────────────────────────────────
 /** 搜索关键词 */
-const searchQuery = ref('')
+const searchQuery = ref(typeof route.query.search === 'string' ? route.query.search : '')
 /** 选中的年份筛选（空字符串表示全部） */
 const selectedYear = ref('')
+
+// 支持 /works?search=xxx 深链接
+watch(
+  () => route.query.search,
+  (value) => {
+    searchQuery.value = typeof value === 'string' ? value : ''
+  },
+)
 
 /** 所有可选年份（去重倒序） */
 const availableYears = computed(() => {
@@ -142,14 +174,28 @@ const filteredWorks = computed(() => {
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
 /** 当前灯箱中展示的作品（null 表示灯箱关闭） */
 const lightboxWork = ref<(typeof worksWithYear)[0] | null>(null)
+/** 灯箱关闭按钮引用，用于打开后转移焦点 */
+const lightboxClose = ref<HTMLButtonElement | null>(null)
+/** 打开灯箱前的焦点元素，关闭后恢复 */
+let lastFocusedElement: HTMLElement | null = null
 /** 打开灯箱展示指定作品 */
-const openLightbox = (work: (typeof worksWithYear)[0]) => {
+const openLightbox = async (work: (typeof worksWithYear)[0]) => {
+  lastFocusedElement = document.activeElement as HTMLElement
   lightboxWork.value = work
+  await nextTick()
+  lightboxClose.value?.focus()
 }
 /** 关闭灯箱 */
 const closeLightbox = () => {
   lightboxWork.value = null
+  lastFocusedElement?.focus()
+  lastFocusedElement = null
 }
+
+// 打开灯箱时锁定页面滚动
+watch(lightboxWork, (work) => {
+  document.body.style.overflow = work ? 'hidden' : ''
+})
 
 // ─── Keyboard shortcuts ────────────────────────────────────────────────────────
 /** 按 Escape 关闭灯箱 */
@@ -157,7 +203,10 @@ const handleKey = (e: KeyboardEvent) => {
   if (e.key === 'Escape') closeLightbox()
 }
 onMounted(() => document.addEventListener('keydown', handleKey))
-onUnmounted(() => document.removeEventListener('keydown', handleKey))
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKey)
+  document.body.style.overflow = ''
+})
 </script>
 
 <style lang="scss" scoped>
@@ -366,6 +415,11 @@ onUnmounted(() => document.removeEventListener('keydown', handleKey))
   cursor: pointer;
   background: var(--c-surface);
   overflow: hidden;
+
+  &:focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: -2px;
+  }
 
   &:hover .card-img {
     transform: scale(1.04);

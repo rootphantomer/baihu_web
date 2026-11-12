@@ -9,7 +9,7 @@
 
 **杭州白鹄动画有限公司官方网站** — 日式极简风格的动画制作工作室线上名片
 
-[🌐 在线预览](https://baihu-animation.com) · [📖 设计文档](DESIGN.md)
+[🌐 在线预览](https://www.baihu-animation.com) · [📖 设计文档](DESIGN.md)
 
 </div>
 
@@ -26,9 +26,9 @@
 - 🎨 **日系极简设计** — 受传统书道与日式活版印刷影响，大量留白，字体即主角
 - 🌍 **多语言国际化** — zh-CN / zh-TW / en-US / ja-JP 四语，自研轻量 i18n（零运行时依赖）
 - 🌓 **明暗双主题** — 跟随系统偏好并可手动切换，选择持久化到 localStorage
-- 📱 **完全响应式** — Desktop First，基于 `calc(100vw / 192)` 的根字号缩放
-- ⚡ **按需加载** — 路由级懒加载 + 手动分包（vendor / libs），首页 gzip 约 38 KB
-- 🔍 **SEO 内建** — 每页独立 meta/OG/Twitter 卡片，路由切换自动注入，含 JSON-LD 结构化数据
+- 📱 **完全响应式** — Desktop First，桌面端 10px 基准字号，超大屏按 `calc(100vw / 192)` 缩放
+- ⚡ **按需加载** — 路由级懒加载 + 手动分包（vendor / libs），首页 gzip 约 69 KB
+- 🔍 **SEO 内建** — 每页独立 title/description，自动注入 OG/Twitter 与 JSON-LD 结构化数据
 - 🎭 **克制动效** — 统一缓动曲线，无过度表演
 
 ---
@@ -40,8 +40,7 @@
 | 依赖 | 版本 | 说明 |
 | --- | --- | --- |
 | [Vue](https://vuejs.org/) | ^3.5.32 | Composition API，`<script setup>` |
-| [Vue Router](https://router.vuejs.org/) | ^5.0.4 | **Hash 模式**，兼容任意静态托管 |
-| [Pinia](https://pinia.vuejs.org/) | ^3.0.4 | 状态管理 |
+| [Vue Router](https://router.vuejs.org/) | ^5.0.4 | **History 模式**，Cloudflare Workers SPA fallback |
 | [normalize.css](https://necolas.github.io/normalize.css/) | ^8.0.1 | CSS 重置 |
 
 > **国际化为自研实现**，不依赖 vue-i18n。核心逻辑在 `src/composables/useI18n.ts`，以 Vue 插件形式注入
@@ -91,7 +90,7 @@ baihu_web/
 │   ├── composables/         # 组合式函数
 │   │   ├── useI18n.ts       # 轻量 i18n 核心（响应式 locale、t()、回退）
 │   │   ├── useTheme.ts      # 明暗主题切换与持久化
-│   │   ├── useSeoMeta.ts    # meta / OG / JSON-LD 注入
+│   │   ├── useSeoMeta.ts    # meta / OG / canonical / hreflang / JSON-LD 注入
 │   │   └── useRouterPrefetch.ts # 路由级预取
 │   ├── data/                # 静态数据
 │   │   ├── works.ts         # 参与作品
@@ -110,7 +109,6 @@ baihu_web/
 │   ├── views/               # 页面组件（均懒加载）
 │   │   ├── HomeView.vue
 │   │   ├── WorksView.vue
-│   │   ├── WorkView.vue
 │   │   ├── AboutView.vue
 │   │   ├── NewsView.vue
 │   │   ├── JoinView.vue
@@ -124,6 +122,8 @@ baihu_web/
 ├── CLAUDE.md                # AI 助手上下文
 ├── I18N_MIGRATION.md        # 国际化迁移说明
 ├── index.html               # HTML 模板（含 SEO meta、字体预连接、JSON-LD）
+├── wrangler.jsonc           # Cloudflare Workers 配置（SPA fallback）
+├── worker.js                # Cloudflare Workers 静态资源入口
 ├── vite.config.ts           # Vite 配置
 └── package.json
 ```
@@ -227,11 +227,17 @@ yarn clean:node   # 删除 node_modules/
 
 ### 响应式缩放
 
-根字号基于视口宽度线性缩放，配合 rem 单位实现全站等比响应式：
+桌面端使用 10px 基准字号；1920px 以上基于视口宽度线性放大，配合 rem 单位实现全站等比响应式：
 
 ```css
 html {
-  font-size: calc(100vw / 192);
+  font-size: 10px;
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: calc(100vw / 192);
+  }
 }
 ```
 
@@ -252,7 +258,8 @@ html {
 
 ## 📄 路由
 
-采用 Hash 模式（`createWebHashHistory`），无需服务端 rewrite 配置即可部署到任意静态托管。
+采用 History 模式（`createWebHistory`），由 Cloudflare Workers 的
+`not_found_handling: "single-page-application"` 回退到 `index.html`。
 
 | 路径 | 名称 | 页面 | 懒加载 |
 | --- | --- | --- | --- |
@@ -266,22 +273,21 @@ html {
 
 每条路由在 `src/router/index.ts` 的 `PAGE_SEO` 中携带独立 SEO 元数据，路由切换时由 `setupRouterSeo` 自动注入 `document`。
 
-> ⚠️ **已知问题**：`PAGE_SEO` 中配置了 `ogImage`（`/og-home.jpg` 等 6 个文件），但这些图片在 `public/` 下并不存在，
-> 分享到社交平台时 OG 卡片会缺失。补图或移除对应配置后可解决。
+> 分享图统一使用 `public/og-image.png`（1200×630）。如需按页面区分，可再补充 `/og-*.jpg`
+> 并更新 `PAGE_SEO` 中的 `ogImage`。
 >
-> 另注：`src/views/WorkView.vue`（作品详情）当前未被路由表引用，属于预留的孤立文件。
-
 ---
 
 ## 🌍 国际化
 
 ### 语言检测优先级
 
-1. `localStorage` 中持久化的用户选择
-2. 浏览器语言（`navigator.language`）
+1. URL 查询参数 `?lang=ja-JP`（便于分享和 SEO）
+2. `localStorage` 中持久化的用户选择
+3. 浏览器语言（`navigator.language`）
    - `zh-*` 且含 `Hant` / `TW` / `HK` → `zh-TW`，其余 → `zh-CN`
    - `ja-*` → `ja-JP`，`en-*` → `en-US`
-3. 回退默认 `zh-CN`
+4. 回退默认 `zh-CN`
 
 翻译键缺失时回退到 `zh-CN`。用户切换语言后会写入 `localStorage`，优先级高于浏览器检测。
 
@@ -307,6 +313,7 @@ const { t, locale, setLocale } = useI18n()
 1. 在 `src/locales/` 新建语言文件，复制现有结构并翻译（键需与 `zh-CN.ts` 保持一致）
 2. 在 `src/composables/useI18n.ts` 中三处登记：导入、`messages` 映射、`LOCALE_ORDER` / `LOCALE_LABEL`
 3. `Locale` 联合类型定义在 `src/composables/useI18n.ts`，新增语言需同步扩展该类型
+4. 在新语言包中补充 `seo.*`，用于该语言的 title / description / canonical / hreflang
 
 ---
 
@@ -316,7 +323,7 @@ const { t, locale, setLocale } = useI18n()
 
 | 配置 | 值 | 说明 |
 | --- | --- | --- |
-| `base` | `'./'` | 相对路径，产物可部署到任意子路径 |
+| `base` | `'/'` | Cloudflare Workers 根路径部署 |
 | `target` | `'esnext'` | 构建目标为现代浏览器 |
 | `cssTarget` | `'es2022'` | CSS 语法降级目标 |
 | `assetsInclude` | `['**/*.png', '**/*.svg']` | 额外识别的静态资源 |
@@ -330,7 +337,7 @@ const { t, locale, setLocale } = useI18n()
 
 ### 浏览器兼容性
 
-通过 `package.json` 的 `browserslist` 字段配置 `production` / `development` 两套目标。
+构建目标由 `vite.config.ts` 的 `build.target` / `cssTarget` 控制，当前面向现代浏览器。
 
 ---
 
@@ -340,9 +347,11 @@ const { t, locale, setLocale } = useI18n()
 
 - **Vercel / Netlify** — 自动识别 Vite 项目，零配置
 - **GitHub Pages** — 参见仓库的 `gh-pages` 分支与 `auto-release.yml`
+- **Cloudflare Workers** — 使用仓库内 `wrangler.jsonc` + `worker.js`，支持 History 路由回退
+- **规范域名** — `baihu-animation.com` 301 到 `www.baihu-animation.com`
 - **Nginx** — 指向 `dist/` 并启用 gzip
 
-Hash 模式路由无需 SPA fallback 重写规则。Nginx 配置示例：
+History 模式需要 SPA fallback。Cloudflare Workers 已由 `wrangler.jsonc` 配置；Nginx 示例：
 
 ```nginx
 server {
@@ -353,6 +362,10 @@ server {
 
     gzip on;
     gzip_types text/css application/javascript image/svg+xml;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
 
     # 带哈希的产物可长期缓存
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
@@ -368,7 +381,7 @@ server {
 
 | 工作流 | 触发 | 内容 |
 | --- | --- | --- |
-| `ci.yml` | push / PR → `master` | Node 22 + yarn cache，依次执行 `type-check`、`lint`、`build` |
+| `ci.yml` | push / PR → `master` | Node 22 + yarn cache，依次执行 `type-check`、`lint:check`、`format:check`、`build` |
 | `size.yml` | PR | 产物体积监控 |
 | `auto-release.yml` | tag | 构建并发布 |
 

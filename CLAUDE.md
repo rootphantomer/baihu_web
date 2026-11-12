@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Baihu Animation (杭州白鹄动画有限公司) — official website for a Japanese-style 2D animation studio in Hangzhou. Static SPA targeting Japanese animation production companies. Live at https://baihu-animation.com
+Baihu Animation (杭州白鹄动画有限公司) — official website for a Japanese-style 2D animation studio in Hangzhou. Static SPA targeting Japanese animation production companies. Live at https://www.baihu-animation.com
 
-Tech: Vue 3 (Composition API, `<script setup>`), TypeScript, Vite, Vue Router (Hash mode), Sass/SCSS. No UI framework — all custom CSS.
+Tech: Vue 3 (Composition API, `<script setup>`), TypeScript, Vite, Vue Router (History mode), Sass/SCSS. No UI framework — all custom CSS.
 
 ## Commands
 
@@ -29,7 +29,7 @@ The project uses a **custom lightweight i18n solution** (`src/composables/useI18
 
 ### Composable Singletons
 
-All composables (`useI18n`, `useTheme`, `useSeoMeta`, `useRouterPrefetch`) use a **module-level singleton pattern** — refs are declared at module scope, not inside the function. This shares state across components without Pinia. Pinia is installed but `src/stores/` is empty; prefer the composable singleton pattern for new shared state.
+All composables (`useI18n`, `useTheme`, `useSeoMeta`, `useRouterPrefetch`) use a **module-level singleton pattern** — refs are declared at module scope, not inside the function. This shares state across components without Pinia; prefer the composable singleton pattern for new shared state.
 
 ### Data Layer
 
@@ -37,7 +37,7 @@ All data is static TypeScript modules in `src/data/` — no API calls, no fetch.
 
 ### Routing
 
-Vue Router with Hash mode (`createWebHashHistory`). All views lazy-loaded. Each route carries `meta.seo` (title, description, ogImage). An `afterEach` hook in `src/router/index.ts` auto-applies SEO meta tags via `src/composables/useSeoMeta.ts`. Route prefetching (`src/composables/useRouterPrefetch.ts`) triggers on hover and viewport intersection.
+Vue Router with History mode (`createWebHistory`) and a Cloudflare Workers SPA fallback. Locale is mirrored in `?lang=` while `zh-CN` keeps clean paths. All views lazy-loaded. Each route carries `meta.seo` (title, description, ogImage). An `afterEach` hook in `src/router/index.ts` auto-applies SEO meta tags via `src/composables/useSeoMeta.ts`, including canonical and hreflang. Route prefetching (`src/composables/useRouterPrefetch.ts`) triggers on hover and viewport intersection.
 
 ### CSS
 

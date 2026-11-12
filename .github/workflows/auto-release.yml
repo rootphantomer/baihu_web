@@ -38,7 +38,7 @@ jobs:
         run: yarn type-check
 
       - name: 🧹 Lint 检查
-        run: yarn lint
+        run: yarn lint:check
 
       - name: 🏗️ 构建
         run: yarn build

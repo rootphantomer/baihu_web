@@ -62,6 +62,7 @@ export default {
     },
     empty: '暂无符合条件的作品',
     loadMore: '加载更多',
+    close: '关闭',
   },
   about: {
     title: '关于我们',
@@ -232,6 +233,42 @@ export default {
     join: '招募',
     contact: '联系',
     news: '新闻',
+    themeToLight: '切换到浅色模式',
+    themeToDark: '切换到深色模式',
+    language: '选择语言',
+    openMenu: '打开菜单',
+    closeMenu: '关闭菜单',
+  },
+  seo: {
+    home: {
+      title: '白鹄动画 | 国际一流动画制作工作室',
+      description:
+        '杭州白鹄动画是一家专注日式二维动画制作的工作室，核心团队来自 Sunrise、MAPPA、J.C.STAFF，为日本一线动画公司提供高品质动画制作服务。',
+    },
+    works: {
+      title: '参与作品 | 白鹄动画',
+      description:
+        '白鹄动画参与制作的日本动画作品集，包括高达、水星的魔女、机动战士高达 闪光的哈萨维等知名作品，涵盖原画、动画、背景美术等多种分工。',
+    },
+    about: {
+      title: '关于我们 | 白鹄动画',
+      description:
+        '白鹄动画成立于杭州，核心成员来自日本各大动画公司，深谙日式动画的制作标准与文化语境。我们相信只有对动画本身保持热爱，才能交付真正有生命力的作品。',
+    },
+    news: {
+      title: '最新动态 | 白鹄动画',
+      description: '白鹄动画最新资讯，了解我们的项目进展、团队动态和行业分享。',
+    },
+    join: {
+      title: '加入我们 | 白鹄动画',
+      description:
+        '白鹄动画招聘动画师、原画师、背景美术等岗位，欢迎热爱日式动画的你加入。提供有竞争力的薪酬、国际化的协作环境，以及接触一线日本动画项目的机会。',
+    },
+    contact: {
+      title: '联系我们 | 白鹄动画',
+      description:
+        '白鹄动画联系方式，承接日本动画制作合作项目，欢迎商务合作与洽谈。邮箱：baihu_animation@163.com。',
+    },
   },
   notFound: {
     title: '页面未找到',

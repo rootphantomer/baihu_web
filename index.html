@@ -2,7 +2,23 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 在首屏绘制前恢复主题，避免浅色模式闪烁 -->
+    <script>
+      ;(function () {
+        try {
+          var saved = localStorage.getItem('baihu-theme')
+          var theme =
+            saved === 'light' || saved === 'dark'
+              ? saved
+              : window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch (e) {}
+      })()
+    </script>
 
     <!-- 标题 -->
     <title>白鹄动画 | 国际一流动画制作工作室</title>
@@ -26,6 +42,11 @@
     />
     <meta property="og:site_name" content="白鹄动画" />
     <meta property="og:locale" content="zh_CN" />
+    <meta property="og:url" content="https://www.baihu-animation.com/" />
+    <meta property="og:image" content="https://www.baihu-animation.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="白鹄动画 Baihu Animation" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -34,10 +55,20 @@
       name="twitter:description"
       content="白鹄动画是一家位于杭州的日式动画工作室，为日本顶级动画公司提供高品质动画制作服务。"
     />
+    <meta name="twitter:image" content="https://www.baihu-animation.com/og-image.png" />
+    <meta name="twitter:image:alt" content="白鹄动画 Baihu Animation" />
 
     <!-- Favicon (Vite 会从 public 目录提供) -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Canonical / hreflang（运行时按当前路由和语言更新） -->
+    <link rel="canonical" href="https://www.baihu-animation.com/" />
+    <link rel="alternate" hreflang="zh-CN" href="https://www.baihu-animation.com/" />
+    <link rel="alternate" hreflang="zh-TW" href="https://www.baihu-animation.com/?lang=zh-TW" />
+    <link rel="alternate" hreflang="en-US" href="https://www.baihu-animation.com/?lang=en-US" />
+    <link rel="alternate" hreflang="ja-JP" href="https://www.baihu-animation.com/?lang=ja-JP" />
+    <link rel="alternate" hreflang="x-default" href="https://www.baihu-animation.com/" />
 
     <!-- DNS 预解析 -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -46,9 +77,10 @@
     <!-- 字体预连接 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- 预加载关键资源 -->
-    <link rel="preload" href="/favicon.ico" as="image" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=DM+Sans:wght@200;300;400&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@300;400;600&family=Shippori+Mincho:wght@300;400;600&display=swap"
+    />
 
     <!-- 主题色 (支持 Android Chrome 主题色) -->
     <meta name="theme-color" content="#0a0a0a" />
@@ -58,54 +90,51 @@
 
     <!-- Organization Schema -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "白鹄动画",
-      "alternateName": ["Baihu Animation", "白鵠アニメーション"],
-      "url": "https://www.baihu-animation.com",
-      "logo": "https://www.baihu-animation.com/logo.png",
-      "description": "杭州白鹄动画是一家专注日式二维动画制作的工作室，核心团队来自 Sunrise、MAPPA、J.C.STAFF 等日本顶级动画公司。",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "长河街道齐飞路350号圆伦大厦A座1901",
-        "addressLocality": "杭州",
-        "addressRegion": "浙江",
-        "postalCode": "310051",
-        "addressCountry": "CN"
-      },
-      "foundingDate": "2025",
-      "areaServed": "日本",
-      "knowsAbout": [
-        "日式二维动画制作",
-        "原画",
-        "动画",
-        "背景美术",
-        "作画监督",
-        "Layout",
-        "日本动画"
-      ],
-      "sameAs": [
-        "https://twitter.com/baihu_animation"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "白鹄动画",
+        "alternateName": ["Baihu Animation", "白鵠アニメーション"],
+        "url": "https://www.baihu-animation.com",
+        "logo": "https://www.baihu-animation.com/logo.png",
+        "description": "杭州白鹄动画是一家专注日式二维动画制作的工作室，核心团队来自 Sunrise、MAPPA、J.C.STAFF 等日本顶级动画公司。",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "长河街道齐飞路350号圆伦大厦A座1901",
+          "addressLocality": "杭州",
+          "addressRegion": "浙江",
+          "postalCode": "310051",
+          "addressCountry": "CN"
+        },
+        "foundingDate": "2025",
+        "areaServed": "日本",
+        "knowsAbout": [
+          "日式二维动画制作",
+          "原画",
+          "动画",
+          "背景美术",
+          "作画监督",
+          "Layout",
+          "日本动画"
+        ],
+        "sameAs": ["https://twitter.com/baihu_animation"]
+      }
     </script>
 
     <!-- WebSite Schema (支持 Sitelinks 搜索框) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "白鹄动画",
-      "url": "https://www.baihu-animation.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.baihu-animation.com/works?search={search_term_string}",
-        "query-input": "required name=search_term_string"
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "白鹄动画",
+        "url": "https://www.baihu-animation.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.baihu-animation.com/works?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
-    }
     </script>
-
   </head>
   <body>
     <div id="app"></div>

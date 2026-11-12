@@ -90,7 +90,7 @@
   ├── ServicesSection       — 3列服务卡片网格（动画/前期设计/覆盖范围）
   └── RecruitCta            — 招聘 CTA（带边框按钮）
 
-/works (WorkView)
+/works (WorksView)
   ├── PageHeader            — 页面标题 + 筛选器
   └── WorkGrid             — 全部作品，筛选 + 搜索
 
@@ -187,7 +187,7 @@
 ### 6.1 Stack
 - Vue 3 + Composition API + TypeScript
 - Vite + SCSS
-- vue-router（Hash 模式）
+- vue-router（History 模式，Cloudflare Workers SPA fallback）
 - vue-i18n（zh-CN / ja-JP / en-US / zh-TW）
 - vue3-lazyload（图片懒加载）
 - 零 UI 组件库，无外部 CSS 框架
@@ -211,12 +211,10 @@ src/
 ├── locales/         # 翻译文件（zh-CN, ja-JP, en-US, zh-TW）
 ├── plugins/         # 插件初始化
 ├── router/          # 路由配置
-├── stores/          # Pinia stores
 ├── types/           # TypeScript 类型定义
 ├── views/           # 页面组件
 │   ├── HomeView.vue
 │   ├── WorksView.vue
-│   ├── WorkView.vue
 │   ├── AboutView.vue
 │   ├── NewsView.vue
 │   ├── JoinView.vue
@@ -229,7 +227,7 @@ src/
 - **Design Tokens**：所有颜色、字体、动效定义在 App.vue `:root` / `[data-theme='dark']` / `[data-theme='light']`
 - **主题切换**：通过 `data-theme` 属性 + CSS 变量自动切换
 - **全局过渡**：所有元素的 background-color / border-color / color / box-shadow 带 300ms ease 过渡
-- **响应式字体**：html font-size 基于 `calc(100vw / 192)`（1920px 设计稿），各断点覆盖
+- **响应式字体**：桌面端 html font-size 为 10px，1920px 以上按 `calc(100vw / 192)` 放大，各断点覆盖
 
 ### 6.4 交互细节
 - **触摸优化**：`-webkit-tap-highlight-color: transparent` + `touch-action: manipulation` + 触摸反馈（scale 0.98/0.99）

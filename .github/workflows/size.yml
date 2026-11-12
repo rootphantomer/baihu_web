@@ -24,8 +24,8 @@ jobs:
       - name: Check bundle size
         run: |
           # Vite 输出到 dist/js 与 dist/css（见 vite.config.ts 的 assetFileNames）
-          # 体积阈值与 vite.config.ts 的 chunkSizeWarningLimit (1000 KB) 对齐
-          LIMIT_KB=1000
+          # 体积阈值与 vite.config.ts 的 chunkSizeWarningLimit (150 KB) 对齐
+          LIMIT_KB=150
           FAILED=0
 
           {

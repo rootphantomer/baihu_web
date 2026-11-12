@@ -62,6 +62,7 @@ export default {
     },
     empty: '暫無符合條件的作品',
     loadMore: '載入更多',
+    close: '關閉',
   },
   about: {
     title: '關於我們',
@@ -232,6 +233,42 @@ export default {
     join: '招募',
     contact: '聯絡',
     news: '新聞',
+    themeToLight: '切換至淺色模式',
+    themeToDark: '切換至深色模式',
+    language: '選擇語言',
+    openMenu: '開啟選單',
+    closeMenu: '關閉選單',
+  },
+  seo: {
+    home: {
+      title: '白鵠動畫 | 國際一流動畫製作工作室',
+      description:
+        '杭州白鵠動畫是一家專注日式二維動畫製作的工作室，核心團隊來自 Sunrise、MAPPA、J.C.STAFF，為日本一線動畫公司提供高品質動畫製作服務。',
+    },
+    works: {
+      title: '參與作品 | 白鵠動畫',
+      description:
+        '白鵠動畫參與製作的日本動畫作品集，包括鋼彈、水星的魔女、機動戰士鋼彈 閃光的哈薩威等知名作品，涵蓋原畫、動畫、背景美術等多種分工。',
+    },
+    about: {
+      title: '關於我們 | 白鵠動畫',
+      description:
+        '白鵠動畫成立於杭州，核心成員來自日本各大動畫公司，深諳日式動畫的製作標準與文化語境。我們相信只有對動畫本身保持熱愛，才能交付真正有生命力的作品。',
+    },
+    news: {
+      title: '最新動態 | 白鵠動畫',
+      description: '白鵠動畫最新資訊，了解我們的專案進展、團隊動態和行業分享。',
+    },
+    join: {
+      title: '加入我們 | 白鵠動畫',
+      description:
+        '白鵠動畫招聘動畫師、原畫師、背景美術等職位，歡迎熱愛日式動畫的你加入。提供具競爭力的薪酬、國際化的協作環境，以及接觸一線日本動畫專案的機會。',
+    },
+    contact: {
+      title: '聯絡我們 | 白鵠動畫',
+      description:
+        '白鵠動畫聯絡方式，承接日本動畫製作合作專案，歡迎商務合作與洽談。信箱：baihu_animation@163.com。',
+    },
   },
   notFound: {
     title: '頁面未找到',

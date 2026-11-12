@@ -62,6 +62,7 @@ export default {
     },
     empty: 'No works found matching your criteria',
     loadMore: 'Load More',
+    close: 'Close',
   },
   about: {
     title: 'About Us',
@@ -242,6 +243,43 @@ export default {
     join: 'Careers',
     contact: 'Contact',
     news: 'News',
+    themeToLight: 'Switch to light mode',
+    themeToDark: 'Switch to dark mode',
+    language: 'Select language',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+  },
+  seo: {
+    home: {
+      title: 'Baihu Animation | International Animation Production Studio',
+      description:
+        'Baihu Animation is a Hangzhou-based studio specializing in Japanese-style 2D animation. Our core team comes from Sunrise, MAPPA, and J.C.STAFF and delivers high-quality production services to leading Japanese animation companies.',
+    },
+    works: {
+      title: 'Works | Baihu Animation',
+      description:
+        'A selection of Japanese animation projects Baihu Animation has contributed to, including Mobile Suit Gundam: The Witch from Mercury and Mobile Suit Gundam Hathaway, across key animation, in-between animation, background art, and more.',
+    },
+    about: {
+      title: 'About Us | Baihu Animation',
+      description:
+        'Founded in Hangzhou, Baihu Animation brings together core members from leading Japanese studios who understand Japanese production standards and cultural context. We believe genuine love for animation is what creates work with life.',
+    },
+    news: {
+      title: 'News | Baihu Animation',
+      description:
+        'The latest news from Baihu Animation: project updates, team stories, and industry insights.',
+    },
+    join: {
+      title: 'Careers | Baihu Animation',
+      description:
+        'Baihu Animation is hiring animators, key animators, background artists, and more. Join a team with competitive compensation, an international working environment, and direct exposure to leading Japanese animation projects.',
+    },
+    contact: {
+      title: 'Contact | Baihu Animation',
+      description:
+        'Contact Baihu Animation for Japanese animation production partnerships and business inquiries. Email: baihu_animation@163.com.',
+    },
   },
   notFound: {
     title: 'Page Not Found',

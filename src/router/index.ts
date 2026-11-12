@@ -1,53 +1,54 @@
 /**
  * @file 路由配置，定义页面路由、SEO 元数据、滚动行为
  */
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import type { SeoMeta } from '@/composables/useSeoMeta'
 import { setupRouterSeo } from '@/composables/useSeoMeta'
+import { getLocale } from '@/composables/useI18n'
+
+// 兼容旧版 Hash 链接：/#/works → /works
+if (typeof window !== 'undefined' && window.location.hash.startsWith('#/')) {
+  window.history.replaceState(null, '', window.location.hash.slice(1))
+}
 
 /** 每页 SEO 元数据 */
 const PAGE_SEO: Record<string, SeoMeta> = {
   '/': {
-    title: '白鹄动画 | 国际一流动画制作工作室',
-    description:
-      '杭州白鹄动画是一家专注日式二维动画制作的工作室，核心团队来自 Sunrise、MAPPA、J.C.STAFF，为日本一线动画公司提供高品质动画制作服务。',
-    ogImage: '/og-home.jpg',
+    titleKey: 'seo.home.title',
+    descriptionKey: 'seo.home.description',
+    ogImage: '/og-image.png',
   },
   '/works': {
-    title: '参与作品 | 白鹄动画',
-    description:
-      '白鹄动画参与制作的日本动画作品集，包括高达、水星的魔女、机动战士高达 闪光的哈萨维等知名作品，涵盖原画、动画、背景美术等多种分工。',
-    ogImage: '/og-works.jpg',
+    titleKey: 'seo.works.title',
+    descriptionKey: 'seo.works.description',
+    ogImage: '/og-image.png',
   },
   '/about': {
-    title: '关于我们 | 白鹄动画',
-    description:
-      '白鹄动画成立于杭州，核心成员来自日本各大动画公司，深谙日式动画的制作标准与文化语境。我们相信只有对动画本身保持热爱，才能交付真正有生命力的作品。',
-    ogImage: '/og-about.jpg',
+    titleKey: 'seo.about.title',
+    descriptionKey: 'seo.about.description',
+    ogImage: '/og-image.png',
   },
   '/news': {
-    title: '最新动态 | 白鹄动画',
-    description: '白鹄动画最新资讯，了解我们的项目进展、团队动态和行业分享。',
-    ogImage: '/og-news.jpg',
+    titleKey: 'seo.news.title',
+    descriptionKey: 'seo.news.description',
+    ogImage: '/og-image.png',
   },
   '/join': {
-    title: '加入我们 | 白鹄动画',
-    description:
-      '白鹄动画招聘动画师、原画师、背景美术等岗位，欢迎热爱日式动画的你加入。提供有竞争力的薪酬、国际化的协作环境，以及接触一线日本动画项目的机会。',
-    ogImage: '/og-join.jpg',
+    titleKey: 'seo.join.title',
+    descriptionKey: 'seo.join.description',
+    ogImage: '/og-image.png',
   },
   '/contact': {
-    title: '联系我们 | 白鹄动画',
-    description:
-      '白鹄动画联系方式，承接日本动画制作合作项目，欢迎商务合作与洽谈。邮箱：baihu_animation@163.com。',
-    ogImage: '/og-contact.jpg',
+    titleKey: 'seo.contact.title',
+    descriptionKey: 'seo.contact.description',
+    ogImage: '/og-image.png',
   },
 }
 
 /** 未匹配路由的回退 SEO 元数据 */
 const FALLBACK_SEO: SeoMeta = {
-  title: '白鹄动画 | 国际一流动画制作工作室',
-  description: '杭州白鹄动画是一家专注日式二维动画制作的工作室。',
+  titleKey: 'seo.home.title',
+  descriptionKey: 'seo.home.description',
 }
 
 /** 路由表定义（懒加载各页面组件，每条路由携带 SEO 元数据） */
@@ -97,14 +98,39 @@ const routes = [
 ]
 
 const router = createRouter({
-  /** 使用 Hash 模式路由，兼容静态部署 */
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  /** History 模式；Cloudflare Workers 使用 SPA fallback 回退到 index.html */
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   /** 滚动行为：浏览器前进/后退恢复位置，否则平滑回到顶部 */
   scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) return savedPosition
     return { top: 0, behavior: 'smooth' }
   },
+})
+
+/**
+ * 将当前语言同步到 URL：
+ * - 默认语言 zh-CN 使用干净路径
+ * - 其他语言使用 ?lang=ja-JP 等查询参数
+ */
+router.beforeEach((to) => {
+  const currentLocale = getLocale()
+  const hasLang = typeof to.query.lang === 'string'
+
+  if (currentLocale === 'zh-CN') {
+    if (!hasLang) return
+    const query = { ...to.query }
+    delete query.lang
+    return { path: to.path, query, hash: to.hash, replace: true }
+  }
+
+  if (to.query.lang === currentLocale) return
+  return {
+    path: to.path,
+    query: { ...to.query, lang: currentLocale },
+    hash: to.hash,
+    replace: true,
+  }
 })
 
 // 注入路由级 SEO 自动更新

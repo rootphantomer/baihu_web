@@ -28,6 +28,22 @@ function applyTheme(t: Theme) {
   document.documentElement.setAttribute('data-theme', t)
 }
 
+function readSavedTheme(): Theme | null {
+  try {
+    return localStorage.getItem(STORAGE_KEY) as Theme | null
+  } catch {
+    return null
+  }
+}
+
+function saveTheme(t: Theme) {
+  try {
+    localStorage.setItem(STORAGE_KEY, t)
+  } catch {
+    // 忽略隐私模式或受限 WebView 下的写入失败
+  }
+}
+
 // ─── Public API ────────────────────────────────────────────────────────────────
 
 /**
@@ -38,7 +54,7 @@ export function initTheme() {
   if (initialized) return
   initialized = true
 
-  const saved = localStorage.getItem(STORAGE_KEY) as Theme | null
+  const saved = readSavedTheme()
 
   if (saved && (saved === 'light' || saved === 'dark')) {
     theme.value = saved
@@ -51,7 +67,7 @@ export function initTheme() {
   // 监听系统主题变化（仅在用户未手动选择时生效）
   const mediaQuery = window.matchMedia('(prefers-color-scheme: light)')
   const handleChange = (e: MediaQueryListEvent) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
+    if (!readSavedTheme()) {
       theme.value = e.matches ? 'light' : 'dark'
       applyTheme(theme.value)
     }
@@ -65,7 +81,7 @@ export function initTheme() {
 export function useTheme() {
   function toggleTheme() {
     theme.value = theme.value === 'dark' ? 'light' : 'dark'
-    localStorage.setItem(STORAGE_KEY, theme.value)
+    saveTheme(theme.value)
     applyTheme(theme.value)
   }
 

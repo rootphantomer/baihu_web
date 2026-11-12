@@ -7,15 +7,14 @@
 ### 构建产物统计
 
 ```
-总大小（未压缩）: ~170KB
-总大小（gzip）:   ~65KB
+总大小（未压缩）: ~508KB
+首屏 JS/CSS（gzip）: ~69KB
 
 主要文件：
-- vendor-BtEJCayL.js     104.83 KB (gzip: 39.94 KB) - Vue、Vue Router 等依赖
-- useI18n-BHgv7vch.js     15.47 KB (gzip:  6.82 KB) - 自定义 i18n + 语言包
-- HomeView-B5k6WLFW.js     8.64 KB (gzip:  3.13 KB) - 首页
-- WorksView-BjWyD7Yz.js    9.66 KB (gzip:  3.23 KB) - 作品页
-- index-VoX4G3ai.js        7.96 KB (gzip:  3.24 KB) - 主应用
+- vendor.js         约 98 KB (gzip: 约 38 KB) - Vue、Vue Router 等依赖
+- index.js          约 65 KB (gzip: 约 23 KB) - 主应用 + 自定义 i18n + 语言包
+- HomeView.js       约 8.5 KB (gzip: 约 3 KB) - 首页
+- WorksView.js      约 3.8 KB (gzip: 约 1.7 KB) - 作品页
 ```
 
 ## 🔧 构建命令
@@ -65,6 +64,33 @@ yarn add -D gh-pages
 yarn build
 npx gh-pages -d dist
 ```
+
+### Cloudflare Workers（当前部署）
+
+仓库内已提供 `wrangler.jsonc` 和 `worker.js`。`assets.not_found_handling` 会把未命中的
+路径回退到 `index.html`，因此可以直接使用 Vue Router History 模式。主域为
+`www.baihu-animation.com`，`baihu-animation.com` 会在 Worker 中 301 到主域。
+
+```bash
+npm run build
+npx wrangler deploy
+```
+
+```jsonc
+{
+  "name": "baihu",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-12",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  }
+}
+```
+
+如果 Cloudflare 控制台里已有同名 Worker，部署前请确认 `name` 一致；如果现有 Worker
+使用自己的 `main` 入口，把 `worker.js` 里的 SPA 回退逻辑合并进去即可。
 
 ### Nginx 配置
 
@@ -170,7 +196,7 @@ export {}
 
 A: 检查以下几点：
 
-1. 确认服务器已配置 History 模式路由回退（SPA 回退到 `index.html`，Nginx 示例：`try_files $uri $uri/ /index.html;`）
+1. 当前使用 History 模式，需要 SPA 回退到 `index.html`。Cloudflare Workers 已由 `wrangler.jsonc` 的 `not_found_handling: "single-page-application"` 配置；Nginx 示例：`try_files $uri $uri/ /index.html;`
 2. 检查浏览器控制台是否有 404 错误
 3. 确认 `vite.config.ts` 中 `base` 路径与部署路径一致
 

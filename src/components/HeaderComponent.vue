@@ -20,8 +20,9 @@
         <!-- Theme Toggle -->
         <button
           class="theme-btn"
+          type="button"
           @click="toggleTheme"
-          :aria-label="isDark ? '切换到浅色模式' : '切换到深色模式'"
+          :aria-label="$t(isDark ? 'header.themeToLight' : 'header.themeToDark')"
         >
           <!-- Sun icon (shown in dark mode) -->
           <svg
@@ -56,24 +57,30 @@
         </button>
 
         <!-- Language Dropdown -->
-        <div class="lang-select">
+        <div class="lang-select" @keydown.esc="langOpen = false">
           <button
             class="lang-btn"
+            type="button"
             @click.stop="langOpen = !langOpen"
-            :aria-label="`选择语言 (当前: ${langLabel})`"
+            :aria-label="`${$t('header.language')} (${langLabel})`"
+            aria-haspopup="menu"
             :aria-expanded="langOpen"
           >
             {{ langLabel }}
           </button>
           <Transition name="lang-drop">
-            <ul v-if="langOpen" class="lang-menu">
-              <li
-                v-for="opt in LANG_OPTIONS"
-                :key="opt.value"
-                :class="{ active: currentLang === opt.value }"
-                @click.stop="selectLang(opt.value)"
-              >
-                {{ opt.label }}
+            <ul v-if="langOpen" class="lang-menu" role="menu">
+              <li v-for="opt in LANG_OPTIONS" :key="opt.value" role="none">
+                <button
+                  type="button"
+                  class="lang-option"
+                  :class="{ active: currentLang === opt.value }"
+                  role="menuitemradio"
+                  :aria-checked="currentLang === opt.value"
+                  @click.stop="selectLang(opt.value)"
+                >
+                  {{ opt.label }}
+                </button>
               </li>
             </ul>
           </Transition>
@@ -83,8 +90,9 @@
         <button
           class="hamburger"
           :class="{ 'is-open': menuOpen }"
+          type="button"
           @click="toggleMenu"
-          :aria-label="menuOpen ? '关闭菜单' : '打开菜单'"
+          :aria-label="$t(menuOpen ? 'header.closeMenu' : 'header.openMenu')"
           :aria-expanded="menuOpen"
         >
           <span></span>
@@ -397,11 +405,20 @@ const navItems = NAV_ITEMS
   z-index: 110;
 
   li {
+    margin: 0;
+  }
+
+  .lang-option {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1.2rem;
+    background: none;
+    border: 0;
     font-family: var(--font-mono);
     font-size: 1rem;
     letter-spacing: 0.1em;
     color: var(--c-secondary);
-    padding: 0.5rem 1.2rem;
+    text-align: left;
     cursor: pointer;
     transition:
       color var(--duration-fast),
@@ -409,7 +426,8 @@ const navItems = NAV_ITEMS
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       color: var(--c-primary);
       background: var(--c-surface-2);
     }
