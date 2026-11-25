@@ -1,187 +1,106 @@
 <template>
-  <section class="recruit-cta">
-    <div class="rc-inner">
-      <div class="rc-left">
+  <section class="recruit-band">
+    <div class="recruit-inner">
+      <div class="recruit-copy">
         <span class="label">{{ $t('home.recruitment.label') }}</span>
-        <h2 class="rc-title">{{ $t('home.recruitment.title') }}</h2>
-        <p class="rc-desc">{{ $t('home.recruitment.desc') }}</p>
+        <h2 class="recruit-title">{{ $t('home.recruitment.title') }}</h2>
+        <p class="recruit-desc">{{ $t('home.recruitment.desc') }}</p>
       </div>
-      <div class="rc-right">
-        <RouterLink to="/join" class="rc-btn">
-          <span>{{ $t('home.recruitment.viewMore') }}</span>
-          <span class="rc-arrow">→</span>
+
+      <div class="recruit-side">
+        <span class="open-num">{{ String(positions.length).padStart(2, '0') }}</span>
+        <span class="open-label label">{{ $t('home.recruitment.open') }}</span>
+        <RouterLink to="/join" class="text-link">
+          {{ $t('home.recruitment.viewMore') }}
         </RouterLink>
       </div>
     </div>
   </section>
 </template>
 
+<script setup lang="ts">
+import { positions } from '@/data/recruitment'
+</script>
+
 <style lang="scss" scoped>
-.recruit-cta {
-  border-top: 1px solid var(--c-border);
+.recruit-band {
   background: var(--c-surface);
+  border-top: 1px solid var(--c-border);
 }
 
-.rc-inner {
+.recruit-inner {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 8rem;
+  padding: 9rem 8rem;
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
-  gap: 4rem;
+  gap: 6rem;
 
   @media (max-width: 1280px) {
-    padding: 7rem 5rem;
+    padding: 8rem 5rem;
   }
-
-  @media (max-width: 1024px) {
-    padding: 6rem 4rem;
-  }
-
-  @media (max-width: 900px) {
-    padding: 5rem 5vw;
+  @media (max-width: 768px) {
+    padding: 6rem 5vw;
     flex-direction: column;
     align-items: flex-start;
-    gap: 3rem;
-  }
-
-  @media (max-width: 768px) {
-    padding: 4rem 5vw;
-  }
-
-  @media (max-width: 430px) {
-    padding: 3.5rem 4vw;
-    gap: 2.5rem;
+    gap: 4rem;
   }
 }
 
-.rc-left {
+.recruit-copy {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 60rem;
-
-  @media (max-width: 430px) {
-    gap: 1.2rem;
-  }
+  gap: 1.8rem;
 }
 
-.rc-title {
+.recruit-title {
   font-family: var(--font-display);
-  font-size: 4rem;
-  font-weight: 400;
+  font-size: 4.6rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   color: var(--c-primary);
-  letter-spacing: 0.06em;
-
-  @media (max-width: 1280px) {
-    font-size: 3.5rem;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 3rem;
-  }
 
   @media (max-width: 768px) {
-    font-size: 2.6rem;
-  }
-
-  @media (max-width: 430px) {
-    font-size: 2.2rem;
-  }
-
-  @media (max-width: 390px) {
-    font-size: 2rem;
+    font-size: 3.2rem;
   }
 }
 
-.rc-desc {
-  font-family: var(--font-body);
+.recruit-desc {
   font-size: 1.4rem;
   color: var(--c-secondary);
-  line-height: 1.8;
-
-  @media (max-width: 1024px) {
-    font-size: 1.3rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 430px) {
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
 }
 
-.rc-right {
+.recruit-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
   flex-shrink: 0;
-
-  @media (max-width: 900px) {
-    width: 100%;
-  }
 }
 
-.rc-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  border: 1px solid var(--c-accent);
-  padding: 2rem 4rem;
-  font-family: var(--font-body);
-  font-size: 1.3rem;
-  font-weight: 300;
+.open-num {
+  font-family: var(--font-mono);
+  font-size: 7rem;
+  line-height: 1;
   color: var(--c-accent);
-  letter-spacing: 0.1em;
-  min-height: 5.5rem;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  transition:
-    background var(--duration-fast),
-    color var(--duration-fast),
-    gap var(--duration-fast),
-    transform var(--duration-fast);
+  font-variant-numeric: tabular-nums;
+}
 
-  .rc-arrow {
-    transition: transform var(--duration-fast);
-  }
+.open-label {
+  color: var(--c-muted);
+}
+
+.text-link {
+  margin-top: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--c-accent);
+  font-size: 1.2rem;
+  color: var(--c-accent);
 
   &:hover {
-    background: var(--c-accent);
-    color: var(--c-bg);
-    gap: 2.6rem;
-
-    .rc-arrow {
-      transform: translateX(0.4rem);
-    }
-  }
-
-  &:active {
-    transform: scale(0.98);
-    background: var(--c-accent);
-    color: var(--c-bg);
-
-    .rc-arrow {
-      transform: translateX(0.4rem);
-    }
-  }
-
-  @media (max-width: 900px) {
-    width: 100%;
-    padding: 1.8rem 3rem;
-  }
-
-  @media (max-width: 430px) {
-    padding: 1.6rem 2rem;
-    font-size: 1.2rem;
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 390px) {
-    padding: 1.5rem 1.8rem;
-    font-size: 1.1rem;
+    border-color: var(--c-primary);
+    color: var(--c-primary);
   }
 }
 </style>

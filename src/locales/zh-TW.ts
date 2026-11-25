@@ -10,6 +10,12 @@ export default {
       tagline: '以匠心，賦每一幀以生命。',
       subtitle: '杭州 · Animation Production Studio',
       scroll: '向下滾動',
+      prev: '上一部作品',
+      next: '下一部作品',
+      pause: '暫停輪播',
+      play: '撥放輪播',
+      carousel: '代表作品輪播',
+      current: '當前作品',
     },
     marquee: {
       label: '曾參與製作',
@@ -37,6 +43,10 @@ export default {
       title: '加入白鵠',
       desc: '我們尋找對動畫有熱情的你。',
       viewMore: '查看崗位',
+      open: '開放職位',
+    },
+    process: {
+      label: '製作流程',
     },
     contact: {
       label: '聯絡我們',
@@ -45,6 +55,7 @@ export default {
   works: {
     title: '參與作品',
     subtitle: '部分代表作品一覽',
+    featured: { label: '最新作品' },
     filter: {
       all: '全部',
       year: '年份',
@@ -67,6 +78,7 @@ export default {
   about: {
     title: '關於我們',
     subtitle: 'About',
+    manifesto: { label: '我們相信' },
     statement:
       '杭州白鵠動畫成立於杭州，核心成員來自日本各大動畫公司，深諳日式動畫的製作標準與文化語境。我們相信，只有對動畫本身保持熱愛，才能交付真正有生命力的作品。',
     mission: {
@@ -120,6 +132,7 @@ export default {
   join: {
     title: '人才招募',
     subtitle: 'Join Us',
+    roles: { label: '開放職位' },
     intro:
       '白鵠動畫正在尋找對動畫抱有熱忱的你。我們提供有競爭力的薪酬、國際化的協作環境，以及接觸一線日本動畫專案的機會。',
     positions: {
@@ -187,6 +200,7 @@ export default {
   contact: {
     title: '聯絡我們',
     subtitle: 'Contact',
+    direct: { label: '直接聯絡' },
     intro: '如您有動畫製作需求，或希望瞭解合作方式，歡迎通過以下渠道聯絡我們。',
     email: {
       label: '信箱',
@@ -209,6 +223,7 @@ export default {
   news: {
     title: '新聞動態',
     subtitle: 'News',
+    latest: { label: '最新' },
     readMore: '閱讀更多',
     noNews: '暫無新聞',
     items: {
@@ -227,6 +242,7 @@ export default {
     rights: '保留所有權利。',
   },
   header: {
+    skipToContent: '跳至主要內容',
     home: '首頁',
     works: '作品',
     about: '關於',

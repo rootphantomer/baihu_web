@@ -1,514 +1,573 @@
 <template>
-  <section class="hero">
-    <!-- Background grid lines -->
-    <div class="hero-grid" aria-hidden="true">
-      <span v-for="n in 6" :key="n" class="grid-line"></span>
-    </div>
+  <section
+    class="work-hero"
+    tabindex="0"
+    :aria-label="$t('home.hero.carousel')"
+    @keydown.left.prevent="prev"
+    @keydown.right.prevent="next"
+    @mouseenter="setPaused(true)"
+    @mouseleave="setPaused(false)"
+    @focusin="setPaused(true)"
+    @focusout="setPaused(false)"
+    @touchstart.passive="onTouchStart"
+    @touchend.passive="onTouchEnd"
+  >
+    <div class="hero-copy-panel">
+      <div class="hero-top">
+        <span class="hero-brand"> BAIHU<span class="hero-brand-zh">白鹄动画</span> </span>
+        <span class="hero-index label">
+          {{ pad(active + 1) }}<span class="index-sep">/</span>{{ pad(works.length) }}
+        </span>
+      </div>
 
-    <!-- Content -->
-    <div class="hero-content">
-      <p class="hero-label label">{{ $t('home.hero.subtitle') }}</p>
+      <p class="sr-only" aria-live="polite">{{ current.title }}</p>
 
-      <h1 class="hero-title">
-        <span class="hero-name-en">BAIHU</span>
-        <span class="hero-name-zh">白鹄动画</span>
-      </h1>
+      <Transition name="caption" mode="out-in">
+        <div :key="current.title" class="hero-caption">
+          <span class="caption-rule" aria-hidden="true"></span>
+          <div class="caption-inner">
+            <div class="caption-meta">
+              <span>{{ current.type }}</span>
+              <span class="meta-sep" aria-hidden="true"></span>
+              <span>{{ current.year }}</span>
+            </div>
+            <h1 class="work-title">{{ current.title }}</h1>
+            <p class="work-role">{{ current.role }}</p>
+            <RouterLink to="/works" class="work-link">
+              {{ $t('home.works.viewAll') }}
+            </RouterLink>
+          </div>
+        </div>
+      </Transition>
 
-      <p class="hero-tagline">{{ $t('home.hero.tagline') }}</p>
-
-      <div class="hero-actions">
-        <RouterLink to="/works" class="hero-btn-primary">
-          {{ $t('home.works.viewAll') }}
-          <span class="btn-arrow">→</span>
-        </RouterLink>
-        <RouterLink to="/contact" class="hero-btn-ghost">
-          {{ $t('home.contact.label') }}
-        </RouterLink>
+      <div class="hero-controls" role="group" :aria-label="$t('home.hero.carousel')">
+        <button class="control-btn" type="button" :aria-label="$t('home.hero.prev')" @click="prev">
+          <span aria-hidden="true">←</span>
+        </button>
+        <button
+          class="control-btn"
+          type="button"
+          :aria-label="playing ? $t('home.hero.pause') : $t('home.hero.play')"
+          :aria-pressed="!playing"
+          @click="togglePlay"
+        >
+          <span aria-hidden="true">{{ playing ? 'Ⅱ' : '▶' }}</span>
+        </button>
+        <button class="control-btn" type="button" :aria-label="$t('home.hero.next')" @click="next">
+          <span aria-hidden="true">→</span>
+        </button>
+        <div class="progress">
+          <button
+            v-for="(work, i) in works"
+            :key="work.title"
+            class="progress-dot"
+            :class="{ active: i === active }"
+            type="button"
+            :aria-label="work.title"
+            @click="go(i)"
+          ></button>
+        </div>
       </div>
     </div>
 
-    <!-- Scroll indicator -->
-    <div class="hero-scroll" aria-hidden="true">
-      <span class="scroll-line"></span>
-      <span class="scroll-text label">{{ $t('home.hero.scroll') }}</span>
+    <!-- Portrait posters are shown whole, never cropped -->
+    <div class="hero-visual-panel" aria-hidden="true">
+      <article
+        v-for="(work, i) in works"
+        :key="work.title"
+        class="hero-slide"
+        :class="{ active: i === active }"
+      >
+        <img
+          class="slide-backdrop"
+          :src="work.img"
+          alt=""
+          :width="work.w"
+          :height="work.h"
+          :loading="i === 0 ? 'eager' : 'lazy'"
+          :fetchpriority="i === 0 ? 'high' : undefined"
+        />
+        <img
+          class="slide-poster"
+          :src="work.img"
+          alt=""
+          :width="work.w"
+          :height="work.h"
+          :loading="i === 0 ? 'eager' : 'lazy'"
+          :fetchpriority="i === 0 ? 'high' : undefined"
+        />
+      </article>
     </div>
-
-    <!-- Large decorative number -->
-    <span class="hero-deco" aria-hidden="true">{{ currentYear }}</span>
   </section>
 </template>
 
 <script setup lang="ts">
 /**
- * 首页 Hero 区域：大标题、标语、行动按钮、滚动指示器
+ * 首页首屏：左侧编辑式说明 + 右侧完整竖版海报。
+ * 素材均为竖版海报，使用 contain 避免裁剪；背景同图模糊填充空白。
  */
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
-/** 当前年份（装饰性数字） */
-const currentYear = computed(() => new Date().getFullYear())
+interface HeroWork {
+  title: string
+  type: string
+  year: string
+  role: string
+  img: string
+  w: number
+  h: number
+}
+
+const works: HeroWork[] = [
+  {
+    title: '機動戦士ガンダム 水星の魔女',
+    type: 'TV',
+    year: '2022',
+    role: '原画',
+    img: 'https://photos.baihu-animation.com/img_index_work/水星的魔女.jpg',
+    w: 2160,
+    h: 3048,
+  },
+  {
+    title: '進撃の巨人 The Final Season',
+    type: 'TV',
+    year: '2022',
+    role: '原画',
+    img: 'https://photos.baihu-animation.com/img_index_work/进击的巨人 the final season .jpg',
+    w: 850,
+    h: 1200,
+  },
+  {
+    title: '異世界スーサイド・スクワッド',
+    type: 'TV',
+    year: '2024',
+    role: '原画 / 作画监督',
+    img: 'https://photos.baihu-animation.com/img_index_work/异世界自杀小队.jpg',
+    w: 1200,
+    h: 1688,
+  },
+  {
+    title: '地縛少年花子くん',
+    type: 'TV',
+    year: '2020',
+    role: '美术设定 / 3D',
+    img: 'https://photos.baihu-animation.com/img_index_work/地缚少年花子君.jpg',
+    w: 1152,
+    h: 1616,
+  },
+]
+
+const active = ref(0)
+const playing = ref(true)
+const paused = ref(false)
+const reduceMotion = ref(false)
+const current = computed(() => works[active.value])
+
+const pad = (n: number) => String(n).padStart(2, '0')
+
+let timer: number | undefined
+
+function restartTimer() {
+  if (timer !== undefined) window.clearTimeout(timer)
+  timer = undefined
+
+  if (!playing.value || paused.value || reduceMotion.value || document.hidden) return
+
+  timer = window.setTimeout(() => {
+    go(active.value + 1)
+  }, 6000)
+}
+
+function go(index: number) {
+  active.value = (index + works.length) % works.length
+  restartTimer()
+}
+
+function next() {
+  go(active.value + 1)
+}
+
+function prev() {
+  go(active.value - 1)
+}
+
+function togglePlay() {
+  playing.value = !playing.value
+  restartTimer()
+}
+
+function setPaused(value: boolean) {
+  paused.value = value
+  restartTimer()
+}
+
+function handleVisibility() {
+  restartTimer()
+}
+
+let touchX = 0
+let touchY = 0
+function onTouchStart(e: TouchEvent) {
+  touchX = e.changedTouches[0]?.clientX ?? 0
+  touchY = e.changedTouches[0]?.clientY ?? 0
+}
+function onTouchEnd(e: TouchEvent) {
+  const dx = (e.changedTouches[0]?.clientX ?? 0) - touchX
+  const dy = (e.changedTouches[0]?.clientY ?? 0) - touchY
+  if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return
+  if (dx < 0) next()
+  else prev()
+}
+
+watch(active, (i) => {
+  const nextWork = works[(i + 1) % works.length]
+  if (!nextWork) return
+  const img = new Image()
+  img.src = nextWork.img
+})
+
+onMounted(() => {
+  reduceMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  document.addEventListener('visibilitychange', handleVisibility)
+  restartTimer()
+})
+
+onUnmounted(() => {
+  if (timer !== undefined) window.clearTimeout(timer)
+  document.removeEventListener('visibilitychange', handleVisibility)
+})
 </script>
 
 <style lang="scss" scoped>
-.hero {
+.work-hero {
   position: relative;
   height: calc(100vh - var(--header-h));
+  min-height: 58rem;
+  display: grid;
+  grid-template-columns: 48% 52%;
+  grid-template-areas: 'copy visual';
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  touch-action: pan-y;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ─── Left: editorial copy ─────────────────────────────────────────────────────
+.hero-copy-panel {
+  grid-area: copy;
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4rem;
+  padding: 6rem 4rem 5rem 6rem;
+  background: #000;
+}
+
+.hero-top {
   display: flex;
   align-items: center;
-  overflow: hidden;
-  background: var(--c-bg);
+  justify-content: space-between;
+  gap: 2rem;
 }
 
-// ─── Background Grid ──────────────────────────────────────────────────────────
-.hero-grid {
-  position: absolute;
-  inset: 0;
+.hero-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-brand-zh {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-index {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.index-sep {
+  margin: 0 0.6rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hero-caption {
   display: flex;
-  pointer-events: none;
+  gap: 2.4rem;
+  margin: auto 0;
+  min-width: 0;
 }
 
-.grid-line {
-  flex: 1;
-  border-right: 1px solid var(--c-border);
-  opacity: 0.5;
+.caption-rule {
+  flex: none;
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.32);
+}
 
-  &:last-child {
-    border-right: none;
+.caption-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+}
+
+.caption-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.meta-sep {
+  width: 1px;
+  height: 1.2rem;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.work-title {
+  font-family: var(--font-display);
+  font-size: 4.6rem;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.work-role {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.06em;
+}
+
+.work-link {
+  align-self: flex-start;
+  margin-top: 0.6rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  font-size: 1.2rem;
+  color: #fff;
+  transition:
+    color var(--duration-fast),
+    border-color var(--duration-fast);
+
+  &:hover {
+    color: var(--c-accent);
+    border-color: var(--c-accent);
   }
 }
 
-// ─── Content ─────────────────────────────────────────────────────────────────
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 0 8rem;
-  max-width: 1600px;
-  margin: 0 auto;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-
-  animation: heroEnter 1s var(--ease-out) both;
+.caption-enter-active,
+.caption-leave-active {
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease;
+}
+.caption-enter-from {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+.caption-leave-to {
+  opacity: 0;
+  transform: translateY(-1rem);
 }
 
-.hero-label {
-  font-size: 1.1rem;
-  color: var(--c-muted);
-  letter-spacing: 0.2em;
-}
-
-.hero-title {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  line-height: 0.95;
-}
-
-.hero-name-en {
-  font-family: var(--font-display);
-  font-size: 11rem;
-  font-weight: 400;
-  color: var(--c-primary);
-  letter-spacing: 0.06em;
-  display: block;
-}
-
-.hero-name-zh {
-  font-family: var(--font-display);
-  font-size: 5rem;
-  font-weight: 300;
-  color: var(--c-accent);
-  letter-spacing: 0.4em;
-  display: block;
-  padding-left: 0.4rem;
-}
-
-.hero-tagline {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--c-secondary);
-  letter-spacing: 0.12em;
-  max-width: 50rem;
-  line-height: 1.8;
-}
-
-.hero-actions {
+// ─── Controls ─────────────────────────────────────────────────────────────────
+.hero-controls {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
-  margin-top: 1rem;
+  gap: 0.8rem;
 }
 
-.hero-btn-primary {
+.control-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1.4rem 2.8rem;
-  background: var(--c-accent);
-  color: var(--c-bg);
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  min-height: 5rem; // 确保触摸目标足够大
-  -webkit-tap-highlight-color: transparent;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
-    background var(--duration-fast),
-    gap var(--duration-fast),
-    transform var(--duration-fast);
+    border-color var(--duration-fast),
+    color var(--duration-fast);
 
   &:hover {
-    background: var(--c-primary);
-    gap: 1.5rem;
-  }
-
-  // 触摸反馈
-  &:active {
-    transform: scale(0.98);
-    background: var(--c-primary);
-  }
-
-  .btn-arrow {
-    transition: transform var(--duration-fast);
-  }
-
-  &:hover .btn-arrow {
-    transform: translateX(0.3rem);
-  }
-}
-
-.hero-btn-ghost {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  font-weight: 300;
-  color: var(--c-secondary);
-  letter-spacing: 0.1em;
-  position: relative;
-  padding-bottom: 0.3rem;
-  min-height: 3rem;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  transition: color var(--duration-fast);
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--c-accent);
-    transition: width var(--duration-base) var(--ease-out);
-  }
-
-  &:hover {
-    color: var(--c-primary);
-
-    &::after {
-      width: 100%;
-    }
-  }
-
-  // 触摸反馈
-  &:active {
+    border-color: var(--c-accent);
     color: var(--c-accent);
-
-    &::after {
-      width: 100%;
-    }
   }
 }
 
-// ─── Scroll Indicator ────────────────────────────────────────────────────────
-.hero-scroll {
-  position: absolute;
-  bottom: 4rem;
-  left: 8rem;
+.progress {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
-  z-index: 2;
+  gap: 0.6rem;
+  margin-left: 1.2rem;
 }
 
-.scroll-line {
-  display: block;
-  width: 1px;
-  height: 6rem;
-  background: linear-gradient(to bottom, var(--c-accent), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
+.progress-dot {
+  width: 2.4rem;
+  height: 2px;
+  padding: 0;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--duration-fast);
+
+  &.active,
+  &:hover {
+    background: var(--c-accent);
+  }
 }
 
-.scroll-text {
-  font-size: 0.9rem;
-  color: var(--c-muted);
-  writing-mode: vertical-rl;
-  letter-spacing: 0.2em;
+// ─── Right: full portrait poster ──────────────────────────────────────────────
+.hero-visual-panel {
+  grid-area: visual;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #05070b;
 }
 
-// ─── Decorative Number ───────────────────────────────────────────────────────
-.hero-deco {
+.hero-slide {
   position: absolute;
-  right: -2rem;
-  bottom: -4rem;
-  font-family: var(--font-mono);
-  font-size: 28rem;
-  font-weight: 400;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--c-border);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.2rem 4rem;
+  opacity: 0;
+  transition: opacity 700ms ease;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.slide-backdrop {
+  position: absolute;
+  inset: -8%;
+  width: 116%;
+  height: 116%;
+  object-fit: cover;
+  filter: blur(48px) brightness(0.3) saturate(0.7);
+  opacity: 0.75;
   pointer-events: none;
-  user-select: none;
-  line-height: 1;
-  z-index: 1;
 }
 
-// ─── Animations ──────────────────────────────────────────────────────────────
-@keyframes heroEnter {
-  from {
-    opacity: 0;
-    transform: translateY(3rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.slide-poster {
+  position: relative;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-@keyframes scrollPulse {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scaleY(0.8);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-// ─── Responsive ──────────────────────────────────────────────────────────────
+// ─── Responsive ───────────────────────────────────────────────────────────────
 @media (max-width: 1280px) {
-  .hero-name-en {
-    font-size: 8rem;
+  .hero-copy-panel {
+    padding: 5rem 3rem 4rem 4rem;
   }
 
-  .hero-name-zh {
+  .work-title {
     font-size: 4rem;
   }
-}
 
-@media (max-width: 1024px) {
-  .hero-content {
-    padding: 0 5vw;
-    gap: 2.2rem;
-  }
-
-  .hero-scroll {
-    left: 5vw;
-    bottom: 3rem;
-  }
-
-  .hero-label {
-    font-size: 1rem;
-  }
-
-  .hero-name-en {
-    font-size: 7rem;
-  }
-
-  .hero-name-zh {
-    font-size: 3.5rem;
-  }
-
-  .hero-tagline {
-    font-size: 1.6rem;
-    max-width: 70%;
-    line-height: 1.7;
-  }
-
-  .hero-deco {
-    font-size: 18rem;
-    right: -1.5rem;
-    bottom: -3rem;
+  .hero-slide {
+    padding: 2.4rem 3rem;
   }
 }
 
-// 平板横屏专属（768px - 1024px）
-@media (min-width: 768px) and (max-width: 1024px) {
-  .hero-content {
-    padding: 0 6vw;
-    max-width: 1400px;
-  }
-
-  .hero-scroll {
-    left: 6vw;
-    bottom: 4rem;
-  }
-
-  .hero-actions {
-    gap: 2rem;
-    margin-top: 0.5rem;
-  }
-
-  .hero-btn-primary {
-    padding: 1.3rem 2.4rem;
-    font-size: 1.15rem;
-  }
-
-  .hero-btn-ghost {
-    font-size: 1.15rem;
-  }
-}
-
-// 平板竖屏
 @media (max-width: 900px) {
-  .hero-content {
-    padding: 0 5vw;
-    gap: 2.4rem;
+  .work-hero {
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    grid-template-columns: 1fr;
+    grid-template-rows: 46vh auto;
+    grid-template-areas:
+      'visual'
+      'copy';
   }
 
-  .hero-scroll {
-    left: 5vw;
-    bottom: 3rem;
+  .hero-visual-panel {
+    min-height: 32rem;
   }
 
-  .hero-name-en {
-    font-size: 5.5rem;
+  .hero-slide {
+    padding: 2.4rem;
   }
 
-  .hero-name-zh {
-    font-size: 2.8rem;
-    letter-spacing: 0.3em;
+  .hero-copy-panel {
+    gap: 2.6rem;
+    padding: 3.5rem 5vw 4rem;
   }
 
-  .hero-tagline {
-    font-size: 1.6rem;
-    max-width: 80%;
+  .hero-caption {
+    margin: 0;
   }
 
-  .hero-deco {
-    font-size: 16rem;
-    right: -1.5rem;
-    bottom: -3rem;
+  .work-title {
+    font-size: 3.2rem;
   }
 }
 
-@media (max-width: 768px) {
-  .hero-content {
-    padding: 0 5vw;
-    gap: 2rem;
-  }
-
-  .hero-scroll {
+@media (max-width: 430px) {
+  .hero-index,
+  .hero-brand-zh {
     display: none;
   }
 
-  .hero-label {
-    font-size: 1rem;
+  .work-title {
+    font-size: 2.5rem;
   }
 
-  .hero-name-en {
-    font-size: 4.5rem;
+  .hero-slide {
+    padding: 1.6rem;
   }
 
-  .hero-name-zh {
-    font-size: 2.4rem;
-    letter-spacing: 0.25em;
+  .control-btn {
+    width: 3.8rem;
+    height: 3.8rem;
   }
 
-  .hero-tagline {
-    font-size: 1.5rem;
-    max-width: 100%;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-  }
-
-  .hero-btn-primary {
-    width: 100%;
-    justify-content: center;
-    padding: 1.6rem 2rem;
-    font-size: 1.3rem;
-  }
-
-  .hero-btn-ghost {
-    font-size: 1.3rem;
-  }
-
-  .hero-deco {
-    font-size: 14rem;
-    right: -1rem;
-    bottom: -2rem;
-  }
-}
-
-// 大手机 431~767px
-@media (min-width: 431px) and (max-width: 767px) {
-  .hero-name-en {
-    font-size: 5rem;
-  }
-
-  .hero-name-zh {
-    font-size: 2.6rem;
-  }
-}
-
-// iPhone SE / 超小屏
-@media (max-width: 430px) {
-  .hero-content {
-    gap: 1.8rem;
-  }
-
-  .hero-name-en {
-    font-size: 4rem;
-  }
-
-  .hero-name-zh {
-    font-size: 2.1rem;
-    letter-spacing: 0.2em;
-  }
-
-  .hero-tagline {
-    font-size: 1.35rem;
-    line-height: 1.7;
-  }
-
-  .hero-btn-primary {
-    padding: 1.4rem 1.8rem;
-    font-size: 1.2rem;
-  }
-
-  .hero-deco {
-    font-size: 12rem;
-  }
-}
-
-@media (max-width: 390px) {
-  .hero-name-en {
-    font-size: 3.5rem;
-  }
-
-  .hero-name-zh {
-    font-size: 1.9rem;
-    letter-spacing: 0.18em;
-  }
-
-  .hero-tagline {
-    font-size: 1.25rem;
-    line-height: 1.65;
-  }
-
-  .hero-deco {
-    font-size: 9rem;
+  .progress-dot {
+    width: 1.8rem;
   }
 }
 </style>

@@ -1,8 +1,11 @@
 <template>
+  <a class="skip-link" href="#main-content">{{ $t('header.skipToContent') }}</a>
   <!-- 全局头部导航 -->
   <HeaderComponent />
   <!-- 路由视图（页面内容） -->
-  <RouterView />
+  <div id="main-content" tabindex="-1">
+    <RouterView />
+  </div>
   <!-- 全局底部 -->
   <FooterComponent />
 </template>
@@ -85,45 +88,65 @@ watch([() => route.path, locale], ([path]) => upsertSchema(getPageSchema(path)),
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 :root,
 [data-theme='dark'] {
-  // Color
-  --c-bg: #0a0a0a;
-  --c-surface: #111111;
-  --c-surface-2: #181818;
-  --c-border: #242424;
-  --c-muted: #444444;
-  --c-secondary: #888888;
-  --c-primary: #e8e4dc;
-  --c-accent: #c4a35a;
-  --c-accent-dim: rgba(196, 163, 90, 0.12);
-  --c-accent-hover: #d4b36a;
+  color-scheme: dark;
+
+  // Color — 墨黑 / 宣纸白 / 古铜金，单一强调色，作品优先
+  --c-bg: #0b0d12;
+  --c-surface: #11141b;
+  --c-surface-2: #171b24;
+  --c-border: #2a2e38;
+  --c-muted: #6b7180;
+  --c-secondary: #9da3b0;
+  --c-primary: #f2f0ea;
+  --c-accent: #c6a15b;
+  --c-accent-hover: #d8b778;
+  --c-accent-dim: rgba(198, 161, 91, 0.12);
+  --c-on-accent: #0b0d12;
+
+  // 兼容旧组件：全部收敛为同一强调色 / 无圆角 / 无阴影
+  --c-accent-2: var(--c-accent);
+  --c-accent-3: var(--c-accent);
+  --c-accent-2-dim: var(--c-accent-dim);
+  --c-accent-3-dim: var(--c-accent-dim);
+  --c-glow-1: transparent;
+  --c-glow-2: transparent;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-pill: 0;
+  --shadow-card: none;
 
   // Typography
-  --font-display: 'Shippori Mincho', 'Noto Serif SC', serif;
+  --font-display: 'DM Sans', 'Noto Sans SC', sans-serif;
   --font-body: 'DM Sans', 'Noto Sans SC', sans-serif;
+  --font-serif: 'Shippori Mincho', 'Noto Serif SC', serif;
   --font-mono: 'DM Mono', monospace;
+  --fw-display: 600;
 
   // Motion
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 200ms;
-  --duration-base: 600ms;
-  --duration-slow: 1000ms;
+  --duration-base: 500ms;
+  --duration-slow: 800ms;
 
   // Header height
-  --header-h: 6rem;
+  --header-h: 6.4rem;
 }
 
 // ─── Light Theme ─────────────────────────────────────────────────────────────
 [data-theme='light'] {
-  --c-bg: #ffffff;
-  --c-surface: #f7f7f5;
-  --c-surface-2: #f0f0ee;
-  --c-border: #e2e2df;
-  --c-muted: #aaaaaa;
-  --c-secondary: #666666;
-  --c-primary: #1a1a1a;
-  --c-accent: #c4a35a;
-  --c-accent-dim: rgba(196, 163, 90, 0.12);
-  --c-accent-hover: #b89545;
+  color-scheme: light;
+  --c-bg: #f4f2ed;
+  --c-surface: #ffffff;
+  --c-surface-2: #eae7df;
+  --c-border: #d8d3c8;
+  --c-muted: #8b877e;
+  --c-secondary: #5c5a54;
+  --c-primary: #17181a;
+  --c-accent: #8a6a2f;
+  --c-accent-hover: #6f5321;
+  --c-accent-dim: rgba(138, 106, 47, 0.1);
+  --c-on-accent: #ffffff;
 }
 
 // ─── Reset & Base ─────────────────────────────────────────────────────────────
@@ -146,9 +169,10 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
   overflow-x: hidden;
+  color: var(--c-primary);
   background: var(--c-bg);
 }
 
@@ -198,17 +222,50 @@ h3,
 h4,
 h5 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+  font-weight: var(--fw-display);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--c-primary);
+}
+
+// 组件内旧的字重声明统一收敛到新的展示字重，避免标题忽粗忽细
+h1,
+h2,
+h3,
+h4,
+h5,
+.page-title,
+.hero-name-en,
+.hero-name-zh,
+.ap-title-line,
+.services-title,
+.rc-title,
+.card-title,
+.news-title,
+.pos-title,
+.value-title,
+.faq-q,
+.lightbox-title,
+.no-news {
+  font-weight: var(--fw-display) !important;
+}
+
+.page-title,
+.services-title,
+.rc-title,
+.card-title,
+.news-title,
+.pos-title,
+.value-title,
+.faq-q {
+  letter-spacing: -0.03em !important;
 }
 
 p,
 li {
   font-family: var(--font-body);
   color: var(--c-secondary);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 a {
@@ -225,8 +282,37 @@ img {
 .label {
   font-family: var(--font-mono);
   font-size: 1rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent);
+}
+
+.skip-link {
+  position: fixed;
+  top: -10rem;
+  left: 2rem;
+  z-index: 300;
+  padding: 1.2rem 1.8rem;
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+
+  &:focus {
+    top: 1rem;
+  }
+}
+
+#main-content:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 0.4rem;
+}
+
+.label--mint {
+  color: var(--c-accent);
+}
+
+.page-header-inner .label {
   color: var(--c-accent);
 }
 
@@ -264,7 +350,7 @@ img {
 // ─── Selection ────────────────────────────────────────────────────────────────
 ::selection {
   background: var(--c-accent);
-  color: var(--c-bg);
+  color: var(--c-on-accent);
 }
 
 // ─── Focus ────────────────────────────────────────────────────────────────────

@@ -1,52 +1,37 @@
 <template>
   <main class="page-contact">
-    <div class="page-header">
-      <div class="page-header-inner">
+    <header class="page-head">
+      <div class="page-head-inner">
         <span class="label">{{ $t('contact.subtitle') }}</span>
         <h1 class="page-title">{{ $t('contact.title') }}</h1>
         <p class="page-intro">{{ $t('contact.intro') }}</p>
       </div>
-    </div>
+    </header>
 
-    <section class="contact-body">
-      <div class="contact-inner">
-        <!-- Info Cards -->
-        <div class="info-grid">
-          <div class="info-card">
-            <span class="info-label label">{{ $t('contact.email.label') }}</span>
-            <a :href="`mailto:${$t('contact.email.value')}`" class="info-value info-link">
-              {{ $t('contact.email.value') }}
-              <span class="info-arrow">→</span>
-            </a>
-          </div>
-          <div class="info-card">
-            <span class="info-label label">{{ $t('contact.address.label') }}</span>
-            <p class="info-value">{{ $t('contact.address.value') }}</p>
-          </div>
-          <div class="info-card">
-            <span class="info-label label">{{ $t('contact.hours.label') }}</span>
-            <p class="info-value">{{ $t('contact.hours.value') }}</p>
-          </div>
-          <div class="info-card">
-            <span class="info-label label">{{ $t('contact.social.label') }}</span>
-            <div class="info-socials">
-              <a
-                href="https://weibo.com/u/8001978950"
-                target="_blank"
-                rel="noopener"
-                class="social-link"
-                >{{ $t('contact.social.weibo') }} →</a
-              >
-            </div>
-          </div>
+    <section class="contact-main">
+      <div class="email-block">
+        <span class="label">{{ $t('contact.direct.label') }}</span>
+        <a :href="`mailto:${$t('contact.email.value')}`" class="email-link">
+          {{ $t('contact.email.value') }}
+        </a>
+      </div>
+
+      <div class="info-rows">
+        <div class="info-row">
+          <span class="info-label">{{ $t('contact.address.label') }}</span>
+          <span class="info-value">{{ $t('contact.address.value') }}</span>
         </div>
-
-        <!-- Big Email CTA -->
-        <div class="email-cta">
-          <span class="label">Direct</span>
-          <a :href="`mailto:${$t('contact.email.value')}`" class="email-big">
-            {{ $t('contact.email.value') }}
-          </a>
+        <div class="info-row">
+          <span class="info-label">{{ $t('contact.hours.label') }}</span>
+          <span class="info-value">{{ $t('contact.hours.value') }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">{{ $t('contact.social.label') }}</span>
+          <span class="info-value">
+            <a href="https://weibo.com/u/8001978950" target="_blank" rel="noopener">
+              {{ $t('contact.social.weibo') }} ↗
+            </a>
+          </span>
         </div>
       </div>
     </section>
@@ -54,34 +39,29 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 联系我们页面：邮箱、地址、营业时间、社交媒体
- */
+/** 联系页：大邮箱作为主角，其他信息以细信息行呈现 */
 </script>
 
 <style lang="scss" scoped>
 .page-contact {
   padding-top: var(--header-h);
-  background: var(--c-bg);
+  background: transparent;
   min-height: 100vh;
 }
 
-.page-header {
+.page-head {
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
   @media (max-width: 1024px) {
     padding: 6rem 4rem 4rem;
   }
-  @media (max-width: 900px) {
-    padding: 5rem 5vw 3.5rem;
-  }
   @media (max-width: 768px) {
     padding: 5rem 5vw 3rem;
   }
 }
 
-.page-header-inner {
+.page-head-inner {
   max-width: 1600px;
   margin: 0 auto;
   display: flex;
@@ -92,10 +72,10 @@
 .page-title {
   font-family: var(--font-display);
   font-size: 6rem;
-  font-weight: 400;
-  color: var(--c-primary);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: -0.035em;
   line-height: 1;
+  color: var(--c-primary);
 
   @media (max-width: 768px) {
     font-size: 4rem;
@@ -103,150 +83,90 @@
 }
 
 .page-intro {
-  font-family: var(--font-body);
+  max-width: 76rem;
   font-size: 1.5rem;
-  color: var(--c-secondary);
-  max-width: 80rem;
   line-height: 1.8;
+  color: var(--c-secondary);
 }
 
-.contact-body {
+.contact-main {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 10rem 8rem 14rem;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 10rem;
+
+  @media (max-width: 1024px) {
+    padding: 8rem 4rem 10rem;
+    gap: 6rem;
+  }
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    padding: 6rem 5vw 8rem;
+  }
+}
+
+.email-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  min-width: 0;
+}
+
+.email-link {
+  font-family: var(--font-mono);
+  font-size: 3.4rem;
+  line-height: 1.3;
+  color: var(--c-primary);
+  overflow-wrap: anywhere;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--c-accent);
+  transition: color var(--duration-fast);
+
+  &:hover {
+    color: var(--c-accent);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.info-rows {
+  border-top: 1px solid var(--c-border);
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 3rem 0;
   border-bottom: 1px solid var(--c-border);
 }
 
-.contact-inner {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 8rem;
-
-  @media (max-width: 1024px) {
-    padding: 6rem 4rem;
-  }
-  @media (max-width: 900px) {
-    padding: 5rem 5vw;
-  }
-  @media (max-width: 768px) {
-    padding: 5rem 5vw;
-  }
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--c-border);
-  margin-bottom: 10rem;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    margin-bottom: 6rem;
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    margin-bottom: 6rem;
-  }
-}
-
-.info-card {
-  background: var(--c-bg);
-  padding: 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  transition: background var(--duration-fast);
-
-  &:hover {
-    background: var(--c-surface);
-  }
-}
-
 .info-label {
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.16em;
   color: var(--c-accent);
 }
 
 .info-value {
-  font-family: var(--font-body);
-  font-size: 1.6rem;
-  color: var(--c-primary);
-  line-height: 1.7;
-}
-
-.info-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  transition:
-    gap var(--duration-fast),
-    color var(--duration-fast);
-
-  .info-arrow {
-    color: var(--c-accent);
-  }
-  &:hover {
-    color: var(--c-accent);
-    gap: 1.5rem;
-  }
-}
-
-.info-socials {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.social-link {
-  font-family: var(--font-body);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  line-height: 1.8;
   color: var(--c-secondary);
-  transition: color var(--duration-fast);
 
-  &:hover {
-    color: var(--c-accent);
-  }
-}
+  a {
+    color: inherit;
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: 0.3rem;
+    transition: color var(--duration-fast);
 
-.email-cta {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.email-big {
-  font-family: var(--font-mono);
-  font-size: 3rem;
-  color: var(--c-primary);
-  letter-spacing: 0.04em;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.5rem;
-  transition: color var(--duration-fast);
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--c-accent);
-    transition: width var(--duration-base) var(--ease-out);
-  }
-
-  &:hover {
-    color: var(--c-accent);
-    &::after {
-      width: 100%;
+    &:hover {
+      color: var(--c-accent);
+      border-color: var(--c-accent);
     }
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 2.2rem;
-  }
-  @media (max-width: 768px) {
-    font-size: 1.6rem;
   }
 }
 </style>

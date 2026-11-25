@@ -1,74 +1,71 @@
 <template>
-  <section class="services-section">
-    <div class="services-inner">
-      <div class="services-header">
-        <span class="services-label">{{ $t('server.services.title') }}</span>
-        <h2 class="services-title">What We Do</h2>
-        <p class="services-lead">
-          {{ $t('server.services.desc') }}
-        </p>
+  <section class="flow-section">
+    <div class="flow-inner">
+      <div class="flow-head">
+        <span class="label">{{ $t('home.process.label') }}</span>
+        <h2 class="flow-title">Production Flow</h2>
       </div>
 
-      <div class="services-grid">
-        <div class="service-card" v-for="(svc, i) in services" :key="i">
-          <div class="service-card__top">
-            <span class="service-num">{{ String(i + 1).padStart(2, '0') }}</span>
-            <h3 class="service-name">{{ svc.name }}</h3>
-          </div>
-          <p class="service-desc">{{ svc.desc }}</p>
-          <ul class="service-list" v-if="svc.items && svc.items.length">
-            <li v-for="item in svc.items" :key="item">{{ item }}</li>
-          </ul>
-          <div class="service-card__rule" aria-hidden="true"></div>
-        </div>
+      <div class="flow-rail">
+        <article v-for="(step, i) in steps" :key="step.title" class="flow-step">
+          <span class="step-num label">{{ String(i + 1).padStart(2, '0') }}</span>
+          <h3 class="step-title">{{ step.title }}</h3>
+          <p v-if="step.desc" class="step-desc">{{ step.desc }}</p>
+        </article>
+      </div>
+
+      <div class="flow-coverage">
+        <span class="label">{{ $t('server.coverage.title') }}</span>
+        <p>{{ coverage.join('　/　') }}</p>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-/**
- * 首页「服务内容」展示区：动画制作、前期设计、承接范围
- */
-import { t } from '@/composables/useI18n'
+/** 首页制作流程：横向步骤轴，取代通用服务卡片 */
 import { computed } from 'vue'
+import { t } from '@/composables/useI18n'
 
-/** 服务卡片数据（通过 i18n 获取翻译内容） */
-const services = computed(() => [
+const steps = computed(() => [
   {
-    name: t('server.animation.title'),
-    desc: t('server.animation.desc'),
-    items: [],
-  },
-  {
-    name: t('server.preDesign.title'),
+    title: t('server.coverage.items.script'),
     desc: t('server.preDesign.desc'),
-    items: [],
   },
   {
-    name: t('server.coverage.title'),
+    title: t('works.roles.lo_key'),
     desc: '',
-    items: [
-      t('server.coverage.items.movie'),
-      t('server.coverage.items.series'),
-      t('server.coverage.items.pv'),
-      t('server.coverage.items.cinematic'),
-      t('server.coverage.items.character'),
-      t('server.coverage.items.script'),
-      t('server.coverage.items.concept'),
-      t('server.coverage.items.style'),
-    ],
   },
+  {
+    title: t('works.roles.animator'),
+    desc: t('server.animation.desc'),
+  },
+  {
+    title: t('works.roles.supervisor'),
+    desc: '',
+  },
+  {
+    title: t('works.roles.background'),
+    desc: '',
+  },
+])
+
+const coverage = computed(() => [
+  t('server.coverage.items.movie'),
+  t('server.coverage.items.series'),
+  t('server.coverage.items.pv'),
+  t('server.coverage.items.cinematic'),
+  t('server.coverage.items.character'),
 ])
 </script>
 
 <style lang="scss" scoped>
-.services-section {
-  border-top: 1px solid var(--c-border);
+.flow-section {
   background: var(--c-bg);
+  border-bottom: 1px solid var(--c-border);
 }
 
-.services-inner {
+.flow-inner {
   max-width: 1600px;
   margin: 0 auto;
   padding: 10rem 8rem;
@@ -76,284 +73,124 @@ const services = computed(() => [
   @media (max-width: 1280px) {
     padding: 8rem 5rem;
   }
-  @media (max-width: 1024px) {
-    padding: 7rem 4rem;
-  }
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     padding: 6rem 5vw;
   }
-  @media (max-width: 767px) {
-    padding: 5rem 5vw;
-  }
-  @media (max-width: 430px) {
-    padding: 4rem 1.25rem;
-  }
-  @media (max-width: 390px) {
-    padding: 3.5rem 1rem;
+}
+
+.flow-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 6rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 4rem;
   }
 }
 
-/* ── Header ── */
-.services-header {
-  margin-bottom: 5rem;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 3rem;
-  row-gap: 1.2rem;
-  align-items: start;
-
-  @media (max-width: 767px) {
-    margin-bottom: 3.5rem;
-    column-gap: 1.5rem;
-    row-gap: 1rem;
-  }
-  @media (max-width: 430px) {
-    margin-bottom: 3rem;
-  }
-}
-
-.services-label {
-  grid-column: 1;
-  grid-row: 1;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  color: var(--c-accent);
-  text-transform: uppercase;
-  padding-top: 0.7em;
-  white-space: nowrap;
-
-  @media (max-width: 767px) {
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-  }
-}
-
-.services-title {
-  grid-column: 2;
-  grid-row: 1;
+.flow-title {
   font-family: var(--font-display);
-  font-size: 5rem;
-  font-weight: 400;
+  font-size: 4.6rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   color: var(--c-primary);
-  letter-spacing: 0.04em;
-  line-height: 1.05;
 
-  @media (max-width: 1280px) {
-    font-size: 4.2rem;
-  }
-  @media (max-width: 1024px) {
-    font-size: 3.6rem;
-  }
-  @media (max-width: 900px) {
-    font-size: 3rem;
-  }
-  @media (max-width: 767px) {
-    font-size: 2.6rem;
-  }
-  @media (max-width: 430px) {
-    font-size: 2.2rem;
-  }
-  @media (max-width: 390px) {
-    font-size: 1.9rem;
+  @media (max-width: 768px) {
+    font-size: 3.2rem;
   }
 }
 
-.services-lead {
-  grid-column: 2;
-  grid-row: 2;
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  color: var(--c-secondary);
-  line-height: 1.9;
-  max-width: 52ch;
-  margin-top: 0.5rem;
-
-  @media (max-width: 900px) {
-    font-size: 1.1rem;
-    max-width: 100%;
-  }
-  @media (max-width: 767px) {
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-  @media (max-width: 430px) {
-    font-size: 0.95rem;
-    line-height: 1.75;
-  }
-}
-
-/* ── Grid ── */
-.services-grid {
+.flow-rail {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--c-border);
-  border: 1px solid var(--c-border);
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--c-border);
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 900px) {
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 }
 
-/* ── Card ── */
-.service-card {
-  background: var(--c-bg);
-  padding: 3.5rem 3rem;
+.flow-step {
+  position: relative;
+  min-width: 0;
+  padding: 3rem 2rem 4rem;
+  border-right: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  position: relative;
+  gap: 1.4rem;
   transition: background var(--duration-fast);
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--c-accent);
+    transition: width var(--duration-base) var(--ease-out);
+  }
 
   &:hover {
     background: var(--c-surface);
-  }
-
-  @media (max-width: 1280px) {
-    padding: 3rem 2.5rem;
-    gap: 1.5rem;
-  }
-  @media (max-width: 1024px) {
-    padding: 2.8rem 2.2rem;
-  }
-  @media (max-width: 900px) {
-    padding: 2.5rem 2rem;
-  }
-  @media (max-width: 767px) {
-    padding: 2.2rem 1.5rem;
-    gap: 1.4rem;
-  }
-  @media (max-width: 430px) {
-    padding: 2rem 1.25rem;
-    gap: 1.2rem;
-  }
-  @media (max-width: 390px) {
-    padding: 1.8rem 1rem;
-  }
-}
-
-.service-card__top {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.service-num {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--c-accent);
-  letter-spacing: 0.2em;
-  line-height: 1;
-
-  @media (max-width: 767px) {
-    font-size: 0.75rem;
-  }
-}
-
-.service-name {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: var(--c-primary);
-  letter-spacing: 0.06em;
-  line-height: 1.2;
-
-  @media (max-width: 1024px) {
-    font-size: 2rem;
-  }
-  @media (max-width: 900px) {
-    font-size: 1.9rem;
-  }
-  @media (max-width: 767px) {
-    font-size: 1.7rem;
-  }
-  @media (max-width: 430px) {
-    font-size: 1.55rem;
-  }
-  @media (max-width: 390px) {
-    font-size: 1.4rem;
-  }
-}
-
-.service-desc {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  color: var(--c-secondary);
-  line-height: 1.85;
-  flex: 1;
-
-  @media (max-width: 1024px) {
-    font-size: 1.1rem;
-  }
-  @media (max-width: 767px) {
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-  @media (max-width: 430px) {
-    font-size: 0.95rem;
-    line-height: 1.75;
-  }
-}
-
-/* ── List ── */
-.service-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding-top: 0.5rem;
-
-  li {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    color: var(--c-secondary);
-    padding-left: 1.2rem;
-    position: relative;
-    line-height: 1.6;
-    transition: color var(--duration-fast);
-
-    &:hover {
-      color: var(--c-primary);
-    }
 
     &::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--c-accent);
-      font-size: 0.85em;
+      width: 100%;
     }
+  }
 
-    @media (max-width: 1024px) {
-      font-size: 1rem;
+  @media (max-width: 1024px) {
+    &:nth-child(2n) {
+      border-right: none;
     }
-    @media (max-width: 767px) {
-      font-size: 0.95rem;
-      padding-left: 1rem;
-    }
-    @media (max-width: 430px) {
-      font-size: 0.9rem;
-    }
+  }
+  @media (max-width: 600px) {
+    border-right: none;
   }
 }
 
-/* ── Card bottom rule (decorative) ── */
-.service-card__rule {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--c-accent);
-  transition: width 0.4s ease;
+.step-num {
+  color: var(--c-accent);
+}
 
-  .service-card:hover & {
-    width: 100%;
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--c-primary);
+}
+
+.step-desc {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--c-secondary);
+}
+
+.flow-coverage {
+  margin-top: 5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: var(--c-secondary);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
   }
 }
 </style>

@@ -55,22 +55,29 @@ const marqueeItems = [
 .marquee-section {
   border-top: 1px solid var(--c-border);
   border-bottom: 1px solid var(--c-border);
-  padding: 2.5rem 0;
+  padding: 3rem 0;
   overflow: hidden;
-  background: var(--c-surface);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--c-surface) 12%,
+    var(--c-surface) 88%,
+    transparent
+  );
 }
 
 .marquee-label {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
   font-size: 0.9rem;
-  color: var(--c-muted);
+  color: var(--c-accent-2);
 }
 
 .marquee-track {
   display: flex;
   width: 100%;
   overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 
   &.paused .marquee-content {
     animation-play-state: paused;
@@ -81,33 +88,37 @@ const marqueeItems = [
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  animation: marqueeScroll 35s linear infinite;
+  animation: marqueeScroll 30s linear infinite;
 }
 
 .marquee-item {
   display: inline-flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.2rem;
+  padding: 0.8rem 1.8rem;
+  margin-right: 1.2rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-pill);
+  background: var(--c-bg);
   white-space: nowrap;
 }
 
 .marquee-title {
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 300;
+  font-size: 1.3rem;
+  font-weight: 500;
   color: var(--c-secondary);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   transition: color var(--duration-fast);
 
   .marquee-track:not(.paused) &:hover {
-    color: var(--c-accent);
+    color: var(--c-accent-2);
   }
 }
 
 .marquee-sep {
-  font-size: 0.5rem;
-  color: var(--c-border);
-  margin: 0 1rem;
+  font-size: 0.55rem;
+  color: var(--c-accent-3);
 }
 
 @keyframes marqueeScroll {

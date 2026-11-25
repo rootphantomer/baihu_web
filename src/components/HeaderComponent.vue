@@ -1,5 +1,14 @@
 <template>
-  <header :class="['site-header', { 'is-scrolled': scrolled, 'menu-open': menuOpen }]">
+  <header
+    :class="[
+      'site-header',
+      {
+        'is-scrolled': scrolled,
+        'menu-open': menuOpen,
+        'over-hero': isHome && !scrolled && !menuOpen,
+      },
+    ]"
+  >
     <div class="header-inner">
       <!-- Logo -->
       <RouterLink to="/" class="logo" @click="closeMenu">
@@ -57,8 +66,9 @@
         </button>
 
         <!-- Language Dropdown -->
-        <div class="lang-select" @keydown.esc="langOpen = false">
+        <div class="lang-select" @keydown="handleLangKeydown">
           <button
+            ref="langBtn"
             class="lang-btn"
             type="button"
             @click.stop="langOpen = !langOpen"
@@ -104,7 +114,13 @@
 
     <!-- Mobile Drawer -->
     <Transition name="drawer">
-      <div v-if="menuOpen" class="mobile-drawer" @click.self="closeMenu">
+      <div v-if="menuOpen" class="mobile-drawer">
+        <button
+          class="drawer-close-area"
+          type="button"
+          :aria-label="$t('header.closeMenu')"
+          @click="closeMenu"
+        ></button>
         <nav class="mobile-nav" aria-label="Mobile navigation">
           <RouterLink
             v-for="(item, i) in navItems"
@@ -125,7 +141,13 @@
 
   <!-- Overlay -->
   <Transition name="fade">
-    <div v-if="menuOpen" class="header-overlay" @click="closeMenu"></div>
+    <button
+      v-if="menuOpen"
+      class="header-overlay"
+      type="button"
+      :aria-label="$t('header.closeMenu')"
+      @click="closeMenu"
+    ></button>
   </Transition>
 </template>
 
@@ -133,7 +155,8 @@
 /**
  * 全局头部导航组件：包含 Logo、桌面导航、主题切换、语言切换、移动端菜单
  */
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import { locale, setLocale, LOCALE_ORDER, LOCALE_LABEL } from '@/composables/useI18n'
 import type { Locale } from '@/composables/useI18n'
 import { useTheme } from '@/composables/useTheme'
@@ -144,11 +167,18 @@ const { theme: currentTheme, toggleTheme } = useTheme()
 /** 当前是否为暗色主题 */
 const isDark = computed(() => currentTheme.value === 'dark')
 
+// ─── Route state ─────────────────────────────────────────────────────────────
+const route = useRoute()
+/** 首页顶部覆盖在作品主视觉上，导航需要反白 */
+const isHome = computed(() => route.path === '/')
+
 // ─── Scroll state ────────────────────────────────────────────────────────────
 /** 页面滚动后添加背景模糊效果 */
 const scrolled = ref(false)
 const handleScroll = () => {
-  scrolled.value = window.scrollY > 40
+  const y = window.scrollY
+  if (!scrolled.value && y > 80) scrolled.value = true
+  else if (scrolled.value && y < 40) scrolled.value = false
 }
 onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true }))
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
@@ -164,9 +194,15 @@ const closeMenu = () => {
   menuOpen.value = false
 }
 
+watch(menuOpen, (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+})
+
 // ─── Language ─────────────────────────────────────────────────────────────────
 /** 语言下拉菜单是否展开 */
 const langOpen = ref(false)
+/** 语言按钮引用，用于键盘操作后回焦 */
+const langBtn = ref<HTMLButtonElement | null>(null)
 /** 当前语言代码 */
 const currentLang = computed(() => locale.value)
 /** 当前语言标签（如 '中'、'EN'） */
@@ -181,6 +217,31 @@ const selectLang = (code: Locale) => {
   langOpen.value = false
 }
 
+/** 语言下拉键盘操作：Esc 关闭，上下键切换，Home/End 跳转 */
+function handleLangKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    langOpen.value = false
+    return
+  }
+  if (!langOpen.value) return
+
+  const options = LANG_OPTIONS.value
+  if (!options.length) return
+  const index = options.findIndex((opt) => opt.value === currentLang.value)
+
+  let target = index
+  if (e.key === 'ArrowDown') target = (index + 1) % options.length
+  else if (e.key === 'ArrowUp') target = (index - 1 + options.length) % options.length
+  else if (e.key === 'Home') target = 0
+  else if (e.key === 'End') target = options.length - 1
+  else return
+
+  e.preventDefault()
+  const next = options[target]
+  if (next) selectLang(next.value)
+  nextTick(() => langBtn.value?.focus())
+}
+
 // 点击外部关闭下拉
 const handleClickOutside = (e: MouseEvent) => {
   const target = e.target as HTMLElement
@@ -189,7 +250,10 @@ const handleClickOutside = (e: MouseEvent) => {
   }
 }
 onMounted(() => document.addEventListener('click', handleClickOutside))
-onUnmounted(() => document.removeEventListener('click', handleClickOutside))
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+  document.body.style.overflow = ''
+})
 
 // ─── Nav items ────────────────────────────────────────────────────────────────
 const navItems = NAV_ITEMS
@@ -212,12 +276,12 @@ const navItems = NAV_ITEMS
     border-bottom-color: var(--c-border);
 
     [data-theme='dark'] & {
-      background: rgba(10, 10, 10, 0.88);
+      background: rgba(11, 13, 18, 0.92);
       backdrop-filter: blur(12px);
     }
 
     [data-theme='light'] & {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(244, 242, 237, 0.94);
       backdrop-filter: blur(12px);
     }
   }
@@ -226,11 +290,49 @@ const navItems = NAV_ITEMS
     border-bottom-color: var(--c-border);
 
     [data-theme='dark'] & {
-      background: rgba(10, 10, 10, 0.98);
+      background: rgba(11, 13, 18, 0.98);
     }
 
     [data-theme='light'] & {
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(244, 242, 237, 0.98);
+    }
+  }
+
+  // 首页首屏：header 自己带深色底，保证任何主题/图片下文字都可读
+  &.over-hero {
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(10px);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+
+    .logo-en,
+    .logo-zh,
+    .logo-sep {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+
+      &::after {
+        background: #fff;
+      }
+
+      &:hover,
+      &.router-link-active {
+        color: #fff;
+      }
+    }
+
+    .theme-btn,
+    .lang-btn {
+      color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.35);
+      background: transparent;
+
+      &:hover {
+        color: #fff;
+        border-color: #fff;
+      }
     }
   }
 }
@@ -298,18 +400,18 @@ const navItems = NAV_ITEMS
 .nav-link {
   font-family: var(--font-body);
   font-size: 1.2rem;
+  font-weight: 500;
   color: var(--c-secondary);
-  font-weight: 300;
   letter-spacing: 0.06em;
   position: relative;
-  padding-bottom: 0.4rem;
+  padding-bottom: 0.5rem;
   transition: color var(--duration-fast);
 
   &::after {
     content: '';
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     width: 0;
     height: 1px;
     background: var(--c-accent);
@@ -319,6 +421,7 @@ const navItems = NAV_ITEMS
   &:hover,
   &.router-link-active {
     color: var(--c-primary);
+
     &::after {
       width: 100%;
     }
@@ -341,18 +444,21 @@ const navItems = NAV_ITEMS
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  background: none;
-  border: none;
+  width: 3.4rem;
+  height: 3.4rem;
+  background: transparent;
+  border: 1px solid var(--c-border);
   cursor: pointer;
   color: var(--c-secondary);
-  transition: color var(--duration-fast);
+  transition:
+    color var(--duration-fast),
+    border-color var(--duration-fast);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 
   &:hover {
     color: var(--c-accent);
+    border-color: var(--c-accent);
   }
 
   .theme-icon {
@@ -373,10 +479,9 @@ const navItems = NAV_ITEMS
   color: var(--c-secondary);
   background: none;
   border: 1px solid var(--c-border);
-  border-radius: 0.4rem;
-  padding: 0.3rem 0.8rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
-  min-width: 3rem;
+  min-width: 3.6rem;
   text-align: center;
   transition:
     color var(--duration-fast),
@@ -400,7 +505,6 @@ const navItems = NAV_ITEMS
   padding: 0.4rem 0;
   background: var(--c-surface);
   border: 1px solid var(--c-border);
-  border-radius: 0.4rem;
   overflow: hidden;
   z-index: 110;
 
@@ -502,6 +606,16 @@ const navItems = NAV_ITEMS
   padding: 4rem 5vw;
   display: flex;
   flex-direction: column;
+  overscroll-behavior: contain;
+
+  .drawer-close-area {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    cursor: default;
+  }
 
   [data-theme='dark'] & {
     background: var(--c-bg);
@@ -512,6 +626,8 @@ const navItems = NAV_ITEMS
 }
 
 .mobile-nav {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -563,8 +679,11 @@ const navItems = NAV_ITEMS
   position: fixed;
   inset: 0;
   z-index: 80;
+  padding: 0;
+  border: 0;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
+  cursor: default;
 }
 
 // ─── Transitions ───────────────────────────────────────────────────────────────

@@ -10,6 +10,12 @@ export default {
       tagline: '以匠心，赋每一帧以生命。',
       subtitle: '杭州  · Animation Production Studio',
       scroll: '向下滚动',
+      prev: '上一部作品',
+      next: '下一部作品',
+      pause: '暂停轮播',
+      play: '播放轮播',
+      carousel: '代表作品轮播',
+      current: '当前作品',
     },
     marquee: {
       label: '曾参与制作',
@@ -37,6 +43,10 @@ export default {
       title: '加入白鹄',
       desc: '我们寻找对动画有热情的你。',
       viewMore: '查看岗位',
+      open: '开放岗位',
+    },
+    process: {
+      label: '制作流程',
     },
     contact: {
       label: '联系我们',
@@ -45,6 +55,7 @@ export default {
   works: {
     title: '参与作品',
     subtitle: '部分代表作品一览',
+    featured: { label: '最新作品' },
     filter: {
       all: '全部',
       year: '年份',
@@ -67,6 +78,7 @@ export default {
   about: {
     title: '关于我们',
     subtitle: 'About',
+    manifesto: { label: '我们相信' },
     statement:
       '杭州白鹄动画成立于杭州，核心成员来自日本各大动画公司，深谙日式动画的制作标准与文化语境。我们相信，只有对动画本身保持热爱，才能交付真正有生命力的作品。',
     mission: {
@@ -120,6 +132,7 @@ export default {
   join: {
     title: '人才招募',
     subtitle: 'Join Us',
+    roles: { label: '开放岗位' },
     intro:
       '白鹄动画正在寻找对动画抱有热忱的你。我们提供有竞争力的薪酬、国际化的协作环境，以及接触一线日本动画项目的机会。',
     positions: {
@@ -187,6 +200,7 @@ export default {
   contact: {
     title: '联系我们',
     subtitle: 'Contact',
+    direct: { label: '直接联系' },
     intro: '如您有动画制作需求，或希望了解合作方式，欢迎通过以下渠道联系我们。',
     email: {
       label: '邮箱',
@@ -209,6 +223,7 @@ export default {
   news: {
     title: '新闻动态',
     subtitle: 'News',
+    latest: { label: '最新' },
     readMore: '阅读更多',
     noNews: '暂无新闻',
     items: {
@@ -227,6 +242,7 @@ export default {
     rights: '保留所有权利。',
   },
   header: {
+    skipToContent: '跳到主要内容',
     home: '首页',
     works: '作品',
     about: '关于',

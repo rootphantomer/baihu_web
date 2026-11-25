@@ -58,7 +58,7 @@ const navItems = NAV_ITEMS
 
 <style lang="scss" scoped>
 .site-footer {
-  background: var(--c-bg);
+  background: var(--c-surface);
   border-top: 1px solid var(--c-border);
   padding-top: 6rem;
 }
@@ -172,7 +172,7 @@ const navItems = NAV_ITEMS
   font-size: 0.9rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--c-muted);
+  color: var(--c-accent);
   margin-bottom: 0.4rem;
 
   @media (max-width: 430px) {
@@ -192,7 +192,7 @@ const navItems = NAV_ITEMS
   transition: color var(--duration-fast);
 
   &:hover {
-    color: var(--c-primary);
+    color: var(--c-accent);
   }
 
   &:active {
@@ -249,7 +249,7 @@ const navItems = NAV_ITEMS
 .footer-made {
   font-family: var(--font-mono);
   font-size: 1rem;
-  color: var(--c-muted);
+  color: var(--c-secondary);
   letter-spacing: 0.06em;
 
   @media (max-width: 430px) {

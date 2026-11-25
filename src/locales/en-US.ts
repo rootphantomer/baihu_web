@@ -10,6 +10,12 @@ export default {
       tagline: 'Breathing life into every frame.',
       subtitle: 'Hangzhou · Animation Production Studio',
       scroll: 'Scroll Down',
+      prev: 'Previous work',
+      next: 'Next work',
+      pause: 'Pause slideshow',
+      play: 'Play slideshow',
+      carousel: 'Featured works slideshow',
+      current: 'Current work',
     },
     marquee: {
       label: 'Selected Works',
@@ -37,6 +43,10 @@ export default {
       title: 'Join Baihu',
       desc: 'We are looking for you who are passionate about animation.',
       viewMore: 'View Positions',
+      open: 'Open Positions',
+    },
+    process: {
+      label: 'Production Flow',
     },
     contact: {
       label: 'Contact',
@@ -45,6 +55,7 @@ export default {
   works: {
     title: 'Participating Works',
     subtitle: 'Selected Works Overview',
+    featured: { label: 'Latest Work' },
     filter: {
       all: 'All',
       year: 'Year',
@@ -67,6 +78,7 @@ export default {
   about: {
     title: 'About Us',
     subtitle: 'About',
+    manifesto: { label: 'What We Believe' },
     statement:
       'Hangzhou Baihu Animation, based in Hangzhou, has core members from major Japanese animation companies who deeply understand the production standards and cultural context of Japanese animation. We believe that only by maintaining a passion for animation itself can we deliver truly vital works.',
     mission: {
@@ -125,6 +137,7 @@ export default {
   join: {
     title: 'Careers',
     subtitle: 'Join Us',
+    roles: { label: 'Positions' },
     intro:
       'Baihu Animation is looking for you who are passionate about animation. We offer competitive compensation, an international collaborative environment, and opportunities to work on top-tier Japanese animation projects.',
     positions: {
@@ -195,6 +208,7 @@ export default {
   contact: {
     title: 'Contact Us',
     subtitle: 'Contact',
+    direct: { label: 'Direct' },
     intro:
       'If you have animation production needs or would like to learn about cooperation methods, please contact us through the following channels.',
     email: {
@@ -219,6 +233,7 @@ export default {
   news: {
     title: 'News',
     subtitle: 'News',
+    latest: { label: 'Latest' },
     readMore: 'Read More',
     noNews: 'No news available',
     items: {
@@ -237,6 +252,7 @@ export default {
     rights: 'All Rights Reserved.',
   },
   header: {
+    skipToContent: 'Skip to content',
     home: 'Home',
     works: 'Works',
     about: 'About',

@@ -1,32 +1,32 @@
 <template>
   <section class="featured-section">
-    <div class="section-header">
+    <div class="section-head">
       <div class="section-meta">
         <span class="label">{{ $t('home.works.label') }}</span>
-        <span class="section-count">{{ featuredWorks.length }} titles</span>
+        <span class="section-count">{{ featuredWorks.length }} TITLES</span>
       </div>
       <RouterLink to="/works" class="section-link">
-        {{ $t('home.works.viewAll') }} <span>→</span>
+        {{ $t('home.works.viewAll') }} <span aria-hidden="true">→</span>
       </RouterLink>
     </div>
 
     <div class="works-grid">
       <RouterLink
         v-for="(work, i) in featuredWorks"
-        :key="i"
+        :key="work.title"
         to="/works"
         class="work-card"
-        :class="`work-card--${i % 4 === 0 ? 'large' : 'normal'}`"
       >
         <div class="card-img-wrap">
           <img :src="work.img" :alt="work.title" class="card-img" loading="lazy" />
+          <span class="card-index" aria-hidden="true">{{ String(i + 1).padStart(2, '0') }}</span>
           <div class="card-overlay">
             <span class="card-role label">{{ work.role }}</span>
-            <span class="card-arrow">→</span>
+            <span class="card-arrow" aria-hidden="true">→</span>
           </div>
         </div>
         <div class="card-info">
-          <p class="card-date">{{ work.date }}</p>
+          <span class="card-date">{{ work.date }}</span>
           <p class="card-title">{{ work.title }}</p>
         </div>
       </RouterLink>
@@ -35,10 +35,7 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 首页「代表作品」展示区：以卡片网格形式展示精选作品
- */
-/** 精选作品列表（硬编码，区别于作品页的全量数据） */
+/** 首页代表作品：flat 网格，作品图为主角 */
 const featuredWorks = [
   {
     img: 'https://photos.baihu-animation.com/img_index_work/水星的魔女.jpg',
@@ -81,108 +78,69 @@ const featuredWorks = [
 
 <style lang="scss" scoped>
 .featured-section {
-  padding: 10rem 8rem;
   max-width: 1600px;
   margin: 0 auto;
+  padding: 10rem 8rem;
 
   @media (max-width: 1280px) {
     padding: 8rem 5rem;
   }
-  @media (max-width: 1024px) {
-    padding: 7rem 4rem;
-  }
   @media (max-width: 900px) {
     padding: 6rem 5vw;
   }
-  @media (max-width: 768px) {
-    padding: 5rem 5vw;
-  }
   @media (max-width: 430px) {
-    padding: 4rem 5vw;
-  }
-  @media (max-width: 390px) {
-    padding: 3.5rem 4vw;
+    padding: 4.5rem 5vw;
   }
 }
 
 // ─── Header ──────────────────────────────────────────────────────────────────
-.section-header {
+.section-head {
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 5rem;
-  padding-bottom: 2.5rem;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 4rem;
   border-bottom: 1px solid var(--c-border);
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 3.5rem;
-    padding-bottom: 2rem;
-  }
-
-  @media (max-width: 430px) {
     margin-bottom: 3rem;
-    padding-bottom: 1.5rem;
   }
 }
 
 .section-meta {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 2rem;
-
-  @media (max-width: 768px) {
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 430px) {
-    gap: 1rem;
-  }
 }
 
 .section-count {
   font-family: var(--font-mono);
   font-size: 1rem;
-  color: var(--c-muted);
   letter-spacing: 0.1em;
-
-  @media (max-width: 430px) {
-    font-size: 0.9rem;
-  }
+  color: var(--c-muted);
 }
 
 .section-link {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  color: var(--c-secondary);
-  letter-spacing: 0.1em;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  min-height: 3rem;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--c-border);
+  font-size: 1.2rem;
+  color: var(--c-secondary);
+  letter-spacing: 0.06em;
   transition:
     color var(--duration-fast),
+    border-color var(--duration-fast),
     gap var(--duration-fast);
 
   &:hover {
     color: var(--c-accent);
+    border-color: var(--c-accent);
     gap: 1.2rem;
-  }
-
-  &:active {
-    color: var(--c-accent);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 430px) {
-    font-size: 1rem;
   }
 }
 
@@ -190,39 +148,23 @@ const featuredWorks = [
 .works-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  border-top: 1px solid var(--c-border);
+  border-left: 1px solid var(--c-border);
 
-  @media (max-width: 1280px) {
-    gap: 2px;
-  }
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-  }
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5px;
-  }
-  @media (max-width: 767px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
   }
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
-    gap: 1px;
   }
 }
 
-// ─── Card ─────────────────────────────────────────────────────────────────────
 .work-card {
   display: block;
-  position: relative;
-  overflow: hidden;
-  background: var(--c-surface);
-  cursor: pointer;
+  border-right: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition: transform var(--duration-fast);
 
   &:hover .card-img {
     transform: scale(1.04);
@@ -230,35 +172,16 @@ const featuredWorks = [
   &:hover .card-overlay {
     opacity: 1;
   }
-
-  // 触摸反馈
-  &:active {
-    transform: scale(0.99);
-  }
-
-  &:active .card-overlay {
-    opacity: 1;
-  }
-
-  @media (max-width: 767px) {
-    // 移动端默认显示 overlay
-    &:hover .card-overlay {
-      opacity: 1;
-    }
-  }
 }
 
 .card-img-wrap {
   position: relative;
-  aspect-ratio: 2/3;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-
-  @media (max-width: 767px) {
-    aspect-ratio: 3/4;
-  }
+  background: var(--c-surface);
 
   @media (max-width: 480px) {
-    aspect-ratio: 16/10;
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -269,99 +192,65 @@ const featuredWorks = [
   transition: transform 600ms var(--ease-out);
 }
 
+.card-index {
+  position: absolute;
+  top: 1.6rem;
+  left: 1.6rem;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.65);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 1.8rem;
+  background: linear-gradient(to top, rgba(5, 7, 11, 0.82), rgba(5, 7, 11, 0.12));
   opacity: 0;
   transition: opacity var(--duration-base);
 
   @media (max-width: 767px) {
-    padding: 1.5rem;
     opacity: 1;
-    background: rgba(10, 10, 10, 0.5);
-  }
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .card-arrow {
-    font-size: 2rem;
-    color: var(--c-accent);
-    align-self: flex-end;
-    transition: transform var(--duration-fast);
-
-    @media (max-width: 480px) {
-      font-size: 1.5rem;
-      align-self: center;
-    }
-  }
-
-  .work-card:hover & .card-arrow {
-    transform: translate(0.4rem, -0.4rem);
   }
 }
 
 .card-role {
   font-size: 0.9rem;
   color: var(--c-accent);
-  letter-spacing: 0.2em;
+}
 
-  @media (max-width: 767px) {
-    font-size: 0.8rem;
-  }
+.card-arrow {
+  align-self: flex-end;
+  font-size: 2rem;
+  color: #fff;
 }
 
 .card-info {
-  padding: 1.6rem 1.6rem 2rem;
-  border-top: 1px solid var(--c-border);
-
-  @media (max-width: 767px) {
-    padding: 1.2rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-  }
+  padding: 1.8rem 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--c-bg);
 }
 
 .card-date {
   font-family: var(--font-mono);
   font-size: 1rem;
   color: var(--c-muted);
-  margin-bottom: 0.4rem;
   letter-spacing: 0.1em;
-
-  @media (max-width: 767px) {
-    font-size: 0.9rem;
-  }
 }
 
 .card-title {
   font-family: var(--font-display);
   font-size: 1.4rem;
-  font-weight: 400;
-  color: var(--c-primary);
+  font-weight: 600;
   line-height: 1.4;
-  letter-spacing: 0.04em;
-
-  @media (max-width: 1024px) {
-    font-size: 1.3rem;
-  }
-
-  @media (max-width: 767px) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.1rem;
-  }
+  color: var(--c-primary);
+  letter-spacing: -0.01em;
 }
 </style>

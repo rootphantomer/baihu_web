@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router'
 <style lang="scss" scoped>
 .page-404 {
   min-height: 100vh;
-  background: var(--c-bg);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,8 +37,9 @@ import { RouterLink } from 'vue-router'
 .code {
   font-family: var(--font-mono);
   font-size: 12rem;
-  font-weight: 400;
-  color: var(--c-border);
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-border);
   line-height: 1;
 
   @media (max-width: 768px) {
@@ -70,8 +71,10 @@ import { RouterLink } from 'vue-router'
   display: inline-block;
   margin-top: 1rem;
   padding: 1rem 3rem;
-  border: 1px solid var(--c-accent);
-  color: var(--c-accent);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--c-accent);
+  color: var(--c-on-accent);
   font-family: var(--font-mono);
   font-size: 1.1rem;
   letter-spacing: 0.15em;
@@ -81,8 +84,8 @@ import { RouterLink } from 'vue-router'
     color var(--duration-fast);
 
   &:hover {
-    background: var(--c-accent);
-    color: var(--c-bg);
+    background: var(--c-accent-hover);
+    color: var(--c-on-accent);
   }
 }
 </style>

@@ -6,44 +6,46 @@
 
 网站定位：**国际一流制作工作室的线上名片**——不是面向粉丝的娱乐网站，而是让日本制作公司在 3 秒内产生信任感的专业视觉系统。参考对象：IG PORT 旗下各子公司官网（以极克制胜、以排版建立信任）、Production I.G 官网（沉稳克制，毫不张扬）。
 
-品牌气质关键词：**静谧、精确、信赖感、东方美学**
+> V2.2 作品驱动改版：参考 MAPPA / WIT STUDIO / ufotable / Production I.G 的官网做法，把首页主角从公司标语换成作品主视觉。网站是工作室的作品目录，不是企业服务落地页。
+
+品牌气质关键词：**作品优先、克制、精确、信赖感、东方美学**
 
 ---
 
 ## 2. Design Language
 
 ### 2.1 Aesthetic Direction
-日系极简（Japanese Minimalism）—— 受传统书道与日式活版印刷影响，大量留白，极克制动效，字体即主角。与欧美动画公司网站的张扬形成鲜明对比。
+作品驱动的极简 —— 首屏是整屏作品 key visual，文字只保留作品名、年份与分工；内页用细线网格、大图、编号列表组织内容。不圆角、不渐变、不投影、不 pill 按钮。年轻感来自图像尺度和排版节奏，而不是装饰。衬线字体只用于引言，延续东方气质。
 
 ### 2.2 Color Palette
 
 #### Dark Theme (默认)
 ```
---c-bg:             #0a0a0a   /* 主背景：近乎纯黑，非饱和纯黑 */
---c-surface:        #111111   /* 卡片/区块表面 */
---c-surface-2:      #181818   /* 次级表面 */
---c-border:         #242424   /* 分割线/边框 */
---c-muted:          #444444   /* 次要文字 */
---c-secondary:      #888888   /* 辅助说明文字 */
---c-primary:        #e8e4dc   /* 主文字：暖调米白，非刺眼纯白 */
---c-accent:         #c4a35a   /* 点缀色：古铜金，克制地呼应"鹄"的金羽 */
---c-accent-dim:     rgba(196, 163, 90, 0.12)  /* 点缀色半透明，用于 hover 背景 */
---c-accent-hover:   #d4b36a   /* 点缀色高亮版 */
+--c-bg:             #0b0d12   /* 墨黑 */
+--c-surface:        #11141b
+--c-surface-2:      #171b24
+--c-border:         #2a2e38   /* 唯一的结构线 */
+--c-muted:          #6b7180
+--c-secondary:      #9da3b0
+--c-primary:        #f2f0ea   /* 宣纸白 */
+--c-accent:         #c6a15b   /* 古铜金：唯一强调色 */
+--c-on-accent:      #0b0d12
 ```
 
 #### Light Theme
 ```
---c-bg:             #ffffff
---c-surface:        #f7f7f5
---c-surface-2:      #f0f0ee
---c-border:         #e2e2df
---c-muted:          #aaaaaa
---c-secondary:      #666666
---c-primary:        #1a1a1a
---c-accent:         #c4a35a
---c-accent-dim:     rgba(196, 163, 90, 0.12)
---c-accent-hover:   #b89545
+--c-bg:             #f4f2ed
+--c-surface:        #ffffff
+--c-surface-2:      #eae7df
+--c-border:         #d8d3c8
+--c-muted:          #8b877e
+--c-secondary:      #5c5a54
+--c-primary:        #17181a
+--c-accent:         #8a6a2f
+--c-on-accent:      #ffffff
 ```
+
+所有圆角令牌为 `0`，`--shadow-card: none`。兼容令牌 `--c-accent-2/3` 均指向 `--c-accent`。禁止新增第二强调色、渐变和阴影。
 
 背景与文字：高对比度（>15:1），符合 WCAG AAA。
 
@@ -51,10 +53,11 @@
 
 | 用途 | 日文字体 | 中文字体 | 字重 | 尺寸基准 |
 |------|----------|----------|------|----------|
-| 展示/标题 | Shippori Mincho | Noto Serif SC | 400/600 | 5–11rem |
-| 正文/说明 | DM Sans | Noto Sans SC | 300/400 | 1.2–1.8rem |
-| 标签/数字 | DM Mono | DM Mono | 400 | 0.8–1.2rem |
-| 导航 | DM Sans | Noto Sans SC | 300 | 1.2rem |
+| 展示/标题 | DM Sans | Noto Sans SC | 500/600 | 2–5rem |
+| 正文/说明 | DM Sans | Noto Sans SC | 400 | 1.2–1.6rem |
+| 引言/金句 | Shippori Mincho | Noto Serif SC | 400 | 1.8rem |
+| 标签/数字 | DM Mono | DM Mono | 400/500 | 0.9–1.2rem |
+| 导航 | DM Sans | Noto Sans SC | 500 | 1.2rem |
 
 所有字体通过 Google Fonts CDN 加载（font-display: swap）。
 
@@ -62,13 +65,12 @@
 8px 基准网格：4 / 8 / 16 / 24 / 32 / 48 / 64 / 96 / 128px
 
 ### 2.5 Motion Philosophy
-动效是"呼吸感"，不是"表演"。
-- 页面入场：opacity 0→1 + translateY(3rem)→0，duration 1s，ease-out
-- 交错延迟：每个子元素间隔 60–80ms
-- Hover 过渡：200ms ease，opacity/transform/color
-- Marquee：CSS animation，linear，duration 35s，无限循环
-- Scroll 指示器：pulse 动画 2s ease-in-out infinite
-- 禁止：弹跳、旋转、放大出现、过度的发光效果
+动效服务于观看作品，不抢戏。
+- 首屏轮播：6s 自动切换，opacity crossfade 700ms；hover / focus / 标签页隐藏暂停；手动操作后重置计时器；提供播放/暂停、键盘 ←/→、触摸横滑
+- 作品图 hover：scale 1.04，600ms ease-out；仅此一处图像动效
+- 首屏文字切换：opacity + translateY，260ms
+- 链接 hover：颜色 / 下划线展开，200ms
+- 禁止：旋转卡片、轨道、pulse、弹跳、发光、视差；尊重 prefers-reduced-motion
 
 ### 2.6 Visual Assets
 - 图标：无图标库，纯 CSS 线条或 Unicode 符号（如 → ← ×）或 SVG 内联
@@ -83,36 +85,37 @@
 
 ```
 / (HomeView)
-  ├── HeroSection          — 全屏，黑色背景，超大字体 + 背景网格线 + 滚动指示器
-  ├── MarqueeSection       — 无限循环滚动，合作作品名（hover 暂停）
-  ├── FeaturedWorksSection  — 精选 6 部作品，3列网格 + hover overlay
-  ├── AboutPreview          — 双栏：左侧公司介绍 + 右侧统计数据
-  ├── ServicesSection       — 3列服务卡片网格（动画/前期设计/覆盖范围）
-  └── RecruitCta            — 招聘 CTA（带边框按钮）
+  ├── HeroSection          — 左文字 / 右完整竖版海报轮播
+  ├── FeaturedWorksSection  — 精选 6 部作品，细线网格
+  ├── AboutPreview          — 全宽工作室陈述图 + 一句话宣言
+  ├── ServicesSection       — 制作流程横向轴（分镜/原画/动画/作监/背景）
+  └── RecruitCta            — 开放岗位数量 + 邮箱入口
 
 /works (WorksView)
-  ├── PageHeader            — 页面标题 + 筛选器
-  └── WorkGrid             — 全部作品，筛选 + 搜索
+  ├── FeaturedWork          — 最新作品大图 + 信息
+  ├── FilterBar             — 搜索 + 年份筛选（下划线按钮）
+  └── YearGroups            — 按年份分组的海报档案
 
 /about (AboutView)
-  ├── PageHeader
-  ├── CompanyStatement
-  ├── StatsGrid
-  └── HistoryTimeline
+  ├── Statement             — 衬线大字工作室自述
+  ├── Numbers               — 超大数字指标
+  ├── Manifesto             — 三行信念，不用编号卡
+  ├── Mission               — /pull quote
+  └── History + FAQ         — 双栏收尾
 
 /news (NewsView)
-  ├── PageHeader
-  └── NewsList
+  ├── LatestNews            — 最新一条置顶突出
+  └── NewsArchive           — 日期作为主角的公告列表
 
 /join (JoinView)
-  ├── PageHeader
-  ├── OpenPositions
-  └── ContactCta
+  ├── PageHead              — 标题 + 招募说明
+  ├── RolesIndex + Detail   — 左侧岗位索引 + 右侧 sticky 详情
+  └── Apply                 — 邮箱 + 邮件标题格式
 
 /contact (ContactView)
-  ├── PageHeader
-  ├── ContactInfo
-  └── OfficeLocation
+  ├── PageHead
+  ├── BigEmail              — 邮箱作为页面主角
+  └── InfoRows              — 地址 / 时间 / 社交信息行
 ```
 
 ### 3.2 Responsive Strategy
@@ -132,36 +135,36 @@
 - 页面切换过渡：opacity fade 400ms
 
 ### 4.2 首页
-- Hero：超大公司名 BAIHU（11rem）+ 中文名白鹄动画（5rem，古铜金色）+ 副标题 + 双按钮（实心 + 幽灵）
-- Hero 背景：6列网格线 + 右下角超大年份数字装饰（28rem，text-stroke）
-- Scroll 指示器：左侧竖排 + 渐变线 + pulse 动画
-- Marquee：CSS animation，左右无限循环，hover 暂停，显示合作作品日文名
-- Works 网格：3列（移动端2列/1列），aspect-ratio 2:3（移动端 3:4/16:10），hover 时图片微微放大（scale 1.04）+ overlay 显示分工类型
-- Services：3列卡片网格（移动端1列），带编号、hover 底部金线动画
-- About Preview：双栏布局，左侧标题+声明+链接，右侧 2x2 统计数据 + 引用块
-- Recruitment CTA：左右布局，幽灵按钮（古铜金边框，hover 填充）
+- Hero：左 48% 纯黑编辑式说明区（竖细线 + 类型/年份 + 作品名 + 分工 + 下划线链接 + 播放/暂停/箭头/进度条），右 52% 竖版海报区。`object-fit: contain` 完整展示原比例海报，不裁剪；同图模糊压暗做背景填充。首页未滚动时 header 自带深色半透明底 + 模糊，保证导航始终可读
+- Works 网格：3列（移动端2列/1列），1px 细线网格，海报完整 contain，hover 微放大
+- About Preview：全宽作品图压暗 + 衬线宣言 + 下划线链接
+- Services：5 步制作流程轴，序号仅用于真实顺序；底部一行承接范围
+- Recruitment CTA：`03` 大数字 + 开放岗位标签 + 下划线入口
 
 ### 4.3 Works 页面
-- 筛选栏：年份下拉 + 类型多选 + 标题搜索
-- 网格：masonry 或规则网格，hover 显示分工标签
-- 点击图片：打开灯箱预览（轻量化，无依赖）
+- 最新作品作为顶部 featured block
+- 搜索 + 年份下划线筛选；结果按年份分组
+- 海报完整显示不裁剪；`content-visibility: auto` 优化长列表
+- 灯箱：按钮遮罩 + Escape 关闭 + 焦点恢复
 
 ### 4.4 About 页面
-- 数据指标：团队规模 / 成立年份 / 年产作品数 / 合作客户数
-- 历史时间轴（竖向）
-- 核心优势（3 列图标+文字）
+- 衬线大字宣言，不用企业标语卡
+- 数据改成超大数字排版
+- 价值观改成三行「我们相信」式短句，不用编号卡片
+- 使命为 pull quote；历史和 FAQ 双栏收尾
 
 ### 4.5 Join 页面
-- 职位列表（手风琴展开）
-- 每个职位：职责 / 要求 / 联系方式
-- CTA：投递邮箱
+- 左侧岗位索引，右侧 sticky 详情面板
+- 职责 / 要求两栏对照
+- 投递邮箱与邮件标题格式作为明确下一步
 
 ### 4.6 Contact 页面
-- 联系信息（邮箱 / 地址 / 社交）
+- 大邮箱为主角
+- 地址 / 时间 / 社交为细信息行，不做 2x2 卡片
 
 ### 4.7 News 页面
-- 新闻列表（标题 / 日期 / 摘要）
-- 公告形式（无详情页，直接列表展示）
+- 最新一条置顶，日期与标题形成主次
+- 其余按日期列表，不用装饰性编号
 
 ---
 
@@ -169,16 +172,18 @@
 
 | 组件 | 状态 | 说明 |
 |------|------|------|
-| HeaderComponent | fixed / transparent→blur | Logo(BAIHU｜白鹄动画) + Nav + Theme Toggle + Lang Switch + Hamburger |
-| HeroSection | 静态 + CSS 动画 | 背景网格 + 大字 + 双按钮 + scroll 指示器 + 年份装饰 |
-| MarqueeSection | 动画 / pause-on-hover | CSS infinite scroll，合作作品名 |
-| FeaturedWorksSection | 响应式网格 | 3列作品卡片，hover overlay + 箭头动画 |
-| AboutPreviewSection | 双栏 | 2x2 统计数据 + 引用块 |
-| ServicesSection | 3列网格 | 编号卡片 + hover 底部金线 |
-| RecruitCta | 静态 | 幽灵按钮 CTA |
-| WorkCard | default / hover | 图片 + 标题 + 角色标签 + 日期 |
+| HeaderComponent | fixed / transparent→blur | Logo + Nav + Theme Toggle + Lang Switch + Hamburger；首页首屏反白，滚动 80px/40px 迟滞切换状态；语言菜单支持 Esc/上下/Home/End；移动抽屉含可聚焦关闭按钮与滚动锁 |
+| HeroSection | 轮播 + CSS 动画 | 左文字 / 右完整竖版海报（contain，不裁剪）；播放/暂停、键盘、触摸滑动、下一张预加载、显式图片尺寸与 fetchpriority |
+| FeaturedWorksSection | 响应式网格 | 3列作品卡片，海报完整 contain，hover 微放大 |
+| AboutPreviewSection | 全宽图 + 文字 | 作品图压暗 + 衬线宣言 + 链接 |
+| ServicesSection | 流程轴 | 5 步制作流程，序号仅表示真实顺序 |
+| RecruitCta | 数据入口 | 岗位数量 + 开放岗位标签 + 链接 |
+| WorksView | 年度档案 | 最新作品 + 年份分组 + 完整海报 + 灯箱 |
+| AboutView | 编辑式自述 | 大字宣言 + 数字排版 + 信念行 + 历史/FAQ 双栏 |
+| JoinView | 索引 + 详情 | 岗位列表 + sticky 详情 + 投递 CTA |
+| ContactView | 邮箱主角 | 大邮箱 + 信息行 |
+| NewsView | 公告板 | 最新置顶 + 日期列表 |
 | FooterComponent | 静态 | 版权 + 社交链接 |
-| LightboxModal | open / close | 图片预览灯箱 |
 
 ---
 

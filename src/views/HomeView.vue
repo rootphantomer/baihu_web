@@ -2,9 +2,7 @@
   <main class="home">
     <!-- ① Hero -->
     <HeroSection />
-    <!-- ② Marquee -->
-    <MarqueeSection />
-    <!-- ③ Featured Works -->
+    <!-- ② Featured Works -->
     <FeaturedWorksSection />
     <!-- ④ About Preview -->
     <AboutPreviewSection />
@@ -17,10 +15,9 @@
 
 <script setup lang="ts">
 /**
- * 首页：由 Hero、跑马灯、代表作品、关于预览、服务、招聘 CTA 六个区块组成
+ * 首页：作品主视觉 → 代表作品 → 关于 → 业务 → 招募
  */
 import HeroSection from '@/components/home/HeroSection.vue'
-import MarqueeSection from '@/components/home/MarqueeSection.vue'
 import FeaturedWorksSection from '@/components/home/FeaturedWorksSection.vue'
 import AboutPreviewSection from '@/components/home/AboutPreviewSection.vue'
 import ServicesSection from '@/components/home/ServicesSection.vue'

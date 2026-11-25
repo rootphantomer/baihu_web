@@ -10,6 +10,12 @@ export default {
       tagline: '一コマ一コマに命を宿す。',
       subtitle: '杭州 · アニメ制作スタジオ',
       scroll: 'スクロール',
+      prev: '前の作品',
+      next: '次の作品',
+      pause: 'スライドショーを一時停止',
+      play: 'スライドショーを再生',
+      carousel: '代表作品のスライドショー',
+      current: '現在の作品',
     },
     marquee: {
       label: '制作参加作品',
@@ -37,6 +43,10 @@ export default {
       title: '白鵠，加入する',
       desc: 'アニメへの情熱を持つあなたを待っています。',
       viewMore: '職種を見る',
+      open: '募集職種',
+    },
+    process: {
+      label: '制作フロー',
     },
     contact: {
       label: 'お問い合わせ',
@@ -45,6 +55,7 @@ export default {
   works: {
     title: '参加作品',
     subtitle: '主な制作参加作品一覧',
+    featured: { label: '最新作品' },
     filter: {
       all: 'すべて',
       year: '年',
@@ -67,6 +78,7 @@ export default {
   about: {
     title: '会社概要',
     subtitle: 'About',
+    manifesto: { label: '私たちの信念' },
     statement:
       '杭州白鵠アニメーションは、杭州に本社を置く日本のアニメスタジオです。サンライズ、MAPPA、J.C.STAFF出身の中核メンバーが、日本アニメーションの制作基準と文化文脈を深く理解しています。アニメ自体への情熱を持ち続けることで、本当に生命力のある作品をお届けします。',
     mission: {
@@ -125,6 +137,7 @@ export default {
   join: {
     title: '採用情報',
     subtitle: 'Join Us',
+    roles: { label: '募集職種' },
     intro:
       '杭州白鵠アニメーションでは、アニメへの情熱を持つあなたを求めています。競争力のある報酬、国際的な協業環境、そして日本のトップスタジオ作品に触れる機会を提供します。',
     positions: {
@@ -195,6 +208,7 @@ export default {
   contact: {
     title: 'お問い合わせ',
     subtitle: 'Contact',
+    direct: { label: '直接連絡' },
     intro:
       'アニメ制作のご依頼をご検討の方、または協業について知りたい方は、以下のご連絡先よりお問い合わせください。',
     email: {
@@ -218,6 +232,7 @@ export default {
   news: {
     title: 'ニュース',
     subtitle: 'News',
+    latest: { label: '最新' },
     readMore: '続きを読む',
     noNews: 'ニュースはありません',
     items: {
@@ -236,6 +251,7 @@ export default {
     rights: '無断転載禁止。',
   },
   header: {
+    skipToContent: '本文へ移動',
     home: 'ホーム',
     works: '作品',
     about: '会社概要',

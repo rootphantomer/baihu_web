@@ -1,91 +1,95 @@
 <template>
   <main class="page-works">
-    <!-- Page Header -->
-    <div class="page-header">
-      <div class="page-header-inner">
+    <header class="page-head">
+      <div class="page-head-inner">
         <span class="label">{{ $t('works.subtitle') }}</span>
         <h1 class="page-title">{{ $t('works.title') }}</h1>
+        <span class="page-count">{{ filteredWorks.length }} TITLES</span>
       </div>
-    </div>
+    </header>
 
-    <!-- Filter Bar -->
+    <section v-if="featuredWork" class="featured-work">
+      <div class="featured-poster">
+        <img
+          :src="featuredWork.path"
+          :alt="featuredWork.title"
+          width="900"
+          height="1200"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="featured-meta">
+        <span class="label">{{ $t('works.featured.label') }}</span>
+        <h2 class="featured-title">{{ featuredWork.title }}</h2>
+        <div class="featured-facts">
+          <span>{{ featuredWork.year }}</span>
+          <span>{{ featuredWork.role }}</span>
+        </div>
+      </div>
+    </section>
+
     <div class="filter-bar">
       <div class="filter-inner">
-        <!-- Search -->
-        <div class="filter-search">
-          <input
-            v-model="searchQuery"
-            type="text"
-            :placeholder="$t('works.filter.search')"
-            :aria-label="$t('works.filter.search')"
-            class="search-input"
-          />
-        </div>
-        <!-- Year Filter -->
-        <div class="filter-group">
-          <span class="filter-label label">{{ $t('works.filter.year') }}</span>
-          <div class="filter-pills">
-            <button
-              class="pill"
-              :class="{ active: selectedYear === '' }"
-              @click="selectedYear = ''"
-            >
-              {{ $t('works.filter.all') }}
-            </button>
-            <button
-              v-for="year in availableYears"
-              :key="year"
-              class="pill"
-              :class="{ active: selectedYear === year }"
-              @click="selectedYear = year"
-            >
-              {{ year }}
-            </button>
-          </div>
+        <input
+          v-model="searchQuery"
+          type="search"
+          :placeholder="$t('works.filter.search')"
+          :aria-label="$t('works.filter.search')"
+          class="search-input"
+        />
+        <div class="year-filters" role="group" :aria-label="$t('works.filter.year')">
+          <button
+            class="year-btn"
+            :class="{ active: selectedYear === '' }"
+            type="button"
+            :aria-pressed="selectedYear === ''"
+            @click="selectedYear = ''"
+          >
+            {{ $t('works.filter.all') }}
+          </button>
+          <button
+            v-for="year in availableYears"
+            :key="year"
+            class="year-btn"
+            :class="{ active: selectedYear === year }"
+            type="button"
+            :aria-pressed="selectedYear === year"
+            @click="selectedYear = year"
+          >
+            {{ year }}
+          </button>
         </div>
       </div>
-      <span class="filter-count label"> {{ filteredWorks.length }} titles </span>
     </div>
 
-    <!-- Works Grid -->
-    <div class="works-area">
-      <TransitionGroup name="grid-fade" tag="div" class="works-grid">
-        <div
-          v-for="(work, i) in filteredWorks"
-          :key="work.path"
-          class="work-card"
-          role="button"
-          tabindex="0"
-          :aria-label="`${work.title}（${work.role}）`"
-          @click="openLightbox(work)"
-          @keydown.enter.prevent="openLightbox(work)"
-          @keydown.space.prevent="openLightbox(work)"
-        >
-          <div class="card-img-wrap">
-            <img
-              :src="work.path"
-              :alt="`${work.title}（${work.role}）`"
-              class="card-img"
-              loading="lazy"
-            />
-            <div class="card-overlay">
-              <span class="card-role label">{{ work.role }}</span>
-              <span class="card-year">{{ work.year }}</span>
-            </div>
-          </div>
-          <div class="card-info">
-            <span class="card-num">{{ String(filteredWorks.length - i).padStart(2, '0') }}</span>
-            <p class="card-title">{{ work.title }}</p>
-          </div>
+    <div class="works-archive">
+      <section v-for="group in groupedWorks" :key="group.year" class="year-group">
+        <h2 class="year-heading">{{ group.year || '—' }}</h2>
+        <div class="works-grid">
+          <button
+            v-for="work in group.items"
+            :key="work.path"
+            type="button"
+            class="work-card"
+            :aria-label="`${work.title}（${work.role}）`"
+            @click="openLightbox(work)"
+          >
+            <span class="poster-wrap">
+              <img :src="work.path" :alt="work.title" width="900" height="1200" loading="lazy" />
+            </span>
+            <span class="card-info">
+              <span class="card-title">{{ work.title }}</span>
+              <span class="card-role">{{ work.role }}</span>
+            </span>
+          </button>
         </div>
-      </TransitionGroup>
+      </section>
 
       <p v-if="filteredWorks.length === 0" class="empty-state">
         {{ $t('works.empty') }}
       </p>
     </div>
 
-    <!-- Lightbox -->
     <Teleport to="body">
       <Transition name="lightbox">
         <div
@@ -94,8 +98,13 @@
           role="dialog"
           aria-modal="true"
           :aria-label="lightboxWork.title"
-          @click.self="closeLightbox"
         >
+          <button
+            class="lightbox-backdrop"
+            type="button"
+            :aria-label="$t('works.close')"
+            @click="closeLightbox"
+          ></button>
           <button
             ref="lightboxClose"
             class="lightbox-close"
@@ -108,7 +117,7 @@
           <div class="lightbox-content">
             <img :src="lightboxWork.path" :alt="lightboxWork.title" class="lightbox-img" />
             <div class="lightbox-info">
-              <span class="label lightbox-role">{{ lightboxWork.role }}</span>
+              <span class="lightbox-role">{{ lightboxWork.role }}</span>
               <p class="lightbox-title">{{ lightboxWork.title }}</p>
               <p class="lightbox-year">{{ lightboxWork.year }}</p>
             </div>
@@ -120,17 +129,13 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 作品列表页面：搜索 + 年份筛选 + 灯箱大图预览
- */
+/** 作品页：年度档案 + 完整海报 + 年份/搜索筛选 + 灯箱 */
 import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { works } from '@/data/works'
 
 const route = useRoute()
 
-// ─── Extend works with year ───────────────────────────────────────────────────
-/** 从文件路径中提取年份并扩展到作品对象 */
 const worksWithYear = works.map((w) => ({
   ...w,
   year:
@@ -140,13 +145,9 @@ const worksWithYear = works.map((w) => ({
       ?.match(/^(\d{4})/)?.[1] ?? '',
 }))
 
-// ─── Filter state ─────────────────────────────────────────────────────────────
-/** 搜索关键词 */
 const searchQuery = ref(typeof route.query.search === 'string' ? route.query.search : '')
-/** 选中的年份筛选（空字符串表示全部） */
 const selectedYear = ref('')
 
-// 支持 /works?search=xxx 深链接
 watch(
   () => route.query.search,
   (value) => {
@@ -154,13 +155,11 @@ watch(
   },
 )
 
-/** 所有可选年份（去重倒序） */
 const availableYears = computed(() => {
   const years = [...new Set(worksWithYear.map((w) => w.year).filter(Boolean))].sort().reverse()
   return years
 })
 
-/** 根据搜索和年份筛选后的作品列表 */
 const filteredWorks = computed(() => {
   let list = worksWithYear
   if (selectedYear.value) list = list.filter((w) => w.year === selectedYear.value)
@@ -171,37 +170,41 @@ const filteredWorks = computed(() => {
   return list
 })
 
-// ─── Lightbox ─────────────────────────────────────────────────────────────────
-/** 当前灯箱中展示的作品（null 表示灯箱关闭） */
+const featuredWork = computed(() => worksWithYear[0])
+
+const groupedWorks = computed(() => {
+  const years = [...new Set(filteredWorks.value.map((w) => w.year))].sort().reverse()
+  return years.map((year) => ({
+    year,
+    items: filteredWorks.value.filter((w) => w.year === year),
+  }))
+})
+
 const lightboxWork = ref<(typeof worksWithYear)[0] | null>(null)
-/** 灯箱关闭按钮引用，用于打开后转移焦点 */
 const lightboxClose = ref<HTMLButtonElement | null>(null)
-/** 打开灯箱前的焦点元素，关闭后恢复 */
 let lastFocusedElement: HTMLElement | null = null
-/** 打开灯箱展示指定作品 */
+
 const openLightbox = async (work: (typeof worksWithYear)[0]) => {
   lastFocusedElement = document.activeElement as HTMLElement
   lightboxWork.value = work
   await nextTick()
   lightboxClose.value?.focus()
 }
-/** 关闭灯箱 */
+
 const closeLightbox = () => {
   lightboxWork.value = null
   lastFocusedElement?.focus()
   lastFocusedElement = null
 }
 
-// 打开灯箱时锁定页面滚动
 watch(lightboxWork, (work) => {
   document.body.style.overflow = work ? 'hidden' : ''
 })
 
-// ─── Keyboard shortcuts ────────────────────────────────────────────────────────
-/** 按 Escape 关闭灯箱 */
 const handleKey = (e: KeyboardEvent) => {
   if (e.key === 'Escape') closeLightbox()
 }
+
 onMounted(() => document.addEventListener('keydown', handleKey))
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKey)
@@ -213,11 +216,10 @@ onUnmounted(() => {
 .page-works {
   padding-top: var(--header-h);
   min-height: 100vh;
-  background: var(--c-bg);
+  background: transparent;
 }
 
-// ─── Page Header ─────────────────────────────────────────────────────────────
-.page-header {
+.page-head {
   border-bottom: 1px solid var(--c-border);
   padding: 8rem 8rem 5rem;
 
@@ -229,94 +231,151 @@ onUnmounted(() => {
   }
 }
 
-.page-header-inner {
+.page-head-inner {
   max-width: 1600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.6rem;
 }
 
 .page-title {
   font-family: var(--font-display);
   font-size: 6rem;
-  font-weight: 400;
-  color: var(--c-primary);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: -0.035em;
   line-height: 1;
+  color: var(--c-primary);
 
   @media (max-width: 768px) {
     font-size: 4rem;
   }
 }
 
-// ─── Filter Bar ───────────────────────────────────────────────────────────────
+.page-count {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--c-muted);
+}
+
+// ─── Featured work ────────────────────────────────────────────────────────────
+.featured-work {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 7rem 8rem;
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 6rem;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    padding: 5rem 4rem;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (max-width: 768px) {
+    padding: 4rem 5vw;
+  }
+}
+
+.featured-poster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 60rem;
+    object-fit: contain;
+  }
+}
+
+.featured-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.featured-title {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--c-primary);
+  text-wrap: balance;
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem;
+  }
+}
+
+.featured-facts {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--c-secondary);
+  letter-spacing: 0.08em;
+}
+
+// ─── Filters ──────────────────────────────────────────────────────────────────
 .filter-bar {
   position: sticky;
   top: var(--header-h);
   z-index: 10;
+  border-top: 1px solid var(--c-border);
   border-bottom: 1px solid var(--c-border);
-  padding: 1.8rem 8rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3rem;
-  transition: background var(--duration-base) var(--ease-out);
+  background: var(--c-bg);
+  padding: 1.6rem 8rem;
 
   [data-theme='dark'] & {
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(8px);
+    background: rgba(11, 13, 18, 0.94);
+    backdrop-filter: blur(12px);
   }
-
   [data-theme='light'] & {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(8px);
+    background: rgba(244, 242, 237, 0.94);
+    backdrop-filter: blur(12px);
   }
 
   @media (max-width: 1024px) {
-    padding: 1.5rem 4rem;
-  }
-  @media (max-width: 900px) {
-    padding: 1.5rem 5vw;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
+    padding: 1.4rem 4rem;
   }
   @media (max-width: 768px) {
-    padding: 1.5rem 5vw;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 1.4rem 5vw;
   }
 }
 
 .filter-inner {
+  max-width: 1600px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 3rem;
-  flex-wrap: wrap;
-  flex: 1;
 
-  @media (max-width: 900px) {
-    gap: 1.5rem;
-    width: 100%;
+  @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-  }
-  @media (max-width: 768px) {
-    gap: 1.5rem;
-    width: 100%;
+    gap: 1.2rem;
   }
 }
 
 .search-input {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
+  width: 26rem;
+  padding: 0.8rem 0;
+  border: none;
+  border-bottom: 1px solid var(--c-border);
+  background: transparent;
   color: var(--c-primary);
   font-family: var(--font-body);
   font-size: 1.2rem;
-  padding: 0.8rem 1.5rem;
-  width: 24rem;
-  transition: border-color var(--duration-fast);
 
   &::placeholder {
     color: var(--c-muted);
@@ -331,74 +390,66 @@ onUnmounted(() => {
   }
 }
 
-.filter-group {
+.year-filters {
   display: flex;
-  align-items: center;
-  gap: 1.2rem;
   flex-wrap: wrap;
+  gap: 1.8rem;
 }
 
-.filter-label {
-  font-size: 0.9rem;
-  color: var(--c-muted);
-  flex-shrink: 0;
-}
-
-.filter-pills {
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.pill {
-  background: none;
-  border: 1px solid var(--c-border);
+.year-btn {
+  padding: 0 0 0.3rem;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: transparent;
   color: var(--c-muted);
   font-family: var(--font-mono);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  padding: 0.3rem 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  min-height: 3.2rem; // 触控目标
-  transition: all var(--duration-fast);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    border-color: var(--c-secondary);
     color: var(--c-primary);
   }
+
   &.active {
-    border-color: var(--c-accent);
     color: var(--c-accent);
+    border-color: var(--c-accent);
   }
 }
 
-.filter-count {
-  font-size: 1rem;
-  color: var(--c-muted);
-  flex-shrink: 0;
-}
-
-// ─── Works Grid ───────────────────────────────────────────────────────────────
-.works-area {
+// ─── Archive ──────────────────────────────────────────────────────────────────
+.works-archive {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 4rem 8rem 10rem;
+  padding: 5rem 8rem 12rem;
 
   @media (max-width: 1024px) {
     padding: 4rem 4rem 8rem;
-  }
-  @media (max-width: 900px) {
-    padding: 3rem 5vw 6rem;
   }
   @media (max-width: 768px) {
     padding: 3rem 5vw 6rem;
   }
 }
 
+.year-group {
+  margin-bottom: 7rem;
+}
+
+.year-heading {
+  margin-bottom: 2.4rem;
+  font-family: var(--font-mono);
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--c-muted);
+  letter-spacing: 0.08em;
+}
+
 .works-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  border-top: 1px solid var(--c-border);
+  border-left: 1px solid var(--c-border);
 
   @media (max-width: 1280px) {
     grid-template-columns: repeat(3, 1fr);
@@ -412,95 +463,82 @@ onUnmounted(() => {
 }
 
 .work-card {
-  cursor: pointer;
-  background: var(--c-surface);
-  overflow: hidden;
-
-  &:focus-visible {
-    outline: 2px solid var(--c-accent);
-    outline-offset: -2px;
-  }
-
-  &:hover .card-img {
-    transform: scale(1.04);
-  }
-  &:hover .card-overlay {
-    opacity: 1;
-  }
-}
-
-.card-img-wrap {
-  position: relative;
-  aspect-ratio: 2/3;
-  overflow: hidden;
-}
-
-.card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 600ms var(--ease-out);
-}
-
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 10, 10, 0.7);
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  opacity: 0;
-  transition: opacity var(--duration-base);
+  padding: 0;
+  border: none;
+  border-right: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+  background: var(--c-bg);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--duration-fast);
+
+  &:hover {
+    background: var(--c-surface);
+  }
 }
 
-.card-role {
-  font-size: 0.9rem;
-  color: var(--c-accent);
-  letter-spacing: 0.15em;
-}
+.poster-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  padding: 1.6rem;
+  background: var(--c-surface-2);
 
-.card-year {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--c-secondary);
-  letter-spacing: 0.1em;
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 600ms var(--ease-out);
+  }
+
+  .work-card:hover & img {
+    transform: scale(1.03);
+  }
 }
 
 .card-info {
-  padding: 1.2rem 1.5rem;
   display: flex;
-  align-items: baseline;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.4rem 1.6rem 1.8rem;
   border-top: 1px solid var(--c-border);
-}
-
-.card-num {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--c-accent);
-  flex-shrink: 0;
 }
 
 .card-title {
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--c-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
   line-height: 1.4;
-  overflow: hidden;
+  color: var(--c-primary);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-role {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--c-muted);
+  letter-spacing: 0.08em;
 }
 
 .empty-state {
+  padding: 8rem 0;
   text-align: center;
-  padding: 8rem;
-  font-family: var(--font-display);
-  font-size: 2rem;
   color: var(--c-muted);
+  font-size: 1.4rem;
 }
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
@@ -508,39 +546,42 @@ onUnmounted(() => {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0, 0, 0, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 4rem;
+  background: transparent;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(10px);
+  cursor: zoom-out;
 }
 
 .lightbox-close {
   position: fixed;
   top: 2rem;
   right: 3rem;
-  background: none;
-  border: 1px solid var(--c-border);
-  color: var(--c-primary);
-  font-size: 2.5rem;
-  line-height: 1;
+  z-index: 2;
   width: 4rem;
   height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 1;
   cursor: pointer;
-  transition:
-    border-color var(--duration-fast),
-    color var(--duration-fast);
-
-  &:hover {
-    border-color: var(--c-accent);
-    color: var(--c-accent);
-  }
 }
 
 .lightbox-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   gap: 3rem;
@@ -551,24 +592,18 @@ onUnmounted(() => {
     align-items: center;
     gap: 2rem;
   }
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
 .lightbox-img {
   max-height: 85vh;
   max-width: 60vw;
+  width: auto;
+  height: auto;
   object-fit: contain;
 
   @media (max-width: 900px) {
     max-width: 85vw;
     max-height: 55vh;
-  }
-  @media (max-width: 768px) {
-    max-width: 90vw;
-    max-height: 60vh;
   }
 }
 
@@ -576,49 +611,35 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  min-width: 18rem;
+  color: #fff;
 
   @media (max-width: 900px) {
-    min-width: unset;
     width: 85vw;
   }
 }
 
 .lightbox-role {
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
   color: var(--c-accent);
-  letter-spacing: 0.2em;
 }
 
 .lightbox-title {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  color: var(--c-primary);
+  font-weight: 600;
   line-height: 1.4;
 }
 
 .lightbox-year {
   font-family: var(--font-mono);
-  font-size: 1.1rem;
-  color: var(--c-muted);
-}
-
-// ─── Transitions ─────────────────────────────────────────────────────────────
-.grid-fade-enter-active,
-.grid-fade-leave-active {
-  transition:
-    opacity var(--duration-base) var(--ease-out),
-    transform var(--duration-base) var(--ease-out);
-}
-.grid-fade-enter-from,
-.grid-fade-leave-to {
-  opacity: 0;
-  transform: translateY(1rem);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .lightbox-enter-active,
 .lightbox-leave-active {
-  transition: opacity var(--duration-base) var(--ease-out);
+  transition: opacity 240ms ease;
 }
 .lightbox-enter-from,
 .lightbox-leave-to {
