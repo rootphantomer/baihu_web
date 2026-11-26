@@ -109,6 +109,9 @@ onUnmounted(() => {
   reduceMotionMedia?.removeEventListener('change', syncReduceMotion)
 })
 
+// ─── Per-page JSON-LD Schema ───────────────────────────────────────────────────
+const route = useRoute()
+
 // 路由切换后等页面滚动动画结束（vue-router smooth scroll ≈ 400ms）再扫描新页面节点，
 // 避免旧滚动位置下的节点被提前揭示且无法重置
 watch(
@@ -119,9 +122,6 @@ watch(
     setTimeout(() => nextTick(observeReveals), 450)
   },
 )
-
-// ─── Per-page JSON-LD Schema ───────────────────────────────────────────────────
-const route = useRoute()
 
 /**
  * 根据当前路由路径生成对应的 JSON-LD 结构化数据
