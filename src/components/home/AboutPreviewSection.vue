@@ -12,10 +12,12 @@
     </div>
 
     <div class="band-inner">
-      <span class="label">{{ $t('home.about.label') }}</span>
-      <h2 class="band-title">{{ $t('home.hero.tagline') }}</h2>
-      <p class="band-text">{{ $t('home.about.statement') }}</p>
-      <RouterLink to="/about" class="text-link">
+      <span class="label" data-reveal="up">{{ $t('home.about.label') }}</span>
+      <h2 class="band-title" data-reveal="mask">{{ $t('home.hero.tagline') }}</h2>
+      <p class="band-text" data-reveal="up" style="--reveal-delay: 120ms">
+        {{ $t('home.about.statement') }}
+      </p>
+      <RouterLink to="/about" class="text-link" data-reveal="up" style="--reveal-delay: 200ms">
         {{ $t('home.about.viewMore') }}
       </RouterLink>
     </div>
@@ -112,7 +114,10 @@
   border-bottom: 1px solid var(--c-accent);
   font-size: 1.2rem;
   color: var(--c-accent);
-  transition: gap var(--duration-fast);
+  transition:
+    gap var(--duration-fast),
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
 
   &:hover {
     gap: 0.6rem;

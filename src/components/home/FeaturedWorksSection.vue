@@ -1,6 +1,6 @@
 <template>
   <section class="featured-section">
-    <div class="section-head">
+    <div class="section-head" data-reveal="up">
       <div class="section-meta">
         <span class="label">{{ $t('home.works.label') }}</span>
         <span class="section-count">{{ featuredWorks.length }} TITLES</span>
@@ -16,6 +16,8 @@
         :key="work.title"
         to="/works"
         class="work-card"
+        data-reveal="up"
+        :style="{ '--reveal-delay': `${i * 70}ms` }"
       >
         <div class="card-img-wrap">
           <img :src="work.img" :alt="work.title" class="card-img" loading="lazy" />

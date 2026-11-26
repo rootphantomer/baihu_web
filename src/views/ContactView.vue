@@ -1,7 +1,7 @@
 <template>
   <main class="page-contact">
     <header class="page-head">
-      <div class="page-head-inner">
+      <div class="page-head-inner" data-reveal="up">
         <span class="label">{{ $t('contact.subtitle') }}</span>
         <h1 class="page-title">{{ $t('contact.title') }}</h1>
         <p class="page-intro">{{ $t('contact.intro') }}</p>

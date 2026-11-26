@@ -1,7 +1,7 @@
 <template>
   <main class="page-works">
     <header class="page-head">
-      <div class="page-head-inner">
+      <div class="page-head-inner" data-reveal="up">
         <span class="label">{{ $t('works.subtitle') }}</span>
         <h1 class="page-title">{{ $t('works.title') }}</h1>
         <span class="page-count">{{ filteredWorks.length }} TITLES</span>

@@ -98,6 +98,13 @@
         />
       </article>
     </div>
+
+    <!-- Oversized outlined title crosses into the poster; decorative only -->
+    <Transition name="ghost" mode="out-in">
+      <span :key="current.title" class="hero-ghost-title" aria-hidden="true">
+        {{ current.title }}
+      </span>
+    </Transition>
   </section>
 </template>
 
@@ -398,6 +405,43 @@ onUnmounted(() => {
   transform: translateY(-1rem);
 }
 
+// Oversized outlined title: crosses the copy/poster boundary without touching the image ratio
+.hero-ghost-title {
+  position: absolute;
+  // 置于副本区（z-index 2）之下，避免遮住标题与控制；pointer-events 保证点击可穿透
+  z-index: 1;
+  left: 34%;
+  bottom: 7%;
+  max-width: 120vw;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 9vw, 15rem);
+  font-weight: 600;
+  line-height: 0.82;
+  letter-spacing: -0.07em;
+  white-space: nowrap;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.1);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.32);
+}
+
+.ghost-enter-active,
+.ghost-leave-active {
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 700ms var(--ease-out),
+    clip-path 700ms var(--ease-out);
+}
+.ghost-enter-from {
+  opacity: 0;
+  transform: translate3d(0, 2.4rem, 0);
+  clip-path: inset(0 0 100% 0);
+}
+.ghost-leave-to {
+  opacity: 0;
+  transform: translate3d(-2.4rem, 0, 0);
+  clip-path: inset(0 100% 0 0);
+}
+
 // ─── Controls ─────────────────────────────────────────────────────────────────
 .hero-controls {
   display: flex;
@@ -515,6 +559,10 @@ onUnmounted(() => {
 }
 
 @media (max-width: 900px) {
+  .hero-ghost-title {
+    display: none;
+  }
+
   .work-hero {
     height: auto;
     min-height: calc(100vh - var(--header-h));

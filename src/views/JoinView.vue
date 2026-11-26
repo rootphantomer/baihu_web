@@ -1,7 +1,7 @@
 <template>
   <main class="page-join">
     <header class="page-head">
-      <div class="page-head-inner">
+      <div class="page-head-inner" data-reveal="up">
         <span class="label">{{ $t('join.subtitle') }}</span>
         <h1 class="page-title">{{ $t('join.title') }}</h1>
         <p class="page-intro">{{ $t('join.intro') }}</p>

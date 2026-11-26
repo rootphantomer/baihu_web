@@ -137,6 +137,12 @@
         </nav>
       </div>
     </Transition>
+
+    <span
+      class="scroll-progress"
+      :style="{ transform: `scaleX(${progress})` }"
+      aria-hidden="true"
+    ></span>
   </header>
 
   <!-- Overlay -->
@@ -175,17 +181,37 @@ const isHome = computed(() => route.path === '/')
 // ─── Scroll state ────────────────────────────────────────────────────────────
 /** 页面滚动后添加背景模糊效果 */
 const scrolled = ref(false)
+/** 0–1 的全页滚动进度，用于 header 底部 1px 指示线 */
+const progress = ref(0)
 const handleScroll = () => {
   const y = window.scrollY
   if (!scrolled.value && y > 80) scrolled.value = true
   else if (scrolled.value && y < 40) scrolled.value = false
+
+  const max = document.documentElement.scrollHeight - window.innerHeight
+  progress.value = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0
 }
-onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true }))
-onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('resize', handleScroll, { passive: true })
+
+  // 内容高度在不滚动不调整窗口时也会变化（如图片懒加载），此时重新算进度分母
+  const ro = new ResizeObserver(handleScroll)
+  ro.observe(document.documentElement)
+  ro.observe(document.body)
+  handleScroll()
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', handleScroll)
+  ro?.disconnect()
+})
 
 // ─── Mobile menu ─────────────────────────────────────────────────────────────
 /** 移动端抽屉菜单是否展开 */
 const menuOpen = ref(false)
+/** 页面尺寸变化观察器，用于重算 header 进度条分母 */
+let ro: ResizeObserver | undefined
 /** 切换移动端菜单展开/收起 */
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
@@ -335,6 +361,23 @@ const navItems = NAV_ITEMS
       }
     }
   }
+}
+
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  z-index: 2;
+  width: 100%;
+  height: 2px;
+  background: var(--c-accent);
+  transform-origin: left center;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.site-header.over-hero .scroll-progress {
+  background: #fff;
 }
 
 .header-inner {

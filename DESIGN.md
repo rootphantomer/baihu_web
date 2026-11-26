@@ -68,7 +68,9 @@
 动效服务于观看作品，不抢戏。
 - 首屏轮播：6s 自动切换，opacity crossfade 700ms；hover / focus / 标签页隐藏暂停；手动操作后重置计时器；提供播放/暂停、键盘 ←/→、触摸横滑
 - 作品图 hover：scale 1.04，600ms ease-out；仅此一处图像动效
-- 首屏文字切换：opacity + translateY，260ms
+- 首屏文字切换：opacity + translateY，260ms；作品名描边大字用 clip-path 遮罩推进，不改图片比例，移动端隐藏
+- 滚动揭示：标题 mask-up / 内容上移 / 细线 scaleX，阈值 0.12、底部 -6% rootMargin、卡片 70–90ms stagger；进入视口只触发一次
+- 顶部 1px 滚动进度线：古铜金，首页首屏反白；节点进入视口前的悬停仍可临时展开流程线
 - 链接 hover：颜色 / 下划线展开，200ms
 - 禁止：旋转卡片、轨道、pulse、弹跳、发光、视差；尊重 prefers-reduced-motion
 
@@ -172,8 +174,8 @@
 
 | 组件 | 状态 | 说明 |
 |------|------|------|
-| HeaderComponent | fixed / transparent→blur | Logo + Nav + Theme Toggle + Lang Switch + Hamburger；首页首屏反白，滚动 80px/40px 迟滞切换状态；语言菜单支持 Esc/上下/Home/End；移动抽屉含可聚焦关闭按钮与滚动锁 |
-| HeroSection | 轮播 + CSS 动画 | 左文字 / 右完整竖版海报（contain，不裁剪）；播放/暂停、键盘、触摸滑动、下一张预加载、显式图片尺寸与 fetchpriority |
+| HeaderComponent | fixed / transparent→blur + 滚动进度线 | Logo + Nav + Theme Toggle + Lang Switch + Hamburger；首页首屏反白，滚动 80px/40px 迟滞切换状态；语言菜单支持 Esc/上下/Home/End；移动抽屉含可聚焦关闭按钮与滚动锁 |
+| HeroSection | 轮播 + CSS 动画 + 描边大字 | 左文字 / 右完整竖版海报（contain，不裁剪）；播放/暂停、键盘、触摸滑动、下一张预加载、显式图片尺寸与 fetchpriority；超大作品名跨栏遮罩推进，移动端隐藏 |
 | FeaturedWorksSection | 响应式网格 | 3列作品卡片，海报完整 contain，hover 微放大 |
 | AboutPreviewSection | 全宽图 + 文字 | 作品图压暗 + 衬线宣言 + 链接 |
 | ServicesSection | 流程轴 | 5 步制作流程，序号仅表示真实顺序 |

@@ -1,7 +1,7 @@
 <template>
   <main class="page-news">
     <header class="page-head">
-      <div class="page-head-inner">
+      <div class="page-head-inner" data-reveal="up">
         <span class="label">{{ $t('news.subtitle') }}</span>
         <h1 class="page-title">{{ $t('news.title') }}</h1>
       </div>

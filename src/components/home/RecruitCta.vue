@@ -2,15 +2,23 @@
   <section class="recruit-band">
     <div class="recruit-inner">
       <div class="recruit-copy">
-        <span class="label">{{ $t('home.recruitment.label') }}</span>
-        <h2 class="recruit-title">{{ $t('home.recruitment.title') }}</h2>
-        <p class="recruit-desc">{{ $t('home.recruitment.desc') }}</p>
+        <span class="label" data-reveal="up">{{ $t('home.recruitment.label') }}</span>
+        <h2 class="recruit-title" data-reveal="mask">
+          {{ $t('home.recruitment.title') }}
+        </h2>
+        <p class="recruit-desc" data-reveal="up" style="--reveal-delay: 120ms">
+          {{ $t('home.recruitment.desc') }}
+        </p>
       </div>
 
       <div class="recruit-side">
-        <span class="open-num">{{ String(positions.length).padStart(2, '0') }}</span>
-        <span class="open-label label">{{ $t('home.recruitment.open') }}</span>
-        <RouterLink to="/join" class="text-link">
+        <span class="open-num" data-reveal="up">
+          {{ String(positions.length).padStart(2, '0') }}
+        </span>
+        <span class="open-label label" data-reveal="up" style="--reveal-delay: 80ms">
+          {{ $t('home.recruitment.open') }}
+        </span>
+        <RouterLink to="/join" class="text-link" data-reveal="up" style="--reveal-delay: 160ms">
           {{ $t('home.recruitment.viewMore') }}
         </RouterLink>
       </div>
@@ -97,6 +105,10 @@ import { positions } from '@/data/recruitment'
   border-bottom: 1px solid var(--c-accent);
   font-size: 1.2rem;
   color: var(--c-accent);
+  transition:
+    gap var(--duration-fast),
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
 
   &:hover {
     border-color: var(--c-primary);

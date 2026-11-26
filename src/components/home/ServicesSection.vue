@@ -1,13 +1,25 @@
 <template>
   <section class="flow-section">
     <div class="flow-inner">
-      <div class="flow-head">
+      <div class="flow-head" data-reveal="up">
         <span class="label">{{ $t('home.process.label') }}</span>
         <h2 class="flow-title">Production Flow</h2>
       </div>
 
       <div class="flow-rail">
-        <article v-for="(step, i) in steps" :key="step.title" class="flow-step">
+        <article
+          v-for="(step, i) in steps"
+          :key="step.title"
+          class="flow-step"
+          data-reveal="up"
+          :style="{ '--reveal-delay': `${i * 90}ms` }"
+        >
+          <span
+            class="step-line"
+            aria-hidden="true"
+            data-reveal="line"
+            :style="{ '--reveal-delay': `${i * 90 + 120}ms` }"
+          ></span>
           <span class="step-num label">{{ String(i + 1).padStart(2, '0') }}</span>
           <h3 class="step-title">{{ step.title }}</h3>
           <p v-if="step.desc" class="step-desc">{{ step.desc }}</p>
@@ -123,28 +135,33 @@ const coverage = computed(() => [
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  transition: background var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
 
   &:last-child {
     border-right: none;
   }
 
-  &::before {
-    content: '';
+  .step-line {
     position: absolute;
     top: -1px;
     left: 0;
-    width: 0;
+    width: 100%;
     height: 1px;
     background: var(--c-accent);
-    transition: width var(--duration-base) var(--ease-out);
+    transform-origin: left center;
+
+    // 基础状态由全局 [data-reveal="line"] 控制（scaleX(0)），揭示后由其 .is-visible 控制 scaleX(1)
+    // hover 时通过父元素 :hover 续展，复用全局 transition
   }
 
   &:hover {
     background: var(--c-surface);
 
-    &::before {
-      width: 100%;
+    .step-line {
+      transform: scaleX(1);
     }
   }
 

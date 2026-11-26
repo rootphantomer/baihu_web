@@ -14,7 +14,7 @@
 /**
  * 根组件：初始化主题、路由预加载、页面级 JSON-LD Schema
  */
-import { watch } from 'vue'
+import { nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
@@ -29,6 +29,96 @@ initTheme()
 
 // 初始化路由预加载
 useRouterPrefetch()
+
+// ─── Scroll reveal ─────────────────────────────────────────────────────────────
+let revealObserver: IntersectionObserver | undefined
+let revealMutationObserver: MutationObserver | undefined
+let reduceMotionMedia: MediaQueryList | undefined
+
+/** 观察所有尚未初始化的 [data-reveal] 节点，进入视口后只揭示一次 */
+function observeReveals() {
+  const nodes = document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-reveal-ready])')
+  if (!nodes.length) return
+
+  const shouldSkipAnimation =
+    !('IntersectionObserver' in window) ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (shouldSkipAnimation) {
+    nodes.forEach((node) => {
+      node.setAttribute('data-reveal-ready', '')
+      node.classList.add('is-visible')
+    })
+    return
+  }
+
+  revealObserver ??= new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        const node = entry.target as HTMLElement
+        node.classList.add('is-visible')
+        revealObserver?.unobserve(node)
+      })
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+  )
+
+  nodes.forEach((node) => {
+    node.setAttribute('data-reveal-ready', '')
+    revealObserver?.observe(node)
+  })
+}
+
+/** 减少动画开关变化时：开启则立即揭示所有待揭示节点，关闭则重新观察未可见节点 */
+function syncReduceMotion() {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const pending = document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-reveal-ready])')
+  if (reduce) {
+    pending.forEach((node) => {
+      node.setAttribute('data-reveal-ready', '')
+      node.classList.add('is-visible')
+    })
+    revealObserver?.disconnect()
+    revealObserver = undefined
+    return
+  }
+
+  if (!revealObserver) {
+    observeReveals()
+  }
+}
+
+onMounted(() => {
+  nextTick(observeReveals)
+
+  // 异步路由组件挂载晚于父组件 onMounted，这里补一次 DOM 变更监听
+  const main = document.getElementById('main-content')
+  if (main) {
+    revealMutationObserver = new MutationObserver(observeReveals)
+    revealMutationObserver.observe(main, { childList: true, subtree: true })
+  }
+
+  reduceMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)')
+  reduceMotionMedia.addEventListener('change', syncReduceMotion)
+})
+
+onUnmounted(() => {
+  revealObserver?.disconnect()
+  revealMutationObserver?.disconnect()
+  reduceMotionMedia?.removeEventListener('change', syncReduceMotion)
+})
+
+// 路由切换后等页面滚动动画结束（vue-router smooth scroll ≈ 400ms）再扫描新页面节点，
+// 避免旧滚动位置下的节点被提前揭示且无法重置
+watch(
+  () => route.fullPath,
+  () => {
+    revealObserver?.disconnect()
+    revealObserver = undefined
+    setTimeout(() => nextTick(observeReveals), 450)
+  },
+)
 
 // ─── Per-page JSON-LD Schema ───────────────────────────────────────────────────
 const route = useRoute()
@@ -82,6 +172,16 @@ function getPageSchema(path: string): Record<string, unknown> | undefined {
 watch([() => route.path, locale], ([path]) => upsertSchema(getPageSchema(path)), {
   immediate: true,
 })
+
+// 路由切换后重新扫描新挂载的 reveal 节点
+watch(
+  () => route.fullPath,
+  () => {
+    revealObserver?.disconnect()
+    revealObserver = undefined
+    nextTick(observeReveals)
+  },
+)
 </script>
 
 <style lang="scss">
@@ -332,6 +432,54 @@ img {
   opacity: 0;
 }
 
+// ─── Scroll Reveal ──────────────────────────────────────────────────────────────
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 2.4rem, 0);
+  transition:
+    opacity 720ms var(--ease-out),
+    transform 720ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+[data-reveal='line'] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 760ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &.is-visible {
+    transform: scaleX(1);
+  }
+}
+
+[data-reveal='mask'] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 760ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &.is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+// Revealed focusable elements must never stay invisible under keyboard focus
+[data-reveal]:focus,
+[data-reveal]:focus-within {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+  transition: none !important;
+}
+
 // ─── Scrollbar (Webkit) ───────────────────────────────────────────────────────
 ::-webkit-scrollbar {
   width: 0.4rem;
@@ -396,6 +544,10 @@ video,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    transition-delay: 0ms !important;
   }
 }
 </style>
